@@ -1,0 +1,12 @@
+{
+  "large": [
+    "home/dashboard/people",
+    "home/dashboard/trade",
+    "erp/tax/invoice-list",
+    "scm/warehouse/receiving",
+    "commerce/orders/list",
+    "mes/shop-floor/board",
+    "groupware/approval/document",
+    "erp/hr-payroll/payslip"
+  ]
+}

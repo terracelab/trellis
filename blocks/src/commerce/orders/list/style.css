@@ -1,0 +1,37 @@
+/* 주문 목록: 송장 미등록 표시 · 송장 입력 줄. 토큰만 쓴다 */
+.tl-block-cm-pending {
+  color: var(--tl-color-status-danger-default);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-block-cm-invoice-rows {
+  display: grid;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-md);
+}
+
+.tl-block-cm-invoice-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) calc(var(--tl-space-64) * 3.5);
+  align-items: center;
+  gap: var(--tl-space-12);
+  padding: var(--tl-space-8) var(--tl-space-12);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-cm-invoice-row:last-child {
+  border-bottom: 0;
+}
+
+@media (max-width: 1023px) {
+  .tl-block-cm-invoice-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.tl-block-cm-invoice-tools {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--tl-space-12);
+}

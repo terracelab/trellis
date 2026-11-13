@@ -1,0 +1,71 @@
+/* 정산: 채널별 정산일 목록 · 카드 안 표 · 날짜와 기한 배지. 토큰만 쓴다 */
+.tl-block-cm-flat-grid {
+  border: 0;
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: 0 0 var(--tl-radius-lg) var(--tl-radius-lg);
+}
+
+.tl-block-cm-settle-list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-block-cm-settle-list > li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto calc(var(--tl-space-64) * 1.5);
+  align-items: center;
+  gap: var(--tl-space-12);
+  min-height: calc(var(--tl-density-row-height) + var(--tl-space-20));
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-cm-settle-list > li:last-child {
+  border-bottom: 0;
+}
+
+.tl-block-cm-settle-list__amount {
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-600);
+  font-variant-numeric: var(--tl-font-numeric);
+  text-align: right;
+}
+
+.tl-block-cm-settle-list__badges {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--tl-space-4);
+}
+
+.tl-block-cm-date-due {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+}
+
+@media (max-width: 1023px) {
+  .tl-block-cm-settle-list > li {
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding-block: var(--tl-space-8);
+  }
+
+  .tl-block-cm-settle-list__badges {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+  }
+}
+
+.tl-block-cm-settle-done {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tl-space-12);
+}
+
+.tl-block-cm-settle-done > strong {
+  font-size: var(--tl-type-amount-font-size);
+  line-height: var(--tl-type-amount-line-height);
+  font-weight: var(--tl-type-amount-font-weight);
+  font-variant-numeric: var(--tl-font-numeric);
+}

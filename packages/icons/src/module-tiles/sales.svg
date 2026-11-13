@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-sales-title">
+  <title id="tl-tile-sales-title">영업</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-sales-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-sales-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#68C6FF"/>
+      <stop offset=".5" stop-color="#2585E7"/>
+      <stop offset="1" stop-color="#1555BD"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-sales-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-sales-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-sales-gold" x1="610" y1="600" x2="850" y2="850" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF5B2"/>
+      <stop offset=".35" stop-color="#FFD24F"/>
+      <stop offset=".75" stop-color="#E69510"/>
+      <stop offset="1" stop-color="#AF5703"/>
+    </linearGradient>
+    <filter id="tl-tile-sales-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-sales-small" x="-45%" y="-45%" width="200%" height="210%">
+      <feDropShadow dx="4" dy="11" stdDeviation="10" flood-color="#193052" flood-opacity=".28"/>
+    </filter>
+    <filter id="tl-tile-sales-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-sales-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-sales-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-sales-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-sales-blur)"/>
+    <g transform="rotate(-4 500 500)" filter="url(#tl-tile-sales-shadow)">
+      <path d="M261 265h473v548H261V265Z" fill="url(#tl-tile-sales-white)"/>
+      <path d="M290 292h418v493H290V292Z" fill="#F9FBFE"/>
+      <path d="M349 678V425M349 678h292" stroke="#C6D2DE" stroke-width="13" stroke-linecap="round"/>
+      <path d="m381 588 74-80 69 40 94-126" fill="none" stroke="#2B8CEB" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="381" cy="588" r="18" fill="#2B8CEB"/>
+      <circle cx="455" cy="508" r="18" fill="#2B8CEB"/>
+      <circle cx="524" cy="548" r="18" fill="#2B8CEB"/>
+      <circle cx="618" cy="422" r="18" fill="#2B8CEB"/>
+    </g>
+    <g transform="translate(638 692) scale(0.98)" filter="url(#tl-tile-sales-small)">
+      <path d="M0 80v71c0 38 52 68 116 68s116-30 116-68V80H0Z" fill="#D48108"/>
+      <ellipse cx="116" cy="80" rx="116" ry="68" fill="url(#tl-tile-sales-gold)"/>
+      <ellipse cx="116" cy="80" rx="88" ry="49" fill="none" stroke="#DF9615" stroke-width="10"/>
+      <path d="M24 131c22 24 56 36 92 36 39 0 72-13 92-36" fill="none" stroke="#FFD75B" stroke-width="7" opacity=".65"/>
+    </g>
+  </g>
+</svg>

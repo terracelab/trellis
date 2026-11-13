@@ -1,0 +1,118 @@
+/* Starlight 테마 = Trellis 토큰. Trellis semantic 변수가 data-theme에 따라 바뀌므로 매핑은 한 벌이다.
+   Starlight는 <html data-theme="light|dark">를 쓰고, tokens.css도 같은 속성을 본다(D-41). */
+:root,
+::backdrop {
+  --sl-font: var(--tl-font-family-sans);
+
+  /* 회색 9단: white(가장 진한 글자) → black(바탕). 라이트·다크 모두 같은 역할 */
+  --sl-color-white: var(--tl-color-fg-primary);
+  --sl-color-gray-1: var(--tl-color-fg-primary);
+  --sl-color-gray-2: var(--tl-color-fg-secondary);
+  --sl-color-gray-3: var(--tl-color-fg-tertiary);
+  --sl-color-gray-4: var(--tl-color-border-strong);
+  --sl-color-gray-5: var(--tl-color-border-default);
+  --sl-color-gray-6: var(--tl-color-border-divider);
+  --sl-color-gray-7: var(--tl-color-bg-canvas);
+  --sl-color-black: var(--tl-color-bg-surface);
+
+  --sl-color-accent-low: var(--tl-color-brand-subtle);
+  --sl-color-accent: var(--tl-color-brand-default);
+  --sl-color-accent-high: var(--tl-color-fg-link);
+
+  --sl-color-text: var(--tl-color-fg-primary);
+  --sl-color-text-accent: var(--tl-color-fg-link);
+  /* 링크색(text-accent) 바탕 위 글자: 지금 쪽 · 건너뛰기 링크. 다크 링크색은 밝아서 진한 글자(PR-26) */
+  --sl-color-text-invert: var(--tl-color-fg-inverse);
+  /* 배너 바탕은 brand.default라 그 위 글자는 onBrand */
+  --sl-color-banner-text: var(--tl-color-brand-on-brand);
+  --sl-color-bg: var(--tl-color-bg-surface);
+  --sl-color-bg-nav: var(--tl-color-bg-surface);
+  --sl-color-bg-sidebar: var(--tl-color-bg-surface);
+  --sl-color-bg-inline-code: var(--tl-color-bg-sunken);
+  --sl-color-bg-accent: var(--tl-color-brand-default);
+  --sl-color-hairline-light: var(--tl-color-border-divider);
+  --sl-color-hairline: var(--tl-color-border-divider);
+  --sl-color-hairline-shade: var(--tl-color-border-default);
+  --sl-color-backdrop-overlay: var(--tl-color-bg-overlay);
+
+  /* 안내 상자(aside): 바탕은 subtle, 테두리는 상태색, 글자는 본문색(상태색 글자는 대비 미달) */
+  --sl-color-blue-low: var(--tl-color-status-info-subtle);
+  --sl-color-blue: var(--tl-color-status-info-default);
+  --sl-color-blue-high: var(--tl-color-fg-primary);
+  --sl-color-green-low: var(--tl-color-status-success-subtle);
+  --sl-color-green: var(--tl-color-status-success-default);
+  --sl-color-green-high: var(--tl-color-fg-primary);
+  --sl-color-orange-low: var(--tl-color-status-warning-subtle);
+  --sl-color-orange: var(--tl-color-status-warning-default);
+  --sl-color-orange-high: var(--tl-color-fg-primary);
+  --sl-color-red-low: var(--tl-color-status-danger-subtle);
+  --sl-color-red: var(--tl-color-status-danger-default);
+  --sl-color-red-high: var(--tl-color-fg-primary);
+  --sl-color-purple-low: var(--tl-color-module-ecm-subtle);
+  --sl-color-purple: var(--tl-color-module-ecm-default);
+  --sl-color-purple-high: var(--tl-color-fg-primary);
+
+  --sl-shadow-sm: var(--tl-shadow-sm);
+  --sl-shadow-md: var(--tl-shadow-md);
+  --sl-shadow-lg: var(--tl-shadow-lg);
+
+  --sl-nav-height: calc(var(--tl-layout-global-bar-height) + var(--tl-space-8));
+  --sl-sidebar-width: calc(var(--tl-layout-sidebar-width) + var(--tl-space-24));
+}
+
+/* 브랜드 페이지(splash, 사이드바 없음)는 조금 넓게 */
+:root:not([data-has-sidebar])[data-theme] {
+  --sl-content-width: calc(var(--tl-space-64) * 19);
+}
+
+/* 문서 표: 숫자 열 우측 정렬 · tabular */
+.sl-markdown-content table {
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.sl-markdown-content th {
+  white-space: nowrap;
+}
+
+/* 칸: 한글은 낱말 단위로 줄을 바꾼다(칸이 좁아도 "목록 · 상세"가 글자마다 끊기지 않는다).
+   옆 여백은 Starlight 기본 16에서 12로 줄인다. 5열 표가 본문 폭을 9~40px 넘겨 끝 열 글자가 잘리던 것이 들어간다 */
+.sl-markdown-content :is(th, td):not(:where([class~='not-content'] *)) {
+  padding-inline: var(--tl-space-12);
+  word-break: keep-all;
+}
+
+/* 첫 열(이름 · 패턴)은 두 글자 폭까지 눌리지 않게 최소 폭을 둔다 */
+.sl-markdown-content :is(th, td):first-child:not(:where([class~='not-content'] *)) {
+  min-width: calc(var(--tl-space-64) * 1.25);
+  padding-inline-start: 0;
+}
+
+.sl-markdown-content :is(th, td):last-child:not(:where([class~='not-content'] *)) {
+  padding-inline-end: 0;
+}
+
+/* 넓은 표는 감싼 칸(src/markdown/table-scroll.js가 감싼다)이 가로로 스크롤한다. 표 자신은 스크롤하지 않아야
+   칸이 넘침을 알고 키보드 영역이 된다 */
+.sl-markdown-content .tl-site-md-table {
+  overflow-x: auto;
+}
+
+.sl-markdown-content .tl-site-md-table > table {
+  display: table;
+  overflow: visible;
+}
+
+/* 넘치는 표(스크립트가 tabindex를 붙인 것)는 더 있는 쪽 끝에 옅은 그늘을 둔다. 끝 열 글자가 잘려 보여도 옆으로 넘길 수 있음을 알린다.
+   앞의 두 겹(local)은 내용과 함께 움직여 맨 끝에서 그늘을 가리고, 뒤의 두 겹(scroll)이 그늘이다 */
+.sl-markdown-content .tl-site-md-table[tabindex],
+.tl-site-table-wrap[tabindex] {
+  background:
+    linear-gradient(to right, var(--tl-color-bg-surface), var(--tl-color-bg-surface)) left center /
+      var(--tl-space-24) 100% no-repeat local,
+    linear-gradient(to left, var(--tl-color-bg-surface), var(--tl-color-bg-surface)) right center /
+      var(--tl-space-24) 100% no-repeat local,
+    linear-gradient(to right, var(--tl-color-border-default), transparent) left center /
+      var(--tl-space-8) 100% no-repeat scroll,
+    linear-gradient(to left, var(--tl-color-border-default), transparent) right center /
+      var(--tl-space-8) 100% no-repeat scroll;
+}

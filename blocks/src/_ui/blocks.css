@@ -1,0 +1,311 @@
+/* 블록 공통 배치(layout.tsx). 토큰만 쓴다 */
+.tl-block-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tl-density-gutter);
+  min-width: 0;
+  min-height: 100%;
+  padding: var(--tl-density-gutter) var(--tl-layout-gutter-default) var(--tl-space-40);
+  /* 화면이 바뀌면 한 단계만 들어온다(PR-26): 흐림 → 선명 + 4px 위로. 방향 슬라이드는 하지 않는다 */
+  animation: tl-block-page-in var(--tl-duration-normal) var(--tl-easing-enter) backwards;
+}
+
+@keyframes tl-block-page-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--tl-space-4));
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.tl-block-page[data-fill] {
+  height: 100%;
+  padding-bottom: var(--tl-density-gutter);
+}
+
+.tl-block-page[data-width='form'] .tl-block-page__body {
+  width: 100%;
+  max-width: calc(var(--tl-space-64) * 16);
+}
+
+.tl-block-page__body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--tl-density-gutter);
+  min-width: 0;
+  min-height: 0;
+}
+
+/* 12열 격자(Grid · Col)는 컴포넌트 DashboardGrid의 CSS(@terracelab/trellis-react/styles.css)가 맡는다(PG-39) */
+
+@media (max-width: 1023px) {
+  .tl-block-page {
+    padding-inline: var(--tl-layout-gutter-compact);
+  }
+}
+
+/* 휴대폰(D-61): fill 화면도 남은 높이에 가두지 않는다(카드 목록이 길어지면 화면이 스크롤된다).
+   격자는 DashboardGrid가 한 줄에 하나로 접는다 */
+@media (max-width: 639px) {
+  .tl-block-page[data-fill] {
+    height: auto;
+    min-height: 100%;
+  }
+}
+
+.tl-block-row {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+.tl-block-row[data-justify='between'] {
+  justify-content: space-between;
+}
+
+.tl-block-row[data-justify='end'] {
+  justify-content: flex-end;
+}
+
+.tl-block-row[data-wrap] {
+  flex-wrap: wrap;
+}
+
+.tl-block-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tl-space-12);
+  min-width: 0;
+}
+
+.tl-block-stack[data-gap='sm'] {
+  gap: var(--tl-space-8);
+}
+
+.tl-block-stack[data-gap='lg'] {
+  gap: var(--tl-density-gutter);
+}
+
+.tl-block-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--tl-density-gutter);
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.tl-block-split[data-aside='md'] {
+  grid-template-columns: minmax(0, 1fr) calc(var(--tl-space-64) * 6.5);
+}
+
+.tl-block-split[data-aside='lg'] {
+  grid-template-columns: minmax(0, 1fr) calc(var(--tl-space-64) * 8);
+}
+
+.tl-block-split__main,
+.tl-block-split__aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tl-density-gutter);
+  min-width: 0;
+  min-height: 0;
+}
+
+/* 목록 · 상세 화면(Page fill)에서는 두 칸이 각자 스크롤해 아래 ActionBar를 가리지 않는다 */
+.tl-block-page[data-fill] .tl-block-split__main,
+.tl-block-page[data-fill] .tl-block-split__aside {
+  overflow-y: auto;
+}
+
+@media (max-width: 1279px) {
+  .tl-block-split[data-aside] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.tl-block-figure {
+  display: grid;
+  gap: var(--tl-space-4);
+  min-width: 0;
+}
+
+.tl-block-figure__label {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+}
+
+.tl-block-figure__value {
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-amount-font-size);
+  line-height: var(--tl-type-amount-line-height);
+  font-weight: var(--tl-type-amount-font-weight);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-block-figure[data-tone='income'] .tl-block-figure__value {
+  color: var(--tl-color-finance-income);
+}
+
+.tl-block-figure[data-tone='expense'] .tl-block-figure__value {
+  color: var(--tl-color-finance-expense);
+}
+
+.tl-block-figure[data-tone='danger'] .tl-block-figure__value {
+  color: var(--tl-color-status-danger-default);
+}
+
+.tl-block-figure__unit {
+  margin-left: var(--tl-space-4);
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-block-muted {
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+}
+
+/* 표 칸 안 두 줄(이름 + 보조). 행이 두 줄 높이로 자란다 */
+/* 목록 · 카드 줄 안의 두 줄 글자(Lines). 표 칸은 DataGridLines, 사람은 PersonLabel */
+.tl-block-lines {
+  display: grid;
+  min-width: 0;
+  padding-block: var(--tl-space-4);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-block-lines > :nth-child(2) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* 선택 행(brand.subtle) · canvas 위에서도 4.5:1 */
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+}
+
+.tl-block-lines[data-align='end'] {
+  justify-items: end;
+  text-align: right;
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+/* 코드 · 문서 번호(고정폭 숫자) */
+.tl-block-code {
+  font-variant-numeric: var(--tl-font-numeric);
+  letter-spacing: var(--tl-font-letter-spacing-normal);
+}
+
+/* Drawer 안 세로 묶음 */
+.tl-block-drawer-stack {
+  display: grid;
+  gap: var(--tl-space-20);
+}
+
+.tl-block-run {
+  display: grid;
+  gap: var(--tl-space-8);
+  padding: var(--tl-space-12);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-md);
+}
+
+/* 카드 안에 붙는 표(Card padding none): 바깥 테두리 없이 위 구분선만. 여러 블록이 같이 쓴다 */
+.tl-block-flat-grid {
+  border: 0;
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: 0 0 var(--tl-radius-lg) var(--tl-radius-lg);
+}
+
+/* 카드 제목과 표 첫 열 글자가 같은 선에서 시작하게, 양 끝 칸의 바깥 여백을 카드 안쪽 여백에 맞춘다(선택 칸은 가운데 그대로) */
+.tl-block-flat-grid .tl-data-grid__cell:first-child:not([data-kind='check']) {
+  padding-left: var(--tl-density-card-padding);
+}
+
+.tl-block-flat-grid .tl-data-grid__cell:last-child:not([data-kind='check']) {
+  padding-right: var(--tl-density-card-padding);
+}
+
+/* 좁은 화면에서 행이 카드가 되면(D-61) 카드 안에 카드가 놓인다. 행 카드의 테두리 · 면을 걷고 구분선 목록으로 둔다 */
+.tl-block-flat-grid[data-mode='cards'] {
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-flat-grid .tl-data-grid__cards {
+  gap: 0;
+}
+
+.tl-block-flat-grid .tl-data-grid__card {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.tl-block-flat-grid .tl-data-grid__empty[data-mode='cards'] {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.tl-block-flat-grid .tl-data-grid__card + .tl-data-grid__card {
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-flat-grid .tl-data-grid__card:last-child {
+  border-radius: 0 0 var(--tl-radius-lg) var(--tl-radius-lg);
+}
+
+/* 필터 줄은 아래 표의 도구다. 위 덩어리(배너 · 머리)보다 표에 가깝게 붙인다(D-56) */
+.tl-block-page__body > .tl-filter-bar:has(+ .tl-data-grid),
+.tl-block-split__main > .tl-filter-bar:has(+ .tl-data-grid) {
+  margin-bottom: calc(var(--tl-space-12) - var(--tl-density-gutter));
+}
+
+/* 테마 컬러칩(_ui/theme.tsx) */
+.tl-block-theme {
+  display: grid;
+  gap: var(--tl-space-16);
+}
+
+.tl-block-theme__swatch {
+  display: block;
+  width: var(--tl-space-20);
+  height: var(--tl-space-20);
+  border-radius: var(--tl-radius-full);
+}
+
+/* 와이드(1920 이상)는 본문 최대 1600 · 가운데(D-97, 식자재 ERP 와이드) */
+@media (min-width: 1920px) {
+  .tl-block-page {
+    width: 100%;
+    max-width: calc(var(--tl-layout-content-max-width-wide) + var(--tl-layout-gutter-default) * 2);
+    margin-inline: auto;
+  }
+}
+
+/* 앱 화면 설정 · 본문 너비(<html data-content-width>, 식자재 ERP). 자동이면 위 규칙 */
+[data-content-width] .tl-block-page {
+  width: 100%;
+  margin-inline: auto;
+}
+
+[data-content-width='1280'] .tl-block-page {
+  max-width: calc(var(--tl-breakpoint-xl) + var(--tl-layout-gutter-default) * 2);
+}
+
+[data-content-width='1440'] .tl-block-page {
+  max-width: calc(var(--tl-layout-content-max-width) + var(--tl-layout-gutter-default) * 2);
+}
+
+[data-content-width='1600'] .tl-block-page {
+  max-width: calc(var(--tl-layout-content-max-width-wide) + var(--tl-layout-gutter-default) * 2);
+}
+
+[data-content-width='full'] .tl-block-page {
+  max-width: none;
+}

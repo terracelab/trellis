@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "exactOptionalPropertyTypes": false,
+    "allowJs": true,
+    "types": ["node", "vite/client"]
+  },
+  "include": [".storybook", "src", "generated", "vrt"]
+}

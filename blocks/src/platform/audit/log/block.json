@@ -1,0 +1,22 @@
+{
+  "id": "platform/audit/log",
+  "title": "감사 로그",
+  "intent": "누가 언제 어떤 문서에 무엇을 했는지(로그인 · 발행 · 권한 변경 · 다운로드)를 기간 · 사용자 · 모듈로 찾는다",
+  "module": "platform",
+  "pattern": "ListDetail",
+  "industries": ["general"],
+  "components": [
+    "PageHeader",
+    "FilterBar",
+    "Input",
+    "Select",
+    "PeriodPicker",
+    "DataGrid",
+    "Badge",
+    "Pagination",
+    "Button"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["columns", "filters"],
+  "order": 14
+}

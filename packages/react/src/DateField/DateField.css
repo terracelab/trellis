@@ -1,0 +1,156 @@
+.tl-date-field {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: var(--tl-density-control-height-md);
+  padding: 0 var(--tl-space-4) 0 var(--tl-space-8);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-strong);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-primary);
+  transition: border-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-date-field[data-size='xs'] {
+  gap: var(--tl-space-2);
+  height: var(--tl-density-control-height-xs);
+  padding: 0 var(--tl-space-2) 0 var(--tl-space-6);
+  border-radius: var(--tl-radius-sm);
+}
+
+.tl-date-field[data-size='sm'] {
+  height: var(--tl-density-control-height-sm);
+}
+
+.tl-date-field[data-size='lg'],
+.tl-date-field[data-size='xl'] {
+  padding: 0 var(--tl-space-8) 0 var(--tl-space-12);
+}
+
+.tl-date-field[data-size='lg'] {
+  height: var(--tl-density-control-height-lg);
+}
+
+.tl-date-field[data-size='xl'] {
+  height: var(--tl-density-control-height-xl);
+}
+
+.tl-date-field:hover {
+  border-color: var(--tl-color-border-hover);
+}
+
+.tl-date-field:focus-within {
+  border-color: var(--tl-color-border-focus);
+  outline: var(--tl-border-width-1) solid var(--tl-color-border-focus);
+}
+
+.tl-date-field[data-state='error'] {
+  border-color: var(--tl-color-status-danger-default);
+}
+
+.tl-date-field[data-state='error']:focus-within {
+  outline-color: var(--tl-color-status-danger-default);
+}
+
+.tl-date-field[data-state='disabled'] {
+  background: var(--tl-color-bg-sunken);
+  border-color: transparent;
+}
+
+.tl-date-field__control {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: var(--tl-density-input-font-size);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+/* 큰 칸은 본문 크기(14) 이상, touch 16은 그대로 */
+.tl-date-field[data-size='lg'] .tl-date-field__control,
+.tl-date-field[data-size='xl'] .tl-date-field__control {
+  font-size: max(var(--tl-density-input-font-size), var(--tl-type-body-font-size));
+}
+
+.tl-date-field__control:disabled {
+  color: var(--tl-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.tl-date-field__control::placeholder {
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-date-field__picker {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--tl-density-control-height-sm);
+  height: calc(100% - var(--tl-space-4));
+  padding: 0;
+  border: 0;
+  border-radius: var(--tl-radius-sm);
+  background: transparent;
+  color: var(--tl-color-fg-tertiary);
+  cursor: pointer;
+  transition:
+    background-color var(--tl-duration-fast) var(--tl-easing-standard),
+    color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+/* 손가락으로 누르는 화면은 칸 테두리까지 누르는 영역(40)으로 */
+@media (pointer: coarse) {
+  .tl-date-field__picker {
+    height: calc(100% + var(--tl-border-width-1) * 2);
+    margin-block: calc(var(--tl-border-width-1) * -1);
+  }
+}
+
+.tl-date-field__picker:hover {
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-date-field__picker:disabled {
+  background: transparent;
+  color: var(--tl-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.tl-date-field__picker[data-popup-open],
+.tl-date-field__picker[aria-expanded='true'] {
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-date-field__positioner {
+  z-index: var(--tl-z-dropdown);
+  outline: 0;
+}
+
+.tl-date-field__popup {
+  box-sizing: border-box;
+  padding: var(--tl-space-12);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-elevated);
+  color: var(--tl-color-fg-primary);
+  box-shadow: var(--tl-shadow-md);
+  outline: 0;
+}
+
+/* 좁은 화면: 손가락으로 누르기 좋게 달력 버튼을 칸 높이만큼 */
+@media (max-width: 639px) {
+  .tl-date-field__picker {
+    width: var(--tl-density-control-height-lg);
+  }
+}

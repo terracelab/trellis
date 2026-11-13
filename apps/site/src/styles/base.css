@@ -1,0 +1,369 @@
+/* Trellis 소개 사이트 공통. 값은 전부 --tl-* 변수에서 나온다(크기는 토큰의 배수). 사이트 클래스는 tl-site-* */
+
+.tl-site {
+  /* 본문 폭 1216 · 구역 사이 96 · 큰 판 모서리 24 */
+  --tl-site-inner: calc(var(--tl-space-64) * 19);
+  --tl-site-gutter: var(--tl-layout-gutter-default);
+  --tl-site-gap: calc(var(--tl-space-48) * 2);
+  --tl-site-radius: calc(var(--tl-radius-xl) * 1.5);
+  --tl-site-bar-height: calc(var(--tl-layout-global-bar-height) + var(--tl-space-8));
+
+  /* 소개 글 크기: 디스플레이 28의 배수 */
+  --tl-site-hero-size: calc(var(--tl-type-display-font-size) * 1.5);
+  --tl-site-title-size: calc(var(--tl-type-display-font-size) * 1.25);
+  --tl-site-tile-title-size: calc(var(--tl-type-h2-font-size) * 1.125);
+
+  margin: 0;
+  background: var(--tl-color-bg-canvas);
+  color: var(--tl-color-fg-primary);
+  font-family: var(--tl-font-family-sans);
+  font-size: var(--tl-type-h3-font-size);
+  line-height: 1.6;
+  font-variant-numeric: var(--tl-font-numeric);
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  -webkit-font-smoothing: antialiased;
+}
+
+.tl-site *,
+.tl-site *::before,
+.tl-site *::after {
+  box-sizing: border-box;
+}
+
+.tl-site-skip {
+  position: absolute;
+  top: calc(var(--tl-space-64) * -1);
+  left: var(--tl-space-16);
+  z-index: var(--tl-z-toast);
+  padding: var(--tl-space-8) var(--tl-space-12);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-elevated);
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-site-skip:focus {
+  top: var(--tl-space-8);
+}
+
+.tl-site-sr {
+  position: absolute;
+  width: var(--tl-border-width-1);
+  height: var(--tl-border-width-1);
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ── 상단 바 ──────────────────────────────────────────────── */
+.tl-site-bar {
+  position: sticky;
+  top: 0;
+  z-index: var(--tl-z-sticky);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--tl-space-16);
+  min-height: var(--tl-site-bar-height);
+  padding-inline: var(--tl-site-gutter);
+  border-bottom: var(--tl-border-width-1) solid transparent;
+  transition:
+    background-color var(--tl-duration-slow) var(--tl-easing-standard),
+    border-color var(--tl-duration-slow) var(--tl-easing-standard);
+}
+
+.tl-site-bar[data-scrolled] {
+  border-bottom-color: var(--tl-color-border-divider);
+  background: color-mix(in srgb, var(--tl-color-bg-surface) 86%, transparent);
+  backdrop-filter: blur(var(--tl-space-12));
+}
+
+.tl-site-brand {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  gap: var(--tl-space-8);
+  border-radius: var(--tl-radius-sm);
+  color: var(--tl-color-fg-primary);
+  text-decoration: none;
+}
+
+/* 표식은 높이만 정한다. 폭은 그림 비율(500:395)을 따른다 */
+.tl-site-mark {
+  width: auto;
+  height: var(--tl-space-20);
+  flex: none;
+  fill: var(--tl-color-brand-default);
+}
+
+.tl-site-brand-name {
+  font-size: var(--tl-type-h2-font-size);
+  line-height: 1;
+  font-weight: var(--tl-font-weight-700);
+  letter-spacing: var(--tl-font-letter-spacing-tight);
+}
+
+.tl-site-nav {
+  display: flex;
+  gap: var(--tl-space-4);
+}
+
+.tl-site-nav a {
+  display: inline-flex;
+  align-items: center;
+  height: var(--tl-density-control-height-md);
+  padding-inline: var(--tl-space-12);
+  border-radius: var(--tl-radius-md);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-body-font-size);
+  font-weight: var(--tl-font-weight-500);
+  text-decoration: none;
+  transition: color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-site-nav a:hover,
+.tl-site-nav a[aria-current='page'] {
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-site-nav a[aria-current='page'] {
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-site-bar-side {
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  gap: var(--tl-space-8);
+}
+
+.tl-site-icon-button {
+  display: inline-grid;
+  place-items: center;
+  width: var(--tl-density-control-height-md);
+  height: var(--tl-density-control-height-md);
+  padding: 0;
+  border: 0;
+  border-radius: var(--tl-radius-md);
+  background: transparent;
+  color: var(--tl-color-fg-primary);
+  cursor: pointer;
+  transition: background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-site-icon-button:hover {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-site-icon-button > span {
+  display: inline-grid;
+}
+
+/* 테마에 따라 한쪽만 보인다(아이콘 · 블록 그림) */
+[data-theme='dark'] .tl-site-when-light,
+[data-theme='light'] .tl-site-when-dark {
+  display: none;
+}
+
+.tl-site-brand:focus-visible,
+.tl-site-nav a:focus-visible,
+.tl-site-foot a:focus-visible,
+.tl-site-arrow:focus-visible,
+.tl-site-skip:focus-visible {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: var(--tl-border-width-2);
+}
+
+/* 링크를 버튼 모양으로 쓸 때(a.tl-button)는 밑줄을 뺀다 */
+a.tl-button {
+  text-decoration: none;
+}
+
+/* ── 본문 틀 ──────────────────────────────────────────────── */
+.tl-site-main {
+  display: block;
+}
+
+.tl-site-wrap {
+  width: 100%;
+  max-width: calc(var(--tl-site-inner) + var(--tl-site-gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--tl-site-gutter);
+}
+
+/* 히어로 아래 흰 판. 위 모서리를 크게 둥글린다 */
+.tl-site-sheet {
+  position: relative;
+  border-radius: var(--tl-site-radius) var(--tl-site-radius) 0 0;
+  background: var(--tl-color-bg-surface);
+}
+
+.tl-site-section {
+  padding-block: calc(var(--tl-site-gap) / 2);
+  scroll-margin-top: var(--tl-site-bar-height);
+}
+
+.tl-site-title {
+  margin: 0;
+  font-size: var(--tl-site-title-size);
+  line-height: 1.26;
+  font-weight: var(--tl-font-weight-600);
+  letter-spacing: var(--tl-font-letter-spacing-tight);
+  text-wrap: balance;
+}
+
+/* 줄이 바뀔 때 떨어지면 안 되는 말 */
+.tl-site-nowrap {
+  white-space: nowrap;
+}
+
+/* 절 이름(명사)을 작은 글자로 제목 위에 둔다 */
+.tl-site-head {
+  display: grid;
+  gap: var(--tl-space-8);
+}
+
+.tl-site-eyebrow {
+  margin: 0;
+  color: var(--tl-color-fg-link);
+  font-size: var(--tl-type-body-font-size);
+  line-height: var(--tl-type-body-line-height);
+  font-weight: var(--tl-font-weight-600);
+}
+
+/* 코드 식별자는 코드 서체로 */
+.tl-site code {
+  font-family: var(--tl-font-family-mono);
+  font-size: 0.92em;
+}
+
+.tl-site-lead {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-h2-font-size);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.tl-site-text {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+}
+
+/* 화살표 링크: 글자는 본문 색, 가리키면 밑줄 */
+.tl-site-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  border-radius: var(--tl-radius-sm);
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-500);
+  text-decoration: none;
+}
+
+.tl-site-arrow:hover {
+  text-decoration: underline;
+  text-underline-offset: var(--tl-space-4);
+}
+
+.tl-site-arrow .tl-icon {
+  transition: transform var(--tl-duration-normal) var(--tl-easing-standard);
+}
+
+.tl-site-arrow:hover .tl-icon {
+  transform: translateX(var(--tl-space-2));
+}
+
+.tl-site-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--tl-space-12);
+}
+
+.tl-site-actions .tl-button {
+  min-width: calc(var(--tl-space-64) * 2.5);
+}
+
+/* 화면 블록 그림과 그 틀(components/Shot.astro) */
+.tl-site-frame {
+  display: block;
+  overflow: hidden;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-surface);
+}
+
+.tl-site-shot {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ── 바닥 ─────────────────────────────────────────────────── */
+.tl-site-foot {
+  display: grid;
+  gap: var(--tl-space-20);
+  padding: var(--tl-space-32) var(--tl-site-gutter) var(--tl-space-40);
+  background: var(--tl-color-bg-surface);
+  font-size: var(--tl-type-body-font-size);
+}
+
+.tl-site-foot-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tl-space-12) var(--tl-space-24);
+}
+
+.tl-site-foot-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tl-space-4) var(--tl-space-20);
+}
+
+.tl-site-foot a {
+  border-radius: var(--tl-radius-sm);
+  color: var(--tl-color-fg-secondary);
+  text-decoration: none;
+}
+
+.tl-site-foot a:hover {
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-site-foot-note {
+  padding-top: var(--tl-space-20);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+}
+
+/* ── 좁은 화면 ─────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  .tl-site {
+    --tl-site-gutter: var(--tl-layout-gutter-compact);
+    --tl-site-gap: var(--tl-space-64);
+    --tl-site-hero-size: var(--tl-type-display-font-size);
+    --tl-site-title-size: var(--tl-type-display-font-size);
+  }
+
+  /* 메뉴는 둘째 줄로 내린다(다섯 개가 한 줄에 들어간다) */
+  .tl-site-bar {
+    grid-template-columns: 1fr auto;
+    row-gap: 0;
+    padding-top: var(--tl-space-8);
+  }
+
+  .tl-site-nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-content: space-between;
+  }
+
+  /* 양 끝 메뉴가 화면 가장자리에 맞도록 안쪽 여백을 뺀다 */
+  .tl-site-nav a {
+    padding-inline: 0;
+  }
+}

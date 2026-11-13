@@ -1,0 +1,33 @@
+{
+  "id": "erp/sales/orders",
+  "title": "견적 · 수주",
+  "intent": "견적 · 수주 · 출고 대기 · 매출 확정 단계별로 거래를 찾고, 견적을 수주로 확정해 출고를 지시하고 세금계산서 발행으로 넘긴다",
+  "module": "sales",
+  "pattern": "ListDetail",
+  "industries": ["trade", "distribution", "manufacturing", "general"],
+  "components": [
+    "PageHeader",
+    "Tabs",
+    "Banner",
+    "FilterBar",
+    "Input",
+    "Select",
+    "DataGrid",
+    "Badge",
+    "DueBadge",
+    "ActionBar",
+    "Button",
+    "Dialog",
+    "Field",
+    "CodeSearch",
+    "QuantityInput",
+    "AmountInput",
+    "DateField",
+    "Drawer",
+    "Stepper",
+    "DescriptionList"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["stages", "columns", "filters", "detail", "actions"],
+  "order": 10
+}

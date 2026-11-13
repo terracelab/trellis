@@ -1,0 +1,29 @@
+{
+  "id": "scm/delivery/driver",
+  "title": "기사 앱",
+  "intent": "배송 기사가 휴대폰에서 지금 배송지의 주소 · 연락처를 보고 박스 송장 스캔 · 인수 사진 · 서명으로 배송을 완료하며 적재함 온도를 기록한다",
+  "module": "delivery",
+  "pattern": "WarehouseScan",
+  "industries": ["distribution", "trade", "commerce"],
+  "components": [
+    "PageHeader",
+    "Badge",
+    "Progress",
+    "Card",
+    "DescriptionList",
+    "Button",
+    "ScanField",
+    "Field",
+    "FileUpload",
+    "Input",
+    "Icon",
+    "EmptyState",
+    "StatusDot",
+    "Sparkline",
+    "QuantityInput",
+    "ActionBar"
+  ],
+  "sizes": [390],
+  "slots": ["stop", "proof", "stops", "temperature"],
+  "order": 20
+}

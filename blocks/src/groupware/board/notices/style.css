@@ -1,0 +1,134 @@
+/* 공지: 목록 제목 칸 · 본문 패널 · 읽음 확인 */
+.tl-block-notice-title {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+.tl-block-notice-title svg {
+  flex: none;
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-block-notice-title__text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-block-notice-title[data-unread] .tl-block-notice-title__text {
+  font-weight: var(--tl-font-weight-700);
+}
+
+.tl-block-notice {
+  display: grid;
+  min-width: 0;
+}
+
+.tl-block-notice__head {
+  display: grid;
+  gap: var(--tl-space-12);
+  padding: var(--tl-density-card-padding);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-notice__badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tl-space-8);
+}
+
+.tl-block-notice__title {
+  margin: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-h2-font-size);
+  line-height: var(--tl-type-h2-line-height);
+  font-weight: var(--tl-type-h2-font-weight);
+}
+
+.tl-block-notice__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-12);
+  min-width: 0;
+  font-size: var(--tl-type-body-font-size);
+}
+
+.tl-block-notice__stat {
+  margin-left: auto;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+.tl-block-notice__body {
+  display: grid;
+  gap: var(--tl-space-12);
+  padding: var(--tl-space-20) var(--tl-density-card-padding);
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-body-font-size);
+  line-height: var(--tl-type-body-line-height);
+}
+
+.tl-block-notice__body p {
+  margin: 0;
+}
+
+.tl-block-notice__files {
+  display: grid;
+  gap: var(--tl-space-8);
+  padding: 0 var(--tl-density-card-padding) var(--tl-space-20);
+}
+
+.tl-block-notice__files h3,
+.tl-block-notice__label {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-block-notice__read {
+  display: grid;
+  gap: var(--tl-space-12);
+  padding: var(--tl-density-card-padding);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-block-notice__unread {
+  display: grid;
+  gap: var(--tl-space-8);
+}
+
+.tl-block-notice__unread ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tl-space-8) var(--tl-space-12);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-block-notice__unread li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-label-font-size);
+}
+
+.tl-block-notice__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tl-space-8);
+}
+
+/* inner-override: DataGrid에 표 최소 폭(auto 열 최소 폭) prop이 없다(보강 요청) */
+.tl-block-notice-grid .tl-data-grid__table {
+  min-width: calc(var(--tl-space-64) * 10);
+}

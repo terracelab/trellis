@@ -1,0 +1,125 @@
+.tl-pagination {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--tl-space-12);
+  min-width: 0;
+  min-height: var(--tl-density-control-height-md);
+  font-size: var(--tl-density-body-font-size);
+}
+
+.tl-pagination__total {
+  min-width: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  white-space: nowrap;
+}
+
+.tl-pagination__count {
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-600);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-pagination__pages {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+}
+
+.tl-pagination__list {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-border-width-2);
+  margin: 0;
+  padding: 0 var(--tl-space-4);
+  list-style: none;
+}
+
+.tl-pagination__page {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: var(--tl-density-control-height-md);
+  height: var(--tl-density-control-height-md);
+  padding: 0 var(--tl-space-4);
+  border: 0;
+  border-radius: var(--tl-radius-md);
+  background: transparent;
+  color: var(--tl-color-fg-secondary);
+  font: inherit;
+  font-size: var(--tl-type-label-font-size);
+  font-variant-numeric: var(--tl-font-numeric);
+  cursor: pointer;
+  transition: background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-pagination__page:hover,
+.tl-pagination__page:active {
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-pagination__page[aria-current='page'] {
+  background: var(--tl-color-brand-subtle);
+  color: var(--tl-color-fg-link);
+  font-weight: var(--tl-font-weight-600);
+  cursor: default;
+}
+
+.tl-pagination__page:disabled {
+  background: transparent;
+  color: var(--tl-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.tl-pagination__page[aria-current='page']:disabled {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-pagination__ellipsis {
+  min-width: var(--tl-density-control-height-sm);
+  color: var(--tl-color-fg-tertiary);
+  text-align: center;
+  user-select: none;
+}
+
+.tl-pagination__size {
+  display: flex;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+.tl-pagination__of {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .tl-pagination {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .tl-pagination__pages {
+    grid-row: 2;
+    grid-column: 1 / -1;
+    justify-self: center;
+  }
+}
+
+/* 휴대폰(D-61): 번호 단추 대신 이전 · "3 / 12" · 다음. 첫 · 마지막도 숨긴다 */
+@media (max-width: 639px) {
+  .tl-pagination__list,
+  .tl-pagination__pages > .tl-icon-button:first-child,
+  .tl-pagination__pages > .tl-icon-button:last-child {
+    display: none;
+  }
+
+  .tl-pagination__of {
+    display: inline-block;
+    min-width: calc(var(--tl-space-64) + var(--tl-space-8));
+    text-align: center;
+    font-variant-numeric: var(--tl-font-numeric);
+  }
+}

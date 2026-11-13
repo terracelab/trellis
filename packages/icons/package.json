@@ -1,0 +1,58 @@
+{
+  "name": "@terracelab/trellis-icons",
+  "version": "1.0.0",
+  "description": "UI 아이콘 어댑터와 모듈 앱 아이콘(svg·react·rn·png), 모듈 타일 일러스트",
+  "type": "module",
+  "license": "Apache-2.0",
+  "keywords": [
+    "trellis",
+    "terracelab",
+    "icons",
+    "svg",
+    "react"
+  ],
+  "homepage": "https://trellis.terracelab.co.kr",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/terracelab/trellis.git",
+    "directory": "packages/icons"
+  },
+  "bugs": {
+    "url": "https://github.com/terracelab/trellis/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "@terracelab/source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./module-tiles": {
+      "types": "./dist/module-tiles.d.ts",
+      "default": "./dist/module-tiles.js"
+    },
+    "./module-tiles/*": "./dist/module-tiles/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "NOTICE",
+    "LICENSE-LUCIDE.txt"
+  ],
+  "scripts": {
+    "build": "node scripts/gen-ui-icons.mjs && node scripts/module-tiles.mjs build && tsc -p tsconfig.build.json",
+    "tiles:normalize": "node scripts/module-tiles.mjs normalize",
+    "typecheck": "node scripts/gen-ui-icons.mjs && tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run --passWithNoTests"
+  },
+  "devDependencies": {
+    "@terracelab/trellis-tokens": "workspace:*",
+    "lucide": "1.59.0",
+    "svgo": "4.1.0",
+    "typescript": "~6.0.3"
+  }
+}

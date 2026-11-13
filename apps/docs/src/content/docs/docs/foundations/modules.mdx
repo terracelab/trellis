@@ -1,0 +1,15 @@
+---
+title: 모듈과 타일
+description: 업무 모듈(ERP · 그룹웨어 · ECM · CRM · 유통·물류 · 이커머스 · 제조)과 모듈 타일 일러스트. 사이드바 · 런처 · 알림 카드가 이 목록을 씁니다.
+---
+
+import ModuleGrid from '../../../../components/ModuleGrid.astro';
+
+모듈 목록은 `@terracelab/trellis-tokens/modules`(modules.json)가 원본입니다. 라벨 · 아이콘 · 배지 종류는 여기서만 정하고, 사이드바 · 런처 · 알림 카드가 같은 목록을 씁니다. 타일 일러스트는 `@terracelab/trellis-icons/module-tiles`에 있고, 문서에 스프라이트를 한 번 넣은 뒤 `<use href="#tl-tile-<id>">`로 씁니다.
+
+```ts
+import modules from '@terracelab/trellis-tokens/modules';
+import { moduleTileSprite, moduleTileByModule } from '@terracelab/trellis-icons/module-tiles';
+```
+
+<ModuleGrid />

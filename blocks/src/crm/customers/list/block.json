@@ -1,0 +1,29 @@
+{
+  "id": "crm/customers/list",
+  "title": "고객",
+  "intent": "거래 · 잠재 고객을 등급 · 담당 영업 · 누적 매출 · 미수금으로 찾고, 360 보기에서 연락처 · 최근 활동 · 월 매출을 확인한다",
+  "module": "customers",
+  "pattern": "ListDetail",
+  "industries": ["trade", "distribution", "general"],
+  "components": [
+    "PageHeader",
+    "Tabs",
+    "Button",
+    "KpiCard",
+    "Banner",
+    "FilterBar",
+    "Input",
+    "Select",
+    "DataGrid",
+    "Badge",
+    "Avatar",
+    "Drawer",
+    "DescriptionList",
+    "Sparkline",
+    "EmptyState",
+    "Timeline"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["kpis", "columns", "filters", "customer360"],
+  "order": 10
+}

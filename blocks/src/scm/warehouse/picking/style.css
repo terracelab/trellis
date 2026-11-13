@@ -1,0 +1,79 @@
+/* 피킹 목록: 다음 위치 카드(큰 위치 코드 · 스캔 · 수량 · 단추) · 부족 처리 · 목록 칸 */
+.tl-block-pick-lists {
+  padding: var(--tl-space-4) var(--tl-space-8) var(--tl-space-8);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-pick-main {
+  display: grid;
+  gap: var(--tl-density-gutter);
+  min-width: 0;
+}
+
+.tl-block-pick-now {
+  display: grid;
+  gap: var(--tl-space-12);
+}
+
+.tl-block-pick-now__where {
+  display: grid;
+  gap: var(--tl-space-2);
+}
+
+/* 위치 코드는 멀리서도 읽히게 화면에서 가장 큰 글자 */
+.tl-block-pick-now__code {
+  color: var(--tl-color-fg-strong);
+  font-size: var(--tl-type-display-font-size);
+  line-height: var(--tl-type-display-line-height);
+  font-weight: var(--tl-font-weight-700);
+  font-variant-numeric: var(--tl-font-numeric);
+  letter-spacing: var(--tl-font-letter-spacing-normal);
+}
+
+.tl-block-pick-now__qty {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-block-pick-now__qty strong {
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-h4-font-size);
+  font-weight: var(--tl-font-weight-700);
+}
+
+/* 스캔 칸 · 수량 칸: 넓은 화면은 나란히, 좁으면 한 열 */
+.tl-block-pick-now__inputs {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  align-items: start;
+  gap: var(--tl-space-12);
+}
+
+@media (max-width: 1023px) {
+  .tl-block-pick-now__inputs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.tl-block-pick-short {
+  display: grid;
+  gap: var(--tl-space-12);
+  padding: var(--tl-space-12);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-md);
+}
+
+.tl-block-pick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--tl-space-8);
+}
+
+/* 휴대폰: 부족 · 피킹 완료 단추가 반씩 */
+@media (max-width: 639px) {
+  .tl-block-pick-actions > * {
+    flex: 1 1 0;
+  }
+}

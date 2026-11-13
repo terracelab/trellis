@@ -1,0 +1,31 @@
+pnpm-lock.yaml
+**/dist
+**/coverage
+**/.turbo
+**/storybook-static
+# 문서는 손으로 정렬한 표를 유지한다
+**/*.md
+**/__snapshots__
+
+# 사이트 생성물(apps/docs/.gitignore와 같다)
+**/.astro/
+apps/docs/public/api/
+apps/docs/public/llms*.txt
+apps/docs/src/content/docs/docs/guide/
+apps/docs/src/content/docs/docs/changelog.md
+apps/docs/src/content/docs/docs/components/*.mdx
+!apps/docs/src/content/docs/docs/components/index.mdx
+apps/docs/src/content/docs/en/docs/guide/
+apps/docs/src/content/docs/en/docs/changelog.md
+apps/docs/src/content/docs/en/docs/components/*.mdx
+!apps/docs/src/content/docs/en/docs/components/index.mdx
+apps/docs/src/generated/
+
+# 아이콘 생성물(gen-ui-icons.mjs)
+packages/icons/src/generated/
+
+# 스토리 생성물(apps/storybook/scripts/gen-stories.mjs)
+apps/storybook/generated/
+
+# Figma에 붙여 넣는 화면 키트(문서에 저장한 글과 같은 모양을 유지한다)
+.claude/skills/ds/figma-sync/screen-kit.js

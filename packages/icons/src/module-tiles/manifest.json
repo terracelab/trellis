@@ -1,0 +1,114 @@
+{
+  "$comment": "모듈 타일 일러스트 목록. 키 = src/module-tiles/<키>.svg. module이 있으면 라벨은 modules.json에서 오고, 없으면(미배정) label을 직접 쓴다. 2026-11-07 Patrick 제공 12종 + 같은 날 추가 9종(일정·게시판·메신저·문서함·전사문서·부서문서·영업기회·견적·상담) 2026-11-10 Patrick 제공 15종(세무 · 유통·물류 4 · 이커머스 6 · 제조 4): 모듈 35개 전부 타일이 있다.",
+  "tiles": {
+    "accounting": {
+      "module": "accounting"
+    },
+    "treasury": {
+      "module": "treasury"
+    },
+    "purchasing": {
+      "module": "purchasing"
+    },
+    "sales": {
+      "module": "sales"
+    },
+    "production": {
+      "module": "production"
+    },
+    "hr-payroll": {
+      "module": "hr-payroll"
+    },
+    "mail": {
+      "module": "mail"
+    },
+    "approval": {
+      "module": "approval"
+    },
+    "attendance": {
+      "module": "attendance"
+    },
+    "doc-editor": {
+      "module": "doc-editor"
+    },
+    "customers": {
+      "module": "customers"
+    },
+    "calendar": {
+      "module": "calendar"
+    },
+    "board": {
+      "module": "board"
+    },
+    "messenger": {
+      "module": "messenger"
+    },
+    "my-docs": {
+      "module": "my-docs"
+    },
+    "company-docs": {
+      "module": "company-docs"
+    },
+    "dept-docs": {
+      "module": "dept-docs"
+    },
+    "opportunities": {
+      "module": "opportunities"
+    },
+    "quotes": {
+      "module": "quotes"
+    },
+    "support": {
+      "module": "support"
+    },
+    "tax": {
+      "module": "tax"
+    },
+    "inventory": {
+      "module": "inventory"
+    },
+    "warehouse": {
+      "module": "warehouse"
+    },
+    "delivery": {
+      "module": "delivery"
+    },
+    "trade": {
+      "module": "trade"
+    },
+    "products": {
+      "module": "products"
+    },
+    "orders": {
+      "module": "orders"
+    },
+    "claims": {
+      "module": "claims"
+    },
+    "settlement": {
+      "module": "settlement"
+    },
+    "promotions": {
+      "module": "promotions"
+    },
+    "channels": {
+      "module": "channels"
+    },
+    "shop-floor": {
+      "module": "shop-floor"
+    },
+    "equipment": {
+      "module": "equipment"
+    },
+    "quality": {
+      "module": "quality"
+    },
+    "materials": {
+      "module": "materials"
+    },
+    "expense": {
+      "module": null,
+      "label": "지출결의"
+    }
+  }
+}

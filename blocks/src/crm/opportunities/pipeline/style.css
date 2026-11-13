@@ -1,0 +1,19 @@
+/* 영업기회: 칸반은 KanbanBoard가 그린다. 여기는 단계 전환 카드 · 상세 Drawer의 고객 활동 절 */
+.tl-block-crm-drawer-section {
+  display: grid;
+  gap: var(--tl-space-8);
+}
+
+.tl-block-crm-drawer-section__title {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+@media (max-width: 639px) {
+  /* inner-override: FunnelChart는 휴대폰에서 이름을 막대 위로 올려 높이가 두 배가 되는데 ChartCard 본문 높이는 height prop으로 고정이다. 휴대폰에서만 내용 높이를 따른다(보강 요청: ChartCard height auto) */
+  .tl-block-crm-funnel .tl-chart-card__body {
+    height: auto;
+  }
+}

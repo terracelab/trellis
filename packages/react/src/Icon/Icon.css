@@ -1,0 +1,24 @@
+.tl-icon {
+  flex: none;
+  vertical-align: middle;
+}
+
+/*
+ * 크기는 토큰 size.icon.*(R-37 · R-36). 앱이 글자 크기 모드에서 이 토큰을 키우면 아이콘도 따라 커진다.
+ * :where로 우선도 0: 컴포넌트가 따로 정한 크기(.tl-x .tl-icon { width: 75% } 등)가 늘 이긴다.
+ * width · height 속성은 CSS가 없을 때를 위해 남긴다. 기본 토큰 값은 속성과 같아 화면은 그대로다
+ */
+:where(.tl-icon[data-size='16']) {
+  width: var(--tl-size-icon-16);
+  height: var(--tl-size-icon-16);
+}
+
+:where(.tl-icon[data-size='20']) {
+  width: var(--tl-size-icon-20);
+  height: var(--tl-size-icon-20);
+}
+
+:where(.tl-icon[data-size='24']) {
+  width: var(--tl-size-icon-24);
+  height: var(--tl-size-icon-24);
+}

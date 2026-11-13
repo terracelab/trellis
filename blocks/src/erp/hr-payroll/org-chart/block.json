@@ -1,0 +1,12 @@
+{
+  "id": "erp/hr-payroll/org-chart",
+  "title": "조직도",
+  "intent": "회사 → 팀 조직을 조직장 · 인원과 함께 보고, 조직을 고르면 그 조직 구성원의 직급 · 오늘 근무 상태를 보고 인사기록카드를 연다",
+  "module": "hr-payroll",
+  "pattern": "ListDetail",
+  "industries": ["trade", "distribution", "manufacturing", "commerce", "general"],
+  "components": ["PageHeader", "Button", "Card", "OrgChart", "PersonLabel", "DescriptionList"],
+  "sizes": [1440, 1024, 390],
+  "slots": ["siblings", "tree", "members"],
+  "order": 22
+}

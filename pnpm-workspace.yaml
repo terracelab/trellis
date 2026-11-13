@@ -1,0 +1,11 @@
+packages:
+  - packages/*
+  - apps/*
+  - templates
+  - blocks
+  - starters/*/app
+
+# 설치 스크립트 허용 목록(pnpm 12는 승인 안 된 스크립트가 있으면 설치를 멈춘다).
+# esbuild(Storybook이 씀)는 플랫폼 바이너리가 optionalDependencies로 들어오므로 스크립트 없이 동작한다.
+allowBuilds:
+  esbuild: false

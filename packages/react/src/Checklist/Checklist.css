@@ -1,0 +1,187 @@
+/*
+ * 점검 목록(PG-37). 상태는 앞 표시의 모양(체크 · 점 · 빈 고리 · 멈춤) + 색 + 글자로 나눈다.
+ * 줄 바탕 칠 · 왼쪽 색 띠 · 회색 수 알약은 쓰지 않는다(D-56 · D-57)
+ */
+.tl-checklist {
+  /* 앞 표시 칸: 손가락 입력에서도 누르는 영역이 44가 되도록 밀도 컨트롤 높이(xs)를 쓴다 */
+  --tl-checklist-mark: var(--tl-density-control-height-xs);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--tl-space-12);
+  min-width: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+}
+
+.tl-checklist__summary {
+  display: grid;
+  gap: var(--tl-space-4);
+}
+
+.tl-checklist__rest {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-checklist__empty {
+  margin: 0;
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-checklist__list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-checklist__item {
+  display: grid;
+  grid-template-columns: var(--tl-checklist-mark) minmax(0, 1fr) auto;
+  align-items: start;
+  gap: var(--tl-space-4) var(--tl-space-8);
+  min-height: var(--tl-density-row-height);
+  padding: var(--tl-space-8) 0;
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-checklist__item:last-child {
+  border-bottom: 0;
+}
+
+/* 앞 표시: 제목 첫 줄 가운데에 맞춘다(표시 칸이 줄 높이보다 크면 위아래로 넘친다) */
+.tl-checklist__mark {
+  display: inline-grid;
+  place-items: center;
+  width: var(--tl-checklist-mark);
+  height: var(--tl-checklist-mark);
+  margin: calc((var(--tl-density-body-line-height) - var(--tl-checklist-mark)) / 2) 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--tl-radius-full);
+  background: none;
+  color: var(--tl-color-fg-tertiary);
+}
+
+button.tl-checklist__mark {
+  cursor: pointer;
+  transition: background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+/* 스토리 · VRT는 루트에 data-force-state를 붙인다: 첫 항목의 체크 단추에 그 상태를 그린다 */
+button.tl-checklist__mark:hover:not(:disabled),
+.tl-checklist[data-force-state='hover'] .tl-checklist__item:first-child button.tl-checklist__mark {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-checklist[data-force-state='focus'] .tl-checklist__item:first-child button.tl-checklist__mark {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: var(--tl-border-width-2);
+}
+
+button.tl-checklist__mark:disabled {
+  cursor: not-allowed;
+}
+
+.tl-checklist__icon {
+  flex: none;
+}
+
+.tl-checklist__item[data-item-state='done'] .tl-checklist__mark {
+  color: var(--tl-color-status-success-default);
+}
+
+.tl-checklist__item[data-item-state='doing'] .tl-checklist__mark {
+  color: var(--tl-color-status-info-default);
+}
+
+.tl-checklist__item[data-item-state='blocked'] .tl-checklist__mark {
+  color: var(--tl-color-status-warning-default);
+}
+
+/* 대기: 아이콘 원과 같은 크기 · 굵기의 빈 고리(16 아이콘의 원 지름 20/24 · 선 2/24) */
+.tl-checklist__ring {
+  box-sizing: border-box;
+  width: calc(var(--tl-space-16) * 5 / 6);
+  height: calc(var(--tl-space-16) * 5 / 6);
+  border: calc(var(--tl-space-16) / 12) solid var(--tl-color-border-strong);
+  border-radius: var(--tl-radius-full);
+}
+
+.tl-checklist__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tl-space-2);
+  min-width: 0;
+}
+
+.tl-checklist__title {
+  font-weight: var(--tl-font-weight-500);
+  overflow-wrap: anywhere;
+}
+
+/* 끝난 일은 한 단계 물러선다(취소선은 읽기 어려워서 쓰지 않는다) */
+.tl-checklist__item[data-item-state='done'] .tl-checklist__title {
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-checklist__item[data-disabled] .tl-checklist__title {
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-checklist__description {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-checklist__meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0 var(--tl-space-6);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-checklist__sep {
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-checklist__state {
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-checklist__due {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-2);
+}
+
+/* 지난 기한: 글자는 본문 색 굵게, 색은 앞 경고 아이콘만(글자 대비 4.5:1 유지) */
+.tl-checklist__due[data-overdue] {
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-checklist__due-icon {
+  color: var(--tl-color-status-danger-default);
+}
+
+.tl-checklist__action {
+  align-self: center;
+}
+
+.tl-checklist__loading {
+  display: grid;
+}

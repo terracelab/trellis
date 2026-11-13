@@ -1,0 +1,215 @@
+/* 고르는 카드 묶음. 고른 카드는 1px brand 테두리 전체 + 체크(D-57: 왼쪽 띠 · 칠한 바탕 없음).
+   열 수는 묶음 폭으로 줄어든다(container query). 휴대폰 폭은 한 열 */
+.tl-selectable-card {
+  --tl-selectable-card-columns: 1;
+  container-type: inline-size;
+  min-width: 0;
+  outline: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+}
+
+.tl-selectable-card__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--tl-selectable-card-columns), minmax(0, 1fr));
+  gap: var(--tl-space-12);
+}
+
+.tl-selectable-card[data-columns='auto'] .tl-selectable-card__grid {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(var(--tl-space-64) * 2.5)), 1fr));
+}
+
+.tl-selectable-card[data-columns='2'] {
+  --tl-selectable-card-columns: 2;
+}
+
+.tl-selectable-card[data-columns='3'] {
+  --tl-selectable-card-columns: 3;
+}
+
+.tl-selectable-card[data-columns='4'] {
+  --tl-selectable-card-columns: 4;
+}
+
+.tl-selectable-card__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tl-space-4);
+  box-sizing: border-box;
+  min-width: 0;
+  padding: var(--tl-density-card-padding);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-surface);
+  text-align: left;
+  cursor: pointer;
+  user-select: none;
+  transition: border-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-selectable-card__item:hover,
+.tl-selectable-card[data-force-state='hover'] .tl-selectable-card__item {
+  border-color: var(--tl-color-border-strong);
+}
+
+.tl-selectable-card[data-force-state='focus'] .tl-selectable-card__item:first-child {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: var(--tl-border-width-2);
+}
+
+.tl-selectable-card__item[data-selected],
+.tl-selectable-card__item[data-selected]:hover {
+  border-color: var(--tl-color-border-selected);
+}
+
+.tl-selectable-card[data-state='error'] .tl-selectable-card__item:not([data-selected]) {
+  border-color: var(--tl-color-status-danger-default);
+}
+
+.tl-selectable-card__item[data-disabled],
+.tl-selectable-card__item[data-disabled]:hover {
+  border-color: var(--tl-color-border-default);
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.tl-selectable-card__item[data-disabled][data-selected] {
+  border-color: var(--tl-color-border-strong);
+}
+
+.tl-selectable-card__head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+.tl-selectable-card__icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tl-density-body-line-height);
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-selectable-card__item[data-disabled] .tl-selectable-card__icon {
+  color: var(--tl-color-fg-disabled);
+}
+
+.tl-selectable-card__title {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-weight: var(--tl-font-weight-600);
+  overflow-wrap: anywhere;
+}
+
+.tl-selectable-card__meta {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--tl-space-4);
+  min-height: var(--tl-density-body-line-height);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+}
+
+/* 체크 자리는 늘 잡아 둔다(고를 때 제목 줄이 밀리지 않게) */
+.tl-selectable-card__check {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--tl-size-icon-16);
+  height: var(--tl-size-icon-16);
+  margin-top: calc((var(--tl-density-body-line-height) - var(--tl-size-icon-16)) / 2);
+  border-radius: var(--tl-radius-full);
+  color: var(--tl-color-fg-inverse);
+  visibility: hidden;
+}
+
+.tl-selectable-card__item[data-selected] .tl-selectable-card__check {
+  background: var(--tl-color-brand-default);
+  visibility: visible;
+}
+
+/* 여러 개 고르기: 체크 상자가 늘 보인다(Checkbox와 같은 모양) */
+.tl-selectable-card[data-mode='multiple'] .tl-selectable-card__check {
+  border: var(--tl-border-width-1) solid var(--tl-color-fg-tertiary);
+  border-radius: var(--tl-radius-xs);
+  background: var(--tl-color-bg-surface);
+  visibility: visible;
+}
+
+.tl-selectable-card[data-mode='multiple'] .tl-selectable-card__check > .tl-icon {
+  visibility: hidden;
+}
+
+.tl-selectable-card[data-mode='multiple']
+  .tl-selectable-card__item[data-selected]
+  .tl-selectable-card__check {
+  border-color: var(--tl-color-brand-default);
+  background: var(--tl-color-brand-default);
+}
+
+.tl-selectable-card[data-mode='multiple']
+  .tl-selectable-card__item[data-selected]
+  .tl-selectable-card__check
+  > .tl-icon {
+  visibility: visible;
+}
+
+.tl-selectable-card__item[data-disabled] .tl-selectable-card__check,
+.tl-selectable-card[data-mode='multiple']
+  .tl-selectable-card__item[data-disabled]
+  .tl-selectable-card__check {
+  border-color: var(--tl-color-border-default);
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-disabled);
+}
+
+.tl-selectable-card__description {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+}
+
+.tl-selectable-card__item[data-disabled] .tl-selectable-card__description {
+  color: var(--tl-color-fg-disabled);
+}
+
+.tl-selectable-card__content {
+  min-width: 0;
+  margin-top: var(--tl-space-8);
+}
+
+@container (max-width: 879px) {
+  .tl-selectable-card[data-columns='4'] .tl-selectable-card__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container (max-width: 679px) {
+  .tl-selectable-card[data-columns='3'] .tl-selectable-card__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container (max-width: 419px) {
+  .tl-selectable-card__grid,
+  .tl-selectable-card[data-columns] .tl-selectable-card__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* 휴대폰: 카드 높이는 손가락 크기 이상 */
+@media (max-width: 639px) {
+  .tl-selectable-card__item {
+    min-height: var(--tl-density-control-height-lg);
+  }
+}

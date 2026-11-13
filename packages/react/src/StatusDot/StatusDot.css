@@ -1,0 +1,67 @@
+.tl-status-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-width: 0;
+  max-width: 100%;
+  /* 글자는 중립(상태 색 글자는 4.5:1을 못 넘는다). 상태는 색 + 점 + 글자 */
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+  vertical-align: middle;
+}
+
+.tl-status-dot[data-size='sm'] {
+  gap: var(--tl-space-4);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-status-dot__dot {
+  position: relative;
+  flex: none;
+  width: var(--tl-space-8);
+  height: var(--tl-space-8);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-status-dot-color);
+}
+
+.tl-status-dot[data-size='sm'] .tl-status-dot__dot {
+  width: calc(var(--tl-space-4) + var(--tl-border-width-2));
+  height: calc(var(--tl-space-4) + var(--tl-border-width-2));
+}
+
+.tl-status-dot__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 진행 중 상태의 맥박: 점 뒤에서 같은 색 고리가 번진다 */
+.tl-status-dot[data-pulse] .tl-status-dot__dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--tl-status-dot-color);
+  animation: tl-status-dot-pulse var(--tl-duration-pulse) var(--tl-easing-enter) infinite;
+}
+
+@keyframes tl-status-dot-pulse {
+  from {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(2.5);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-status-dot[data-pulse] .tl-status-dot__dot::after {
+    animation: none;
+    opacity: 0;
+  }
+}

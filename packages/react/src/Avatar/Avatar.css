@@ -1,0 +1,127 @@
+.tl-avatar {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  width: var(--tl-size-avatar-32);
+  height: var(--tl-size-avatar-32);
+  vertical-align: middle;
+}
+
+.tl-avatar[data-size='24'] {
+  width: var(--tl-size-avatar-24);
+  height: var(--tl-size-avatar-24);
+}
+
+.tl-avatar[data-size='40'] {
+  width: var(--tl-size-avatar-40);
+  height: var(--tl-size-avatar-40);
+}
+
+.tl-avatar[data-size='48'] {
+  width: var(--tl-size-avatar-48);
+  height: var(--tl-size-avatar-48);
+}
+
+.tl-avatar__frame {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  /* 사람은 둥근 사각형(PR-27). 지름의 약 30% 모서리 */
+  border-radius: 30%;
+  background: var(--tl-color-avatar-1-bg);
+  color: var(--tl-color-avatar-1-fg);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: 1;
+  font-weight: var(--tl-font-weight-600);
+  letter-spacing: var(--tl-font-letter-spacing-tight);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.tl-avatar[data-shape='circle'] .tl-avatar__frame {
+  border-radius: var(--tl-radius-full);
+}
+
+.tl-avatar[data-tone='2'] .tl-avatar__frame {
+  background: var(--tl-color-avatar-2-bg);
+  color: var(--tl-color-avatar-2-fg);
+}
+
+.tl-avatar[data-tone='3'] .tl-avatar__frame {
+  background: var(--tl-color-avatar-3-bg);
+  color: var(--tl-color-avatar-3-fg);
+}
+
+.tl-avatar[data-tone='4'] .tl-avatar__frame {
+  background: var(--tl-color-avatar-4-bg);
+  color: var(--tl-color-avatar-4-fg);
+}
+
+.tl-avatar[data-tone='5'] .tl-avatar__frame {
+  background: var(--tl-color-avatar-5-bg);
+  color: var(--tl-color-avatar-5-fg);
+}
+
+.tl-avatar[data-tone='6'] .tl-avatar__frame {
+  background: var(--tl-color-avatar-6-bg);
+  color: var(--tl-color-avatar-6-fg);
+}
+
+.tl-avatar[data-size='24'] .tl-avatar__frame {
+  /* 24도 두 글자(R-T46). 글자 크기만 한 단계 줄인다 */
+  font-size: var(--tl-type-micro-font-size);
+}
+
+.tl-avatar[data-size='40'] .tl-avatar__frame {
+  font-size: var(--tl-type-label-font-size);
+}
+
+.tl-avatar[data-size='48'] .tl-avatar__frame {
+  font-size: var(--tl-type-h3-font-size);
+}
+
+.tl-avatar__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tl-avatar__status {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: var(--tl-space-8);
+  height: var(--tl-space-8);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-fg-disabled);
+  box-shadow: 0 0 0 var(--tl-border-width-2) var(--tl-color-bg-surface);
+}
+
+.tl-avatar[data-size='40'] .tl-avatar__status,
+.tl-avatar[data-size='48'] .tl-avatar__status {
+  width: var(--tl-space-12);
+  height: var(--tl-space-12);
+}
+
+.tl-avatar[data-status='online'] .tl-avatar__status {
+  background: var(--tl-color-status-success-default);
+}
+
+.tl-avatar[data-status='away'] .tl-avatar__status {
+  background: var(--tl-color-status-warning-default);
+}
+
+.tl-avatar[data-status='busy'] .tl-avatar__status {
+  background: var(--tl-color-status-danger-default);
+}
+
+/* 공석(PR-34): 바탕 없이 점선 테두리(border.strong) + 사람 아이콘(fg.tertiary). 모양 · 크기는 사람 아바타와 같다 */
+.tl-avatar[data-vacant] .tl-avatar__frame {
+  box-sizing: border-box;
+  border: var(--tl-border-width-1) dashed var(--tl-color-border-strong);
+  background: transparent;
+  color: var(--tl-color-fg-tertiary);
+}

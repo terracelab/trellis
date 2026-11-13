@@ -1,0 +1,141 @@
+/* 단계 깔때기(PG-40): 왼쪽 정렬 가로 막대 한 색 + 값 + 전환율. 줄마다 같은 열 폭(subgrid) */
+.tl-funnel-chart {
+  display: grid;
+  gap: var(--tl-space-8);
+  min-width: 0;
+  color: var(--tl-color-fg-primary);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-funnel-chart__rows {
+  display: grid;
+  grid-template-columns:
+    minmax(calc(var(--tl-space-64) + var(--tl-space-16)), max-content)
+    minmax(0, 1fr) auto auto;
+  column-gap: var(--tl-space-12);
+  row-gap: var(--tl-space-4);
+  min-width: 0;
+}
+
+.tl-funnel-chart[data-conversion='both'] .tl-funnel-chart__rows {
+  grid-template-columns:
+    minmax(calc(var(--tl-space-64) + var(--tl-space-16)), max-content)
+    minmax(0, 1fr) auto auto auto;
+}
+
+.tl-funnel-chart__head,
+.tl-funnel-chart__row {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  align-items: center;
+}
+
+.tl-funnel-chart__head {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-funnel-chart__row {
+  min-height: var(--tl-density-row-height);
+  padding-inline: var(--tl-space-4);
+  margin-inline: calc(var(--tl-space-4) * -1);
+  border-radius: var(--tl-radius-sm);
+  transition: background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-funnel-chart__row:hover,
+.tl-funnel-chart[data-force-state='hover'] .tl-funnel-chart__row[data-index='0'] {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-funnel-chart__label {
+  overflow: hidden;
+  font-size: var(--tl-type-label-font-size);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-funnel-chart__track {
+  display: flex;
+  height: var(--tl-space-16);
+  overflow: hidden;
+  border-radius: var(--tl-radius-sm);
+  background: var(--tl-color-chart-track);
+}
+
+.tl-funnel-chart__bar {
+  min-width: var(--tl-border-width-2);
+  height: 100%;
+  border-radius: var(--tl-radius-sm);
+}
+
+.tl-funnel-chart__value {
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.tl-funnel-chart__rate {
+  min-width: calc(var(--tl-space-48) + var(--tl-space-8));
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.tl-funnel-chart__summary {
+  margin: 0;
+  padding-top: var(--tl-space-8);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-funnel-chart__empty {
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+}
+
+/* 막대가 자란다(첫 그리기만, charts.css와 같은 시간). 움직임 줄이기면 토큰이 시간을 0으로 둔다 */
+.tl-funnel-chart__bar {
+  transform-origin: 0 50%;
+  animation: tl-funnel-grow calc(var(--tl-duration-slower) * 2) var(--tl-easing-enter) both;
+}
+
+@keyframes tl-funnel-grow {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: none;
+  }
+}
+
+/* 휴대폰: 단계 이름은 막대 위 줄로, 비율은 앞 단계 대비 하나만 */
+@media (max-width: 639px) {
+  .tl-funnel-chart__rows,
+  .tl-funnel-chart[data-conversion='both'] .tl-funnel-chart__rows {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+  }
+
+  /* 이름 열이 없어지므로 머리의 첫 빈 칸을 뺀다 */
+  .tl-funnel-chart__head > :first-child {
+    display: none;
+  }
+
+  .tl-funnel-chart__label {
+    grid-column: 1 / -1;
+  }
+
+  .tl-funnel-chart[data-conversion='both']
+    .tl-funnel-chart__row
+    > .tl-funnel-chart__rate:last-child,
+  .tl-funnel-chart[data-conversion='both'] .tl-funnel-chart__head > :last-child {
+    display: none;
+  }
+}

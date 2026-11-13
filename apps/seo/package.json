@@ -1,0 +1,18 @@
+{
+  "name": "@terracelab/seo",
+  "version": "0.0.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "description": "소개 사이트 · 문서 · 테라스원이 같이 쓰는 검색 · 답변 엔진 값: 회사 · 사이트 개체, 색인 여부, robots.txt, 사이트맵, 구조화 데이터(D-152)",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./index.d.mts",
+      "default": "./index.mjs"
+    }
+  },
+  "scripts": {
+    "test": "node --test",
+    "lint": "eslint ."
+  }
+}

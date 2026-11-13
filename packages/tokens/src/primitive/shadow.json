@@ -1,0 +1,43 @@
+{
+  "shadow": {
+    "sm": {
+      "$value": [
+        {
+          "color": "#0000000F",
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "3px",
+          "spread": "0px"
+        }
+      ],
+      "$type": "shadow",
+      "$description": "카드 · 입력 칸(식자재 ERP shadow-sm, D-97)"
+    },
+    "md": {
+      "$value": [
+        {
+          "color": "#00000014",
+          "offsetX": "0px",
+          "offsetY": "4px",
+          "blur": "12px",
+          "spread": "0px"
+        }
+      ],
+      "$type": "shadow",
+      "$description": "팝업 · 메뉴(식자재 ERP shadow-md)"
+    },
+    "lg": {
+      "$value": [
+        {
+          "color": "#0000001A",
+          "offsetX": "0px",
+          "offsetY": "8px",
+          "blur": "24px",
+          "spread": "0px"
+        }
+      ],
+      "$type": "shadow",
+      "$description": "대화상자 · 토스트(식자재 ERP shadow-lg)"
+    }
+  }
+}

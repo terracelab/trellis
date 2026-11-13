@@ -1,0 +1,149 @@
+/* 엑셀 업로드: 단계 줄 · 단계 내용 · 아래 고정 동작 줄. 1024 미만은 한 열 */
+.tl-block-import-upload {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: var(--tl-density-gutter);
+  align-items: start;
+}
+
+.tl-block-import-stack {
+  display: grid;
+  gap: var(--tl-space-12);
+}
+
+.tl-block-import-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tl-space-8);
+}
+
+.tl-block-import-example {
+  color: var(--tl-color-fg-secondary);
+  font-variant-numeric: var(--tl-font-numeric);
+  overflow-wrap: anywhere;
+}
+
+/* 검증 결과 한 줄: 파일 이름 | 행 수 · 상태 점 + 글자 */
+.tl-block-import-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tl-space-8) var(--tl-space-16);
+}
+
+.tl-block-import-summary__file {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-6);
+  min-width: 0;
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-600);
+  overflow-wrap: anywhere;
+}
+
+.tl-block-import-summary__icon {
+  flex: none;
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-block-import-summary__counts {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tl-space-4) var(--tl-space-16);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+/* 확인할 항목 위, 행 표 아래(표 열이 많아 옆에 두면 가로로 넘친다) */
+.tl-block-import-check {
+  display: grid;
+  gap: var(--tl-density-gutter);
+}
+
+.tl-block-import-rows {
+  display: grid;
+  gap: var(--tl-space-12);
+  min-width: 0;
+  justify-items: start;
+}
+
+.tl-block-import-rows > :last-child {
+  justify-self: stretch;
+}
+
+/* 틀린 · 경고 칸: 이름 있는 아이콘 + 값(바탕을 칠하지 않는다) */
+.tl-block-import-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  min-width: 0;
+}
+
+.tl-block-import-cell[data-level='error'] .tl-block-import-cell__icon {
+  flex: none;
+  color: var(--tl-color-status-danger-default);
+}
+
+.tl-block-import-cell[data-level='warning'] .tl-block-import-cell__icon {
+  flex: none;
+  color: var(--tl-color-status-warning-default);
+}
+
+.tl-block-import-cell__empty {
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-block-import-apply {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tl-space-8) var(--tl-space-16);
+}
+
+.tl-block-import-apply__count {
+  color: var(--tl-color-fg-secondary);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-block-import-muted {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-block-import-done {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  margin: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-body-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-block-import-done__icon {
+  flex: none;
+  color: var(--tl-color-status-success-default);
+}
+
+.tl-block-import-figures {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--tl-space-12) var(--tl-density-gutter);
+}
+
+@media (max-width: 1023px) {
+  .tl-block-import-upload {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 639px) {
+  .tl-block-import-figures {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

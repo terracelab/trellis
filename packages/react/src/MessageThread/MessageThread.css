@@ -1,0 +1,508 @@
+/* 대화: 날짜 구분선 · 보낸 사람 묶음(다른 사람 왼쪽 · 내 쪽 오른쪽) · 알림 줄. 말풍선은 면 한 단계, 선 · 띠 없음 */
+.tl-message-thread {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+}
+
+/* 부모 높이를 채우고 안에서 스크롤(메신저 대화 칸) */
+.tl-message-thread[data-height='fill'] {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--tl-space-8) var(--tl-space-16) var(--tl-space-16);
+  overscroll-behavior: contain;
+}
+
+/* 스크롤 상자는 둘레가 잘리기 쉬워 포커스 링을 안쪽에 그린다 */
+.tl-message-thread[data-height='fill']:focus-visible {
+  outline-offset: calc(var(--tl-border-width-2) * -1);
+}
+
+.tl-message-thread__older {
+  display: flex;
+  justify-content: center;
+  padding-bottom: var(--tl-space-8);
+}
+
+.tl-message-thread__empty {
+  margin: auto 0;
+  padding: var(--tl-space-24) 0;
+  color: var(--tl-color-fg-secondary);
+  text-align: center;
+}
+
+/* 날짜 · 새 메시지 구분선: 가운데 글자 + 양쪽 1px 선 */
+.tl-message-thread__divider {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-12);
+  margin: var(--tl-space-16) 0 var(--tl-space-4);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-weight: var(--tl-font-weight-500);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-message-thread__divider:first-child {
+  margin-top: 0;
+}
+
+.tl-message-thread__divider::before,
+.tl-message-thread__divider::after {
+  flex: 1 1 auto;
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  content: '';
+}
+
+.tl-message-thread__divider[data-new-divider] {
+  color: var(--tl-color-fg-link);
+}
+
+/* 알림 줄(담당 변경 · 입장): 가운데 흐린 글자, 바탕 없음 */
+.tl-message-thread__system {
+  margin: var(--tl-space-12) 0 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+/* 보낸 사람 묶음 */
+.tl-message-thread__run {
+  display: grid;
+  grid-template-columns: var(--tl-size-avatar-32) minmax(0, 1fr);
+  gap: var(--tl-space-8);
+  margin-top: var(--tl-space-12);
+}
+
+.tl-message-thread__run[data-own] {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.tl-message-thread__stack {
+  display: grid;
+  gap: var(--tl-space-4);
+  min-width: 0;
+}
+
+.tl-message-thread__run[data-own] .tl-message-thread__stack {
+  justify-items: end;
+}
+
+.tl-message-thread__author {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+.tl-message-thread__name {
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-message-thread__meta {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-message-thread__message {
+  display: grid;
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* 말풍선 + 옆의 읽음 · 시각. 내 쪽은 순서를 뒤집어 시각이 왼쪽에 온다 */
+.tl-message-thread__line {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--tl-space-4);
+  min-width: 0;
+}
+
+.tl-message-thread__run[data-own] .tl-message-thread__line {
+  flex-direction: row-reverse;
+}
+
+.tl-message-thread__content {
+  display: grid;
+  flex: 0 1 auto;
+  /* 열을 칸 폭에 묶는다. auto 열이면 한 줄로 줄이는 답글 인용의 글 길이만큼 열이 넓어져 좁은 화면에서 밖으로 나간다 */
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--tl-space-4);
+  min-width: 0;
+  max-width: calc(var(--tl-space-64) * 9);
+}
+
+.tl-message-thread__run[data-own] .tl-message-thread__content {
+  justify-items: end;
+}
+
+.tl-message-thread__bubble {
+  justify-self: start;
+  max-width: 100%;
+  margin: 0;
+  padding: var(--tl-space-4) var(--tl-space-12);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-sunken);
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.tl-message-thread__run[data-own] .tl-message-thread__bubble {
+  justify-self: end;
+  background: var(--tl-color-brand-subtle);
+}
+
+.tl-message-thread__message[data-status='sending'] .tl-message-thread__bubble {
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-message-thread__link {
+  border-radius: var(--tl-radius-xs);
+  color: var(--tl-color-fg-link);
+  text-decoration: underline;
+  text-underline-offset: var(--tl-border-width-2);
+}
+
+.tl-message-thread__run[data-own] .tl-message-thread__files {
+  justify-content: flex-end;
+}
+
+.tl-message-thread__extra {
+  width: 100%;
+  min-width: 0;
+}
+
+.tl-message-thread__aside {
+  display: inline-flex;
+  flex: none;
+  flex-direction: column;
+  align-items: flex-start;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+.tl-message-thread__run[data-own] .tl-message-thread__aside {
+  align-items: flex-end;
+}
+
+.tl-message-thread__status[data-status='failed'] {
+  color: var(--tl-color-status-danger-default);
+}
+
+.tl-message-thread__retry {
+  padding: 0;
+  border: 0;
+  border-radius: var(--tl-radius-xs);
+  background: transparent;
+  color: var(--tl-color-fg-link);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.tl-message-thread__time {
+  color: var(--tl-color-fg-secondary);
+}
+
+/* 휴대폰: 말풍선이 폭을 더 쓴다 */
+@media (max-width: 639px) {
+  .tl-message-thread[data-height='fill'] {
+    padding-inline: var(--tl-space-12);
+  }
+
+  .tl-message-thread__content {
+    max-width: calc(100% - var(--tl-space-40));
+  }
+
+  /* 손가락으로 누르는 반응 · 답글 인용은 한 단계 높게 */
+  .tl-message-thread__reaction {
+    height: var(--tl-space-32);
+    padding: 0 var(--tl-space-12);
+  }
+
+  .tl-message-thread__quote {
+    padding-block: var(--tl-space-6);
+  }
+}
+
+/* ── 반응 · 답글 · 멘션 · 그림 · 입력 중(PG-36) ── */
+
+/* 멘션: 링크 색 글자 + 굵게(바탕 칠하지 않는다) */
+.tl-message-thread__mention {
+  color: var(--tl-color-fg-link);
+  font-weight: var(--tl-font-weight-600);
+}
+
+/* 답글 인용: 말풍선 위 둘레 1px 상자(왼쪽 띠 아님, D-57). 한 줄로 줄인다 */
+.tl-message-thread__quote {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  gap: var(--tl-space-4);
+  max-width: 100%;
+  margin: 0;
+  padding: var(--tl-space-2) var(--tl-space-8);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-md);
+  background: transparent;
+  color: var(--tl-color-fg-secondary);
+  font: inherit;
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  text-align: left;
+  transition: border-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+button.tl-message-thread__quote {
+  cursor: pointer;
+}
+
+button.tl-message-thread__quote:hover {
+  border-color: var(--tl-color-border-hover);
+}
+
+.tl-message-thread__run[data-own] .tl-message-thread__quote {
+  justify-self: end;
+}
+
+.tl-message-thread__quote-icon {
+  flex: none;
+}
+
+.tl-message-thread__quote-author {
+  flex: none;
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-600);
+  white-space: nowrap;
+}
+
+.tl-message-thread__quote-text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 원문으로 왔을 때 말풍선 둘레를 잠깐 보인다 */
+.tl-message-thread__message[data-flash] .tl-message-thread__bubble {
+  box-shadow: 0 0 0 var(--tl-border-width-2) var(--tl-color-border-focus);
+}
+
+.tl-message-thread__message:focus {
+  outline: 0;
+}
+
+/* 그림 미리 보기: 하나는 넓게, 둘 이상은 두 열 */
+.tl-message-thread__images {
+  display: grid;
+  grid-template-columns: minmax(0, calc(var(--tl-space-64) * 3.5));
+  gap: var(--tl-space-4);
+  justify-self: start;
+}
+
+.tl-message-thread__images[data-count='2'] {
+  grid-template-columns: repeat(2, minmax(0, calc(var(--tl-space-64) * 1.75)));
+}
+
+.tl-message-thread__run[data-own] .tl-message-thread__images {
+  justify-self: end;
+}
+
+.tl-message-thread__image {
+  display: block;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-sunken);
+  cursor: zoom-in;
+  transition: border-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-message-thread__image:hover {
+  border-color: var(--tl-color-border-hover);
+}
+
+.tl-message-thread__image img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.tl-message-thread__preview {
+  display: block;
+  max-width: 100%;
+  max-height: 70dvh;
+  margin: 0 auto;
+  border-radius: var(--tl-radius-md);
+}
+
+/* 반응: 아이콘 + 수. 내가 누른 것은 바탕 한 단계 + 선택 테두리 */
+.tl-message-thread__reactions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tl-space-4);
+}
+
+.tl-message-thread__run[data-own] .tl-message-thread__reactions {
+  justify-content: flex-end;
+}
+
+.tl-message-thread__reaction {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  height: var(--tl-space-24);
+  margin: 0;
+  padding: 0 var(--tl-space-8);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-primary);
+  font: inherit;
+  font-size: var(--tl-type-caption-font-size);
+  line-height: 1;
+  font-weight: var(--tl-font-weight-500);
+  font-variant-numeric: var(--tl-font-numeric);
+  transition:
+    background-color var(--tl-duration-fast) var(--tl-easing-standard),
+    border-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+button.tl-message-thread__reaction {
+  cursor: pointer;
+}
+
+button.tl-message-thread__reaction:hover {
+  border-color: var(--tl-color-border-hover);
+}
+
+.tl-message-thread__reaction-icon {
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-message-thread__reaction[data-mine] {
+  border-color: var(--tl-color-border-selected);
+  background: var(--tl-color-brand-subtle);
+}
+
+.tl-message-thread__reaction[data-mine] .tl-message-thread__reaction-icon {
+  color: var(--tl-color-fg-link);
+}
+
+/* 메시지 동작(반응 추가 · 답글): 가리키거나 안에 포커스가 오면 보인다. 숨겨도 Tab은 닿는다 */
+.tl-message-thread__tools {
+  display: inline-flex;
+  flex: none;
+  align-self: center;
+  gap: var(--tl-space-2);
+  opacity: 0;
+  transition: opacity var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-message-thread__message:hover .tl-message-thread__tools,
+.tl-message-thread__tools:focus-within,
+.tl-message-thread__tools:has([aria-expanded='true']) {
+  opacity: 1;
+}
+
+/* 입력 중: 맨 아래 흐린 한 줄 + 점 셋 */
+.tl-message-thread__typing {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  margin: var(--tl-space-12) 0 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-message-thread__typing-dots {
+  display: inline-flex;
+  gap: var(--tl-space-2);
+}
+
+.tl-message-thread__typing-dots > span {
+  width: var(--tl-space-4);
+  height: var(--tl-space-4);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-fg-tertiary);
+  animation: tl-message-thread-typing var(--tl-duration-pulse) var(--tl-easing-standard) infinite;
+}
+
+.tl-message-thread__typing-dots > span:nth-child(2) {
+  animation-delay: calc(var(--tl-duration-pulse) / 6);
+}
+
+.tl-message-thread__typing-dots > span:nth-child(3) {
+  animation-delay: calc(var(--tl-duration-pulse) / 3);
+}
+
+@keyframes tl-message-thread-typing {
+  0%,
+  60%,
+  100% {
+    opacity: 0.35;
+  }
+
+  30% {
+    opacity: 1;
+  }
+}
+
+/* ── 에이전트 답변(PG-31): 말풍선 없이 폭을 쓴다. 실행 단계 · 본문 · 결과 카드 · 출처 · 동작 줄 ── */
+.tl-message-thread__answer {
+  display: grid;
+  gap: var(--tl-space-8);
+  min-width: 0;
+  max-width: calc(var(--tl-space-64) * 12);
+}
+
+.tl-message-thread__steps {
+  min-width: 0;
+}
+
+.tl-message-thread__answer-error {
+  margin: 0;
+  color: var(--tl-color-status-danger-default);
+}
+
+.tl-message-thread__answer-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tl-space-4) var(--tl-space-8);
+  min-height: var(--tl-density-control-height-sm);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+/* 아이콘 단추의 안쪽 여백만큼 당겨 첫 아이콘이 본문 글자 시작과 맞는다 */
+.tl-message-thread__actions {
+  display: flex;
+  gap: var(--tl-space-2);
+  margin-left: calc(var(--tl-space-6) * -1);
+}
+
+.tl-message-thread__actions:empty {
+  display: none;
+}

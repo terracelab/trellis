@@ -1,0 +1,202 @@
+/* 조직도: 위에서 아래로 내려가는 나무. 연결선은 구조선(border.strong 1px)이다.
+   넓으면 가로로 스크롤, 휴대폰(640 미만)은 들여 쓴 목록 */
+.tl-org-chart {
+  --tl-org-chart-line: var(--tl-color-border-strong);
+  --tl-org-chart-gap-v: var(--tl-space-32);
+  --tl-org-chart-gap-h: var(--tl-space-8);
+
+  min-width: 0;
+  overflow-x: auto;
+  padding: var(--tl-space-8) var(--tl-space-4) var(--tl-space-16);
+}
+
+.tl-org-chart__tree,
+.tl-org-chart__group {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-org-chart__tree {
+  min-width: max-content;
+}
+
+.tl-org-chart__group {
+  position: relative;
+  padding-top: var(--tl-org-chart-gap-v);
+}
+
+/* 부모 → 가로선까지 내려오는 선 */
+.tl-org-chart__group::before {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: var(--tl-org-chart-gap-v);
+  border-inline-start: var(--tl-border-width-1) solid var(--tl-org-chart-line);
+  content: '';
+}
+
+.tl-org-chart__item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--tl-org-chart-gap-v) var(--tl-org-chart-gap-h) 0;
+  outline: none;
+}
+
+.tl-org-chart__tree > .tl-org-chart__item {
+  padding-top: 0;
+}
+
+/* 형제를 잇는 가로선(왼쪽 반 · 오른쪽 반)과 가로선 → 조직 칸 세로선 */
+.tl-org-chart__group > .tl-org-chart__item::before,
+.tl-org-chart__group > .tl-org-chart__item::after {
+  position: absolute;
+  top: 0;
+  right: 50%;
+  width: 50%;
+  height: var(--tl-org-chart-gap-v);
+  border-top: var(--tl-border-width-1) solid var(--tl-org-chart-line);
+  content: '';
+}
+
+.tl-org-chart__group > .tl-org-chart__item::after {
+  right: auto;
+  left: 50%;
+  border-inline-start: var(--tl-border-width-1) solid var(--tl-org-chart-line);
+}
+
+.tl-org-chart__group > .tl-org-chart__item:first-child::before,
+.tl-org-chart__group > .tl-org-chart__item:last-child::after {
+  border-top: 0;
+}
+
+.tl-org-chart__group > .tl-org-chart__item:only-child::before {
+  display: none;
+}
+
+.tl-org-chart__node {
+  position: relative;
+  display: grid;
+  gap: var(--tl-space-8);
+  width: max-content;
+  min-width: calc(var(--tl-space-64) * 3);
+  max-width: calc(var(--tl-space-64) * 4);
+  padding: var(--tl-space-12) var(--tl-space-16) var(--tl-space-16);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-surface);
+  cursor: pointer;
+  transition:
+    border-color var(--tl-duration-fast) var(--tl-easing-standard),
+    box-shadow var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-org-chart__node:hover {
+  border-color: var(--tl-color-border-strong);
+}
+
+/* 고른 조직: 바탕을 칠하지 않고 테두리 한 바퀴(D-56) */
+.tl-org-chart__node[data-selected] {
+  border-color: var(--tl-color-border-selected);
+  box-shadow: 0 0 0 var(--tl-border-width-1) var(--tl-color-border-selected);
+}
+
+.tl-org-chart__name {
+  overflow: hidden;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+  font-weight: var(--tl-font-weight-600);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-org-chart__meta {
+  display: grid;
+  gap: var(--tl-space-4);
+  min-width: 0;
+}
+
+.tl-org-chart__count {
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+/* 펼침 단추: 칸 아래 가장자리 가운데에 걸친 동그라미 */
+.tl-org-chart__toggle {
+  position: absolute;
+  bottom: calc(var(--tl-space-20) / -2);
+  left: 50%;
+  /* 아래 묶음의 연결선보다 위 */
+  z-index: 1;
+  display: inline-grid;
+  place-items: center;
+  width: var(--tl-space-20);
+  height: var(--tl-space-20);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-strong);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-secondary);
+  transform: translateX(-50%);
+  transition:
+    color var(--tl-duration-fast) var(--tl-easing-standard),
+    border-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-org-chart__toggle:hover {
+  border-color: var(--tl-color-fg-secondary);
+  color: var(--tl-color-fg-primary);
+}
+
+/* 휴대폰: 들여 쓴 목록. 하위 묶음 왼쪽 세로선은 나무 구조선 */
+@media (max-width: 640px) {
+  .tl-org-chart {
+    overflow-x: visible;
+    padding-inline: 0;
+  }
+
+  .tl-org-chart__tree,
+  .tl-org-chart__group {
+    display: block;
+    min-width: 0;
+  }
+
+  .tl-org-chart__group {
+    margin-inline-start: var(--tl-space-12);
+    padding: 0 0 0 var(--tl-space-12);
+    border-inline-start: var(--tl-border-width-1) solid var(--tl-org-chart-line);
+  }
+
+  .tl-org-chart__group::before,
+  .tl-org-chart__group > .tl-org-chart__item::before,
+  .tl-org-chart__group > .tl-org-chart__item::after {
+    display: none;
+  }
+
+  .tl-org-chart__item,
+  .tl-org-chart__tree > .tl-org-chart__item {
+    display: block;
+    padding: var(--tl-space-8) 0 0;
+  }
+
+  .tl-org-chart__node {
+    width: auto;
+    min-width: 0;
+    max-width: none;
+    padding-inline-end: calc(var(--tl-space-20) + var(--tl-space-24));
+  }
+
+  .tl-org-chart__toggle {
+    top: var(--tl-space-12);
+    right: var(--tl-space-12);
+    bottom: auto;
+    left: auto;
+    transform: none;
+  }
+}

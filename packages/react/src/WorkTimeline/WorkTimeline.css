@@ -1,0 +1,168 @@
+/* 주간 출퇴근 막대: 요일 | 눈금 위 막대 | 출근 · 퇴근 | 근무 | 상태. 색은 차트 토큰(정규 series-1 · 연장 warning · 근무 중 compare) */
+.tl-work-timeline {
+  display: grid;
+  gap: var(--tl-space-16);
+  min-width: 0;
+  container-type: inline-size;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+}
+
+.tl-work-timeline__table {
+  display: grid;
+  min-width: 0;
+}
+
+.tl-work-timeline__row {
+  display: grid;
+  grid-template-columns:
+    calc(var(--tl-space-64) * 1.25) minmax(calc(var(--tl-space-64) * 2.5), 1fr)
+    calc(var(--tl-space-64) * 1.5) calc(var(--tl-space-64) * 1.25);
+  align-items: center;
+  gap: var(--tl-space-12);
+  min-height: calc(var(--tl-density-row-height) + var(--tl-space-4));
+  padding-inline: var(--tl-space-8);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-work-timeline[data-status] .tl-work-timeline__row {
+  grid-template-columns:
+    calc(var(--tl-space-64) * 1.25) minmax(calc(var(--tl-space-64) * 2.5), 1fr)
+    calc(var(--tl-space-64) * 1.5) calc(var(--tl-space-64) * 1.25) calc(var(--tl-space-64) * 1.25);
+}
+
+.tl-work-timeline__row:last-child {
+  border-bottom: 0;
+}
+
+/* 오늘: 바탕 한 단계(왼쪽 띠 없이, D-57) */
+.tl-work-timeline__row[data-today] {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-work-timeline__head {
+  min-height: var(--tl-density-row-height);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-work-timeline__day {
+  min-width: 0;
+  font-weight: var(--tl-font-weight-600);
+  white-space: nowrap;
+}
+
+.tl-work-timeline__date {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  font-weight: var(--tl-font-weight-400);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-work-timeline__in-out,
+.tl-work-timeline__worked {
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+.tl-work-timeline__worked {
+  text-align: right;
+}
+
+.tl-work-timeline__status {
+  min-width: 0;
+}
+
+/* 눈금: 범위 양 끝 + 3시간마다 */
+.tl-work-timeline__ruler {
+  position: relative;
+  align-self: stretch;
+}
+
+.tl-work-timeline__tick {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--tl-work-timeline-at) * 1%);
+  transform: translate(-50%, -50%);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-work-timeline__tick[data-edge='start'] {
+  transform: translate(0, -50%);
+}
+
+.tl-work-timeline__tick[data-edge='end'] {
+  transform: translate(-100%, -50%);
+}
+
+/* 막대 트랙: 소정 근무를 점선 틀로 깔고 그 위에 근무 구간 */
+.tl-work-timeline__bar {
+  position: relative;
+  height: var(--tl-space-16);
+  border-radius: var(--tl-radius-sm);
+  background: var(--tl-color-chart-track);
+}
+
+.tl-work-timeline__regular {
+  position: absolute;
+  inset-block: 0;
+  left: calc(var(--tl-work-timeline-from) * 1%);
+  width: calc((var(--tl-work-timeline-to) - var(--tl-work-timeline-from)) * 1%);
+  border-inline: var(--tl-border-width-1) dashed var(--tl-color-chart-axis);
+}
+
+.tl-work-timeline__segment {
+  position: absolute;
+  inset-block: var(--tl-space-4);
+  left: calc(var(--tl-work-timeline-from) * 1%);
+  width: calc((var(--tl-work-timeline-to) - var(--tl-work-timeline-from)) * 1%);
+  border-radius: var(--tl-radius-xs);
+  background: var(--tl-color-chart-series-1);
+}
+
+.tl-work-timeline__segment[data-kind='overtime'] {
+  background: var(--tl-color-status-warning-default);
+}
+
+.tl-work-timeline__segment[data-kind='live'] {
+  background: var(--tl-color-chart-compare);
+}
+
+.tl-work-timeline__off {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  padding-left: var(--tl-space-8);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  white-space: nowrap;
+}
+
+/* 좁은 칸: 출근 · 퇴근 · 상태 칸을 접고 막대 · 근무만(화면 읽기에는 남는다) */
+@container (max-width: 639px) {
+  .tl-work-timeline__row,
+  .tl-work-timeline[data-status] .tl-work-timeline__row {
+    grid-template-columns: calc(var(--tl-space-64) * 1.1) minmax(0, 1fr) calc(
+        var(--tl-space-64) * 1.5
+      );
+    gap: var(--tl-space-8);
+  }
+
+  .tl-work-timeline__row > .tl-work-timeline__in-out,
+  .tl-work-timeline__row > .tl-work-timeline__status {
+    position: absolute;
+    width: var(--tl-border-width-1);
+    height: var(--tl-border-width-1);
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .tl-work-timeline__tick:not([data-edge]):nth-child(odd) {
+    display: none;
+  }
+}

@@ -1,0 +1,296 @@
+/* 메신저: 목록 · 대화 · 정보 세 칸. 대화 칸은 위 머리 + 가운데 MessageThread(스크롤) + 아래 Composer */
+.tl-block-chat {
+  display: grid;
+  grid-template-columns:
+    calc(var(--tl-space-64) * 4.25) minmax(0, 1fr)
+    calc(var(--tl-space-64) * 4.5);
+  gap: var(--tl-density-gutter);
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.tl-block-chat-list,
+.tl-block-chat-thread,
+.tl-block-chat-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-surface);
+  overflow: hidden;
+}
+
+/* 목록 */
+.tl-block-chat-list__search {
+  padding: var(--tl-space-12);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-chat-list__scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--tl-space-8);
+}
+
+/* 대화 머리의 채널 아이콘 칸(목록 행은 SelectableList가 그린다) */
+.tl-block-chat-list__hash {
+  display: grid;
+  place-items: center;
+  inline-size: var(--tl-size-avatar-32);
+  block-size: var(--tl-size-avatar-32);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-secondary);
+}
+
+/* 대화 */
+.tl-block-chat-thread__head {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-12);
+  min-height: calc(var(--tl-space-64) - var(--tl-space-8));
+  padding: var(--tl-space-8) var(--tl-space-16);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-chat-thread__title {
+  font-size: var(--tl-type-h3-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-block-chat-thread__tools {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--tl-space-4);
+  margin-left: auto;
+}
+
+/* 멤버: 겹친 아바타가 멤버 목록(Popover)을 여는 단추 */
+.tl-block-chat-thread__members {
+  display: inline-flex;
+  align-items: center;
+  height: var(--tl-density-control-height-md);
+  margin: 0;
+  padding: 0 var(--tl-space-4);
+  border: 0;
+  border-radius: var(--tl-radius-md);
+  background: transparent;
+  cursor: pointer;
+  transition: background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-block-chat-thread__members:hover,
+.tl-block-chat-thread__members[aria-expanded='true'] {
+  background: var(--tl-color-bg-sunken);
+}
+
+/* 고정 공지: 머리 아래 한 줄. 색 바탕 없이 아래 선으로만 나눈다 */
+.tl-block-chat-pin {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-width: 0;
+  padding: var(--tl-space-4) var(--tl-space-8) var(--tl-space-4) var(--tl-space-16);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-chat-pin__icon {
+  flex: none;
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-block-chat-pin__body {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: baseline;
+  gap: var(--tl-space-8);
+  min-width: 0;
+  margin: 0;
+  padding: var(--tl-space-4) 0;
+  border: 0;
+  border-radius: var(--tl-radius-xs);
+  background: transparent;
+  color: var(--tl-color-fg-primary);
+  font: inherit;
+  font-size: var(--tl-type-label-font-size);
+  text-align: left;
+  cursor: pointer;
+}
+
+.tl-block-chat-pin__who {
+  flex: none;
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-block-chat-pin__text {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--tl-color-fg-secondary);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-block-chat-pin__body:hover .tl-block-chat-pin__text {
+  color: var(--tl-color-fg-primary);
+}
+
+/* 대화 검색: 머리 아래 입력 줄(걸러 보기) */
+.tl-block-chat-find {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  padding: var(--tl-space-8) var(--tl-space-16);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-chat-find > :first-child {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.tl-block-chat-find__count {
+  flex: none;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+/* 답글 대상: 입력창 바로 위 한 줄 */
+.tl-block-chat-reply {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  padding: var(--tl-space-8) var(--tl-space-8) 0 var(--tl-space-16);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-chat-reply__icon {
+  flex: none;
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-block-chat-reply > :nth-child(2) {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.tl-block-chat-reply + .tl-block-chat-input {
+  border-top: 0;
+}
+
+.tl-block-chat-card {
+  max-width: calc(var(--tl-space-64) * 7);
+}
+
+.tl-block-chat-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tl-space-8);
+}
+
+/* 아래 고정 입력창(Composer). 둘레 여백 · 위 선은 블록이 정한다 */
+.tl-block-chat-input {
+  padding: var(--tl-space-12) var(--tl-space-16);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  background: var(--tl-color-bg-surface);
+}
+
+/* 정보 */
+.tl-block-chat-info {
+  gap: var(--tl-space-20);
+  padding: var(--tl-density-card-padding);
+  overflow-y: auto;
+}
+
+.tl-block-chat-info section {
+  display: grid;
+  gap: var(--tl-space-8);
+}
+
+.tl-block-chat-info h3 {
+  margin: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-block-chat-info__people {
+  display: grid;
+  gap: var(--tl-space-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-block-chat-info__people li {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-label-font-size);
+}
+
+.tl-block-chat-info__team {
+  margin-left: auto;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+}
+
+.tl-block-chat-info__more {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+}
+
+@media (max-width: 1439px) {
+  .tl-block-chat {
+    grid-template-columns: calc(var(--tl-space-64) * 4.25) minmax(0, 1fr);
+  }
+
+  .tl-block-chat-info {
+    display: none;
+  }
+}
+
+/* 좁은 화면: 목록이 대화 위로 올라가 한 줄 행(sm)으로 세 줄 남짓 보이고 안쪽에서 스크롤, 대화가 남은 높이를 채운다 */
+@media (max-width: 1023px) {
+  .tl-block-chat {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .tl-block-chat-list__search {
+    display: none;
+  }
+
+  .tl-block-chat-list__scroll {
+    max-height: calc(var(--tl-space-64) * 3);
+  }
+
+  .tl-block-chat-thread {
+    min-height: calc(var(--tl-space-64) * 7);
+  }
+}
+
+/* 휴대폰: 대화 칸은 화면 높이의 70%에서 안쪽 스크롤(최근 메시지부터 보인다), 입력창(Composer sticky)은
+   대화 칸 아래가 화면 밖이어도 화면 아래에 붙는다 */
+@media (max-width: 639px) {
+  .tl-block-chat-thread {
+    height: max(calc(var(--tl-space-64) * 7), 70dvh);
+    overflow: visible;
+  }
+
+  .tl-block-chat-input {
+    padding-inline: var(--tl-space-12);
+    border-radius: 0 0 var(--tl-radius-lg) var(--tl-radius-lg);
+  }
+
+  .tl-block-chat-pin__body {
+    min-height: var(--tl-space-40);
+    align-items: center;
+  }
+}

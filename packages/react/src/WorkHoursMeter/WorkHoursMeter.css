@@ -1,0 +1,220 @@
+.tl-work-hours__body {
+  --tl-work-hours-regular: var(--tl-color-chart-series-1);
+  --tl-work-hours-overtime: var(--tl-color-status-warning-default);
+  --tl-work-hours-over: var(--tl-color-status-danger-default);
+
+  display: grid;
+  gap: var(--tl-space-12);
+}
+
+.tl-work-hours__summary {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--tl-space-8);
+  margin: 0;
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-work-hours__total {
+  color: var(--tl-color-fg-strong);
+  font-size: var(--tl-type-display-font-size);
+  line-height: var(--tl-type-display-line-height);
+  font-weight: var(--tl-type-display-font-weight);
+  letter-spacing: var(--tl-type-display-letter-spacing);
+}
+
+.tl-work-hours__limit {
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-work-hours__meter {
+  display: grid;
+  gap: var(--tl-space-4);
+}
+
+.tl-work-hours__track {
+  display: flex;
+  height: var(--tl-space-12);
+  overflow: hidden;
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-chart-track);
+}
+
+.tl-work-hours__seg {
+  flex: none;
+  inline-size: var(--tl-work-hours-size);
+  height: 100%;
+  background: var(--tl-work-hours-regular);
+  transition: inline-size var(--tl-duration-slow) var(--tl-easing-standard);
+}
+
+.tl-work-hours__seg[data-kind='overtime'] {
+  background: var(--tl-work-hours-overtime);
+}
+
+.tl-work-hours__seg[data-kind='over'] {
+  background: var(--tl-work-hours-over);
+}
+
+/* 40 · 52 눈금: 글자 오른쪽 끝을 눈금에 맞춰 두 글자가 겹치지 않게 */
+.tl-work-hours__ticks {
+  position: relative;
+  height: var(--tl-type-caption-line-height);
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-work-hours__tick {
+  position: absolute;
+  top: 0;
+  right: calc(100% - var(--tl-work-hours-at));
+  padding-right: var(--tl-space-4);
+  border-right: var(--tl-border-width-1) solid var(--tl-color-border-strong);
+  white-space: nowrap;
+}
+
+.tl-work-hours__tick[data-limit] {
+  color: var(--tl-color-fg-secondary);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-work-hours__status {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+}
+
+.tl-work-hours__body[data-tone='warning'] .tl-work-hours__alert {
+  color: var(--tl-color-status-warning-default);
+}
+
+.tl-work-hours__body[data-tone='danger'] .tl-work-hours__alert {
+  color: var(--tl-color-status-danger-default);
+}
+
+.tl-work-hours__body:not([data-tone='ok']) .tl-work-hours__status {
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-work-hours__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tl-space-4) var(--tl-space-16);
+  margin: 0;
+  padding: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+  list-style: none;
+}
+
+.tl-work-hours__legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+}
+
+.tl-work-hours__legend li::before {
+  content: '';
+  width: var(--tl-space-8);
+  height: var(--tl-space-8);
+  border-radius: var(--tl-radius-xs);
+  background: var(--tl-work-hours-regular);
+}
+
+.tl-work-hours__legend li[data-kind='overtime']::before {
+  background: var(--tl-work-hours-overtime);
+}
+
+.tl-work-hours__legend li[data-kind='over']::before {
+  background: var(--tl-work-hours-over);
+}
+
+/* 요일 막대: 같은 폭 칸, 아래에서 위로 쌓는다(정규 아래 · 연장 위) */
+.tl-work-hours__days {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  gap: var(--tl-space-4);
+  margin: 0;
+  padding: var(--tl-space-12) 0 0;
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  list-style: none;
+}
+
+.tl-work-hours__day {
+  display: grid;
+  grid-template-rows: auto calc(var(--tl-space-64) + var(--tl-space-16)) auto;
+  justify-items: center;
+  gap: var(--tl-space-4);
+  min-width: 0;
+}
+
+.tl-work-hours__day-value {
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-work-hours__bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: var(--tl-space-12);
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--tl-radius-xs);
+  background: var(--tl-color-chart-track);
+}
+
+.tl-work-hours__bar-seg {
+  flex: none;
+  block-size: var(--tl-work-hours-size);
+  background: var(--tl-work-hours-regular);
+}
+
+.tl-work-hours__bar-seg[data-kind='overtime'] {
+  background: var(--tl-work-hours-overtime);
+}
+
+.tl-work-hours__day[data-off] .tl-work-hours__bar {
+  background: transparent;
+  box-shadow: inset 0 0 0 var(--tl-border-width-1) var(--tl-color-border-divider);
+}
+
+.tl-work-hours__weekday {
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-work-hours__day[data-today] .tl-work-hours__weekday,
+.tl-work-hours__day[data-today] .tl-work-hours__day-value {
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-600);
+}
+
+/* 연장 기준 한 줄(요일 막대 아래). 요약 · 범례 · 막대가 이 기준 하나로 센다 */
+.tl-work-hours__basis {
+  margin: 0;
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}

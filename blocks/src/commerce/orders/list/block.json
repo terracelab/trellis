@@ -1,0 +1,27 @@
+{
+  "id": "commerce/orders/list",
+  "title": "주문",
+  "intent": "판매 채널 주문을 주문 단계 · 기간 · 채널로 찾고, 골라서 주문 확인 · 송장 등록 · 발송 처리를 한 번에 한다",
+  "module": "orders",
+  "pattern": "ListDetail",
+  "industries": ["commerce", "distribution"],
+  "components": [
+    "PageHeader",
+    "Tabs",
+    "Banner",
+    "FilterBar",
+    "Input",
+    "PeriodPicker",
+    "Select",
+    "MultiSelect",
+    "DataGrid",
+    "Badge",
+    "ActionBar",
+    "Button",
+    "Dialog",
+    "Field"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["columns", "filters", "bulkActions", "carriers"],
+  "order": 10
+}

@@ -1,0 +1,130 @@
+---
+// 자주 묻는 질문. 검색 · 답변 엔진이 질문과 답을 그대로 가져가도록 질문은 제목, 답은 바로 아래 한 문단으로 쓴다.
+// 눈에 보이는 글과 FAQPage 구조화 데이터가 같은 원문에서 나온다(HTML 태그만 뗀다). 숫자는 lib/site.ts가 저장소에서 읽는다.
+// id는 질문마다 고정된 이름이다. 순서를 바꿔도 /faq/#theme 같은 주소가 그대로 열린다.
+import '../../styles/faq.css';
+import Base from '../../layouts/Base.astro';
+import { FACTS, LINKS, SITE_ABOUT, n } from '../../lib/site';
+
+const title = '자주 묻는 질문 · Trellis';
+const description =
+  'Trellis가 무엇이고 어떻게 쓰는지 짧게 답합니다. 회사 색 · 에이전트 문서 · 쓰는 플랫폼을 다룹니다.';
+
+const a = (href: string, label: string) => `<a href="${href}">${label}</a>`;
+const FAQ = [
+  {
+    id: 'what',
+    q: 'Trellis는 무엇입니까?',
+    html: `${SITE_ABOUT} 코드의 토큰이 유일한 원본이고 웹 · 데스크톱 · 모바일 화면은 그 생성물입니다.`,
+  },
+  {
+    id: 'contents',
+    q: '무엇이 들어 있습니까?',
+    html: `토큰 ${n(FACTS.tokens)}개 · 컴포넌트 ${FACTS.components}종 · 화면 블록 ${FACTS.blocks}개가 들어 있습니다. 아이콘 ${FACTS.icons}개와 회사 테마 프리셋 ${FACTS.presets}개도 함께 씁니다. ${a(LINKS.components, '컴포넌트')}와 ${a(LINKS.blocks, '화면 블록')}은 각각의 페이지에서 볼 수 있습니다.`,
+  },
+  {
+    id: 'terrace-one',
+    q: 'Trellis와 테라스원은 어떤 관계입니까?',
+    html: `테라스원은 테라스랩이 고객사마다 맞춰 구축하는 업무 플랫폼입니다. 테라스원의 화면은 Trellis의 컴포넌트와 화면 블록으로 만듭니다. ${a(LINKS.demo, '데모')}가 그렇게 조립한 화면입니다.`,
+  },
+  {
+    id: 'platforms',
+    q: '어떤 플랫폼에서 쓸 수 있습니까?',
+    html: `지금은 웹에서 React 컴포넌트로 씁니다. 토큰은 CSS 변수와 TypeScript 객체로 나오고 Tailwind v4와 React Native 테마도 같은 토큰에서 만듭니다. Expo 컴포넌트와 Django 패키지는 1.0 뒤에 냅니다.`,
+  },
+  {
+    id: 'conventions',
+    q: '한국 업무 관습은 어떻게 반영했습니까?',
+    html: `수입은 빨강이고 지출은 파랑입니다. 결재 상태는 다섯 가지 어휘로 고정했습니다. 금액은 원 단위로 쓰고 천 단위로 끊어 오른쪽에 맞춥니다. 자세한 규칙은 ${a(LINKS.principles, '원칙과 규칙')}에 있습니다.`,
+  },
+  {
+    id: 'theme',
+    q: '회사 색은 어떻게 바꿉니까?',
+    html: `회사 색 하나를 정하면 테마 엔진이 라이트 · 다크 · 고대비 모드의 회사 색 토큰 21개를 계산합니다. 대비가 모자라면 같은 색상 안에서 단계를 옮겨 맞춥니다. 상태 · 수입 · 지출 · 결재 색은 회사 색이 바뀌어도 그대로입니다. ${a(LINKS.themes, '테마 페이지')}에서 직접 골라 볼 수 있습니다.`,
+  },
+  {
+    id: 'dark-mode',
+    q: '다크 모드를 지원합니까?',
+    html: `지원합니다. 색 토큰마다 라이트 값과 다크 값이 있고 <code>&lt;html data-theme&gt;</code> 속성 하나로 바꿉니다. 컴포넌트 코드는 그대로입니다.`,
+  },
+  {
+    id: 'agents',
+    q: 'AI 에이전트로 개발할 때 쓸 문서가 있습니까?',
+    html: `있습니다. 문서가 패키지 안에 들어 있어서 설치한 버전과 같은 내용을 인터넷 없이 읽을 수 있습니다. <code>manifest.json</code> · <code>llms.txt</code> · 컴포넌트별 문서로 되어 있습니다. ${a(LINKS.llms, 'llms.txt')}와 ${a(LINKS.agents, '에이전트로 개발하기')}에서 시작합니다.`,
+  },
+  {
+    id: 'offline',
+    q: '오프라인에서도 쓸 수 있습니까?',
+    html: '쓸 수 있습니다. 글꼴(Pretendard Variable)과 아이콘을 패키지에 넣었고 외부 네트워크를 부르지 않습니다. 설치형 앱에서도 같은 모양으로 그려집니다.',
+  },
+  {
+    id: 'accessibility',
+    q: '접근성은 어디까지 지킵니까?',
+    html: '텍스트 대비 4.5:1 이상, 모든 조작을 키보드로, 포커스 링 항상 표시를 기본으로 지킵니다. 움직임 줄이기 설정도 따릅니다. 고대비와 포커스 강조 모드가 있고 글자 크기는 112%와 125%로 키울 수 있습니다.',
+  },
+  {
+    id: 'figma',
+    q: 'Figma 라이브러리가 있습니까?',
+    html: `있습니다. 코드의 토큰이 원본이고 Figma 파일은 그 생성물입니다. 파일을 열려면 팀 접근 권한이 필요합니다. 구성은 ${a(LINKS.figma, 'Figma 라이브러리')} 문서에 있습니다.`,
+  },
+  {
+    id: 'versions',
+    q: '버전은 어떻게 올라갑니까?',
+    html: `모든 패키지가 한 버전 번호로 함께 올라갑니다. 토큰 이름과 컴포넌트 props의 변경 · 삭제는 major 버전에서만 합니다. 바뀐 것은 ${a(LINKS.changelog, '변경 기록')}에 적고 규칙은 ${a(LINKS.versions, '버전 정책')}에 있습니다.`,
+  },
+  {
+    id: 'open-source',
+    q: '오픈소스입니까?',
+    html: `오픈소스입니다. 라이선스는 Apache-2.0이고 소스는 GitHub 저장소 ${a(LINKS.source, 'terracelab/trellis')}에 있습니다. 토큰 · 아이콘 · contract · React 컴포넌트는 npm에서 설치합니다. ${a(LINKS.start, '설치 방법')}은 문서에 있습니다.`,
+  },
+  {
+    id: 'demo',
+    q: '어디서 먼저 써 볼 수 있습니까?',
+    html: `${a(LINKS.demo, '데모')}에서 화면 블록 ${FACTS.blocks}개를 눌러 볼 수 있습니다. 샘플 회사와 샘플 숫자로 그린 화면입니다.`,
+  },
+];
+
+const here = new URL(Astro.url.pathname, Astro.site).href;
+const text = (html: string) =>
+  html
+    .replace(/<[^>]+>/g, '')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>');
+const faqLd = {
+  '@type': 'FAQPage',
+  '@id': `${here}#webpage`,
+  url: here,
+  name: title,
+  description,
+  inLanguage: 'ko',
+  mainEntity: FAQ.map((f) => ({
+    '@type': 'Question',
+    '@id': `${here}#${f.id}`,
+    url: `${here}#${f.id}`,
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: text(f.html) },
+  })),
+};
+---
+
+<Base title={title} description={description} page="faq" crumb="자주 묻는 질문" jsonLd={[faqLd]}>
+  <section class="tl-site-wrap tl-site-faq-head" aria-labelledby="faq-title">
+    <h1 class="tl-site-faq-title" id="faq-title">자주 묻는 질문</h1>
+    <p class="tl-site-lead">Trellis가 무엇이고 어떻게 쓰는지 짧게 답합니다.</p>
+  </section>
+
+  <div class="tl-site-sheet">
+    <div class="tl-site-section tl-site-wrap">
+      <div class="tl-site-faq-list">
+        {
+          FAQ.map((f) => (
+            <section class="tl-site-faq-item" aria-labelledby={f.id}>
+              <h2 class="tl-site-faq-q" id={f.id}>{f.q}</h2>
+              <p class="tl-site-faq-a" set:html={f.html} />
+            </section>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</Base>

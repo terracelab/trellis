@@ -1,0 +1,54 @@
+/* 트리거 · 팝업은 Select(.tl-select)와 같다. 여기는 체크 상자만 */
+.tl-multi-select__item {
+  justify-content: flex-start;
+  gap: var(--tl-space-8);
+}
+
+.tl-multi-select__item[data-selected] {
+  font-weight: inherit;
+}
+
+.tl-multi-select__text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.tl-multi-select__box {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--tl-size-icon-16);
+  height: var(--tl-size-icon-16);
+  border: var(--tl-border-width-1) solid var(--tl-color-fg-tertiary);
+  border-radius: var(--tl-radius-xs);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-brand-on-brand);
+}
+
+.tl-multi-select__item[data-selected] .tl-multi-select__box,
+.tl-multi-select__box[data-checked] {
+  border-color: var(--tl-color-brand-default);
+  background: var(--tl-color-brand-default);
+}
+
+.tl-multi-select__item[data-disabled] .tl-multi-select__box {
+  border-color: var(--tl-color-border-default);
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-multi-select__check {
+  display: inline-flex;
+}
+
+/* 시트 행의 상자는 손가락 크기에 맞춰 조금 크게 */
+.tl-sheet-option .tl-multi-select__box {
+  width: var(--tl-size-icon-20);
+  height: var(--tl-size-icon-20);
+}
+
+.tl-multi-select__box svg {
+  width: 75%;
+  height: 75%;
+}

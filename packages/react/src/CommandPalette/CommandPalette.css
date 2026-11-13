@@ -1,0 +1,307 @@
+/* 검색 · 이동(⌘K). 제목 줄 없이 찾기 칸이 첫 줄이다(폼 대화상자처럼 보이지 않게) */
+.tl-command-palette__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--tl-z-overlay);
+  background: var(--tl-color-bg-overlay);
+  transition: opacity var(--tl-duration-normal) var(--tl-easing-standard);
+}
+
+.tl-command-palette__backdrop[data-starting-style],
+.tl-command-palette__backdrop[data-ending-style] {
+  opacity: 0;
+}
+
+.tl-command-palette {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-elevated);
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+}
+
+.tl-command-palette[data-mode='dialog'] {
+  position: fixed;
+  top: 12vh;
+  left: 50%;
+  z-index: var(--tl-z-modal);
+  width: min(calc(var(--tl-space-64) * 10), calc(100vw - var(--tl-space-32)));
+  max-height: calc(100dvh - 12vh - var(--tl-space-32));
+  box-shadow: var(--tl-shadow-lg);
+  transform: translateX(-50%);
+  transition:
+    opacity var(--tl-duration-normal) var(--tl-easing-enter),
+    transform var(--tl-duration-normal) var(--tl-easing-enter);
+  outline: 0;
+}
+
+.tl-command-palette[data-mode='dialog'][data-starting-style],
+.tl-command-palette[data-mode='dialog'][data-ending-style] {
+  opacity: 0;
+  transform: translate(-50%, calc(var(--tl-space-4) * -1));
+}
+
+.tl-command-palette[data-mode='dialog'][data-ending-style] {
+  transition-timing-function: var(--tl-easing-exit);
+}
+
+/* 다크는 그림자 대신 선(D-55) */
+[data-theme='dark'] .tl-command-palette[data-mode='dialog'] {
+  border-color: var(--tl-color-border-default);
+  box-shadow: none;
+}
+
+/* ── 찾기 줄 ── */
+.tl-command-palette__search {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--tl-space-12);
+  min-height: var(--tl-space-48);
+  padding: 0 var(--tl-space-16);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  transition: border-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+/* 초점은 늘 찾기 칸에 있다. 링 대신 칸 아래 선이 초점 색(원칙 6: 초점은 늘 보인다) */
+.tl-command-palette__search:has(.tl-command-palette__input:focus-visible) {
+  border-bottom-color: var(--tl-color-border-focus);
+}
+
+.tl-command-palette__search-icon {
+  flex: none;
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-command-palette__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: var(--tl-space-48);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--tl-color-fg-strong);
+  font: inherit;
+  font-size: var(--tl-type-h3-font-size);
+  line-height: var(--tl-type-h3-line-height);
+  outline: 0;
+}
+
+.tl-command-palette__input::placeholder {
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-command-palette__key {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--tl-space-20);
+  height: var(--tl-space-20);
+  padding: 0 var(--tl-space-4);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-xs);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-secondary);
+  font: inherit;
+  font-size: var(--tl-type-caption-font-size);
+  line-height: 1;
+  font-weight: var(--tl-font-weight-500);
+}
+
+/* ── 빠른 질문(SuggestionChips. 칩 모양은 그 부품 CSS, 여기는 놓는 자리만) ── */
+.tl-command-palette__suggestions {
+  flex: none;
+  padding: var(--tl-space-12) var(--tl-space-16) 0;
+}
+
+.tl-command-palette__extra {
+  flex: none;
+  padding: var(--tl-space-12) var(--tl-space-16) var(--tl-space-4);
+}
+
+/* ── 결과 ── */
+.tl-command-palette__list {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: var(--tl-space-4) var(--tl-space-8) var(--tl-space-8);
+  overscroll-behavior: contain;
+}
+
+.tl-command-palette__group + .tl-command-palette__group {
+  margin-top: var(--tl-space-4);
+}
+
+.tl-command-palette__group-label {
+  padding: var(--tl-space-8) var(--tl-space-8) var(--tl-space-4);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-command-palette__item {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-height: var(--tl-density-row-height);
+  padding: 0 var(--tl-space-8);
+  border-radius: var(--tl-radius-md);
+  cursor: pointer;
+  transition: background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+/* 지금 결과는 바탕 한 단계(왼쪽 띠 없음, D-57) */
+.tl-command-palette__item[data-active] {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-command-palette__item[aria-disabled='true'] {
+  color: var(--tl-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.tl-command-palette__item-icon {
+  flex: none;
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-command-palette__item[data-active] .tl-command-palette__item-icon {
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-command-palette__item-text {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: baseline;
+  gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+.tl-command-palette__item-label {
+  flex: none;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-command-palette__item-description {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-command-palette__item-meta,
+.tl-command-palette__item-hint {
+  flex: none;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  white-space: nowrap;
+}
+
+.tl-command-palette__item-hint {
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-command-palette__item[aria-disabled='true']
+  :is(
+    .tl-command-palette__item-icon,
+    .tl-command-palette__item-description,
+    .tl-command-palette__item-meta
+  ) {
+  color: var(--tl-color-fg-disabled);
+}
+
+.tl-command-palette__loading {
+  display: grid;
+  gap: var(--tl-space-4);
+  padding: var(--tl-space-12) var(--tl-space-16);
+}
+
+.tl-command-palette__skeleton {
+  display: flex;
+  align-items: center;
+  min-height: var(--tl-density-row-height);
+}
+
+.tl-command-palette__skeleton .tl-skeleton {
+  width: 60%;
+}
+
+.tl-command-palette__skeleton:nth-child(even) .tl-skeleton {
+  width: 40%;
+}
+
+.tl-command-palette__empty {
+  padding: var(--tl-space-24) var(--tl-space-16);
+  color: var(--tl-color-fg-secondary);
+  text-align: center;
+}
+
+.tl-command-palette__footer {
+  display: flex;
+  flex: none;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tl-space-4) var(--tl-space-16);
+  padding: var(--tl-space-8) var(--tl-space-16);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-command-palette__footer > span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+}
+
+/* 휴대폰: 화면 위에 붙은 전체 폭 판. 키보드가 아래에서 올라와도 찾기 칸과 첫 결과가 보인다 */
+@media (max-width: 639px) {
+  .tl-command-palette[data-mode='dialog'] {
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-height: 100dvh;
+    padding-top: env(safe-area-inset-top, 0);
+    border-width: 0 0 var(--tl-border-width-1);
+    border-radius: 0 0 var(--tl-radius-lg) var(--tl-radius-lg);
+    transform: none;
+  }
+
+  .tl-command-palette[data-mode='dialog'][data-starting-style],
+  .tl-command-palette[data-mode='dialog'][data-ending-style] {
+    transform: translateY(calc(var(--tl-space-8) * -1));
+  }
+
+  .tl-command-palette__input {
+    font-size: var(--tl-density-input-font-size);
+  }
+
+  .tl-command-palette__list {
+    max-height: none;
+  }
+
+  .tl-command-palette__item {
+    min-height: var(--tl-space-48);
+  }
+
+  /* 키보드가 없는 기기: 키 모양 · "열기 ↵" · 키 안내 줄을 숨긴다 */
+  .tl-command-palette__key,
+  .tl-command-palette__item-hint,
+  .tl-command-palette__footer {
+    display: none;
+  }
+}

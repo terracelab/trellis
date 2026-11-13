@@ -1,0 +1,179 @@
+/* 답변 본문: 제목 · 문단 · 목록 · 표 · 코드. 대화 칸 · 옆 칸 폭에 맞게 작고 촘촘하다. 블록 사이는 margin(표가 폭을 넘지 않게 grid를 쓰지 않는다) */
+.tl-rich-text {
+  display: flow-root;
+  min-width: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+  overflow-wrap: anywhere;
+}
+
+.tl-rich-text > * {
+  margin: 0;
+}
+
+.tl-rich-text > * + * {
+  margin-top: var(--tl-space-8);
+}
+
+/* ── 제목: 글 안 가장 높은 제목(depth 1)이 h4 크기, 그 아래는 본문 크기 굵게 ── */
+.tl-rich-text__heading {
+  color: var(--tl-color-fg-strong);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-rich-text__heading[data-depth='1'] {
+  font-size: var(--tl-type-h4-font-size);
+  line-height: var(--tl-type-h4-line-height);
+  font-weight: var(--tl-type-h4-font-weight);
+  letter-spacing: var(--tl-type-h4-letter-spacing);
+}
+
+.tl-rich-text > * + .tl-rich-text__heading {
+  margin-top: var(--tl-space-16);
+}
+
+.tl-rich-text__strong {
+  font-weight: var(--tl-font-weight-600);
+}
+
+/* 닫히지 않은 코드 블록(쓰는 중): 꾸밈 없이 줄바꿈만 */
+.tl-rich-text__plain {
+  white-space: pre-wrap;
+}
+
+/* ── 목록 ── */
+.tl-rich-text__list {
+  margin: 0;
+  padding-left: var(--tl-space-20);
+}
+
+.tl-rich-text__item + .tl-rich-text__item,
+.tl-rich-text__item > .tl-rich-text__list {
+  margin-top: var(--tl-space-2);
+}
+
+.tl-rich-text__item::marker {
+  color: var(--tl-color-fg-secondary);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+/* ── 링크 · 인라인 코드 ── */
+.tl-rich-text__link {
+  border-radius: var(--tl-radius-xs);
+  color: var(--tl-color-fg-link);
+  text-decoration: underline;
+  text-underline-offset: var(--tl-border-width-2);
+}
+
+.tl-rich-text__code {
+  padding: 0 var(--tl-space-4);
+  border-radius: var(--tl-radius-xs);
+  background: var(--tl-color-bg-sunken);
+  font-family: var(--tl-font-family-mono);
+  font-size: var(--tl-type-mono-font-size);
+  font-weight: var(--tl-type-mono-font-weight);
+  letter-spacing: var(--tl-type-mono-letter-spacing);
+}
+
+/* ── 코드 블록: 칸 안에서 가로 스크롤 ── */
+.tl-rich-text__pre {
+  max-width: 100%;
+  padding: var(--tl-space-8) var(--tl-space-12);
+  overflow-x: auto;
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-sunken);
+  font-family: var(--tl-font-family-mono);
+  font-size: var(--tl-type-mono-font-size);
+  line-height: var(--tl-type-mono-line-height);
+  font-weight: var(--tl-type-mono-font-weight);
+  letter-spacing: var(--tl-type-mono-letter-spacing);
+  white-space: pre;
+  overflow-wrap: normal;
+}
+
+.tl-rich-text__pre:focus-visible,
+.tl-rich-text__table:focus-visible {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: var(--tl-border-width-2);
+}
+
+/* ── 표: 머리는 흐린 바탕, 행 사이 1px 선. 숫자 열은 오른쪽 · tabular(금액 우측 정렬) ── */
+.tl-rich-text__table {
+  max-width: 100%;
+  overflow-x: auto;
+  border-radius: var(--tl-radius-xs);
+}
+
+.tl-rich-text__table table {
+  border-collapse: collapse;
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+}
+
+.tl-rich-text__table th,
+.tl-rich-text__table td {
+  padding: var(--tl-space-4) var(--tl-space-12);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: normal;
+}
+
+.tl-rich-text__table th {
+  border-bottom-color: var(--tl-color-border-default);
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+  white-space: nowrap;
+}
+
+.tl-rich-text__table [data-align='center'] {
+  text-align: center;
+}
+
+.tl-rich-text__table [data-align='right'] {
+  text-align: right;
+}
+
+.tl-rich-text__table [data-numeric] {
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+.tl-rich-text__rule {
+  height: 0;
+  border: 0;
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-rich-text > .tl-rich-text__rule {
+  margin-block: var(--tl-space-12);
+}
+
+/* ── 쓰는 중 커서: 글 끝의 세로 막대가 깜빡인다 ── */
+.tl-rich-text__caret {
+  display: inline-block;
+  width: var(--tl-border-width-2);
+  height: 1em;
+  margin-left: var(--tl-space-2);
+  background: var(--tl-color-fg-secondary);
+  vertical-align: text-bottom;
+  animation: tl-rich-text-caret var(--tl-duration-pulse) steps(1, end) infinite;
+}
+
+@keyframes tl-rich-text-caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* 움직임 줄이기: 깜빡이지 않고 막대만 남는다 */
+@media (prefers-reduced-motion: reduce) {
+  .tl-rich-text__caret {
+    animation: none;
+  }
+}

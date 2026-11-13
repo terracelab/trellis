@@ -1,0 +1,165 @@
+.tl-chart-card {
+  display: grid;
+  gap: var(--tl-space-12);
+  margin: 0;
+  padding: var(--tl-density-card-padding);
+  min-width: 0;
+  background: var(--tl-color-bg-surface);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-lg);
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-chart-card__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--tl-space-12);
+}
+
+.tl-chart-card__titles {
+  display: grid;
+  gap: var(--tl-space-4);
+  min-width: 0;
+}
+
+.tl-chart-card__title {
+  margin: 0;
+  font-size: var(--tl-type-h3-font-size);
+  line-height: var(--tl-type-h3-line-height);
+  font-weight: var(--tl-type-h3-font-weight);
+  letter-spacing: var(--tl-type-h3-letter-spacing);
+}
+
+.tl-chart-card__subtitle {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-chart-card__tools {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  flex: none;
+}
+
+.tl-chart-card__toggle,
+.tl-chart-card__retry {
+  height: var(--tl-density-control-height-sm);
+  padding-inline: var(--tl-space-8);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-secondary);
+  font: inherit;
+  font-size: var(--tl-type-caption-font-size);
+  font-weight: var(--tl-font-weight-500);
+  cursor: pointer;
+  transition:
+    background-color var(--tl-duration-fast) var(--tl-easing-standard),
+    color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-chart-card__toggle:hover,
+.tl-chart-card__retry:hover {
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-chart-card__toggle[aria-pressed='true'] {
+  background: var(--tl-color-brand-subtle);
+  border-color: var(--tl-color-border-selected);
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-chart-card__toggle:focus-visible,
+.tl-chart-card__retry:focus-visible,
+.tl-chart-card__table:focus-visible {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: var(--tl-border-width-2);
+}
+
+.tl-chart-card__body {
+  position: relative;
+  height: var(--tl-chart-card-height);
+  min-width: 0;
+  transition: opacity var(--tl-duration-normal) var(--tl-easing-standard);
+}
+
+.tl-chart-card[data-refreshing] .tl-chart-card__body {
+  /* opacity 토큰이 없다(제안: opacity.disabled = 0.5). 단위 없는 비율 */
+  opacity: 0.5;
+}
+
+.tl-chart-card__skeleton {
+  height: 100%;
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-chart-card__state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tl-space-8);
+  height: 100%;
+  border: var(--tl-border-width-1) dashed var(--tl-color-border-default);
+  border-radius: var(--tl-radius-md);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+}
+
+.tl-chart-card__state[data-kind='error'] {
+  color: var(--tl-color-status-danger-default);
+}
+
+.tl-chart-card__table {
+  height: 100%;
+  overflow: auto;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-md);
+}
+
+.tl-chart-card__table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--tl-density-body-font-size);
+}
+
+.tl-chart-card__table th,
+.tl-chart-card__table td {
+  height: var(--tl-density-row-height);
+  padding: 0 var(--tl-space-12);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.tl-chart-card__table thead th {
+  position: sticky;
+  top: 0;
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-secondary);
+  font-weight: var(--tl-font-weight-500);
+  font-size: var(--tl-type-caption-font-size);
+}
+
+.tl-chart-card__table tbody th {
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-chart-card__table [data-num] {
+  text-align: right;
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-chart-card__sr {
+  position: absolute;
+  width: var(--tl-border-width-1);
+  height: var(--tl-border-width-1);
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

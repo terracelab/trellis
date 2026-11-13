@@ -1,0 +1,25 @@
+.tl-block-span-all {
+  grid-column: 1 / -1;
+}
+
+.tl-block-totals {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--tl-space-16);
+  padding: var(--tl-space-16);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-block-totals__korean {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+}
+
+@media (max-width: 1023px) {
+  .tl-block-totals {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

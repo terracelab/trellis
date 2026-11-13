@@ -1,0 +1,28 @@
+{
+  "id": "erp/purchasing/po-form",
+  "title": "발주서 작성",
+  "intent": "해외 거래처와 품목을 고르면 외화 금액과 원화 환산이 계산되고, 견적서를 붙여 결재를 요청한다",
+  "module": "purchasing",
+  "pattern": "FormRegister",
+  "industries": ["trade", "distribution", "manufacturing"],
+  "components": [
+    "PageHeader",
+    "Card",
+    "FormSection",
+    "LineItemsEditor",
+    "Field",
+    "CodeSearch",
+    "Select",
+    "AmountInput",
+    "DateField",
+    "Input",
+    "QuantityInput",
+    "FileUpload",
+    "ApprovalLine",
+    "ActionBar",
+    "Button"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["header", "lines", "attachments", "approval"],
+  "order": 21
+}

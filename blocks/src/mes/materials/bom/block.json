@@ -1,0 +1,25 @@
+{
+  "id": "mes/materials/bom",
+  "title": "자재 명세(BOM)",
+  "intent": "완제품을 골라 원료 · 포장재 · 소모품의 BOM 트리와 단위 소요량 · 현재고를 보고, 계획 수량을 넣어 자재 소요와 부족분을 계산해 발주를 요청한다",
+  "module": "materials",
+  "pattern": "ListDetail",
+  "industries": ["manufacturing", "distribution"],
+  "components": [
+    "PageHeader",
+    "Button",
+    "Badge",
+    "Card",
+    "Field",
+    "QuantityInput",
+    "SegmentedControl",
+    "DataGrid",
+    "ActionBar",
+    "Drawer",
+    "DescriptionList",
+    "SelectableCard"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["products", "columns", "calculation", "whereUsed", "actions"],
+  "order": 10
+}

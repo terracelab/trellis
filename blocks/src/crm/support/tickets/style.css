@@ -1,0 +1,83 @@
+/* 상담 상세: 반품 연결 줄 · 대화(MessageThread) · 내부 메모 · 답변 작성(Composer) */
+.tl-block-cs-link {
+  border-radius: var(--tl-radius-xs);
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-500);
+  font-variant-numeric: var(--tl-font-numeric);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: var(--tl-space-4);
+  white-space: nowrap;
+}
+
+.tl-block-cs-link:is(:hover, :focus-visible) {
+  text-decoration-color: currentcolor;
+}
+
+.tl-block-cs-return {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tl-space-12);
+  padding: var(--tl-space-12);
+  border: var(--tl-border-width-1) dashed var(--tl-color-border-default);
+  border-radius: var(--tl-radius-md);
+}
+
+.tl-block-cs-return[data-linked] {
+  border-style: solid;
+  border-color: var(--tl-color-border-divider);
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-block-cs-section {
+  display: grid;
+  gap: var(--tl-space-8);
+}
+
+.tl-block-cs-section__title {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-block-cs-memo__meta {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-block-cs-memo__meta strong {
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-block-cs-memo__body {
+  margin: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-type-body-line-height);
+}
+
+.tl-block-cs-memo {
+  display: grid;
+  gap: var(--tl-space-4);
+  padding: var(--tl-space-8) var(--tl-space-12);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-sm);
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-block-cs-compose {
+  display: grid;
+  gap: var(--tl-space-8);
+  padding-top: var(--tl-space-12);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+/* 좁은 화면에서 상담 칸이 사라지지 않게 표 최소 폭을 두고 상자 안에서 가로로 넘긴다 */
+/* inner-override: DataGrid에 표 최소 폭(auto 열 최소 폭) prop이 없다(보강 요청) */
+.tl-block-cs-grid .tl-data-grid__table {
+  min-width: calc(var(--tl-space-64) * 10);
+}

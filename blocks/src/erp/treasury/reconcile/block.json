@@ -1,0 +1,21 @@
+{
+  "id": "erp/treasury/reconcile",
+  "title": "은행 대사",
+  "intent": "통장 거래와 장부 전표를 두 목록에서 맞추고, 장부에 없는 거래는 전표로 넣고 예약 이체는 조정 항목으로 둬 남은 차이를 0으로 만든 뒤 확정한다",
+  "module": "treasury",
+  "pattern": "LedgerEntry",
+  "industries": ["trade", "distribution", "commerce", "manufacturing", "general"],
+  "components": [
+    "PageHeader",
+    "Badge",
+    "Button",
+    "Card",
+    "DataGrid",
+    "SegmentedControl",
+    "EmptyState",
+    "ActionBar"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["methods", "vouchers"],
+  "order": 20
+}

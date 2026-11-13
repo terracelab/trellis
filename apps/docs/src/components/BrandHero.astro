@@ -1,0 +1,74 @@
+---
+// Starlight Hero 대체(astro.config components.Hero). frontmatter에 hero가 있는 페이지(브랜드 페이지)에서만 쓰인다.
+// 한국어(/) · 영어(/en/) 두 브랜드 페이지가 같이 쓴다. 문구는 route의 lang으로 고른다.
+import manifest from '@terracelab/trellis-react/docs/manifest.json';
+import HeroSpecimen from './HeroSpecimen.tsx';
+import { withBase } from '../lib/site';
+
+const route = Astro.locals.starlightRoute;
+const isEn = route.lang === 'en';
+const hero = route.entry.data.hero;
+const actions = hero?.actions ?? [];
+const T = isEn
+  ? {
+      eyebrow: `TerraceLab design system · ${manifest.docsVersion}`,
+      title: ['TerraceLab’s', 'design system', 'Trellis'],
+      install: 'On npm. Screen blocks and the agent skill come with the git submodule.',
+      stats: ['tokens', 'components', 'business modules', 'packages'],
+      numberLocale: 'en-US',
+    }
+  : {
+      eyebrow: `테라스랩 디자인 시스템 · ${manifest.docsVersion}`,
+      title: ['테라스랩의', '디자인 시스템', 'Trellis'],
+      install: 'npm에서 설치 · 화면 블록과 스킬은 git 하위 모듈',
+      stats: ['토큰', '컴포넌트', '업무 모듈', '패키지'],
+      numberLocale: 'ko-KR',
+    };
+const stats = [
+  [manifest.tokens.count, T.stats[0]],
+  [manifest.components.length, T.stats[1]],
+  [manifest.modules.modules.length, T.stats[2]],
+  [Object.keys(manifest.packages).length, T.stats[3]],
+] as const;
+---
+
+<section class="tl-site-hero not-content" aria-labelledby="brand-title">
+  <div class="tl-site-hero-copy">
+    <p class="tl-site-eyebrow">{T.eyebrow}</p>
+    <h1 class="tl-site-hero-title" id="brand-title">
+      {T.title[0]}<br /><span class="tl-site-hero-accent">{T.title[1]}</span><br />{T.title[2]}
+    </h1>
+    <p class="tl-site-hero-lead">{hero?.tagline}</p>
+    <div class="tl-site-actions">
+      {
+        actions.map((a) => (
+          <a
+            class="tl-site-button"
+            href={withBase(a.link)}
+            data-variant={a.variant === 'minimal' ? 'ghost' : a.variant}
+                        {...(a.attrs ?? {})}
+          >
+            {a.text}
+          </a>
+        ))
+      }
+    </div>
+    <div class="tl-site-install">
+      <code>pnpm add @terracelab/trellis-tokens @terracelab/trellis-react</code>
+      <span class="tl-site-install-note">{T.install}</span>
+    </div>
+    <dl class="tl-site-stats">
+      {
+        stats.map(([n, label]) => (
+          <div class="tl-site-stat">
+            <dt>{label}</dt>
+            <dd>{n.toLocaleString(T.numberLocale)}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+  <div class="tl-site-hero-figure">
+    <HeroSpecimen lang={isEn ? 'en' : 'ko'} client:visible />
+  </div>
+</section>

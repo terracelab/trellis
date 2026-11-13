@@ -1,0 +1,73 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "ui": "stream",
+  "globalEnv": [
+    "SITE_INDEXABLE",
+    "SITE_URL",
+    "SITE_BASE",
+    "SITE_VERIFY_GOOGLE",
+    "SITE_VERIFY_NAVER",
+    "SITE_VERIFY_BING",
+    "TRELLIS_FORBIDDEN_WORDS"
+  ],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "typecheck": {
+      "dependsOn": ["^build"]
+    },
+    "lint": {
+      "dependsOn": ["^build"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/eslint.config.js",
+        "$TURBO_ROOT$/packages/eslint-plugin-trellis/src/**"
+      ]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "storybook:build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", "!vrt/**", "!README.md", "$TURBO_ROOT$/scripts/build-docs.mjs"],
+      "outputs": ["storybook-static/**"]
+    },
+    "vrt": {
+      "dependsOn": ["storybook:build"],
+      "cache": false,
+      "passThroughEnv": [
+        "CI",
+        "HOME",
+        "DOCKER_HOST",
+        "DOCKER_CONTEXT",
+        "DOCKER_CONFIG",
+        "VRT_IN_DOCKER",
+        "VRT_WORKERS",
+        "PLAYWRIGHT_BROWSERS_PATH"
+      ]
+    },
+    "@terracelab/trellis-react#build": {
+      "dependsOn": ["^build"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/scripts/build-docs.mjs",
+        "$TURBO_ROOT$/docs/guides/**",
+        "$TURBO_ROOT$/docs/spec/components.md",
+        "$TURBO_ROOT$/CLAUDE.md",
+        "$TURBO_ROOT$/.changeset/**"
+      ],
+      "outputs": ["dist/**"]
+    },
+    "@terracelab/trellis-icons#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", "src/generated/**"]
+    },
+    "@terracelab/preview#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", "src/generated/**"]
+    }
+  }
+}

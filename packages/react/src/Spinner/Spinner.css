@@ -1,0 +1,32 @@
+.tl-spinner {
+  display: inline-flex;
+  flex: none;
+  width: var(--tl-size-icon-16);
+  height: var(--tl-size-icon-16);
+}
+
+.tl-spinner[data-size='20'] {
+  width: var(--tl-size-icon-20);
+  height: var(--tl-size-icon-20);
+}
+
+.tl-spinner[data-size='24'] {
+  width: var(--tl-size-icon-24);
+  height: var(--tl-size-icon-24);
+}
+
+.tl-spinner__ring {
+  width: 100%;
+  height: 100%;
+  border: var(--tl-border-width-2) solid var(--tl-color-border-default);
+  border-top-color: currentColor;
+  border-radius: var(--tl-radius-full);
+  /* 상태를 알리는 회전이라 움직임 줄이기에서도 돈다(duration.essential, D-97 · 식자재 ERP) */
+  animation: tl-spin var(--tl-duration-essential) linear infinite;
+}
+
+@keyframes tl-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}

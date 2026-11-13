@@ -1,0 +1,27 @@
+{
+  "id": "scm/inventory/stock",
+  "title": "재고 현황",
+  "intent": "품목 × 창고 재고와 가용 수량을 보고, 안전재고 미만 · 품절 품목을 골라 발주로 넘긴다",
+  "module": "inventory",
+  "pattern": "InventoryMatrix",
+  "industries": ["trade", "distribution", "commerce", "manufacturing"],
+  "components": [
+    "PageHeader",
+    "KpiCard",
+    "FilterBar",
+    "Input",
+    "Select",
+    "SegmentedControl",
+    "DataGrid",
+    "DataBar",
+    "HeatCell",
+    "Badge",
+    "Drawer",
+    "DescriptionList",
+    "Timeline",
+    "Button"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["columns", "filters", "detail"],
+  "order": 50
+}

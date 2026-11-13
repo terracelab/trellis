@@ -1,0 +1,180 @@
+{
+  "task": "components-final",
+  "file": "Components",
+  "fileKey": "wm3bZ3mscnjwjmim1I8LeL",
+  "date": "2026-11-10",
+  "method": "Components 다시 게시 전 정리. figma-audit --emit sets를 파일 전체에, --emit links를 figma.skipInvisibleInstanceChildren = false로 세 묶음(DataGrid · ProfileHeader / 앞 페이지 63 / 뒤 페이지 64, 합계 129)으로 나눠 돌려 더했다. 속성 이름 충돌 · 변형 이름 중복 · 같은 속성 조합 · 빈 변형 값 · 앞에 _ 또는 . 이 붙은 이름은 모든 세트와 낱개 컴포넌트의 componentPropertyDefinitions · 변형 이름에서 셌다(이름 비교는 #id 접미사를 빼고 대소문자 무시). 겹치는 맨 위 노드는 페이지마다 맨 위 노드의 경계 상자가 겹치는 쌍이다. 같은 이름 묶음(Docs · <Name> · Labels · <Name> · <Name>)은 키트가 일부러 겹쳐 놓으므로 빼고 셌다(328쌍). 아이콘 코드 수는 packages/icons/src/generated/ui-icons.ts의 ICON_NAMES 길이다. key는 --emit keys 결과를 옮겨 적고 Figma 안에서 낸 FNV-1a 해시(JSON.stringify(sets) · JSON.stringify(components))와 저장소에서 다시 낸 해시를 비교했다.",
+  "notes": [
+    "PersonLabel(15:342) · ProfileHeader(16:19110) 게시 실패 원인: BOOLEAN과 VARIANT 속성 이름이 같았다. 불리언을 그 자리에서 이름만 바꿨다(editComponentProperty): PersonLabel presence#15:62 → show presence#15:62, ProfileHeader status#16:722 → show status#16:722 · presence#16:1083 → show presence#16:1083. 레이어 참조(30 · 120 · 120)와 이 파일 안 PersonLabel 인스턴스 14개의 값이 그대로다. 파일 전체에서 다른 충돌 · 변형 이름 문제는 0이다",
+    "아이콘: 코드 172개 중 16개가 Icons 페이지에 없었다. 다른 곳에 있던 12개(thumbs-up · thumbs-down · reply · smile-plus · heart · party-popper · zoom-in · zoom-out · scan · rotate-cw · map-pin-off · timer-off)를 같은 노드 그대로 옮겼고 bot · file-up · panel-right-open · pin-off 4개를 새로 만들었다. 칸은 ICON_NAMES 순서다. 임시 프레임 2개(91:213 · 93:478)를 지웠다",
+    "겹침: AppShell 5쌍 · DataGrid 4쌍 · ErrorSummary 1쌍을 옮겨서만 풀었다(세트 크기 그대로)",
+    "인스턴스 안 불투명도: 변수에 묶인 칠의 불투명도가 변수 알파와 다른 곳 19개(Button danger hover · active 10, TrendChart 예측 band 6 · swatch 3)를 노드 불투명도로 바꿨다. 인스턴스 내보내기가 본체와 같은 바이트(Button)이고 TrendChart 인스턴스의 예측 구간이 본체처럼 옅다. StatusDot pulse는 칠 · 노드 모두 1이라 2배 크기의 진한 원이었다. 노드 불투명도 0.2(CSS 맥박이 2배 크기일 때의 불투명도)로 바꿨다",
+    "key: 기존 세트 117 · 낱개 206의 key가 모두 그대로다. 새로 세트 41 · 낱개 24(아이콘 16 포함)"
+  ],
+  "expect": {
+    "sets.count": 158,
+    "sets.variants": 2353,
+    "sets.bad.length": 0,
+    "sets.singleStateAxis.length": 0,
+    "sets.nonVisualAxis.length": 0,
+    "links.pages": 129,
+    "links.localCollections": 0,
+    "links.localVariables": 0,
+    "links.localTextStyles": 0,
+    "links.localEffectStyles": 0,
+    "links.localBindings": 0,
+    "links.rawSolid": 0,
+    "links.unboundText": 0,
+    "links.missingMain": 0,
+    "links.unpublishedComponents": 0,
+    "links.localSets": 158,
+    "links.localComponents": 230,
+    "icons.figma": 172,
+    "icons.code": 172,
+    "icons.matchesCode": true,
+    "icons.duplicates": 0,
+    "icons.missing": 0,
+    "tiles": 36,
+    "publishBlockers.propertyNameConflicts": 0,
+    "publishBlockers.duplicateVariantNames": 0,
+    "publishBlockers.duplicateVariantCombos": 0,
+    "publishBlockers.emptyVariantValues": 0,
+    "publishBlockers.leadingUnderscoreOrDot": 0,
+    "layout.overlappingTopLevelNodes": 0,
+    "opacity.boundPaintsAlphaMismatch": 0,
+    "keys.sets": 158,
+    "keys.components": 230,
+    "keys.preservedSets": 117,
+    "keys.preservedComponents": 206,
+    "keys.hashMatches": true
+  },
+  "measured": {
+    "sets": {
+      "count": 158,
+      "variants": 2353,
+      "bad": [],
+      "singleStateAxis": [],
+      "nonVisualAxis": [],
+      "PersonLabel": { "variants": 30, "axes": "presence 5 × size 2 × state 3", "props": 3 },
+      "ProfileHeader": {
+        "variants": 120,
+        "axes": "status 4 × presence 5 × employmentType 6",
+        "props": 6
+      },
+      "Button": { "variants": 120, "axes": "variant 4 × size 5 × state 6", "props": 5 },
+      "TrendChart": { "variants": 12, "axes": "curve 3 × state 2 × forecast 2", "props": 4 },
+      "StatusDot": { "variants": 10, "axes": "tone 5 × size 2", "props": 2 }
+    },
+    "groups": {
+      "P0": { "pages": 18, "sets": 24, "variants": 837, "components": 4 },
+      "PR-08": { "pages": 11, "sets": 18, "variants": 221, "components": 3 },
+      "PR-30": { "pages": 6, "sets": 6, "variants": 55, "components": 0 },
+      "HR": { "pages": 9, "sets": 9, "variants": 193, "components": 2 },
+      "Layout": { "pages": 7, "sets": 9, "variants": 60, "components": 2 },
+      "Inputs": { "pages": 14, "sets": 20, "variants": 289, "components": 6 },
+      "Feedback": { "pages": 9, "sets": 9, "variants": 79, "components": 1 },
+      "Navigation · Record · Paper": { "pages": 6, "sets": 18, "variants": 111, "components": 0 },
+      "Charts": { "pages": 15, "sets": 14, "variants": 90, "components": 2 },
+      "Conversation": { "pages": 5, "sets": 9, "variants": 56, "components": 0 },
+      "Basics": { "pages": 6, "sets": 9, "variants": 189, "components": 0 },
+      "Dashboard · Operations": { "pages": 8, "sets": 13, "variants": 173, "components": 2 }
+    },
+    "links": {
+      "pages": 129,
+      "localCollections": 0,
+      "localVariables": 0,
+      "localTextStyles": 0,
+      "localEffectStyles": 0,
+      "localSets": 158,
+      "localComponents": 230,
+      "unpublishedComponents": 0,
+      "nodes": 103759,
+      "bindings": 326493,
+      "remoteBindings": 326493,
+      "localBindings": 0,
+      "rawSolid": 0,
+      "unboundText": 0,
+      "instances": 19117,
+      "missingMain": 0,
+      "chunks": {
+        "DataGrid · ProfileHeader": {
+          "pages": 2,
+          "nodes": 32026,
+          "bindings": 95239,
+          "instances": 7648
+        },
+        "pages 0-64": { "pages": 63, "nodes": 38390, "bindings": 124455, "instances": 6214 },
+        "pages 65-128": { "pages": 64, "nodes": 33343, "bindings": 106799, "instances": 5255 }
+      }
+    },
+    "icons": {
+      "figma": 172,
+      "code": 172,
+      "matchesCode": true,
+      "duplicates": 0,
+      "missing": 0,
+      "built": ["bot", "file-up", "panel-right-open", "pin-off"],
+      "moved": [
+        "thumbs-up",
+        "thumbs-down",
+        "reply",
+        "smile-plus",
+        "heart",
+        "party-popper",
+        "zoom-in",
+        "zoom-out",
+        "scan",
+        "rotate-cw",
+        "map-pin-off",
+        "timer-off"
+      ]
+    },
+    "tiles": 36,
+    "publishBlockers": {
+      "before": {
+        "propertyNameConflicts": 3,
+        "where": [
+          "PersonLabel presence (BOOLEAN · VARIANT)",
+          "ProfileHeader status (BOOLEAN · VARIANT)",
+          "ProfileHeader presence (BOOLEAN · VARIANT)"
+        ]
+      },
+      "propertyNameConflicts": 0,
+      "duplicateVariantNames": 0,
+      "duplicateVariantCombos": 0,
+      "emptyVariantValues": 0,
+      "leadingUnderscoreOrDot": 0
+    },
+    "publishStatus": {
+      "UNPUBLISHED": { "sets": 43, "components": 8, "icons": 16, "tiles": 0 },
+      "CHANGED": { "sets": 49, "components": 5, "icons": 0, "tiles": 0 },
+      "CURRENT": { "sets": 66, "components": 9, "icons": 156, "tiles": 36 }
+    },
+    "layout": {
+      "overlappingTopLevelNodes": 0,
+      "before": 10,
+      "topLevelNodes": 558,
+      "sameGroupPairsExcluded": 328
+    },
+    "opacity": {
+      "before": 19,
+      "boundPaintsAlphaMismatch": 0,
+      "fixed": {
+        "Button danger hover · active": 10,
+        "TrendChart band": 6,
+        "TrendChart swatch": 3,
+        "StatusDot pulse": 10
+      }
+    },
+    "keys": {
+      "sets": 158,
+      "components": 230,
+      "icons": 172,
+      "tiles": 36,
+      "preservedSets": 117,
+      "preservedComponents": 206,
+      "hash": { "sets": "3af7737f", "components": "217c5125" },
+      "hashMatches": true
+    }
+  }
+}

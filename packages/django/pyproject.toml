@@ -1,0 +1,19 @@
+[project]
+name = "terracelab-trellis"
+version = "0.0.0"
+description = "Trellis 디자인 시스템 — Django용 토큰 CSS·폰트·아이콘과 django-unfold 테마 설정"
+readme = "README.md"
+requires-python = ">=3.12"
+# Django·django-unfold-patrick 의존 범위는 P3-10에서 정한다.
+dependencies = []
+classifiers = [
+  "Framework :: Django",
+  "Private :: Do Not Upload",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["terracelab_trellis"]

@@ -1,0 +1,57 @@
+/* 겹친 아바타(PG-35). 뒤 아바타가 앞 아바타 오른쪽을 덮고, 면 색 테두리로 떼어 보인다 */
+.tl-avatar-group {
+  --tl-avatar-group-size: var(--tl-size-avatar-24);
+  --tl-avatar-group-overlap: var(--tl-space-6);
+  --tl-avatar-group-radius: 30%;
+
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  padding-inline-start: var(--tl-avatar-group-overlap);
+  vertical-align: middle;
+}
+
+.tl-avatar-group[data-size='32'] {
+  --tl-avatar-group-size: var(--tl-size-avatar-32);
+  --tl-avatar-group-overlap: var(--tl-space-8);
+}
+
+.tl-avatar-group[data-size='40'] {
+  --tl-avatar-group-size: var(--tl-size-avatar-40);
+  --tl-avatar-group-overlap: var(--tl-space-10);
+}
+
+.tl-avatar-group[data-shape='circle'] {
+  --tl-avatar-group-radius: var(--tl-radius-full);
+}
+
+.tl-avatar-group__item {
+  display: inline-flex;
+  flex: none;
+  margin-inline-start: calc(var(--tl-avatar-group-overlap) * -1);
+  border-radius: var(--tl-avatar-group-radius);
+  box-shadow: 0 0 0 var(--tl-border-width-2) var(--tl-color-bg-surface);
+}
+
+/* 넘친 수: 아바타와 같은 크기의 회색 칸 */
+.tl-avatar-group__more {
+  align-items: center;
+  justify-content: center;
+  width: var(--tl-avatar-group-size);
+  height: var(--tl-avatar-group-size);
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-micro-font-size);
+  line-height: 1;
+  font-weight: var(--tl-font-weight-600);
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+.tl-avatar-group[data-size='32'] .tl-avatar-group__more {
+  font-size: var(--tl-type-caption-font-size);
+}
+
+.tl-avatar-group[data-size='40'] .tl-avatar-group__more {
+  font-size: var(--tl-type-label-font-size);
+}

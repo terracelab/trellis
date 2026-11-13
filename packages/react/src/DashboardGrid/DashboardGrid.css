@@ -1,0 +1,190 @@
+/* 12열 위젯 격자(PG-39). 블록 _ui의 Grid · Col이 이 규칙을 쓴다(폭 규칙은 그쪽에서 옮겨 왔다) */
+.tl-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--tl-density-gutter);
+  min-width: 0;
+}
+
+.tl-dashboard-grid[data-gap='tight'] {
+  gap: var(--tl-space-12);
+}
+
+.tl-dashboard-grid__item {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  grid-column: span 12;
+}
+
+/* 카드가 줄 높이를 채운다(옆 칸과 아래 끝이 맞는다) */
+.tl-dashboard-grid__item > *,
+.tl-dashboard-grid__content > * {
+  flex: 1 1 auto;
+}
+
+.tl-dashboard-grid__item[data-span='2'] {
+  grid-column: span 2;
+}
+
+.tl-dashboard-grid__item[data-span='3'] {
+  grid-column: span 3;
+}
+
+.tl-dashboard-grid__item[data-span='4'] {
+  grid-column: span 4;
+}
+
+.tl-dashboard-grid__item[data-span='5'] {
+  grid-column: span 5;
+}
+
+.tl-dashboard-grid__item[data-span='6'] {
+  grid-column: span 6;
+}
+
+.tl-dashboard-grid__item[data-span='7'] {
+  grid-column: span 7;
+}
+
+.tl-dashboard-grid__item[data-span='8'] {
+  grid-column: span 8;
+}
+
+.tl-dashboard-grid__item[data-span='9'] {
+  grid-column: span 9;
+}
+
+.tl-dashboard-grid__item[data-rows='2'] {
+  grid-row: span 2;
+}
+
+/* breakpoint.xl 미만: 2 · 3열 칸은 반, 4 · 5 · 7 · 8열 칸은 한 줄 */
+@media (max-width: 1279px) {
+  .tl-dashboard-grid__item[data-span='2'],
+  .tl-dashboard-grid__item[data-span='3'] {
+    grid-column: span 6;
+  }
+
+  .tl-dashboard-grid__item[data-span='4'],
+  .tl-dashboard-grid__item[data-span='5'],
+  .tl-dashboard-grid__item[data-span='7'],
+  .tl-dashboard-grid__item[data-span='8'] {
+    grid-column: span 12;
+  }
+}
+
+/* breakpoint.lg 미만: 한 줄에 하나, KPI처럼 작은 칸은 둘씩 */
+@media (max-width: 1023px) {
+  .tl-dashboard-grid__item[data-span] {
+    grid-column: span 12;
+  }
+
+  .tl-dashboard-grid__item[data-span='2'],
+  .tl-dashboard-grid__item[data-span='3'] {
+    grid-column: span 6;
+  }
+}
+
+/* breakpoint.sm 미만 휴대폰(D-61): 한 줄에 하나 */
+@media (max-width: 639px) {
+  .tl-dashboard-grid__item[data-span] {
+    grid-column: span 12;
+  }
+
+  .tl-dashboard-grid {
+    gap: var(--tl-space-8);
+  }
+}
+
+/* 편집 모드: 위젯마다 위 한 줄(손잡이 · 앞뒤 · 숨기기)과 둘레 */
+.tl-dashboard-grid__content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.tl-dashboard-grid[data-editing] .tl-dashboard-grid__item {
+  gap: var(--tl-space-8);
+  padding: var(--tl-space-8);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-canvas);
+  transition: border-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-dashboard-grid[data-editing] .tl-dashboard-grid__item:hover,
+.tl-dashboard-grid[data-force-state='hover'] .tl-dashboard-grid__item {
+  border-color: var(--tl-color-border-strong);
+}
+
+.tl-dashboard-grid[data-editing] .tl-dashboard-grid__item[data-hidden] {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-dashboard-grid__item > .tl-dashboard-grid__bar {
+  flex: none;
+}
+
+.tl-dashboard-grid__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  min-width: 0;
+  min-height: var(--tl-density-control-height-sm);
+}
+
+.tl-dashboard-grid__handle {
+  display: inline-flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: var(--tl-space-4);
+  min-width: 0;
+  min-height: var(--tl-density-control-height-sm);
+  padding: 0 var(--tl-space-4);
+  border: 0;
+  border-radius: var(--tl-radius-sm);
+  background: transparent;
+  color: var(--tl-color-fg-primary);
+  font: inherit;
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+  text-align: left;
+  cursor: grab;
+  transition: background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-dashboard-grid__handle:hover {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-dashboard-grid[data-force-state='focus'] .tl-dashboard-grid__handle {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: var(--tl-border-width-2);
+}
+
+.tl-dashboard-grid__grip {
+  flex: none;
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-dashboard-grid__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-dashboard-grid__hidden-label {
+  flex: none;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  font-weight: var(--tl-font-weight-400);
+}
+
+.tl-dashboard-grid__actions {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--tl-space-2);
+}

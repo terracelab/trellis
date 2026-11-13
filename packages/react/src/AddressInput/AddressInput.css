@@ -1,0 +1,161 @@
+/* 주소: 우편번호 + 검색 단추 / 도로명 / 지번(있으면) / 상세 주소. 칸은 Input 그대로 */
+.tl-address-input {
+  display: grid;
+  gap: var(--tl-space-8);
+  min-width: 0;
+  outline: 0;
+}
+
+.tl-address-input__row {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+/* Input의 폭 100%보다 앞서야 해서 두 클래스로 고른다(styles.css에서 Input.css가 뒤에 온다) */
+.tl-address-input .tl-address-input__postcode {
+  flex: none;
+  width: calc(var(--tl-space-64) * 1.5);
+}
+
+.tl-address-input__postcode .tl-input__control {
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+/* 검색으로만 채우는 칸은 누르면 검색 창이 열린다 */
+.tl-address-input[data-mode='search'] .tl-input[data-readonly] .tl-input__control {
+  cursor: pointer;
+}
+
+.tl-address-input[data-state='disabled'] .tl-input[data-readonly] .tl-input__control {
+  cursor: not-allowed;
+}
+
+.tl-address-input__search {
+  flex: none;
+}
+
+.tl-address-input__jibun {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+/* 검색 창 안(대화상자 · 아래 시트) */
+.tl-address-input-search {
+  display: grid;
+  gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+.tl-address-input-search__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+}
+
+.tl-address-input-search .tl-address-input-search__field {
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 0;
+}
+
+.tl-address-input-search__status {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-height: var(--tl-density-control-height-sm);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+}
+
+.tl-address-input-search__spin {
+  flex: none;
+  animation: tl-address-input-spin var(--tl-duration-spin) linear infinite;
+}
+
+@keyframes tl-address-input-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.tl-address-input-search__list {
+  max-height: min(calc(var(--tl-space-64) * 5), 50dvh);
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  list-style: none;
+}
+
+.tl-address-input-search__list[hidden] {
+  display: none;
+}
+
+.tl-address-input-search__option {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--tl-space-12);
+  min-height: var(--tl-density-row-height);
+  padding: var(--tl-space-8);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  cursor: pointer;
+}
+
+.tl-address-input-search__option[data-active] {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-address-input-search__text {
+  display: grid;
+  flex: 1 1 auto;
+  gap: calc(var(--tl-space-4) / 2);
+  min-width: 0;
+}
+
+.tl-address-input-search__road {
+  color: var(--tl-color-fg-primary);
+  overflow-wrap: anywhere;
+}
+
+.tl-address-input-search__option[aria-selected='true'] .tl-address-input-search__road {
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-address-input-search__building,
+.tl-address-input-search__jibun {
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-address-input-search__jibun {
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-address-input-search__postcode {
+  flex: none;
+  color: var(--tl-color-fg-secondary);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+/* 시트 안 결과 행은 손가락 높이(D-60) */
+.tl-sheet .tl-address-input-search__option {
+  min-height: var(--tl-space-48);
+}
+
+@media (max-width: 639px) {
+  .tl-address-input__search {
+    flex: 1 1 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-address-input-search__spin {
+    animation: none;
+  }
+}

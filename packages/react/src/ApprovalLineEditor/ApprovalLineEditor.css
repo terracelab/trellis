@@ -1,0 +1,121 @@
+/* 결재선 편집: 줄(순서 | 사람 | 역할 | 순서 바꾸기 · 빼기) + 결재자 추가 + 참조 칩. 기안자 줄은 바탕 한 단계 */
+.tl-approval-line-editor {
+  display: grid;
+  gap: var(--tl-space-12);
+  min-width: 0;
+  container-type: inline-size;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+}
+
+.tl-approval-line-editor__list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-md);
+  list-style: none;
+}
+
+.tl-approval-line-editor[data-state='error'] .tl-approval-line-editor__list {
+  border-color: var(--tl-color-status-danger-default);
+}
+
+.tl-approval-line-editor__row {
+  display: grid;
+  grid-template-columns:
+    var(--tl-space-24) minmax(0, 1fr) calc(var(--tl-space-64) * 1.5)
+    calc(var(--tl-space-64) * 1.75);
+  align-items: center;
+  gap: var(--tl-space-12);
+  min-height: calc(var(--tl-density-row-height) + var(--tl-space-16));
+  padding: var(--tl-space-4) var(--tl-space-12);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-approval-line-editor__row:last-child {
+  border-bottom: 0;
+}
+
+.tl-approval-line-editor__row[data-drafter] {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-approval-line-editor__row:first-child {
+  border-radius: var(--tl-radius-md) var(--tl-radius-md) 0 0;
+}
+
+.tl-approval-line-editor__no {
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-label-font-size);
+  font-variant-numeric: var(--tl-font-numeric);
+  text-align: center;
+}
+
+.tl-approval-line-editor__who {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.tl-approval-line-editor__role {
+  min-width: 0;
+}
+
+.tl-approval-line-editor__fixed {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-approval-line-editor__tools {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--tl-space-4);
+}
+
+.tl-approval-line-editor__empty {
+  padding: var(--tl-space-16) var(--tl-space-12);
+  color: var(--tl-color-fg-secondary);
+}
+
+/* 안내: 바탕 없이 아이콘 + 글자 */
+.tl-approval-line-editor__warn {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+}
+
+.tl-approval-line-editor__warn-icon {
+  flex: none;
+  color: var(--tl-color-status-warning-default);
+}
+
+.tl-approval-line-editor__add {
+  max-width: calc(var(--tl-space-64) * 6);
+}
+
+/* 좁은 칸: 사람 아래 줄에 역할 · 단추 */
+@container (max-width: 559px) {
+  .tl-approval-line-editor__row {
+    grid-template-columns: var(--tl-space-24) minmax(0, 1fr) auto;
+    row-gap: var(--tl-space-8);
+    padding-block: var(--tl-space-8);
+  }
+
+  .tl-approval-line-editor__who {
+    grid-column: 2 / -1;
+  }
+
+  .tl-approval-line-editor__role {
+    grid-column: 2;
+  }
+
+  .tl-approval-line-editor__row[data-drafter] .tl-approval-line-editor__tools {
+    display: none;
+  }
+}

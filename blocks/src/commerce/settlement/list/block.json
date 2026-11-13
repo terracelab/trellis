@@ -1,0 +1,25 @@
+{
+  "id": "commerce/settlement/list",
+  "title": "정산",
+  "intent": "판매 채널별 매출 · 반품 · 수수료 · 배송비와 정산 예정액 · 정산일을 보고 채널 보고서와 다른 금액을 대사한다",
+  "module": "settlement",
+  "pattern": "Dashboard",
+  "industries": ["commerce", "distribution"],
+  "components": [
+    "PageHeader",
+    "Banner",
+    "KpiCard",
+    "ChartCard",
+    "WaterfallChart",
+    "Card",
+    "Badge",
+    "DueBadge",
+    "DataGrid",
+    "Drawer",
+    "DescriptionList",
+    "Button"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["kpis", "waterfall", "channels", "reconcile"],
+  "order": 10
+}

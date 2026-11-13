@@ -1,0 +1,30 @@
+{
+  "id": "groupware/attendance/leave-request",
+  "title": "휴가 신청",
+  "intent": "휴가 종류와 기간(반차는 오전 · 오후)을 고르고 사유를 적은 뒤 남은 연차와 결재선을 확인하고 신청한다. 신청하면 결재가 진행으로 바뀐다",
+  "module": "attendance",
+  "pattern": "FormRegister",
+  "industries": ["trade", "distribution", "commerce", "manufacturing", "general"],
+  "components": [
+    "PageHeader",
+    "Badge",
+    "Card",
+    "FormSection",
+    "Field",
+    "SelectableCard",
+    "DateField",
+    "SegmentedControl",
+    "Select",
+    "Textarea",
+    "ErrorSummary",
+    "LeaveBalance",
+    "ApprovalLine",
+    "StatusDot",
+    "EmptyState",
+    "ActionBar",
+    "Button"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["kinds", "rules", "approvalLine", "teamOverlap"],
+  "order": 15
+}

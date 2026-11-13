@@ -1,0 +1,23 @@
+---
+// 주소 없음. 정적 호스팅이 없는 주소에 이 파일(404.html)을 돌려준다.
+import '../styles/home.css';
+import Base from '../layouts/Base.astro';
+import { LINKS } from '../lib/site';
+---
+
+<Base title="주소 없음 · Trellis" description="찾는 주소가 없습니다." page="home" noindex>
+  <div class="tl-site-sheet">
+    <section class="tl-site-section tl-site-wrap" aria-labelledby="missing-h">
+      <div class="tl-site-cta">
+        <div class="tl-site-cta-copy">
+          <h1 class="tl-site-cta-title" id="missing-h">주소가 없습니다</h1>
+          <p class="tl-site-lead">주소가 바뀌었거나 지워진 페이지입니다.</p>
+          <div class="tl-site-actions">
+            <a class="tl-button tl-focusable" data-variant="primary" data-size="lg" href={LINKS.home}>홈으로</a>
+            <a class="tl-button tl-focusable" data-variant="secondary" data-size="lg" href={LINKS.docs}>문서 열기</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</Base>

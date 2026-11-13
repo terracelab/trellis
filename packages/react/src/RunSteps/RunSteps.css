@@ -1,0 +1,148 @@
+/* 실행 단계: [상태 점] 이름 · 보조 글자 … 상태 글자 · 걸린 시간 [펼침]. 상태는 점 색 + 글자(색만으로 말하지 않는다), 선 · 띠 없음 */
+.tl-run-steps {
+  display: grid;
+  gap: var(--tl-space-2);
+  min-width: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+}
+
+.tl-run-steps__list {
+  display: grid;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-run-steps__list[hidden] {
+  display: none;
+}
+
+.tl-run-steps__step {
+  min-width: 0;
+}
+
+/* 줄 · 요약 줄: 단추일 때도 같은 모양(왼쪽 정렬, 바탕 없음) */
+.tl-run-steps__row,
+.tl-run-steps__summary {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  width: 100%;
+  min-width: 0;
+  min-height: var(--tl-density-control-height-sm);
+  padding: var(--tl-space-2) var(--tl-space-8);
+  border: 0;
+  border-radius: var(--tl-radius-md);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+
+button.tl-run-steps__row,
+.tl-run-steps__summary {
+  cursor: pointer;
+  transition: background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+button.tl-run-steps__row:hover,
+.tl-run-steps__summary:hover,
+.tl-run-steps[data-force-state='hover'] :is(button.tl-run-steps__row, .tl-run-steps__summary) {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-run-steps[data-force-state='focus'] :is(button.tl-run-steps__row, .tl-run-steps__summary) {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: calc(var(--tl-border-width-2) * -1);
+}
+
+/* 요약 줄은 펼친 목록과 구분되게 1px 테두리 */
+.tl-run-steps__summary {
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-run-steps__summary[aria-expanded='false'] {
+  width: auto;
+  justify-self: start;
+  max-width: 100%;
+}
+
+.tl-run-steps__dot {
+  flex: none;
+}
+
+.tl-run-steps__text {
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 var(--tl-space-8);
+  min-width: 0;
+}
+
+.tl-run-steps__name {
+  min-width: 0;
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-run-steps__description {
+  min-width: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-run-steps__state,
+.tl-run-steps__duration {
+  flex: none;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  white-space: nowrap;
+}
+
+.tl-run-steps__duration {
+  min-width: var(--tl-space-40);
+  font-variant-numeric: var(--tl-font-numeric);
+  text-align: right;
+}
+
+/* 사람이 볼 것: 실패 · 확인 대기 글자는 진하게(색은 점이 말한다) */
+.tl-run-steps__step:is([data-run-state='failed'], [data-run-state='waiting']) .tl-run-steps__state,
+.tl-run-steps:is([data-run-state='failed'], [data-run-state='waiting'])
+  > .tl-run-steps__summary
+  .tl-run-steps__state {
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-600);
+}
+
+/* 중단 · 대기 단계는 이름을 흐리게 */
+.tl-run-steps__step:is([data-run-state='canceled'], [data-run-state='queued']) .tl-run-steps__name {
+  color: var(--tl-color-fg-secondary);
+  font-weight: var(--tl-font-weight-400);
+}
+
+.tl-run-steps__chevron {
+  flex: none;
+  width: var(--tl-size-icon-16);
+  color: var(--tl-color-fg-tertiary);
+}
+
+/* 펼친 상세: 점 아래 칸에서 시작(들여쓰기), 바탕 한 단계 */
+.tl-run-steps__detail {
+  margin: var(--tl-space-2) 0 var(--tl-space-6) calc(var(--tl-space-8) * 3);
+  padding: var(--tl-space-8) var(--tl-space-12);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  overflow-wrap: anywhere;
+}
+
+.tl-run-steps__detail[hidden] {
+  display: none;
+}

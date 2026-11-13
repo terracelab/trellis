@@ -1,0 +1,58 @@
+/* 재고 실사: 구역 목록 · 위치 고르기 줄 · 실사표(넓은 화면 표, 휴대폰 줄 카드) */
+.tl-block-count-zones {
+  padding: var(--tl-space-4) var(--tl-space-8) var(--tl-space-8);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-count-tools {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  align-items: end;
+  gap: var(--tl-space-12);
+  margin-bottom: var(--tl-space-16);
+}
+
+.tl-block-count-grid {
+  border-radius: var(--tl-radius-md);
+}
+
+/* 고른 선반의 위치 코드 */
+.tl-block-code[data-current] {
+  color: var(--tl-color-fg-link);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-block-count-lines {
+  display: grid;
+  gap: var(--tl-space-12);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-block-count-line {
+  display: grid;
+  gap: var(--tl-space-8);
+  padding: var(--tl-space-12);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-md);
+  transition: border-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+/* 스캔으로 찾은 줄: 1px 선택 테두리(바탕을 칠하지 않는다) */
+.tl-block-count-line[data-flash] {
+  border-color: var(--tl-color-border-selected);
+}
+
+.tl-block-count-line__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: var(--tl-space-8);
+}
+
+@media (max-width: 1023px) {
+  .tl-block-count-tools {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "layout": {
+    "globalBar": {
+      "height": {
+        "$value": "48px",
+        "$type": "dimension",
+        "$description": "상단 글로벌 바"
+      }
+    },
+    "sidebar": {
+      "width": {
+        "$value": "240px",
+        "$type": "dimension"
+      },
+      "collapsedWidth": {
+        "$value": "64px",
+        "$type": "dimension"
+      }
+    },
+    "content": {
+      "maxWidth": {
+        "$value": "1440px",
+        "$type": "dimension"
+      },
+      "maxWidthWide": {
+        "$value": "1600px",
+        "$type": "dimension",
+        "$description": "와이드(layout.wide.minWidth 이상) 본문 최대 폭(식자재 ERP 와이드, D-97)"
+      }
+    },
+    "gutter": {
+      "default": {
+        "$value": "24px",
+        "$type": "dimension"
+      },
+      "compact": {
+        "$value": "16px",
+        "$type": "dimension"
+      }
+    },
+    "desktop": {
+      "minWidth": {
+        "$value": "1024px",
+        "$type": "dimension",
+        "$description": "데스크톱 최소 폭"
+      }
+    },
+    "wide": {
+      "minWidth": {
+        "$value": "1920px",
+        "$type": "dimension",
+        "$description": "와이드 화면 시작 폭. 미디어 쿼리는 이 숫자를 그대로 쓴다(D-97)"
+      }
+    }
+  }
+}

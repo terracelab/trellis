@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-orders-title">
+  <title id="tl-tile-orders-title">주문</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-orders-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-orders-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFA29D"/>
+      <stop offset=".5" stop-color="#E5484D"/>
+      <stop offset="1" stop-color="#A31A27"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-orders-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-orders-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-orders-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-orders-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-orders-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-orders-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-orders-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#A31A27" opacity=".25" filter="url(#tl-tile-orders-blur)"/>
+    <g transform="rotate(-3 512 512)">
+      <path d="M389 395v-70c0-68 55-123 123-123s123 55 123 123v70h-40v-70a83 83 0 0 0-166 0v70z" fill="#E5484D"/>
+      <path d="M294 367h436l37 373c3 30-20 55-50 55H307c-30 0-53-25-50-55z" fill="url(#tl-tile-orders-edge)"/>
+      <path d="M294 367h410l32 356c3 26-18 48-44 48H307c-30 0-53-25-50-55z" fill="url(#tl-tile-orders-white)"/>
+      <circle cx="409" cy="407" r="12" fill="#E5484D"/>
+      <circle cx="615" cy="407" r="12" fill="#E5484D"/>
+      <circle cx="718" cy="719" r="68" fill="#38AD73"/>
+      <path d="m687 720 22 23 42-48" fill="none" stroke="#FFFFFF" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+</svg>

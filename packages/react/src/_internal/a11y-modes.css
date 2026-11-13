@@ -1,0 +1,79 @@
+/*
+ * 접근성 모드 · 손가락 입력(D-97, 식자재 ERP theme.css). 앱 화면 설정이 <html data-*>를 넣는다(TrellisProvider가 맞출 수 있다).
+ * 색 · 글자 크기 모드(data-contrast · data-chart · data-font-scale)는 tokens.css가 토큰으로 처리한다. 여기는 모양 규칙만.
+ */
+
+/* 포커스 강조: 링 3px + 진한 회사 색(border.focusStrong). 고대비에서도 진한 색 */
+[data-focus='strong'] .tl-focusable:focus-visible,
+[data-contrast='high'] .tl-focusable:focus-visible {
+  outline-color: var(--tl-color-border-focus-strong);
+}
+
+[data-focus='strong'] .tl-focusable:focus-visible {
+  outline-width: var(--tl-border-width-3);
+}
+
+/* 입력 칸은 안쪽 input이 초점을 받아도 감싸개 둘레에 링을 그린다 */
+[data-focus='strong']
+  :is(
+    .tl-input,
+    .tl-amount-input__box,
+    .tl-quantity-input__box,
+    .tl-masked-input,
+    .tl-date-field,
+    .tl-period-picker,
+    .tl-code-search,
+    .tl-select
+  ):has(:focus-visible),
+[data-focus='strong'] .tl-textarea:focus-visible {
+  outline: var(--tl-border-width-3) solid var(--tl-color-border-focus-strong);
+  outline-offset: var(--tl-border-width-2);
+}
+
+/* 목록 · 메뉴의 가리킨 줄은 안쪽 링 */
+[data-focus='strong'] :is([role='option'], [role='menuitem'])[data-highlighted] {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus-strong);
+  outline-offset: calc(var(--tl-border-width-2) * -1);
+}
+
+/* 링크 밑줄: 색만으로 링크를 구분하지 않는다(WCAG 1.4.1) */
+[data-links='underline'] :is(a[href], [data-tl-link]) {
+  text-decoration-line: underline;
+  text-decoration-thickness: var(--tl-border-width-1);
+  text-underline-offset: var(--tl-border-width-3);
+}
+
+/* 고대비: 자리 표시 글자도 불투명하게 읽히고, 고른 글자는 반전 */
+[data-contrast='high'] ::placeholder {
+  color: var(--tl-color-fg-tertiary);
+  opacity: 1;
+}
+
+[data-contrast='high'] ::selection {
+  background: var(--tl-color-fg-strong);
+  color: var(--tl-color-bg-surface);
+}
+
+/* 손가락 입력: 작은 단추(xs · sm)는 보이는 크기는 그대로, 누르는 영역만 넓힌다(1024 이상 36 · 미만 44) */
+@media (pointer: coarse) {
+  :is(.tl-button, .tl-icon-button):is([data-size='xs'], [data-size='sm']) {
+    position: relative;
+  }
+
+  :is(.tl-button, .tl-icon-button):is([data-size='xs'], [data-size='sm'])::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100%, var(--tl-density-control-height-md));
+    height: max(100%, var(--tl-density-control-height-md));
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media (pointer: coarse) and (max-width: 1023px) {
+  :is(.tl-button, .tl-icon-button):is([data-size='xs'], [data-size='sm'])::after {
+    width: max(100%, var(--tl-size-touch-min));
+    height: max(100%, var(--tl-size-touch-min));
+  }
+}

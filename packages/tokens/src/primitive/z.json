@@ -1,0 +1,28 @@
+{
+  "z": {
+    "base": {
+      "$value": 0,
+      "$type": "number"
+    },
+    "sticky": {
+      "$value": 100,
+      "$type": "number"
+    },
+    "dropdown": {
+      "$value": 450,
+      "$type": "number"
+    },
+    "overlay": {
+      "$value": 300,
+      "$type": "number"
+    },
+    "modal": {
+      "$value": 400,
+      "$type": "number"
+    },
+    "toast": {
+      "$value": 500,
+      "$type": "number"
+    }
+  }
+}

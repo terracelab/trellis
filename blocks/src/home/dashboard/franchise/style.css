@@ -1,0 +1,75 @@
+/* 가맹점 현황: 카드 머리 필터 줄 · 표 칸 목표 대비 · 초도 물량 근거 */
+.tl-block-fr-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+/* inner-override: BulletBar에 표 칸용(이름 숨김) 모양이 없다. 이름은 행 첫 칸에 있고 막대 이름은 aria-label로 읽힌다(보강 요청) */
+.tl-block-fr-bullet .tl-bullet-bar__label {
+  position: absolute;
+  width: var(--tl-border-width-1);
+  height: var(--tl-border-width-1);
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.tl-block-fr-basis {
+  display: grid;
+  gap: var(--tl-space-8);
+}
+
+.tl-block-fr-heading {
+  margin: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+  line-height: var(--tl-type-label-line-height);
+}
+
+.tl-block-fr-steps {
+  display: grid;
+  gap: var(--tl-space-4);
+  margin: 0;
+  padding-left: var(--tl-space-20);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+}
+
+.tl-block-fr-total {
+  margin: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+@media (max-width: 639px) {
+  /* inner-override: Card · ChartCard 머리가 좁은 화면에서 동작(순위 · 지역 · 상태)을 제목 아래로 내리지 않아 제목이 세로로 눌린다(보강 요청: 머리 줄바꿈) */
+  .tl-block-fr-card .tl-chart-card__head,
+  .tl-block-fr-card .tl-card__head {
+    flex-wrap: wrap;
+  }
+
+  /* inner-override: 위와 같은 이유. 내려간 동작 줄이 폭을 다 쓰고 안에서 줄을 바꾼다(보강 요청) */
+  .tl-block-fr-card .tl-chart-card__tools,
+  .tl-block-fr-card .tl-card__action {
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+  }
+
+  .tl-block-fr-filters {
+    justify-content: flex-start;
+  }
+}
+
+.tl-block-fr-region {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--tl-space-8);
+}

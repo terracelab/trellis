@@ -1,0 +1,126 @@
+.tl-form-section {
+  display: grid;
+  gap: var(--tl-space-12);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.tl-form-section__head {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-12);
+}
+
+.tl-form-section__title {
+  float: left;
+  flex: 1 1 auto;
+  padding: 0;
+  color: var(--tl-color-fg-strong);
+  font-size: var(--tl-type-h3-font-size);
+  line-height: var(--tl-type-h3-line-height);
+  font-weight: var(--tl-type-h3-font-weight);
+}
+
+.tl-form-section__action {
+  display: flex;
+  gap: var(--tl-space-8);
+}
+
+.tl-form-section__description {
+  clear: both;
+  margin: 0;
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+}
+
+.tl-form-section__grid {
+  clear: both;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tl-space-16) var(--tl-density-gutter);
+}
+
+.tl-form-section__grid[data-columns='1'] {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.tl-form-section__grid[data-columns='3'] {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.tl-form-section__grid > [data-span='2'] {
+  grid-column: span 2;
+}
+
+.tl-form-section__grid > [data-span='3'] {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 1023px) {
+  .tl-form-section__grid,
+  .tl-form-section__grid[data-columns='3'] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tl-form-section__grid > [data-span] {
+    grid-column: auto;
+  }
+}
+
+/* ── 접는 묶음(선택 항목) ── */
+.tl-form-section__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  max-width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: var(--tl-radius-xs);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.tl-form-section__chevron {
+  flex: none;
+  color: var(--tl-color-fg-tertiary);
+  transition: transform var(--tl-duration-slow) var(--tl-easing-standard);
+}
+
+.tl-form-section__toggle[aria-expanded='true'] .tl-form-section__chevron {
+  transform: rotate(90deg);
+}
+
+/* 접혀 있을 때 채운 칸 수. 알약이 아니라 흐린 글자 */
+.tl-form-section__filled {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-font-weight-400);
+}
+
+.tl-form-section__collapse {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows var(--tl-duration-slow) var(--tl-easing-standard);
+}
+
+.tl-form-section[data-open='false'] > .tl-form-section__collapse {
+  grid-template-rows: 0fr;
+}
+
+.tl-form-section__collapse-inner {
+  display: grid;
+  gap: var(--tl-space-12);
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* 펼치면 포커스 링이 잘리지 않게 넘침을 연다 */
+.tl-form-section[data-open='true'] .tl-form-section__collapse-inner {
+  overflow: visible;
+}

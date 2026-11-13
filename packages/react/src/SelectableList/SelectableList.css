@@ -1,0 +1,260 @@
+/* 고르는 세로 목록(PG-35, R-T22). 고른 행은 바탕 한 단계(bg.rowSelected) 또는 1px 테두리 전체(border.selected).
+   왼쪽 굵은 띠는 쓰지 않는다(D-57). 안 읽음 수는 회색 알약이 아니라 caption 숫자 */
+.tl-selectable-list {
+  display: grid;
+  gap: var(--tl-space-12);
+  min-width: 0;
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+}
+
+.tl-selectable-list__group {
+  display: grid;
+  gap: var(--tl-space-4);
+  min-width: 0;
+}
+
+.tl-selectable-list__group-label {
+  padding: var(--tl-space-4) var(--tl-space-8);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-selectable-list__list {
+  display: grid;
+  gap: var(--tl-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-selectable-list__row {
+  min-width: 0;
+}
+
+.tl-selectable-list__item {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-12);
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--tl-density-row-height);
+  padding: var(--tl-space-8);
+  border: var(--tl-border-width-1) solid transparent;
+  border-radius: var(--tl-radius-md);
+  background: transparent;
+  color: var(--tl-color-fg-primary);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  transition:
+    background-color var(--tl-duration-fast) var(--tl-easing-standard),
+    border-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-selectable-list[data-size='sm'] .tl-selectable-list__item {
+  gap: var(--tl-space-8);
+  padding: var(--tl-space-6) var(--tl-space-8);
+}
+
+/* 행 안쪽으로 링을 그려 이웃 행 · 스크롤 상자 가장자리에 잘리지 않게 한다 */
+.tl-selectable-list__item:focus-visible {
+  outline-offset: calc(var(--tl-border-width-2) * -1);
+}
+
+/* 가리킨 행: 라이트 · 다크 어느 바탕(면 · 앱 바탕)에서도 보이게 글자색을 옅게 섞는다 */
+.tl-selectable-list__item:hover,
+.tl-selectable-list[data-force-state='hover']
+  .tl-selectable-list__group:first-child
+  .tl-selectable-list__row:first-child
+  .tl-selectable-list__item {
+  background: color-mix(in srgb, var(--tl-color-fg-primary) 5%, transparent);
+}
+
+.tl-selectable-list__item:active,
+.tl-selectable-list[data-force-state='active']
+  .tl-selectable-list__group:first-child
+  .tl-selectable-list__row:first-child
+  .tl-selectable-list__item {
+  background: color-mix(in srgb, var(--tl-color-fg-primary) 10%, transparent);
+}
+
+.tl-selectable-list[data-force-state='focus']
+  .tl-selectable-list__group:first-child
+  .tl-selectable-list__row:first-child
+  .tl-selectable-list__item {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: calc(var(--tl-border-width-2) * -1);
+}
+
+/* 고른 행: 바탕 한 단계(기본) */
+.tl-selectable-list__item[data-selected],
+.tl-selectable-list__item[data-selected]:hover {
+  background: var(--tl-color-bg-row-selected);
+}
+
+/* 고른 행: 1px 테두리 전체(ring) */
+.tl-selectable-list[data-variant='ring'] .tl-selectable-list__item[data-selected],
+.tl-selectable-list[data-variant='ring'] .tl-selectable-list__item[data-selected]:hover {
+  border-color: var(--tl-color-border-selected);
+  background: transparent;
+}
+
+.tl-selectable-list__item[data-state='disabled'] {
+  color: var(--tl-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.tl-selectable-list__item[data-state='disabled']:hover {
+  background: transparent;
+}
+
+/* 앞 아이콘 칸: 아바타와 같은 크기의 회색 칸 */
+.tl-selectable-list__icon {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: var(--tl-size-avatar-32);
+  height: var(--tl-size-avatar-32);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-selectable-list[data-size='sm'] .tl-selectable-list__icon {
+  width: var(--tl-size-avatar-24);
+  height: var(--tl-size-avatar-24);
+  border-radius: var(--tl-radius-sm);
+}
+
+.tl-selectable-list__text {
+  display: grid;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* 한 줄(sm): 제목 옆에 보조 글자(PersonLabel sm과 같다) */
+.tl-selectable-list[data-size='sm'] .tl-selectable-list__text {
+  display: flex;
+  align-items: baseline;
+  gap: var(--tl-space-8);
+}
+
+.tl-selectable-list__title {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  min-width: 0;
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-selectable-list__title-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-selectable-list__item[data-selected] .tl-selectable-list__title {
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-selectable-list__item[data-unread] .tl-selectable-list__title {
+  font-weight: var(--tl-font-weight-700);
+}
+
+.tl-selectable-list__muted {
+  flex: none;
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-selectable-list__secondary {
+  display: flex;
+  align-items: baseline;
+  gap: var(--tl-space-8);
+  min-width: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-selectable-list__secondary-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-selectable-list__presence {
+  flex: none;
+}
+
+/* 한 줄(sm): 제목이 제 폭을 지키고 보조 글자가 남는 폭에서 말줄임(긴 마지막 메시지가 이름을 밀지 않는다) */
+.tl-selectable-list[data-size='sm'] .tl-selectable-list__title {
+  flex: 0 0 auto;
+  max-width: 100%;
+}
+
+.tl-selectable-list[data-size='sm'] .tl-selectable-list__secondary {
+  flex: 1 1 0;
+}
+
+.tl-selectable-list[data-size='sm'] .tl-selectable-list__presence {
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
+}
+
+.tl-selectable-list__end {
+  display: grid;
+  flex: none;
+  justify-items: end;
+  gap: var(--tl-space-2);
+  text-align: end;
+}
+
+.tl-selectable-list[data-size='sm'] .tl-selectable-list__end {
+  display: flex;
+  align-items: baseline;
+  gap: var(--tl-space-8);
+}
+
+.tl-selectable-list__meta {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+.tl-selectable-list__value {
+  font-weight: var(--tl-font-weight-600);
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+/* 안 읽음 수: 알약 없이 굵은 숫자 글자. 알림 끈 행은 보조 글자색 */
+.tl-selectable-list__count {
+  color: var(--tl-color-fg-link);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-weight: var(--tl-font-weight-600);
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+.tl-selectable-list__count[data-muted] {
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-selectable-list__item[data-state='disabled']
+  :is(.tl-selectable-list__secondary, .tl-selectable-list__meta, .tl-selectable-list__count) {
+  color: var(--tl-color-fg-disabled);
+}
+
+.tl-selectable-list__empty {
+  margin: 0;
+  padding: var(--tl-space-12) var(--tl-space-8);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+}

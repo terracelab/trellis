@@ -1,0 +1,394 @@
+---
+// 홈. 구성: 히어로(워드마크 · 한 문장 · 실제 컴포넌트 카드 · 회사 색 고르기) → 네 칸(테마 · 컴포넌트 · 에이전트 · 블록)
+// → 한국 업무 관습 세 가지 → 업종별 화면 → 마무리. 숫자는 lib/site.ts가 저장소에서 읽는다.
+import '../styles/home.css';
+import { Badge, Button, Icon, KpiCard } from '@terracelab/trellis-react';
+import { moduleTileSprite } from '@terracelab/trellis-icons/module-tiles';
+import { THEME_PRESETS } from '@terracelab/trellis-tokens/theme';
+import { HeroLeft, HeroRight } from '../components/HeroCards';
+import Mark from '../components/Mark.astro';
+import { AgentSample, ComponentSamples, DensitySample } from '../components/Samples';
+import Shot from '../components/Shot.astro';
+import Base from '../layouts/Base.astro';
+import { FACTS, LINKS, n } from '../lib/site';
+
+const title = 'Trellis · 테라스랩의 디자인 시스템';
+const description = `Trellis는 한국 업무 화면에 쓰는 테라스랩의 디자인 시스템입니다. 토큰 ${n(FACTS.tokens)}개 · 컴포넌트 ${FACTS.components}종 · 화면 블록 ${FACTS.blocks}개가 들어 있고 컬러 하나로 테마를 만듭니다.`;
+
+/** 히어로 · 테마 칸에서 고르는 회사 색(프리셋 가운데 다섯) */
+const PICKS = ['orange', 'blue', 'teal', 'forest', 'violet'].map(
+  (id) => THEME_PRESETS.find((p) => p.id === id)!,
+);
+const MOSAIC = [
+  ['home/dashboard/trade', 'erp/tax/invoice-list', 'groupware/approval/document', 'scm/inventory/stock'],
+  ['erp/hr-payroll/employees', 'home/dashboard/people', 'commerce/orders/list', 'erp/accounting/journal'],
+] as const;
+const INDUSTRIES = [
+  ['세무 · 회계', '세금계산서 발행 · 부가세 신고 · 전표 입력 · 거래처 원장', 'erp/tax/invoice-list'],
+  ['유통 · 물류', '발주 · 입고 검수 · 재고와 유통기한 · 선적과 통관 · 배차', 'scm/warehouse/receiving'],
+  ['이커머스', '상품 · 주문 상세 · 취소와 반품 · 채널 정산', 'commerce/orders/list'],
+  ['제조', '현장 보드 · 생산 실적 · 설비 · 품질 검사', 'mes/shop-floor/board'],
+] as const;
+const LEDGER = [
+  ['11-03', '한빛무역 입금', '12,400,000', ''],
+  ['11-04', '포장재 발주', '', '3,150,000'],
+  ['11-05', '대양상사 입금', '4,820,000', ''],
+] as const;
+const CORNERS = [
+  'home/dashboard/people',
+  'groupware/approval/document',
+  'erp/hr-payroll/payslip',
+  'home/dashboard/trade',
+] as const;
+---
+
+<Base title={title} description={description} page="home">
+  <Fragment set:html={moduleTileSprite} />
+
+  <section class="tl-site-hero" aria-labelledby="hero-title">
+    <div class="tl-site-hero-lattice" aria-hidden="true"></div>
+    <div class="tl-site-hero-copy">
+      <p class="tl-site-wordmark" aria-hidden="true"><Mark />Trellis</p>
+      <h1 class="tl-site-hero-title" id="hero-title">
+        <span class="tl-site-sr">Trellis</span>
+        <span>테라스랩의 디자인 시스템</span>
+        <strong>업무 화면을 <span class="tl-site-nowrap">컬러 하나로</span> 만듭니다</strong>
+      </h1>
+      <div class="tl-site-actions">
+        <a class="tl-button tl-focusable" data-variant="primary" data-size="lg" href={LINKS.start}>시작하기</a>
+        <a class="tl-button tl-focusable" data-variant="secondary" data-size="lg" href={LINKS.components}>컴포넌트 보기</a>
+      </div>
+      <p class="tl-site-hero-note">{FACTS.version} · 에이전트용 문서 동봉 · 오픈소스</p>
+    </div>
+
+    <div class="tl-site-hero-side" data-side="left" inert>
+      <HeroLeft />
+    </div>
+    <div class="tl-site-hero-side" data-side="right" inert>
+      <HeroRight />
+    </div>
+    <p class="tl-site-sr">양옆 카드는 Trellis 컴포넌트로 그린 근태 · 연차 · 시재 · 알림 샘플입니다.</p>
+
+    <div class="tl-site-pager">
+      <div class="tl-site-swatches" role="radiogroup" aria-label="회사 색">
+        {
+          PICKS.map((p) => (
+            <button
+              type="button"
+              role="radio"
+              aria-checked="false"
+              class="tl-site-swatch"
+              data-brand={p.id}
+              data-brand-pick={p.id}
+              aria-label={p.label}
+              title={p.label}
+            />
+          ))
+        }
+      </div>
+      <button type="button" class="tl-site-icon-button tl-site-auto tl-focusable" data-brand-auto aria-pressed="false" aria-label="회사 색 자동 전환">
+        <span class="tl-site-auto-on"><Icon name="pause" size={16} /></span>
+        <span class="tl-site-auto-off"><Icon name="play" size={16} /></span>
+      </button>
+    </div>
+  </section>
+
+  <div class="tl-site-sheet">
+    <section class="tl-site-section tl-site-wrap tl-site-bento" aria-labelledby="bento-h">
+      <div class="tl-site-bento-col">
+        <div class="tl-site-bento-intro">
+          <p class="tl-site-eyebrow">구성</p>
+          <h2 class="tl-site-title" id="bento-h">토큰 JSON이 유일한 원본입니다</h2>
+          <p class="tl-site-lead">
+            {`토큰 ${n(FACTS.tokens)}개가 CSS 변수 · TypeScript · Figma 변수로 빌드됩니다. 컴포넌트 ${FACTS.components}종과 화면 블록 ${FACTS.blocks}개는 그 값만 씁니다.`}
+          </p>
+        </div>
+        <article class="tl-site-tile" data-tile="theme">
+          <div class="tl-site-tile-head">
+            <h3 class="tl-site-tile-title">컬러 하나로 테마를 만듭니다</h3>
+            <p class="tl-site-text">
+              {`색을 넣으면 버튼 · 링크 · 사이드바 색 단계를 계산하고 대비 검사 ${FACTS.themeChecks}건을 함께 돌립니다.`}
+            </p>
+            <a class="tl-site-arrow" href={LINKS.themes}>테마 보기<Icon name="arrow-right" size={16} /></a>
+          </div>
+          <div class="tl-site-tile-figure" data-figure="theme">
+            <div class="tl-site-win" inert>
+              <div class="tl-site-win-nav">
+                <span class="tl-site-win-brand">테라트레이딩</span>
+                <span class="tl-site-win-item" data-current><Icon name="layout-dashboard" size={16} /><span class="tl-site-win-label">대시보드</span></span>
+                <span class="tl-site-win-item"><Icon name="stamp" size={16} /><span class="tl-site-win-label">전자결재</span></span>
+                <span class="tl-site-win-item"><Icon name="clock" size={16} /><span class="tl-site-win-label">근태</span></span>
+                <span class="tl-site-win-item"><Icon name="receipt" size={16} /><span class="tl-site-win-label">세금계산서</span></span>
+              </div>
+              <div class="tl-site-win-body">
+                <div class="tl-site-win-head">
+                  <strong>11월 6일(금)</strong>
+                  <Button variant="primary" size="sm">결재 요청</Button>
+                </div>
+                <KpiCard label="결재 대기" value={12} unit="건" caption="3일 넘은 결재 4건" size="sm" />
+                <KpiCard
+                  label="당월 매출"
+                  value={1284000000}
+                  format="compactWon"
+                  delta={{ value: 12.4, label: '전월 대비' }}
+                  size="sm"
+                />
+                <ul class="tl-site-win-list">
+                  <li>지출결의서 · 김지훈<Badge approval="pending" /></li>
+                  <li>구매품의서 · 이수민<Badge approval="approved" /></li>
+                  <li>휴가 신청 · 박서연<Badge approval="draft" /></li>
+                </ul>
+                <span class="tl-site-win-link">결재함 열기</span>
+              </div>
+            </div>
+            <div class="tl-site-swatches" data-vertical role="radiogroup" aria-label="회사 색 미리 보기">
+              {
+                PICKS.map((p) => (
+                  <button
+                    type="button"
+                    role="radio"
+                    aria-checked="false"
+                    class="tl-site-swatch"
+                    data-round
+                    data-brand={p.id}
+                    data-brand-pick={p.id}
+                    aria-label={p.label}
+                    title={p.label}
+                  />
+                ))
+              }
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="tl-site-bento-col">
+        <article class="tl-site-tile" data-tile="components">
+          <div class="tl-site-tile-head">
+            <h3 class="tl-site-tile-title">컴포넌트 {FACTS.components}종</h3>
+            <p class="tl-site-text">
+              {`결재선 · 금액 입력 · 차트 ${FACTS.charts}종까지 업무 화면에 쓰는 React 컴포넌트입니다. 라이트 · 다크 · 고대비와 밀도 세 단계가 있습니다.`}
+            </p>
+            <a class="tl-site-arrow" href={LINKS.components}>컴포넌트 보기<Icon name="arrow-right" size={16} /></a>
+          </div>
+          <div class="tl-site-tile-figure" data-figure="components">
+            <ComponentSamples client:visible />
+          </div>
+        </article>
+        <article class="tl-site-tile" data-tile="agent">
+          <div class="tl-site-tile-head">
+            <h3 class="tl-site-tile-title">에이전트용 문서가 패키지에 들어 있습니다</h3>
+            <p class="tl-site-text">
+              <code>llms.txt</code> · <code>manifest.json</code> · 스킬이 패키지와 같은 버전으로 설치됩니다.{' '}
+              {`컴포넌트 ${FACTS.components}종의 props와 예시가 적혀 있습니다.`}
+            </p>
+            <a class="tl-site-arrow" href={LINKS.agents}>에이전트로 개발하기<Icon name="arrow-right" size={16} /></a>
+          </div>
+          <div class="tl-site-tile-figure" data-figure="agent">
+            <AgentSample />
+          </div>
+        </article>
+      </div>
+
+      <div class="tl-site-bento-col">
+        <article class="tl-site-tile" data-tile="blocks">
+          <div class="tl-site-tile-head">
+            <h3 class="tl-site-tile-title">화면 블록 {FACTS.blocks}개</h3>
+            <p class="tl-site-text">목록 · 대시보드 · 결재 화면을 소스로 복사해 회사 규칙에 맞게 고칩니다.</p>
+            <a class="tl-site-arrow" href={LINKS.blocks}>블록 보기<Icon name="arrow-right" size={16} /></a>
+          </div>
+          <div class="tl-site-tile-figure" data-figure="blocks" aria-hidden="true">
+            {
+              MOSAIC.map((column) => (
+                <div class="tl-site-mosaic-col">
+                  {column.map((id) => (
+                    <div class="tl-site-frame">
+                      <Shot id={id} />
+                    </div>
+                  ))}
+                </div>
+              ))
+            }
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="tl-site-section tl-site-wrap tl-site-proof" aria-labelledby="proof-h">
+      <div class="tl-site-proof-intro">
+        <div class="tl-site-head">
+          <p class="tl-site-eyebrow">원칙</p>
+          <h2 class="tl-site-title" id="proof-h">한국 업무 관습이 기본값입니다</h2>
+        </div>
+        <p class="tl-site-lead">
+          금액 색 · 결재 어휘 · 밀도를 화면마다 다시 정하지 않습니다. 규칙을 어기면 린트와 테스트가 실패합니다.
+        </p>
+      </div>
+      <ul class="tl-site-proof-list">
+        <li class="tl-site-proof-item">
+          <div class="tl-site-specimen">
+            <table class="tl-site-mini-table">
+              <caption>단위: 원</caption>
+              <thead>
+                <tr>
+                  <th scope="col">일자</th>
+                  <th scope="col">적요</th>
+                  <th scope="col" data-align="right">수입</th>
+                  <th scope="col" data-align="right">지출</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  LEDGER.map(([date, memo, income, expense]) => (
+                    <tr>
+                      <td>{date}</td>
+                      <td>{memo}</td>
+                      <td data-align="right" data-finance="income">{income}</td>
+                      <td data-align="right" data-finance="expense">{expense}</td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
+          <h3 class="tl-site-tile-title">수입 빨강 · 지출 파랑</h3>
+          <p class="tl-site-text">
+            금액은 원 단위 · 천 단위 구분 · 우측 정렬로 적습니다. 회사 색을 바꿔도 금액 색은 바뀌지 않습니다.
+          </p>
+          <a class="tl-site-arrow" href={LINKS.principles}>원칙과 규칙<Icon name="arrow-right" size={16} /></a>
+        </li>
+        <li class="tl-site-proof-item">
+          <div class="tl-site-specimen" data-center>
+            <div class="tl-site-badges">
+              <Badge approval="draft" />
+              <Badge approval="pending" />
+              <Badge approval="approved" />
+              <Badge approval="rejected" />
+              <Badge approval="withdrawn" />
+            </div>
+          </div>
+          <h3 class="tl-site-tile-title">결재 상태는 다섯 개</h3>
+          <p class="tl-site-text">기안 · 진행 · 승인 · 반려 · 회수를 모든 모듈에서 같은 배지로 씁니다.</p>
+          <a class="tl-site-arrow" href={LINKS.content}>문구 규칙<Icon name="arrow-right" size={16} /></a>
+        </li>
+        <li class="tl-site-proof-item">
+          <div class="tl-site-specimen">
+            <DensitySample client:visible />
+          </div>
+          <h3 class="tl-site-tile-title">밀도는 <code>compact</code>가 기본</h3>
+          <p class="tl-site-text">
+            한 화면에 더 많은 행을 보입니다. 휴대폰 폭에서는 <code>touch</code> 밀도로 자동 전환됩니다.
+          </p>
+          <a class="tl-site-arrow" href={LINKS.tokens}>토큰<Icon name="arrow-right" size={16} /></a>
+        </li>
+      </ul>
+    </section>
+
+    <section class="tl-site-section tl-site-wrap" aria-labelledby="industry-h">
+      <header class="tl-site-row-head">
+        <div class="tl-site-head">
+          <p class="tl-site-eyebrow">업종</p>
+          <h2 class="tl-site-title" id="industry-h">업종별 화면은 데모에서 엽니다</h2>
+        </div>
+        <a class="tl-site-arrow" href={LINKS.blocks}>블록 전체 보기<Icon name="arrow-right" size={16} /></a>
+      </header>
+      <ul class="tl-site-industries">
+        {
+          INDUSTRIES.map(([name, screens, id]) => (
+            <li class="tl-site-industry">
+              <a class="tl-site-industry-link" href={LINKS.block(id)}>
+                <span class="tl-site-frame">
+                  <Shot id={id} large />
+                </span>
+                <span class="tl-site-industry-text">
+                  <strong class="tl-site-tile-title">{name}</strong>
+                  <span class="tl-site-text">{screens}</span>
+                  <span class="tl-site-industry-meta">데모에서 열기<Icon name="arrow-right" size={16} /></span>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="tl-site-section tl-site-wrap" aria-labelledby="cta-h">
+      <div class="tl-site-cta">
+        <div class="tl-site-cta-corners" aria-hidden="true">
+          {
+            CORNERS.map((id, i) => (
+              <div class="tl-site-frame" data-corner={i + 1}>
+                <Shot id={id} />
+              </div>
+            ))
+          }
+        </div>
+        <div class="tl-site-cta-copy">
+          <h2 class="tl-site-cta-title" id="cta-h">
+            <span class="tl-site-cta-word"><Mark />Trellis</span> 전체는<br />문서와 데모에 있습니다
+          </h2>
+          <p class="tl-site-lead">
+            {`설치와 회사 테마 안내는 문서에 있습니다. 무역 회사 샘플 화면 ${FACTS.blocks}개는 데모에서 엽니다.`}
+          </p>
+          <div class="tl-site-actions">
+            <a class="tl-button tl-focusable" data-variant="primary" data-size="lg" href={LINKS.start}>시작하기</a>
+            <a class="tl-button tl-focusable" data-variant="secondary" data-size="lg" href={LINKS.demo}>데모 열기</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // 회사 색 자동 전환: 사용자가 색을 고르기 전까지만, 히어로가 보일 때만. 움직임 줄이기 설정이면 켜지 않는다.
+    import { currentBrand, setBrand } from '../scripts/theme';
+
+    const auto = document.querySelector<HTMLButtonElement>('[data-brand-auto]');
+    const hero = document.querySelector<HTMLElement>('.tl-site-hero');
+    const order = [...document.querySelectorAll<HTMLElement>('.tl-site-pager [data-brand-pick]')].map(
+      (el) => el.dataset['brandPick']!,
+    );
+    const INTERVAL = 4500;
+    let timer: number | undefined;
+    let visible = true;
+
+    const paint = () => auto?.setAttribute('aria-pressed', String(timer !== undefined));
+    const stop = () => {
+      window.clearInterval(timer);
+      timer = undefined;
+      paint();
+    };
+    const start = () => {
+      stop();
+      timer = window.setInterval(() => {
+        if (!visible || document.hidden) return;
+        const next = order[(order.indexOf(currentBrand()) + 1) % order.length];
+        if (next) setBrand(next, { persist: false });
+      }, INTERVAL);
+      paint();
+    };
+
+    auto?.addEventListener('click', () => (timer === undefined ? start() : stop()));
+    // 직접 고르면 멈춘다(클릭 · 화살표 키)
+    for (const type of ['click', 'keydown'] as const)
+      document.addEventListener(
+        type,
+        (event) => {
+          const target = event.target instanceof Element ? event.target : null;
+          if (target?.closest('[data-brand-pick]')) stop();
+        },
+        true,
+      );
+    if (hero)
+      new IntersectionObserver(([entry]) => (visible = entry?.isIntersecting ?? true)).observe(hero);
+
+    let chosen: string | null = null;
+    try {
+      chosen = localStorage.getItem('trellis-site-brand');
+    } catch {
+      /* 저장소를 못 쓰면 고른 적 없는 것으로 본다 */
+    }
+    if (!chosen && !matchMedia('(prefers-reduced-motion: reduce)').matches) start();
+    else paint();
+  </script>
+</Base>

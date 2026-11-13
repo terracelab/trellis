@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-treasury-title">
+  <title id="tl-tile-treasury-title">자금</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-treasury-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-treasury-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE071"/>
+      <stop offset=".5" stop-color="#F2B733"/>
+      <stop offset="1" stop-color="#C87C08"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-treasury-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-treasury-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-treasury-gold" x1="610" y1="600" x2="850" y2="850" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF5B2"/>
+      <stop offset=".35" stop-color="#FFD24F"/>
+      <stop offset=".75" stop-color="#E69510"/>
+      <stop offset="1" stop-color="#AF5703"/>
+    </linearGradient>
+    <filter id="tl-tile-treasury-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-treasury-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-treasury-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-treasury-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-treasury-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-treasury-blur)"/>
+    <g filter="url(#tl-tile-treasury-shadow)">
+      <path d="M421 255h182l-36 99c108 46 176 157 176 288 0 125-88 190-231 190s-231-65-231-190c0-131 68-242 176-288l-36-99Z" fill="url(#tl-tile-treasury-white)"/>
+      <path d="M418 343h188" stroke="#E0A31D" stroke-width="23" stroke-linecap="round"/>
+      <path d="M450 239c36-33 88-33 124 0" fill="none" stroke="#FFF4C6" stroke-width="20" stroke-linecap="round"/>
+      <circle cx="512" cy="570" r="102" fill="url(#tl-tile-treasury-gold)"/>
+      <path d="m455 535 24 103 33-83 33 83 24-103" fill="none" stroke="#FFFFFF" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+</svg>

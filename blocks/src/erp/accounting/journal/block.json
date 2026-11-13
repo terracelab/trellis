@@ -1,0 +1,29 @@
+{
+  "id": "erp/accounting/journal",
+  "title": "전표 입력",
+  "intent": "계정과목 · 거래처 · 차변 · 대변 줄로 분개하고, 대차가 맞을 때만 저장하며 이달 전표를 불러와 고친다",
+  "module": "accounting",
+  "pattern": "LedgerEntry",
+  "industries": ["trade", "distribution", "manufacturing", "general"],
+  "components": [
+    "PageHeader",
+    "Badge",
+    "Button",
+    "Card",
+    "FormSection",
+    "LineItemsEditor",
+    "Field",
+    "DateField",
+    "Input",
+    "SegmentedControl",
+    "Select",
+    "CodeSearch",
+    "AmountInput",
+    "Banner",
+    "DataGrid",
+    "ActionBar"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["header", "accounts", "lines", "validation", "voucherList"],
+  "order": 10
+}

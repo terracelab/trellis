@@ -1,0 +1,254 @@
+/* 현장 보드: 다크 고정(data-theme) · 넓게(data-density). 값은 토큰만 */
+.tl-block-board {
+  min-height: 100%;
+  background: var(--tl-color-bg-canvas);
+  color: var(--tl-color-fg-primary);
+  color-scheme: dark;
+}
+
+.tl-block-board__clock {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tl-space-12);
+}
+
+.tl-block-board__time {
+  font-size: var(--tl-type-h2-font-size);
+  line-height: var(--tl-type-h2-line-height);
+  font-weight: var(--tl-font-weight-600);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+/* 1줄: 링 셋 + 큰 숫자 둘 */
+.tl-block-board__kpis {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1.25fr)) minmax(0, 1fr);
+  gap: var(--tl-space-16);
+}
+
+.tl-block-board__meter {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--tl-space-24);
+  height: 100%;
+}
+
+.tl-block-board__figures {
+  display: grid;
+  gap: var(--tl-space-12);
+}
+
+/* 2줄: 라인 둘 + 불량 */
+.tl-block-board__main {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1.3fr)) minmax(0, 1fr);
+  gap: var(--tl-space-16);
+}
+
+.tl-block-board__line {
+  display: grid;
+  gap: var(--tl-space-16);
+}
+
+.tl-block-board__wo {
+  display: grid;
+  gap: var(--tl-space-12);
+  padding: var(--tl-space-12) var(--tl-space-16);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-block-board__wo-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tl-space-8);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+}
+
+.tl-block-board__product {
+  font-size: var(--tl-type-h2-font-size);
+  line-height: var(--tl-type-h2-line-height);
+  font-weight: var(--tl-font-weight-700);
+}
+
+.tl-block-board__wo-meta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--tl-space-12);
+}
+
+.tl-block-board__note {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+}
+
+.tl-block-board__machines,
+.tl-block-board__rest,
+.tl-block-board__temps,
+.tl-block-board__next {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-block-board__machines {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tl-space-4) var(--tl-space-12);
+}
+
+.tl-block-board__machine {
+  display: grid;
+  align-content: start;
+  gap: var(--tl-space-4);
+  padding: var(--tl-space-8) var(--tl-space-12);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-board__machine:nth-last-child(-n + 2) {
+  border-bottom: 0;
+}
+
+/* 비가동은 칸 바탕으로 한 번 더(점 + 글자 + 바탕) */
+.tl-block-board__machine[data-state='down'] {
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-status-danger-subtle);
+}
+
+.tl-block-board__machine-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tl-space-8);
+}
+
+.tl-block-board__since {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+.tl-block-board__machine-note {
+  padding-left: var(--tl-space-16);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-block-board__defects {
+  display: grid;
+  gap: var(--tl-space-12);
+}
+
+.tl-block-board__rest li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--tl-space-8);
+  padding-block: var(--tl-space-8);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+}
+
+/* 3줄: 시간대별 + 온도 + 다음 작업 */
+.tl-block-board__bottom {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr));
+  gap: var(--tl-space-16);
+}
+
+.tl-block-board__temps {
+  gap: var(--tl-space-16);
+}
+
+/* 축 글자가 SVG 왼쪽 끝에 붙어 잘리지 않게 카드 여백으로 내보낸다 */
+.tl-block-board__hourly svg {
+  overflow: visible;
+}
+
+.tl-block-board__temp {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--tl-space-4) var(--tl-space-12);
+}
+
+.tl-block-board__temp-value {
+  font-size: var(--tl-type-amount-lg-font-size);
+  line-height: var(--tl-type-amount-lg-line-height);
+  font-weight: var(--tl-font-weight-700);
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+.tl-block-board__temp-note {
+  grid-column: 1 / -1;
+  padding-left: var(--tl-space-16);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-block-board__next-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--tl-space-12);
+  min-height: calc(var(--tl-density-row-height) + var(--tl-space-16));
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-board__next-row:last-child {
+  border-bottom: 0;
+}
+
+/* 1600 미만(1440 노트북 미리보기): 큰 숫자 둘은 아래 줄로 */
+@media (max-width: 1599px) {
+  .tl-block-board__meter {
+    gap: var(--tl-space-16);
+  }
+
+  .tl-block-board__machines {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tl-block-board__machine:nth-last-child(2) {
+    border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  }
+
+  .tl-block-board__temp {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .tl-block-board__temp .tl-sparkline {
+    grid-row: 2;
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 1279px) {
+  .tl-block-board__kpis,
+  .tl-block-board__main,
+  .tl-block-board__bottom {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 639px) {
+  .tl-block-board__meter {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+  }
+
+  .tl-block-board__figures {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+  }
+}

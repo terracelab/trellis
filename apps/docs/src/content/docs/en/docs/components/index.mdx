@@ -1,0 +1,15 @@
+---
+title: Components
+description: All Trellis components. Core components plus charts and data visualization. All are in the preview stage.
+sidebar:
+  label: All
+  order: 0
+---
+
+import ComponentCards from '../../../../../components/ComponentCards.astro';
+
+Every component has a contract in `@terracelab/trellis-contracts` that defines its props, states and accessibility. Web and native use the same names and props. On each page, the Props table is generated from the contract and the examples come from example code that is type-checked.
+
+The live examples render inside `TrellisProvider locale="en"`, so built-in component text (buttons, accessible names, empty states, calendars) is in English. The sample data in the examples is Korean business data and stays in Korean. Number formats follow Korean business conventions in both languages: amounts in won with thousands separators, right-aligned.
+
+<ComponentCards lang="en" />

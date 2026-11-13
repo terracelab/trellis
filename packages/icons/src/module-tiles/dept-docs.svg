@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-dept-docs-title">
+  <title id="tl-tile-dept-docs-title">부서문서</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-dept-docs-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-dept-docs-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A58AFF"/>
+      <stop offset=".5" stop-color="#7457E6"/>
+      <stop offset="1" stop-color="#4530B0"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-dept-docs-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-dept-docs-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-dept-docs-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-dept-docs-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-dept-docs-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-dept-docs-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-dept-docs-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-dept-docs-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-dept-docs-blur)"/>
+    <g transform="rotate(-3 512 520)" filter="url(#tl-tile-dept-docs-shadow)">
+      <path d="M247 501c0-26 21-47 47-47h133l48 82h74l48-82h133c26 0 47 21 47 47l59 197c13 44-20 88-66 88H254c-46 0-79-44-66-88l59-197Z" fill="url(#tl-tile-dept-docs-edge)"/>
+      <path d="M265 472h147l48 82c10 17 28 27 48 27h8c20 0 38-10 48-27l48-82h147l58 218c9 33-16 65-50 65H257c-34 0-59-32-50-65l58-218Z" fill="url(#tl-tile-dept-docs-white)"/>
+      <path d="M246 658h532" stroke="#C1CEDB" stroke-width="13"/>
+      <rect x="361" y="287" width="302" height="211" rx="38" fill="#F9FBFD"/>
+      <path d="M417 358h190M417 416h145" stroke="#A9B9C9" stroke-width="17" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>

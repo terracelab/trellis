@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-equipment-title">
+  <title id="tl-tile-equipment-title">설비</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-equipment-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-equipment-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9CA3AF"/>
+      <stop offset=".5" stop-color="#646B78"/>
+      <stop offset="1" stop-color="#374151"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-equipment-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-equipment-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-equipment-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-equipment-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-equipment-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-equipment-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-equipment-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#374151" opacity=".25" filter="url(#tl-tile-equipment-blur)"/>
+    <g transform="rotate(-3 512 512)">
+      <g transform="translate(477 477)">
+        <rect x="-47" y="-258" width="94" height="114" rx="17" transform="rotate(0)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-47" y="-258" width="94" height="114" rx="17" transform="rotate(36)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-47" y="-258" width="94" height="114" rx="17" transform="rotate(72)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-47" y="-258" width="94" height="114" rx="17" transform="rotate(108)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-47" y="-258" width="94" height="114" rx="17" transform="rotate(144)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-47" y="-258" width="94" height="114" rx="17" transform="rotate(180)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-47" y="-258" width="94" height="114" rx="17" transform="rotate(216)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-47" y="-258" width="94" height="114" rx="17" transform="rotate(252)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-47" y="-258" width="94" height="114" rx="17" transform="rotate(288)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-47" y="-258" width="94" height="114" rx="17" transform="rotate(324)" fill="url(#tl-tile-equipment-white)"/>
+        <circle r="207" fill="url(#tl-tile-equipment-edge)"/>
+        <circle cy="-11" r="207" fill="url(#tl-tile-equipment-white)"/>
+        <circle cy="-11" r="98" fill="#7D8C9E"/>
+        <circle cy="-4" r="78" fill="#374151"/>
+      </g>
+      <g transform="translate(697 676) rotate(14)">
+        <rect x="-27" y="-126" width="54" height="68" rx="10" transform="rotate(0)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-27" y="-126" width="54" height="68" rx="10" transform="rotate(45)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-27" y="-126" width="54" height="68" rx="10" transform="rotate(90)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-27" y="-126" width="54" height="68" rx="10" transform="rotate(135)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-27" y="-126" width="54" height="68" rx="10" transform="rotate(180)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-27" y="-126" width="54" height="68" rx="10" transform="rotate(225)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-27" y="-126" width="54" height="68" rx="10" transform="rotate(270)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-27" y="-126" width="54" height="68" rx="10" transform="rotate(315)" fill="url(#tl-tile-equipment-white)"/>
+        <circle r="99" fill="url(#tl-tile-equipment-edge)"/>
+        <circle cy="-7" r="99" fill="url(#tl-tile-equipment-white)"/>
+        <circle cy="-7" r="43" fill="#374151"/>
+      </g>
+    </g>
+  </g>
+</svg>

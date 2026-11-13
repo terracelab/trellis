@@ -1,0 +1,192 @@
+.tl-select {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tl-space-8);
+  width: 100%;
+  min-width: 0;
+  height: var(--tl-density-control-height-md);
+  padding: 0 var(--tl-space-8);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-strong);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-primary);
+  font: inherit;
+  font-size: var(--tl-density-input-font-size);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-select[data-width='auto'] {
+  width: auto;
+  min-width: calc(var(--tl-space-64) * 1.5);
+}
+
+.tl-select[data-size='xs'] {
+  gap: var(--tl-space-4);
+  height: var(--tl-density-control-height-xs);
+  padding: 0 var(--tl-space-6);
+  border-radius: var(--tl-radius-sm);
+}
+
+.tl-select[data-size='sm'] {
+  height: var(--tl-density-control-height-sm);
+}
+
+/* 큰 칸은 본문 크기(14) 이상, touch 16은 그대로 */
+.tl-select[data-size='lg'],
+.tl-select[data-size='xl'] {
+  padding: 0 var(--tl-space-12);
+  font-size: max(var(--tl-density-input-font-size), var(--tl-type-body-font-size));
+}
+
+.tl-select[data-size='lg'] {
+  height: var(--tl-density-control-height-lg);
+}
+
+.tl-select[data-size='xl'] {
+  height: var(--tl-density-control-height-xl);
+}
+
+.tl-select:hover {
+  border-color: var(--tl-color-border-hover);
+}
+
+.tl-select[data-popup-open] {
+  border-color: var(--tl-color-border-focus);
+}
+
+.tl-select[data-state='error'] {
+  border-color: var(--tl-color-status-danger-default);
+}
+
+.tl-select[data-disabled] {
+  border-color: transparent;
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.tl-select__value {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-select__value[data-placeholder] {
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-select__chevron {
+  display: inline-flex;
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-select__positioner {
+  z-index: var(--tl-z-dropdown);
+  outline: 0;
+}
+
+.tl-select__popup {
+  box-sizing: border-box;
+  min-width: var(--anchor-width);
+  max-height: var(--available-height);
+  overflow-y: auto;
+  padding: var(--tl-space-4);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-elevated);
+  color: var(--tl-color-fg-primary);
+  box-shadow: var(--tl-shadow-md);
+  font-size: var(--tl-density-body-font-size);
+  outline: 0;
+}
+
+/* 선택지가 0개일 때 안내(Select · MultiSelect, 팝업 · 시트) */
+.tl-select__empty {
+  margin: 0;
+  padding: var(--tl-space-12) var(--tl-space-8);
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-select__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tl-space-12);
+  height: var(--tl-density-row-height);
+  padding: 0 var(--tl-space-8);
+  border-radius: var(--tl-radius-sm);
+  cursor: default;
+  outline: 0;
+  user-select: none;
+}
+
+.tl-select__item[data-highlighted] {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-select__item[data-selected] {
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-select__item[data-disabled] {
+  color: var(--tl-color-fg-disabled);
+}
+
+.tl-select__check {
+  display: inline-flex;
+  color: var(--tl-color-fg-link);
+}
+
+/* 선택지 앞 표시(leading): 점은 토큰 이름에서 온 색(option-mark.tsx), 아이콘은 보조 글자색.
+   팝업 · 시트 · 닫힌 칸이 같은 모양이고 MultiSelect도 이 규칙을 쓴다 */
+.tl-select__mark {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.tl-select__mark[data-kind='dot'] {
+  width: var(--tl-space-8);
+  height: var(--tl-space-8);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-select-mark-color);
+}
+
+.tl-select__mark[data-kind='icon'] {
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-select__item-label {
+  display: inline-flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+/* 이름 오른쪽 보조 글자(note). 고른 줄의 굵기를 따라가지 않는다 */
+.tl-select__note {
+  flex: none;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-weight: var(--tl-font-weight-400);
+}
+
+.tl-select__item[data-disabled] .tl-select__note,
+.tl-sheet-option:disabled .tl-select__note,
+.tl-select__item[data-disabled] .tl-select__mark[data-kind='icon'],
+.tl-sheet-option:disabled .tl-select__mark[data-kind='icon'] {
+  color: var(--tl-color-fg-disabled);
+}
+
+/* 체크는 고른 줄에만 보이고 다른 줄은 자리만 잡는다 */
+.tl-select__item:not([data-selected]) .tl-select__check {
+  visibility: hidden;
+}

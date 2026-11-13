@@ -1,0 +1,19 @@
+/* 전표 입력. 분개 줄은 LineItemsEditor가 그린다 */
+.tl-block-je-summary {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tl-space-8);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-block-je-list {
+  border: 0;
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: 0 0 var(--tl-radius-lg) var(--tl-radius-lg);
+}
+
+/* 불러온 전표로 올라갈 때 앱 머리 아래에 멈춘다 */
+.tl-block-je-editor {
+  scroll-margin-top: var(--tl-space-16);
+}

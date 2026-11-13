@@ -1,0 +1,113 @@
+/* 부서 공유 문서: 카드 안 표(가장자리까지) · 권한 행렬 · 외부 공유 정책 줄 */
+.tl-block-dept-flat {
+  border: 0;
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: 0 0 var(--tl-radius-lg) var(--tl-radius-lg);
+}
+
+.tl-block-dept-file {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+.tl-block-dept-file__icon {
+  flex: none;
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-block-dept-file__name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tl-block-perm {
+  display: grid;
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-perm__row {
+  display: grid;
+  grid-template-columns: minmax(calc(var(--tl-space-64) * 2.5), 1fr) auto calc(
+      var(--tl-space-64) * 1.25
+    );
+  align-items: center;
+  gap: var(--tl-space-12);
+  min-height: calc(var(--tl-density-row-height) + var(--tl-space-12));
+  padding: 0 var(--tl-density-card-padding);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-perm__row:last-child {
+  border-bottom: 0;
+}
+
+.tl-block-perm__head {
+  min-height: var(--tl-density-row-height);
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-block-perm__head > :last-child,
+.tl-block-perm__check {
+  display: flex;
+  justify-content: center;
+}
+
+.tl-block-perm__who {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+.tl-block-dept-policy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--tl-space-12) var(--tl-space-32);
+  padding: 0 var(--tl-density-card-padding) var(--tl-density-card-padding);
+}
+
+.tl-block-dept-policy__select {
+  margin-left: auto;
+}
+
+.tl-block-dept-banner {
+  padding: 0 var(--tl-density-card-padding) var(--tl-density-card-padding);
+}
+
+@media (max-width: 1023px) {
+  .tl-block-perm__row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding-block: var(--tl-space-8);
+  }
+
+  .tl-block-perm__row > :nth-child(2) {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .tl-block-perm__head > :nth-child(2) {
+    display: none;
+  }
+
+  .tl-block-dept-policy__select {
+    margin-left: 0;
+  }
+}
+
+/* 좁은 화면에서 이름 칸이 사라지지 않게 표 최소 폭을 두고 상자 안에서 가로로 넘긴다 */
+/* inner-override: DataGrid에 표 최소 폭(auto 열 최소 폭) prop이 없다(보강 요청) */
+.tl-block-dept-files .tl-data-grid__table {
+  min-width: calc(var(--tl-space-64) * 9.5);
+}
+
+/* inner-override: DataGrid에 표 최소 폭(auto 열 최소 폭) prop이 없다(보강 요청) */
+.tl-block-dept-links .tl-data-grid__table {
+  min-width: calc(var(--tl-space-64) * 12);
+}

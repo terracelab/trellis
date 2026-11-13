@@ -1,0 +1,15 @@
+/* 기안 작성: 결재선 미리 보기. 결재선 편집 · 참조 칩은 ApprovalLineEditor(PG-43) */
+.tl-block-draft-preview {
+  min-width: 0;
+  padding: var(--tl-space-12);
+  overflow-x: auto;
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-sunken);
+}
+
+@media (max-width: 1023px) {
+  /* 좁은 화면은 위 목록이 곧 결재선이다. 가로로 넘치는 미리 보기는 숨긴다 */
+  .tl-block-draft-preview {
+    display: none;
+  }
+}

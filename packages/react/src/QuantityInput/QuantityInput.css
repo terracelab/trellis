@@ -1,0 +1,220 @@
+.tl-quantity-input {
+  /* 칸 높이. base는 size가 정하고, 손가락 입력에서는 height가 44 이상으로 올라간다 */
+  --tl-quantity-input-base: var(--tl-density-control-height-md);
+  --tl-quantity-input-height: var(--tl-quantity-input-base);
+
+  position: relative;
+  display: inline-flex;
+  flex-wrap: wrap;
+  width: 100%;
+  min-width: 0;
+}
+
+.tl-quantity-input[data-size='xs'] {
+  --tl-quantity-input-base: var(--tl-density-control-height-xs);
+}
+
+.tl-quantity-input[data-size='sm'] {
+  --tl-quantity-input-base: var(--tl-density-control-height-sm);
+}
+
+.tl-quantity-input[data-size='lg'] {
+  --tl-quantity-input-base: var(--tl-density-control-height-lg);
+}
+
+.tl-quantity-input[data-size='xl'] {
+  --tl-quantity-input-base: var(--tl-density-control-height-xl);
+}
+
+.tl-quantity-input__box {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: var(--tl-quantity-input-height);
+  padding: 0 var(--tl-space-4);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-strong);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-primary);
+  transition: border-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-quantity-input[data-size='xs'] .tl-quantity-input__box {
+  gap: var(--tl-space-2);
+  padding: 0 var(--tl-space-2);
+  border-radius: var(--tl-radius-sm);
+}
+
+.tl-quantity-input__box:hover {
+  border-color: var(--tl-color-border-hover);
+}
+
+.tl-quantity-input__box:focus-within {
+  border-color: var(--tl-color-border-focus);
+  outline: var(--tl-border-width-1) solid var(--tl-color-border-focus);
+}
+
+.tl-quantity-input[data-state='error'] .tl-quantity-input__box {
+  border-color: var(--tl-color-status-danger-default);
+}
+
+.tl-quantity-input[data-state='error'] .tl-quantity-input__box:focus-within {
+  outline-color: var(--tl-color-status-danger-default);
+}
+
+.tl-quantity-input[data-state='disabled'] .tl-quantity-input__box {
+  background: var(--tl-color-bg-sunken);
+  border-color: transparent;
+}
+
+/* 칸 안의 − / +: 칸 높이보다 한 단계 작게(IconButton 크기 규칙보다 구체적으로) */
+.tl-quantity-input[data-size] .tl-quantity-input__step {
+  width: calc(var(--tl-quantity-input-height) - var(--tl-space-8));
+  height: calc(var(--tl-quantity-input-height) - var(--tl-space-8));
+  border-radius: var(--tl-radius-sm);
+}
+
+.tl-quantity-input[data-size='xs'] .tl-quantity-input__step {
+  width: calc(var(--tl-quantity-input-height) - var(--tl-space-6));
+  height: calc(var(--tl-quantity-input-height) - var(--tl-space-6));
+  border-radius: var(--tl-radius-xs);
+}
+
+.tl-quantity-input__control {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
+  padding: 0 0 0 var(--tl-space-4);
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: var(--tl-density-input-font-size);
+  font-variant-numeric: var(--tl-font-numeric);
+  text-align: right;
+}
+
+/* 큰 칸은 본문 크기(14) 이상, touch 16은 그대로 */
+.tl-quantity-input[data-size='lg'] .tl-quantity-input__control,
+.tl-quantity-input[data-size='xl'] .tl-quantity-input__control {
+  font-size: max(var(--tl-density-input-font-size), var(--tl-type-body-font-size));
+}
+
+.tl-quantity-input__control:disabled {
+  color: var(--tl-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.tl-quantity-input__unit {
+  flex: none;
+  padding-right: var(--tl-space-4);
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-label-font-size);
+}
+
+.tl-quantity-input__unit-picker {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+}
+
+.tl-quantity-input__unit-select {
+  height: calc(var(--tl-quantity-input-height) - var(--tl-space-8));
+  padding: 0 var(--tl-space-20) 0 var(--tl-space-8);
+  border: 0;
+  border-radius: var(--tl-radius-sm);
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-secondary);
+  font: inherit;
+  font-size: var(--tl-type-label-font-size);
+  appearance: none;
+  cursor: pointer;
+  transition: color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-quantity-input__unit-select:hover {
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-quantity-input__unit-select:disabled {
+  color: var(--tl-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.tl-quantity-input__unit-chevron {
+  position: absolute;
+  right: var(--tl-space-4);
+  color: var(--tl-color-fg-tertiary);
+  pointer-events: none;
+}
+
+/* 환산(PG-38): 기준 단위가 아닌 단위를 고르면 칸 아래 오른쪽에 기준 수량(= 240EA) */
+.tl-quantity-input__base {
+  flex: 1 0 100%;
+  margin-top: var(--tl-space-2);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+  text-align: right;
+  white-space: nowrap;
+}
+
+/*
+ * 손가락 입력(touch 밀도 · 휴대폰 폭 · 굵은 포인터): 칸은 44 이상, − / + 는 칸 높이 정사각으로 칸 양 끝을 채운다.
+ * 칸 안쪽 여백을 없애고 단추 안쪽 면에 구분선을 둔다
+ */
+[data-density='touch'] .tl-quantity-input[data-size] .tl-quantity-input__box {
+  padding: 0;
+}
+
+[data-density='touch'] .tl-quantity-input[data-size] .tl-quantity-input__step {
+  width: calc(var(--tl-quantity-input-height) - var(--tl-border-width-1) * 2);
+  height: 100%;
+  border-radius: 0;
+}
+
+[data-density='touch'] .tl-quantity-input[data-size] .tl-quantity-input__step:first-child {
+  border-inline-end-color: var(--tl-color-border-default);
+  border-start-start-radius: calc(var(--tl-radius-md) - var(--tl-border-width-1));
+  border-end-start-radius: calc(var(--tl-radius-md) - var(--tl-border-width-1));
+}
+
+[data-density='touch'] .tl-quantity-input[data-size] .tl-quantity-input__step:last-child {
+  border-inline-start-color: var(--tl-color-border-default);
+  border-start-end-radius: calc(var(--tl-radius-md) - var(--tl-border-width-1));
+  border-end-end-radius: calc(var(--tl-radius-md) - var(--tl-border-width-1));
+}
+
+@media (pointer: coarse), (max-width: 639px) {
+  .tl-quantity-input {
+    --tl-quantity-input-height: max(var(--tl-quantity-input-base), var(--tl-size-touch-min));
+  }
+
+  .tl-quantity-input[data-size] .tl-quantity-input__box {
+    padding: 0;
+  }
+
+  .tl-quantity-input[data-size] .tl-quantity-input__step {
+    width: calc(var(--tl-quantity-input-height) - var(--tl-border-width-1) * 2);
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .tl-quantity-input[data-size] .tl-quantity-input__step:first-child {
+    border-inline-end-color: var(--tl-color-border-default);
+    border-start-start-radius: calc(var(--tl-radius-md) - var(--tl-border-width-1));
+    border-end-start-radius: calc(var(--tl-radius-md) - var(--tl-border-width-1));
+  }
+
+  .tl-quantity-input[data-size] .tl-quantity-input__step:last-child {
+    border-inline-start-color: var(--tl-color-border-default);
+    border-start-end-radius: calc(var(--tl-radius-md) - var(--tl-border-width-1));
+    border-end-end-radius: calc(var(--tl-radius-md) - var(--tl-border-width-1));
+  }
+}

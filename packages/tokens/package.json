@@ -1,0 +1,80 @@
+{
+  "name": "@terracelab/trellis-tokens",
+  "version": "1.0.0",
+  "description": "디자인 토큰 원본(DTCG JSON)과 CSS·TS·RN·Tailwind·Figma 빌드 산출물",
+  "type": "module",
+  "license": "Apache-2.0",
+  "keywords": [
+    "trellis",
+    "terracelab",
+    "design-tokens",
+    "css-variables",
+    "theme",
+    "pretendard"
+  ],
+  "homepage": "https://trellis.terracelab.co.kr",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/terracelab/trellis.git",
+    "directory": "packages/tokens"
+  },
+  "bugs": {
+    "url": "https://github.com/terracelab/trellis/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": [
+    "*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/web/index.d.ts",
+      "default": "./dist/web/index.js"
+    },
+    "./web": {
+      "types": "./dist/web/index.d.ts",
+      "default": "./dist/web/index.js"
+    },
+    "./native": {
+      "types": "./dist/native/index.d.ts",
+      "default": "./dist/native/index.js"
+    },
+    "./theme": {
+      "types": "./theme/index.d.mts",
+      "default": "./theme/index.mjs"
+    },
+    "./tokens.css": "./dist/css/tokens.css",
+    "./fonts.css": "./dist/css/fonts.css",
+    "./tailwind": "./dist/tailwind/theme.css",
+    "./figma": "./dist/figma/variables.json",
+    "./flat": "./dist/json/flat.json",
+    "./modules": "./dist/json/modules.json",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "fonts",
+    "theme",
+    "scales.config.json",
+    "src/primitive/color.json",
+    "NOTICE"
+  ],
+  "scripts": {
+    "build": "node sd.config.mjs",
+    "gen:colors": "node scripts/gen-color-scale.mjs && node scripts/gen-default-theme.mjs",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run --passWithNoTests",
+    "theme": "node scripts/gen-theme.mjs",
+    "gen:theme": "node scripts/gen-default-theme.mjs"
+  },
+  "devDependencies": {
+    "@types/culori": "4.0.1",
+    "ajv": "8.20.0",
+    "culori": "4.0.2",
+    "style-dictionary": "5.7.1",
+    "typescript": "~6.0.3",
+    "zod": "4.6.7"
+  }
+}

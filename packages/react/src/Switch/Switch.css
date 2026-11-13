@@ -1,0 +1,113 @@
+.tl-switch {
+  /* md: track 32 × 20, thumb 16 */
+  --tl-switch-width: var(--tl-space-32);
+  --tl-switch-height: var(--tl-space-20);
+  --tl-switch-thumb: var(--tl-space-16);
+  --tl-switch-inset: calc((var(--tl-switch-height) - var(--tl-switch-thumb)) / 2);
+
+  display: inline-grid;
+  gap: calc(var(--tl-space-4) / 2);
+  min-width: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+}
+
+.tl-switch[data-size='sm'] {
+  /* sm: track 28 × 16, thumb 12 */
+  --tl-switch-width: calc(var(--tl-space-24) + var(--tl-space-4));
+  --tl-switch-height: var(--tl-space-16);
+  --tl-switch-thumb: var(--tl-space-12);
+}
+
+.tl-switch[data-size='lg'] {
+  /* lg: track 48 × 28, thumb 24(손가락 크기) */
+  --tl-switch-width: var(--tl-space-48);
+  --tl-switch-height: var(--tl-space-28);
+  --tl-switch-thumb: var(--tl-space-24);
+}
+
+/* touch 밀도(휴대폰 폭 포함)에서 size를 주지 않은 스위치는 lg */
+[data-density='touch'] .tl-switch[data-size-auto] {
+  --tl-switch-width: var(--tl-space-48);
+  --tl-switch-height: var(--tl-space-28);
+  --tl-switch-thumb: var(--tl-space-24);
+}
+
+@media (max-width: 639px) {
+  .tl-switch[data-size-auto] {
+    --tl-switch-width: var(--tl-space-48);
+    --tl-switch-height: var(--tl-space-28);
+    --tl-switch-thumb: var(--tl-space-24);
+  }
+}
+
+.tl-switch__row {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  cursor: pointer;
+}
+
+.tl-switch[data-state='disabled'] .tl-switch__row {
+  color: var(--tl-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.tl-switch__track {
+  position: relative;
+  display: inline-block;
+  flex: none;
+  box-sizing: border-box;
+  width: var(--tl-switch-width);
+  height: var(--tl-switch-height);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-fg-tertiary);
+  transition: background-color var(--tl-duration-normal) var(--tl-easing-standard);
+}
+
+.tl-switch__row:hover .tl-switch__track {
+  background: var(--tl-color-fg-secondary);
+}
+
+.tl-switch__track[data-checked] {
+  background: var(--tl-color-brand-default);
+}
+
+.tl-switch__row:hover .tl-switch__track[data-checked] {
+  background: var(--tl-color-brand-hover);
+}
+
+.tl-switch__track[data-disabled],
+.tl-switch__row:hover .tl-switch__track[data-disabled] {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-switch__thumb {
+  position: absolute;
+  top: var(--tl-switch-inset);
+  left: var(--tl-switch-inset);
+  width: var(--tl-switch-thumb);
+  height: var(--tl-switch-thumb);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-bg-surface);
+  box-shadow: var(--tl-shadow-sm);
+  transition: transform var(--tl-duration-normal) var(--tl-easing-standard);
+}
+
+.tl-switch__thumb[data-checked] {
+  transform: translateX(
+    calc(var(--tl-switch-width) - var(--tl-switch-thumb) - var(--tl-switch-inset) * 2)
+  );
+}
+
+.tl-switch__thumb[data-disabled] {
+  box-shadow: none;
+}
+
+.tl-switch__description {
+  padding-left: calc(var(--tl-switch-width) + var(--tl-space-8));
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}

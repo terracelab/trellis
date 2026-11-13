@@ -1,0 +1,46 @@
+.tl-action-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--tl-space-8) var(--tl-space-12);
+  box-sizing: border-box;
+  min-width: 0;
+  padding: var(--tl-space-12) 0;
+}
+
+.tl-action-bar[data-align='between'] {
+  justify-content: space-between;
+}
+
+/* 스크롤 영역 아래에 붙는다. 위로 그림자를 두지 않고 구분선만.
+   화면 바닥에 닿으면 홈 표시줄(안전 영역)만큼 아래를 더 띄운다. 안전 영역이 없는 화면은 0 */
+.tl-action-bar[data-sticky] {
+  position: sticky;
+  bottom: 0;
+  z-index: var(--tl-z-sticky);
+  padding: var(--tl-space-12) var(--tl-density-card-padding)
+    calc(var(--tl-space-12) + env(safe-area-inset-bottom, 0));
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  background: var(--tl-color-bg-surface);
+}
+
+.tl-action-bar__summary {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-width: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-action-bar__actions {
+  display: flex;
+  flex: 0 1 auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--tl-space-8);
+}

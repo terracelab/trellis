@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ko" data-density="compact">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>테라스원 데모</title>
+    <meta
+      name="description"
+      content="Trellis 디자인 시스템으로 조립한 업무 화면 데모. 화면과 숫자는 샘플입니다."
+    />
+    <link rel="icon" href="./favicon.ico" sizes="32x32" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <script>
+      // 첫 페인트 전에 테마 · 밀도 · 접근성 설정을 정한다(깜빡임 방지).
+      // 테마는 소개 사이트에서 고른 값(같은 주소에 묶여 나갈 때) → 데모에서 고른 값 → 기기 설정 순서로 따른다.
+      // 접근성 속성 값은 TrellisProvider가 거는 값과 같다(src/settings.ts)
+      (function () {
+        var d = document.documentElement;
+        var t = null,
+          s = null,
+          a = null;
+        try {
+          t = localStorage.getItem('trellis-site-theme') || localStorage.getItem('tl-demo-theme');
+          s = localStorage.getItem('tl-demo-density');
+          a = JSON.parse(localStorage.getItem('tl-demo-a11y') || 'null');
+        } catch (e) {}
+        d.dataset.theme =
+          t === 'dark' || t === 'light'
+            ? t
+            : matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light';
+        if (s) d.dataset.density = s;
+        if (a && typeof a === 'object') {
+          if (a.fontScale === '112' || a.fontScale === '125') d.dataset.fontScale = a.fontScale;
+          if (a.contrast === true) d.dataset.contrast = 'high';
+          if (a.focusRing === true) d.dataset.focus = 'strong';
+          if (a.linkUnderline === true) d.dataset.links = 'underline';
+          if (a.chartPalette === true) d.dataset.chart = 'cvd';
+          if (a.motion === true) d.dataset.motion = 'reduce';
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

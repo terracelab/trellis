@@ -1,0 +1,279 @@
+{
+  "groups": {
+    "erp": {
+      "label": "ERP",
+      "color": "color.module.erp"
+    },
+    "groupware": {
+      "label": "그룹웨어",
+      "color": "color.module.groupware"
+    },
+    "ecm": {
+      "label": "ECM",
+      "color": "color.module.ecm"
+    },
+    "crm": {
+      "label": "CRM",
+      "color": "color.module.crm"
+    },
+    "scm": {
+      "label": "유통·물류",
+      "color": "color.module.scm"
+    },
+    "commerce": {
+      "label": "이커머스",
+      "color": "color.module.commerce"
+    },
+    "mes": {
+      "label": "제조",
+      "color": "color.module.mes"
+    }
+  },
+  "modules": [
+    {
+      "id": "accounting",
+      "group": "erp",
+      "label": "회계",
+      "icon": "calculator",
+      "badge": "count"
+    },
+    {
+      "id": "tax",
+      "group": "erp",
+      "label": "세무",
+      "icon": "landmark",
+      "badge": "count"
+    },
+    {
+      "id": "treasury",
+      "group": "erp",
+      "label": "자금",
+      "icon": "wallet",
+      "badge": "count"
+    },
+    {
+      "id": "purchasing",
+      "group": "erp",
+      "label": "구매",
+      "icon": "shopping-cart",
+      "badge": "count"
+    },
+    {
+      "id": "sales",
+      "group": "erp",
+      "label": "영업",
+      "icon": "chart-bar",
+      "badge": "count"
+    },
+    {
+      "id": "production",
+      "group": "erp",
+      "label": "생산",
+      "icon": "factory",
+      "badge": "count"
+    },
+    {
+      "id": "hr-payroll",
+      "group": "erp",
+      "label": "인사·급여",
+      "icon": "users",
+      "badge": "count"
+    },
+    {
+      "id": "mail",
+      "group": "groupware",
+      "label": "메일",
+      "icon": "mail",
+      "badge": "count"
+    },
+    {
+      "id": "approval",
+      "group": "groupware",
+      "label": "전자결재",
+      "icon": "pen-line",
+      "badge": "approval"
+    },
+    {
+      "id": "attendance",
+      "group": "groupware",
+      "label": "근태",
+      "icon": "clock",
+      "badge": "status"
+    },
+    {
+      "id": "calendar",
+      "group": "groupware",
+      "label": "일정",
+      "icon": "calendar",
+      "badge": "count"
+    },
+    {
+      "id": "board",
+      "group": "groupware",
+      "label": "게시판",
+      "icon": "pin",
+      "badge": "count"
+    },
+    {
+      "id": "messenger",
+      "group": "groupware",
+      "label": "메신저",
+      "icon": "message-circle",
+      "badge": "count"
+    },
+    {
+      "id": "my-docs",
+      "group": "ecm",
+      "label": "문서함",
+      "icon": "folder",
+      "badge": "count"
+    },
+    {
+      "id": "company-docs",
+      "group": "ecm",
+      "label": "전사문서",
+      "icon": "file-text",
+      "badge": "count"
+    },
+    {
+      "id": "dept-docs",
+      "group": "ecm",
+      "label": "부서문서",
+      "icon": "inbox",
+      "badge": "count"
+    },
+    {
+      "id": "doc-editor",
+      "group": "ecm",
+      "label": "문서작성",
+      "icon": "file-pen",
+      "badge": "none"
+    },
+    {
+      "id": "customers",
+      "group": "crm",
+      "label": "고객",
+      "icon": "contact",
+      "badge": "count"
+    },
+    {
+      "id": "opportunities",
+      "group": "crm",
+      "label": "영업기회",
+      "icon": "filter",
+      "badge": "count"
+    },
+    {
+      "id": "quotes",
+      "group": "crm",
+      "label": "견적",
+      "icon": "receipt",
+      "badge": "count"
+    },
+    {
+      "id": "support",
+      "group": "crm",
+      "label": "상담",
+      "icon": "headset",
+      "badge": "count"
+    },
+    {
+      "id": "inventory",
+      "group": "scm",
+      "label": "재고",
+      "icon": "boxes",
+      "badge": "status"
+    },
+    {
+      "id": "warehouse",
+      "group": "scm",
+      "label": "입출고",
+      "icon": "warehouse",
+      "badge": "count"
+    },
+    {
+      "id": "delivery",
+      "group": "scm",
+      "label": "배송·배차",
+      "icon": "truck",
+      "badge": "count"
+    },
+    {
+      "id": "trade",
+      "group": "scm",
+      "label": "수출입",
+      "icon": "ship",
+      "badge": "count"
+    },
+    {
+      "id": "products",
+      "group": "commerce",
+      "label": "상품",
+      "icon": "package",
+      "badge": "count"
+    },
+    {
+      "id": "orders",
+      "group": "commerce",
+      "label": "주문",
+      "icon": "shopping-bag",
+      "badge": "count"
+    },
+    {
+      "id": "claims",
+      "group": "commerce",
+      "label": "취소·반품",
+      "icon": "undo-2",
+      "badge": "count"
+    },
+    {
+      "id": "settlement",
+      "group": "commerce",
+      "label": "정산",
+      "icon": "banknote",
+      "badge": "count"
+    },
+    {
+      "id": "promotions",
+      "group": "commerce",
+      "label": "쿠폰·프로모션",
+      "icon": "ticket-percent",
+      "badge": "none"
+    },
+    {
+      "id": "channels",
+      "group": "commerce",
+      "label": "판매 채널",
+      "icon": "store",
+      "badge": "status"
+    },
+    {
+      "id": "shop-floor",
+      "group": "mes",
+      "label": "현장 실적",
+      "icon": "gauge",
+      "badge": "count"
+    },
+    {
+      "id": "equipment",
+      "group": "mes",
+      "label": "설비",
+      "icon": "cog",
+      "badge": "status"
+    },
+    {
+      "id": "quality",
+      "group": "mes",
+      "label": "품질",
+      "icon": "badge-check",
+      "badge": "count"
+    },
+    {
+      "id": "materials",
+      "group": "mes",
+      "label": "자재",
+      "icon": "layers",
+      "badge": "count"
+    }
+  ]
+}

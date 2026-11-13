@@ -1,0 +1,36 @@
+/* 조직도: 트리 카드(가로 넘치면 안에서 스크롤) + 구성원 카드. 1600 이상은 나란히 */
+.tl-block-org {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: var(--tl-density-gutter);
+}
+
+.tl-block-org__tree {
+  padding: var(--tl-space-24);
+  overflow-x: auto;
+}
+
+.tl-block-org__side {
+  display: grid;
+  gap: var(--tl-space-16);
+}
+
+.tl-block-org__members {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(calc(var(--tl-space-64) * 3.5), 1fr));
+  gap: var(--tl-space-12) var(--tl-space-24);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 1600px) {
+  .tl-block-org {
+    grid-template-columns: minmax(0, 1fr) calc(var(--tl-space-64) * 5.5);
+  }
+
+  .tl-block-org__members {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

@@ -1,0 +1,827 @@
+/* 월 달력: 머리(달 이동 · 오늘 · 건수 · 앱 자리) + 7열 격자. 넓은 화면은 칸 안 일정 칩, 좁은 화면은 점 + 아래 일정 목록 */
+.tl-month-calendar {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+}
+
+.tl-month-calendar__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tl-space-8) var(--tl-space-16);
+  padding: var(--tl-space-12) var(--tl-density-card-padding);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-month-calendar__nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+.tl-month-calendar__title {
+  min-width: calc(var(--tl-space-64) * 1.75);
+  color: var(--tl-color-fg-strong);
+  font-size: var(--tl-type-h2-font-size);
+  line-height: var(--tl-type-h2-line-height);
+  font-weight: var(--tl-type-h2-font-weight);
+  font-variant-numeric: var(--tl-font-numeric);
+  text-align: center;
+}
+
+/* 건수는 알약 없이 흐린 글자(D-56) */
+.tl-month-calendar__count {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-400);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-month-calendar__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tl-space-8) var(--tl-space-16);
+  min-width: 0;
+}
+
+.tl-month-calendar__grid {
+  display: grid;
+  flex: 1 1 auto;
+  grid-template-rows: auto;
+  grid-auto-rows: 1fr;
+  min-width: 0;
+}
+
+.tl-month-calendar__weekdays,
+.tl-month-calendar__week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.tl-month-calendar__weekdays {
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-month-calendar__weekday {
+  padding: var(--tl-space-8);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-month-calendar__week {
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-month-calendar__week:last-child {
+  border-bottom: 0;
+}
+
+/* ── 넓은 화면: 칸 전체가 날 단추(아래 깔림), 일정 칩은 그 위 ── */
+.tl-month-calendar__day {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: calc(var(--tl-space-64) * 1.75);
+  border-right: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  background: var(--tl-color-bg-surface);
+  transition: background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-month-calendar__day:last-child {
+  border-right: 0;
+}
+
+.tl-month-calendar__day[data-outside] {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-month-calendar__day:hover,
+.tl-month-calendar[data-force-state='hover']
+  .tl-month-calendar__week:nth-child(3)
+  .tl-month-calendar__day:nth-child(3) {
+  background: var(--tl-color-bg-sunken);
+}
+
+/* 고른 날: 바탕 한 단계(D-57) */
+.tl-month-calendar__day[data-selected] {
+  background: var(--tl-color-brand-subtle);
+}
+
+.tl-month-calendar__date {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  padding: var(--tl-space-4);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* 칸끼리 붙어 있어 링은 칸 안쪽에 그린다 */
+.tl-month-calendar__date:focus-visible,
+.tl-month-calendar[data-force-state='focus']
+  .tl-month-calendar__week:nth-child(3)
+  .tl-month-calendar__day:nth-child(3)
+  .tl-month-calendar__date {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: calc(var(--tl-border-width-2) * -1);
+}
+
+.tl-month-calendar__num {
+  display: inline-grid;
+  place-items: center;
+  min-width: var(--tl-space-24);
+  height: var(--tl-space-24);
+  padding: 0 var(--tl-space-4);
+  border-radius: var(--tl-radius-full);
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-month-calendar__day[data-weekend]:not([data-outside]) .tl-month-calendar__num {
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-month-calendar__day[data-outside] .tl-month-calendar__num {
+  color: var(--tl-color-fg-tertiary);
+  font-weight: var(--tl-font-weight-400);
+}
+
+/* 오늘: 숫자를 채운 원. 회사 색이 아닌 중립색(DeadlineStrip 오늘과 같다, D-146 제안).
+   회사 색 원은 위험 빨강 배지("2일 경과")와 한 화면에서 같은 색으로 읽혔다 */
+.tl-month-calendar__day[data-today] .tl-month-calendar__num {
+  background: var(--tl-color-fg-strong);
+  color: var(--tl-color-fg-inverse);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-month-calendar__events {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--tl-space-4) / 2);
+  min-width: 0;
+  padding: calc(var(--tl-space-24) + var(--tl-space-8)) var(--tl-space-4) var(--tl-space-4);
+  pointer-events: none;
+}
+
+.tl-month-calendar__chip {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  min-width: 0;
+  padding: 0 var(--tl-space-4);
+  border: 0;
+  border-radius: var(--tl-radius-xs);
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-primary);
+  font: inherit;
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  text-align: left;
+  transition:
+    background-color var(--tl-duration-fast) var(--tl-easing-standard),
+    box-shadow var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+button.tl-month-calendar__chip {
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+button.tl-month-calendar__chip:hover {
+  background: var(--tl-color-bg-sunken);
+  box-shadow: inset 0 0 0 var(--tl-border-width-1) var(--tl-color-border-default);
+}
+
+/* 일정 색은 앞의 점으로(왼쪽 띠 대신, D-57) */
+.tl-month-calendar__dot {
+  flex: none;
+  width: var(--tl-space-8);
+  height: var(--tl-space-8);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-month-calendar-color, var(--tl-color-chart-series-1));
+}
+
+/* ── 칩 앞 표시(R-37 8): 점 하나 · 여럿(+n) · 유형 아이콘 ── */
+.tl-month-calendar__marks {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: calc(var(--tl-space-4) / 2);
+  min-width: var(--tl-space-8);
+}
+
+.tl-month-calendar__marks-more {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  font-weight: var(--tl-font-weight-600);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-month-calendar__icon {
+  flex: none;
+  color: var(--tl-color-fg-secondary);
+}
+
+/* 끝남: 속 빈 점 + 흐린 글자 + 취소선. 지연: 경고 아이콘(위험 색). 둘 다 숨은 글자로도 읽는다 */
+[data-state='done'] > .tl-month-calendar__marks > .tl-month-calendar__dot,
+.tl-month-calendar__dot[data-state='done'] {
+  background: transparent;
+  box-shadow: inset 0 0 0 var(--tl-border-width-1) var(--tl-month-calendar-color);
+}
+
+.tl-month-calendar__chip[data-state='done'] .tl-month-calendar__chip-title,
+.tl-month-calendar__agenda-item[data-state='done'] .tl-month-calendar__agenda-title {
+  color: var(--tl-color-fg-secondary);
+  text-decoration: line-through;
+}
+
+[data-state='late'] > .tl-month-calendar__marks > .tl-month-calendar__icon {
+  color: var(--tl-color-status-danger-default);
+}
+
+.tl-month-calendar__time {
+  flex: none;
+  color: var(--tl-color-fg-secondary);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-month-calendar__chip-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-month-calendar__more {
+  padding: 0 var(--tl-space-4);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-weight: var(--tl-font-weight-600);
+}
+
+/* 칸이 좁은 넓은 화면(태블릿 · 좁은 칸): 시각을 숨겨 제목을 남긴다 */
+@media (max-width: 1023px) {
+  .tl-month-calendar[data-layout='grid'] .tl-month-calendar__day {
+    min-height: calc(var(--tl-space-64) + var(--tl-space-32));
+  }
+
+  /* 화면에서만 숨긴다(칩 단추 이름에는 시각이 남는다) */
+  .tl-month-calendar[data-layout='grid'] .tl-month-calendar__time {
+    position: absolute;
+    width: var(--tl-border-width-1);
+    height: var(--tl-border-width-1);
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+/* ── 좁은 화면(휴대폰): 숫자 + 점 3개, 칸 전체가 손가락 크기 단추, 아래 고른 날 일정 목록 ── */
+.tl-month-calendar[data-layout='compact'] .tl-month-calendar__head {
+  padding: var(--tl-space-8) var(--tl-space-12);
+}
+
+.tl-month-calendar[data-layout='compact'] .tl-month-calendar__title {
+  min-width: 0;
+  font-size: var(--tl-type-h3-font-size);
+  line-height: var(--tl-type-h3-line-height);
+}
+
+.tl-month-calendar[data-layout='compact'] .tl-month-calendar__weekdays {
+  border-bottom: 0;
+  background: transparent;
+}
+
+.tl-month-calendar[data-layout='compact'] .tl-month-calendar__weekday {
+  padding: var(--tl-space-8) 0 var(--tl-space-4);
+  text-align: center;
+}
+
+.tl-month-calendar[data-layout='compact'] .tl-month-calendar__week {
+  border-bottom: 0;
+}
+
+.tl-month-calendar[data-layout='compact'] .tl-month-calendar__day {
+  min-height: 0;
+  border-right: 0;
+  background: transparent;
+}
+
+.tl-month-calendar[data-layout='compact'] .tl-month-calendar__date {
+  position: static;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--tl-space-4);
+  min-height: var(--tl-density-row-height);
+  padding: var(--tl-space-4) 0;
+  border-radius: var(--tl-radius-md);
+  text-align: center;
+}
+
+.tl-month-calendar[data-layout='compact'] .tl-month-calendar__num {
+  min-width: var(--tl-space-32);
+  height: var(--tl-space-32);
+  font-size: var(--tl-density-body-font-size);
+}
+
+/* 고른 날: 숫자 원에 바탕 한 단계. 오늘이면 채운 원 그대로 */
+.tl-month-calendar[data-layout='compact']
+  .tl-month-calendar__day[data-selected]
+  .tl-month-calendar__num {
+  background: var(--tl-color-brand-subtle);
+  color: var(--tl-color-fg-link);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-month-calendar[data-layout='compact']
+  .tl-month-calendar__day[data-selected][data-today]
+  .tl-month-calendar__num {
+  background: var(--tl-color-fg-strong);
+  color: var(--tl-color-fg-inverse);
+}
+
+.tl-month-calendar__dots {
+  display: flex;
+  justify-content: center;
+  gap: calc(var(--tl-space-4) / 2);
+  height: var(--tl-space-4);
+}
+
+.tl-month-calendar__dots > .tl-month-calendar__dot {
+  width: var(--tl-space-4);
+  height: var(--tl-space-4);
+}
+
+/* ── sm(R-43 5): 낮은 칸에 날 숫자 + 점 + 건수. 옆 목록과 나란히 두는 보조 달력 ── */
+.tl-month-calendar[data-size='sm'][data-layout='grid'] .tl-month-calendar__day {
+  min-height: var(--tl-space-48);
+}
+
+.tl-month-calendar[data-size='sm'][data-layout='grid'] .tl-month-calendar__date {
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--tl-space-4) / 2);
+  padding: var(--tl-space-4) 0;
+}
+
+.tl-month-calendar[data-size='sm'] .tl-month-calendar__dots {
+  align-items: center;
+  height: var(--tl-type-caption-line-height);
+}
+
+.tl-month-calendar__dot-count {
+  margin-left: calc(var(--tl-space-4) / 2);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-month-calendar__agenda {
+  display: grid;
+  gap: var(--tl-space-8);
+  padding: var(--tl-space-12);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-month-calendar__agenda-title {
+  display: flex;
+  align-items: baseline;
+  gap: var(--tl-space-8);
+  margin: 0;
+  color: var(--tl-color-fg-strong);
+  font-size: var(--tl-type-h3-font-size);
+  line-height: var(--tl-type-h3-line-height);
+  font-weight: var(--tl-type-h3-font-weight);
+}
+
+.tl-month-calendar__empty {
+  margin: 0;
+  padding: var(--tl-space-12) 0;
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-month-calendar__agenda-list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-month-calendar__agenda-list > li + li {
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-month-calendar__agenda-item {
+  display: grid;
+  grid-template-columns: auto calc(var(--tl-space-48) + var(--tl-space-4)) minmax(0, 1fr);
+  align-items: start;
+  gap: var(--tl-space-12);
+  width: 100%;
+  min-height: var(--tl-density-row-height);
+  padding: var(--tl-space-12) 0;
+  border: 0;
+  background: transparent;
+  color: var(--tl-color-fg-primary);
+  font: inherit;
+  text-align: left;
+}
+
+button.tl-month-calendar__agenda-item {
+  cursor: pointer;
+}
+
+.tl-month-calendar__agenda-item > .tl-month-calendar__marks {
+  height: var(--tl-density-body-line-height);
+}
+
+.tl-month-calendar__agenda-time {
+  display: grid;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-density-body-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-month-calendar__agenda-time > :first-child {
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-month-calendar__agenda-text {
+  display: grid;
+  min-width: 0;
+}
+
+.tl-month-calendar__agenda-text > :last-child:not(:first-child) {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+/* ── 주 · 일 보기(PG-42): 날 머리 · 종일 줄 · 시각 눈금 · 날마다 시간 일정 칸 ── */
+/* 한 시간은 최소 space.48. 카드가 더 길게 늘어나면(옆 칸에 맞춘 줄) 시간표가 남은 높이를 나눠 채운다 */
+.tl-month-calendar__timeline {
+  --tl-month-calendar-hour: var(--tl-space-48);
+  --tl-month-calendar-gutter: calc(var(--tl-space-48) + var(--tl-space-8));
+  display: grid;
+  flex: 1 1 auto;
+  grid-template-columns: var(--tl-month-calendar-gutter) minmax(0, 1fr);
+  grid-template-rows:
+    auto auto
+    minmax(calc(var(--tl-month-calendar-hours) * var(--tl-month-calendar-hour)), 1fr);
+  min-width: 0;
+}
+
+.tl-month-calendar__corner,
+.tl-month-calendar__heads {
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-month-calendar__heads-row,
+.tl-month-calendar__allday,
+.tl-month-calendar__columns {
+  display: grid;
+  grid-template-columns: repeat(var(--tl-month-calendar-days), minmax(0, 1fr));
+  min-width: 0;
+}
+
+.tl-month-calendar__head-cell {
+  min-width: 0;
+  border-left: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  transition: background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-month-calendar__head-cell:hover {
+  background: var(--tl-color-bg-canvas);
+}
+
+/* 고른 날: 바탕 한 단계(D-57) */
+.tl-month-calendar__head-cell[data-selected] {
+  background: var(--tl-color-brand-subtle);
+}
+
+.tl-month-calendar__head-day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tl-space-6);
+  width: 100%;
+  min-height: var(--tl-density-row-height);
+  padding: var(--tl-space-4);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.tl-month-calendar__head-day:focus-visible {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: calc(var(--tl-border-width-2) * -1);
+}
+
+.tl-month-calendar__head-weekday,
+.tl-month-calendar__list-weekday {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-month-calendar__head-cell[data-weekend] .tl-month-calendar__num,
+.tl-month-calendar__list-day[data-weekend] .tl-month-calendar__num {
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-month-calendar__head-cell[data-today] .tl-month-calendar__num,
+.tl-month-calendar__list-day[data-today] .tl-month-calendar__num {
+  background: var(--tl-color-fg-strong);
+  color: var(--tl-color-fg-inverse);
+}
+
+.tl-month-calendar__allday-label,
+.tl-month-calendar__allday {
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-month-calendar__allday-label {
+  padding: var(--tl-space-6) var(--tl-space-8) 0 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  text-align: right;
+}
+
+.tl-month-calendar__allday-cell {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--tl-space-4) / 2);
+  min-width: 0;
+  min-height: var(--tl-space-32);
+  padding: var(--tl-space-4);
+  border-left: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-month-calendar__hours {
+  position: relative;
+}
+
+/* 시각 글자는 정시 선 바로 아래 */
+.tl-month-calendar__hour {
+  position: absolute;
+  top: calc(var(--tl-month-calendar-at) / var(--tl-month-calendar-hours) * 100%);
+  right: var(--tl-space-8);
+  padding-top: var(--tl-space-2);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+/* 정시마다 가는 선(칸 바탕의 반복 줄) */
+.tl-month-calendar__columns {
+  background-image: linear-gradient(
+    to bottom,
+    var(--tl-color-border-divider) var(--tl-border-width-1),
+    transparent var(--tl-border-width-1)
+  );
+  background-size: 100% calc(100% / var(--tl-month-calendar-hours));
+}
+
+.tl-month-calendar__column {
+  position: relative;
+  min-width: 0;
+  border-left: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  container-type: inline-size;
+}
+
+/* 시간 일정: 바탕은 중립, 캘린더 색은 앞의 점(D-57). 겹치면 칸을 나눠 나란히 */
+.tl-month-calendar__block {
+  position: absolute;
+  top: calc(
+    var(--tl-month-calendar-top) / var(--tl-month-calendar-hours) * 100% + var(--tl-border-width-1)
+  );
+  left: calc(
+    var(--tl-month-calendar-col) * (100% - var(--tl-space-4)) / var(--tl-month-calendar-cols) +
+      var(--tl-space-2)
+  );
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: calc((100% - var(--tl-space-4)) / var(--tl-month-calendar-cols) - var(--tl-space-2));
+  height: calc(
+    var(--tl-month-calendar-len) / var(--tl-month-calendar-hours) * 100% - var(--tl-border-width-2)
+  );
+  min-width: 0;
+  padding: var(--tl-space-2) var(--tl-space-6);
+  overflow: hidden;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-sm);
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-primary);
+  font: inherit;
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  text-align: left;
+  transition:
+    background-color var(--tl-duration-fast) var(--tl-easing-standard),
+    border-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-month-calendar__block[data-short] {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--tl-space-4);
+  padding-block: 0;
+}
+
+button.tl-month-calendar__block {
+  cursor: pointer;
+}
+
+button.tl-month-calendar__block:hover {
+  border-color: var(--tl-color-border-strong);
+  background: var(--tl-color-bg-canvas);
+}
+
+.tl-month-calendar__block-head {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--tl-space-4);
+  min-width: 0;
+  color: var(--tl-color-fg-secondary);
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+.tl-month-calendar__block-title,
+.tl-month-calendar__block-meta {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-month-calendar__block-title {
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-month-calendar__block[data-state='done'] .tl-month-calendar__block-title {
+  color: var(--tl-color-fg-secondary);
+  text-decoration: line-through;
+}
+
+.tl-month-calendar__block[data-state='done'] .tl-month-calendar__dot {
+  background: transparent;
+  box-shadow: inset 0 0 0 var(--tl-border-width-1) var(--tl-month-calendar-color);
+}
+
+.tl-month-calendar__block-meta {
+  color: var(--tl-color-fg-secondary);
+}
+
+/* 지금 선: 오늘 칸에만. 앞에 점. 위험 빨강이 아닌 중립색(D-146 제안) */
+.tl-month-calendar__now {
+  position: absolute;
+  top: calc(var(--tl-month-calendar-top) / var(--tl-month-calendar-hours) * 100%);
+  right: 0;
+  left: 0;
+  z-index: 1;
+  height: var(--tl-border-width-2);
+  background: var(--tl-color-fg-strong);
+  pointer-events: none;
+}
+
+.tl-month-calendar__now::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: var(--tl-space-8);
+  height: var(--tl-space-8);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-fg-strong);
+  transform: translate(-50%, -50%);
+}
+
+/* 일 보기: 칸이 넓어 시각 · 제목을 한 줄에, 장소 같은 meta는 둘째 줄(한 시간 블록에 두 줄이 든다) */
+.tl-month-calendar[data-view='day'] .tl-month-calendar__block:not([data-short]) {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-content: start;
+  column-gap: var(--tl-space-8);
+}
+
+.tl-month-calendar[data-view='day'] .tl-month-calendar__block-meta {
+  grid-column: 1 / -1;
+}
+
+/* 겹쳐 나눈 블록이 좁은 칸(160 미만)에 들면 시각을 숨기고 점 · 제목 한 줄로(시각은 단추 이름 · 숨은 목록에 남는다) */
+@container (max-width: 159px) {
+  .tl-month-calendar__block[data-split] {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--tl-space-4);
+  }
+
+  .tl-month-calendar__block[data-split] .tl-month-calendar__block-time {
+    display: none;
+  }
+}
+
+/* 7일 시간표는 칸이 좁으면(태블릿) 시각을 숨겨 제목을 남긴다 */
+@media (max-width: 1023px) {
+  .tl-month-calendar[data-view='week'] .tl-month-calendar__block-time {
+    display: none;
+  }
+
+  .tl-month-calendar[data-view='week'] .tl-month-calendar__block {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--tl-space-4);
+  }
+}
+
+/* 화면은 넓어도 달력이 좁은 자리(옆 칸 · 카드 안)에 놓이면 날짜 칸이 시각 글자(09:00~10:00)보다 좁아진다.
+   칸 폭 112 미만이면 같은 모양으로 바꾼다. 시각은 단추 이름과 숨은 목록에 남는다 */
+@container (max-width: 111px) {
+  .tl-month-calendar[data-view='week'] .tl-month-calendar__block-time {
+    display: none;
+  }
+
+  .tl-month-calendar[data-view='week'] .tl-month-calendar__block {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--tl-space-4);
+  }
+}
+
+/* ── 좁은 화면 주 보기: 날마다 일정 목록 ── */
+.tl-month-calendar__week-list {
+  display: grid;
+  margin: 0;
+  padding: 0 var(--tl-space-12);
+  list-style: none;
+}
+
+.tl-month-calendar__list-day + .tl-month-calendar__list-day {
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-month-calendar__list-head {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  width: 100%;
+  min-height: var(--tl-density-row-height);
+  padding: var(--tl-space-8) 0;
+  border: 0;
+  background: transparent;
+  color: var(--tl-color-fg-primary);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.tl-month-calendar__list-head > .tl-month-calendar__count {
+  margin-left: auto;
+}
+
+.tl-month-calendar__list-day[data-selected]:not([data-today]) .tl-month-calendar__num {
+  background: var(--tl-color-brand-subtle);
+  color: var(--tl-color-fg-link);
+}
+
+.tl-month-calendar__list-day > .tl-month-calendar__agenda-list {
+  padding-left: calc(var(--tl-space-32) + var(--tl-space-8));
+}

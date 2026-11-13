@@ -1,0 +1,32 @@
+{
+  "id": "commerce/products/list",
+  "title": "상품",
+  "intent": "판매 상품을 판매 상태 · 채널로 찾고, 판매를 켜고 끄거나 골라서 할인가를 한 번에 수정한다",
+  "module": "products",
+  "pattern": "ListDetail",
+  "industries": ["commerce", "distribution"],
+  "components": [
+    "PageHeader",
+    "Tabs",
+    "Banner",
+    "FilterBar",
+    "Input",
+    "Select",
+    "DataGrid",
+    "Badge",
+    "Switch",
+    "ActionBar",
+    "Button",
+    "Dialog",
+    "Field",
+    "SegmentedControl",
+    "QuantityInput",
+    "AmountInput",
+    "Drawer",
+    "DescriptionList",
+    "StatusDot"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["columns", "filters", "bulkActions", "detail"],
+  "order": 10
+}

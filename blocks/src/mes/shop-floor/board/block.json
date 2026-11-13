@@ -1,0 +1,24 @@
+{
+  "id": "mes/shop-floor/board",
+  "title": "현장 보드",
+  "intent": "공장 벽 TV에 가동률 · 수율 · 계획 달성률과 라인별 설비 상태, 지금 작업지시 진행, 불량 Top 3를 크게 띄운다",
+  "module": "shop-floor",
+  "pattern": "FloorBoard",
+  "industries": ["manufacturing"],
+  "components": [
+    "PageHeader",
+    "StatusDot",
+    "Card",
+    "RadialMeter",
+    "KpiCard",
+    "Badge",
+    "Progress",
+    "BarList",
+    "ComboChart",
+    "Legend",
+    "Sparkline"
+  ],
+  "sizes": [1920, 1440],
+  "slots": ["kpis", "lines", "defects", "bottom"],
+  "order": 10
+}

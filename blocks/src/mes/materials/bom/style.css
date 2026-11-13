@@ -1,0 +1,106 @@
+/* 자재 명세: 완제품 목록 + BOM 트리(들여쓰기 · 연결선). 값은 토큰만 */
+.tl-block-bom {
+  display: grid;
+  grid-template-columns: calc(var(--tl-space-64) * 4) minmax(0, 1fr);
+  align-items: start;
+  gap: var(--tl-density-gutter);
+  min-width: 0;
+}
+
+.tl-block-bom__products {
+  min-width: 0;
+}
+
+.tl-block-bom-product__meta {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+}
+
+.tl-block-bom__detail {
+  display: grid;
+  gap: var(--tl-density-gutter);
+  min-width: 0;
+}
+
+.tl-block-bom__calc {
+  display: grid;
+  grid-template-columns: calc(var(--tl-space-64) * 3) auto minmax(0, 1fr);
+  align-items: start;
+  gap: var(--tl-space-16);
+  padding: 0 var(--tl-density-card-padding) var(--tl-density-card-padding);
+}
+
+.tl-block-bom__figures {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, max-content));
+  justify-content: end;
+  gap: var(--tl-space-24);
+}
+
+/* 트리: 단계마다 들여쓰고 왼쪽에 ㄴ자 연결선 */
+.tl-block-bom-node {
+  position: relative;
+  display: block;
+  min-width: 0;
+}
+
+.tl-block-bom-node[data-level='0'] {
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-block-bom-node[data-level='1'] {
+  padding-left: var(--tl-space-24);
+}
+
+.tl-block-bom-node[data-level='2'] {
+  padding-left: calc(var(--tl-space-24) * 2);
+}
+
+.tl-block-bom-node[data-level='1']::before,
+.tl-block-bom-node[data-level='2']::before {
+  position: absolute;
+  top: 0;
+  width: var(--tl-space-12);
+  height: 50%;
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-left: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  content: '';
+}
+
+.tl-block-bom-node[data-level='1']::before {
+  left: var(--tl-space-8);
+}
+
+.tl-block-bom-node[data-level='2']::before {
+  left: calc(var(--tl-space-24) + var(--tl-space-8));
+}
+
+.tl-block-bom-unit {
+  margin-left: var(--tl-space-4);
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+}
+
+@media (max-width: 1279px) {
+  .tl-block-bom__calc {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tl-block-bom__figures {
+    grid-column: 1 / -1;
+    justify-content: start;
+  }
+}
+
+@media (max-width: 1023px) {
+  .tl-block-bom {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 639px) {
+  .tl-block-bom__calc,
+  .tl-block-bom__figures {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

@@ -1,0 +1,221 @@
+/* 재생 층(R-41): 화면 전체를 덮지만 누름은 통과한다(띠만 누를 수 있다). 층은 토스트와 같은 z.toast */
+.tl-agent-replay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--tl-z-toast);
+  container: tl-agent-replay / inline-size;
+  pointer-events: none;
+}
+
+/* 문서 예시 · 액자 안(container = null): 부모 상자 기준 */
+.tl-agent-replay[data-contained] {
+  position: absolute;
+}
+
+/* 지금 다루는 칸의 테두리. 칸 바깥 2만큼 띄운다 */
+.tl-agent-replay__ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(var(--tl-agent-replay-w) + var(--tl-space-8));
+  height: calc(var(--tl-agent-replay-h) + var(--tl-space-8));
+  border: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  border-radius: var(--tl-radius-md);
+  transform: translate(
+    calc(var(--tl-agent-replay-x) - var(--tl-space-4)),
+    calc(var(--tl-agent-replay-y) - var(--tl-space-4))
+  );
+  transition:
+    transform var(--tl-duration-normal) var(--tl-easing-standard),
+    width var(--tl-duration-normal) var(--tl-easing-standard),
+    height var(--tl-duration-normal) var(--tl-easing-standard);
+}
+
+/* 커서 + 이름표. 자리를 옮길 때 미끄러진다 */
+.tl-agent-replay__pointer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--tl-space-4);
+  transform: translate(var(--tl-agent-replay-x), var(--tl-agent-replay-y));
+  transition: transform var(--tl-duration-slow) var(--tl-easing-standard);
+}
+
+/* 짙은 화살표 + 바탕색 테두리라 밝은 · 어두운 면 어디서나 보인다 */
+.tl-agent-replay__cursor {
+  fill: var(--tl-color-fg-strong);
+  stroke: var(--tl-color-bg-surface);
+}
+
+.tl-agent-replay__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  margin-top: var(--tl-space-16);
+  padding: var(--tl-border-width-2) var(--tl-space-8);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-fg-strong);
+  color: var(--tl-color-fg-inverse);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-weight: var(--tl-font-weight-600);
+  white-space: nowrap;
+  box-shadow: var(--tl-shadow-md);
+}
+
+/* 누름 물결: 누른 자리에서 퍼지며 사라진다 */
+.tl-agent-replay__ripple {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--tl-space-32);
+  height: var(--tl-space-32);
+  border: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  border-radius: var(--tl-radius-full);
+  opacity: 0;
+  transform: translate(
+      calc(var(--tl-agent-replay-x) - var(--tl-space-16)),
+      calc(var(--tl-agent-replay-y) - var(--tl-space-16))
+    )
+    scale(0.4);
+  animation: tl-agent-replay-ripple var(--tl-duration-slower) var(--tl-easing-exit) forwards;
+}
+
+@keyframes tl-agent-replay-ripple {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    transform: translate(
+        calc(var(--tl-agent-replay-x) - var(--tl-space-16)),
+        calc(var(--tl-agent-replay-y) - var(--tl-space-16))
+      )
+      scale(1.4);
+  }
+}
+
+/* 움직임 줄이기: 커서 이동 · 물결 없이 테두리만(테두리도 미끄러지지 않는다. 시간 토큰이 0) */
+@media (prefers-reduced-motion: reduce) {
+  .tl-agent-replay__pointer,
+  .tl-agent-replay__ripple {
+    display: none;
+  }
+}
+
+[data-motion='reduce'] .tl-agent-replay__pointer,
+[data-motion='reduce'] .tl-agent-replay__ripple {
+  display: none;
+}
+
+/* 진행 띠: 넓은 화면은 아래 가운데에 뜬다. 토스트처럼 아래 시트 · 탭바 · 고정 ActionBar 위로 */
+.tl-agent-replay__bar {
+  position: absolute;
+  bottom: calc(var(--tl-space-24) + var(--tl-toast-offset-bottom, var(--tl-space-0)));
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-12);
+  width: max-content;
+  max-width: calc(100% - var(--tl-space-32));
+  min-height: var(--tl-density-control-height-lg);
+  padding: var(--tl-space-8) var(--tl-space-8) var(--tl-space-8) var(--tl-space-16);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-elevated);
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  box-shadow: var(--tl-shadow-lg);
+  transform: translateX(-50%);
+  pointer-events: auto;
+}
+
+.tl-agent-replay__text {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: var(--tl-space-12);
+  min-width: 0;
+}
+
+.tl-agent-replay__who {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--tl-space-8);
+  color: var(--tl-color-fg-strong);
+  font-weight: var(--tl-font-weight-600);
+  white-space: nowrap;
+}
+
+.tl-agent-replay__dot {
+  width: var(--tl-space-8);
+  height: var(--tl-space-8);
+  flex: none;
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-border-focus);
+}
+
+.tl-agent-replay__done-icon {
+  color: var(--tl-color-status-success-default);
+}
+
+.tl-agent-replay__caption {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-agent-replay__state {
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-agent-replay__trail,
+.tl-agent-replay__meta {
+  flex: none;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  white-space: nowrap;
+}
+
+.tl-agent-replay__meta {
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-agent-replay__actions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--tl-space-4);
+}
+
+/* 휴대폰(breakpoint.sm 미만): 탭바 위 좌우 꽉 찬 띠. 길(trail)은 숨긴다.
+   층이 화면 전체라 층 폭 = 화면 폭이다. 액자 안(container = null)에서도 같은 규칙이 액자 폭으로 걸린다 */
+@container tl-agent-replay (max-width: 639px) {
+  .tl-agent-replay__bar {
+    right: 0;
+    bottom: var(--tl-toast-offset-bottom, var(--tl-space-0));
+    left: 0;
+    width: auto;
+    max-width: none;
+    border-width: var(--tl-border-width-1) 0 0;
+    border-radius: 0;
+    box-shadow: var(--tl-shadow-md);
+    transform: none;
+  }
+
+  .tl-agent-replay__text {
+    flex-wrap: wrap;
+    gap: var(--tl-space-4) var(--tl-space-8);
+  }
+
+  .tl-agent-replay__trail {
+    display: none;
+  }
+}

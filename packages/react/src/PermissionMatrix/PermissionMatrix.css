@@ -1,0 +1,237 @@
+/* 권한 표: 데이터 범위 고르기 + 격자(대상 × 동작). 좁은 화면은 표가 자기 상자 안에서 가로로 넘어가고 첫 열은 붙어 있다 */
+.tl-permission-matrix {
+  display: grid;
+  gap: var(--tl-space-12);
+  min-width: 0;
+  container-type: inline-size;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+}
+
+.tl-permission-matrix__scope {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tl-space-8) var(--tl-space-16);
+}
+
+.tl-permission-matrix__scope-label {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-permission-matrix__scope-text {
+  margin: 0;
+}
+
+.tl-permission-matrix__scope-value {
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-permission-matrix__scroll {
+  /* 칸 안의 읽어 주기 전용 글(tl-sr-only, position absolute)이 이 스크롤 칸을 기준으로 놓이게 한다.
+     기준이 없으면 페이지가 기준이 되어 표 폭만큼 화면에 숨은 가로 스크롤이 생긴다(390 폭에서 485px) */
+  position: relative;
+  min-width: 0;
+  overflow-x: auto;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-md);
+}
+
+.tl-permission-matrix__grid {
+  display: grid;
+  min-width: max-content;
+}
+
+.tl-permission-matrix__row {
+  display: grid;
+  grid-template-columns:
+    minmax(calc(var(--tl-space-64) * 3), 1fr)
+    repeat(
+      var(--tl-permission-matrix-cols),
+      minmax(var(--tl-space-64), calc(var(--tl-space-64) * 1.5))
+    );
+  align-items: stretch;
+  /* 이름 아래 "권한 없음" 한 줄이 있어도 줄 높이가 같게 */
+  min-height: calc(var(--tl-density-row-height) + var(--tl-space-12));
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  transition: background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-permission-matrix__row:last-child {
+  border-bottom: 0;
+}
+
+.tl-permission-matrix__row:not(.tl-permission-matrix__head):hover,
+.tl-permission-matrix[data-force-state='hover'] .tl-permission-matrix__row:nth-child(2) {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-permission-matrix__head {
+  min-height: var(--tl-density-row-height);
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-permission-matrix__resource {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-width: 0;
+  padding: var(--tl-space-4) var(--tl-space-12);
+  background: inherit;
+}
+
+/* 붙은 첫 열은 줄 바탕을 이어받는다(가로로 넘길 때 칸이 비쳐 보이지 않게) */
+.tl-permission-matrix__row:not(.tl-permission-matrix__head) {
+  background: var(--tl-color-bg-surface);
+}
+
+.tl-permission-matrix__action,
+.tl-permission-matrix__cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--tl-space-4);
+  text-align: center;
+}
+
+.tl-permission-matrix__icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--tl-space-32);
+  height: var(--tl-space-32);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-permission-matrix__text {
+  display: grid;
+  min-width: 0;
+}
+
+.tl-permission-matrix__label {
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-permission-matrix__description {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+/* 잠긴 줄: 이름 · 설명은 한 단계 옅게(fg.tertiary, 4.5:1 이상). 줄 이름은 잠긴 까닭과 함께 읽혀야 하므로
+   비활성 글자색(fg.disabled, 대비 예외)을 쓰지 않는다. 잠김은 상자 모양 · aria-disabled · 설명 글이 알린다 */
+.tl-permission-matrix__row[data-disabled] .tl-permission-matrix__label,
+.tl-permission-matrix__row[data-disabled] .tl-permission-matrix__description {
+  color: var(--tl-color-fg-tertiary);
+}
+
+/* 체크 상자: 누르는 자리 32(손가락 밀도는 44), 보이는 상자 16(Checkbox와 같은 토큰) */
+.tl-permission-matrix__box {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  --tl-permission-matrix-hit: max(var(--tl-space-32), var(--tl-density-control-height-xs));
+  width: var(--tl-permission-matrix-hit);
+  height: var(--tl-permission-matrix-hit);
+  padding: 0;
+  border: 0;
+  border-radius: var(--tl-radius-sm);
+  background: transparent;
+  color: var(--tl-color-brand-on-brand);
+  cursor: pointer;
+}
+
+.tl-permission-matrix__box::before {
+  content: '';
+  position: absolute;
+  inset: calc((100% - var(--tl-size-icon-16)) / 2);
+  box-sizing: border-box;
+  border: var(--tl-border-width-1) solid var(--tl-color-fg-tertiary);
+  border-radius: var(--tl-radius-xs);
+  background: var(--tl-color-bg-surface);
+  transition:
+    background-color var(--tl-duration-fast) var(--tl-easing-standard),
+    border-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-permission-matrix__box > * {
+  position: relative;
+}
+
+.tl-permission-matrix__box.tl-focusable:focus-visible,
+.tl-permission-matrix[data-force-state='focus']
+  .tl-permission-matrix__row:nth-child(2)
+  .tl-permission-matrix__cell:nth-child(2)
+  .tl-permission-matrix__box {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: calc(
+    var(--tl-border-width-2) - (var(--tl-permission-matrix-hit) - var(--tl-size-icon-16)) / 2
+  );
+}
+
+.tl-permission-matrix__box:hover::before {
+  border-color: var(--tl-color-border-focus);
+}
+
+.tl-permission-matrix__box[data-checked]::before {
+  border-color: var(--tl-color-brand-default);
+  background: var(--tl-color-brand-default);
+}
+
+.tl-permission-matrix__box[data-checked]:hover::before {
+  border-color: var(--tl-color-brand-hover);
+  background: var(--tl-color-brand-hover);
+}
+
+.tl-permission-matrix__box[data-disabled] {
+  color: var(--tl-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.tl-permission-matrix__box[data-disabled]::before,
+.tl-permission-matrix__box[data-disabled]:hover::before {
+  border-color: var(--tl-color-border-default);
+  background: var(--tl-color-bg-sunken);
+}
+
+/* 읽기 전용 칸: 체크 표시 · 대시. 칸 자체가 초점을 받는다 */
+.tl-permission-matrix__cell.tl-focusable:focus-visible {
+  outline-offset: calc(var(--tl-border-width-2) * -1);
+}
+
+.tl-permission-matrix__mark {
+  color: var(--tl-color-fg-link);
+}
+
+.tl-permission-matrix__dash {
+  color: var(--tl-color-fg-tertiary);
+}
+
+/* 좁은 칸(휴대폰): 첫 열을 줄여 동작 열이 더 보이게. 나머지는 상자 안에서 가로로 넘긴다 */
+@container (max-width: 639px) {
+  .tl-permission-matrix__row {
+    grid-template-columns:
+      minmax(calc(var(--tl-space-64) * 2), 1fr)
+      repeat(
+        var(--tl-permission-matrix-cols),
+        minmax(calc(var(--tl-space-48) + var(--tl-space-8)), 1fr)
+      );
+  }
+
+  .tl-permission-matrix__resource {
+    padding-inline: var(--tl-space-8);
+  }
+}

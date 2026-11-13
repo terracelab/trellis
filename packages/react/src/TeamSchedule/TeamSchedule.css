@@ -1,0 +1,322 @@
+.tl-team-schedule {
+  --tl-team-schedule-name: calc(var(--tl-space-64) * 3);
+  --tl-team-schedule-weekend: color-mix(
+    in srgb,
+    var(--tl-color-fg-primary) 4%,
+    var(--tl-color-bg-surface)
+  );
+  --tl-team-schedule-today: color-mix(
+    in srgb,
+    var(--tl-color-fg-primary) 8%,
+    var(--tl-color-bg-surface)
+  );
+
+  display: grid;
+  gap: var(--tl-space-12);
+  min-width: 0;
+}
+
+/* 종류 색: module.<tone>.subtle 바탕 + default 아이콘. neutral은 회색 */
+.tl-team-schedule [data-tone] {
+  --tl-team-schedule-fill: var(--tl-color-bg-sunken);
+  --tl-team-schedule-mark: var(--tl-color-fg-tertiary);
+}
+
+.tl-team-schedule [data-tone='erp'] {
+  --tl-team-schedule-fill: var(--tl-color-module-erp-subtle);
+  --tl-team-schedule-mark: var(--tl-color-module-erp-default);
+}
+
+.tl-team-schedule [data-tone='groupware'] {
+  --tl-team-schedule-fill: var(--tl-color-module-groupware-subtle);
+  --tl-team-schedule-mark: var(--tl-color-module-groupware-default);
+}
+
+.tl-team-schedule [data-tone='ecm'] {
+  --tl-team-schedule-fill: var(--tl-color-module-ecm-subtle);
+  --tl-team-schedule-mark: var(--tl-color-module-ecm-default);
+}
+
+.tl-team-schedule [data-tone='crm'] {
+  --tl-team-schedule-fill: var(--tl-color-module-crm-subtle);
+  --tl-team-schedule-mark: var(--tl-color-module-crm-default);
+}
+
+.tl-team-schedule [data-tone='scm'] {
+  --tl-team-schedule-fill: var(--tl-color-module-scm-subtle);
+  --tl-team-schedule-mark: var(--tl-color-module-scm-default);
+}
+
+.tl-team-schedule [data-tone='commerce'] {
+  --tl-team-schedule-fill: var(--tl-color-module-commerce-subtle);
+  --tl-team-schedule-mark: var(--tl-color-module-commerce-default);
+}
+
+.tl-team-schedule [data-tone='mes'] {
+  --tl-team-schedule-fill: var(--tl-color-module-mes-subtle);
+  --tl-team-schedule-mark: var(--tl-color-module-mes-default);
+}
+
+.tl-team-schedule__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tl-space-4) var(--tl-space-16);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-team-schedule__legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-team-schedule__scroll {
+  /* 칸 안의 읽어 주기 전용 글(tl-sr-only, position absolute)이 이 스크롤 칸을 기준으로 놓이게 한다.
+     기준이 없으면 AppShell 본문이 기준이 되어 표 폭만큼 본문에 숨은 가로 스크롤이 생긴다(390 폭에서 331px) */
+  position: relative;
+  overflow-x: auto;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-surface);
+}
+
+.tl-team-schedule__scroll:focus-visible {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: var(--tl-border-width-2);
+}
+
+.tl-team-schedule__table {
+  width: 100%;
+  min-width: calc(
+    var(--tl-team-schedule-name) + var(--tl-team-schedule-days) * var(--tl-team-schedule-day)
+  );
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+
+.tl-team-schedule__name-col {
+  width: var(--tl-team-schedule-name);
+}
+
+.tl-team-schedule th,
+.tl-team-schedule td {
+  padding: 0;
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  font-weight: inherit;
+  text-align: inherit;
+}
+
+.tl-team-schedule tbody tr:last-child > * {
+  border-bottom: 0;
+}
+
+/* 한 사람의 여러 줄(겹친 일정) 사이에는 선을 긋지 않는다 */
+.tl-team-schedule tbody tr:has(+ tr[data-lane]) > td {
+  border-bottom: 0;
+}
+
+/* 이름 칸 · 모서리: 가로 스크롤해도 남는다 */
+.tl-team-schedule__corner,
+.tl-team-schedule__name {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  border-right: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  background: var(--tl-color-bg-surface);
+}
+
+.tl-team-schedule__corner {
+  padding: var(--tl-space-8) var(--tl-space-12);
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  vertical-align: bottom;
+}
+
+.tl-team-schedule__name {
+  padding: var(--tl-space-4) var(--tl-space-12);
+  vertical-align: middle;
+}
+
+.tl-team-schedule__person {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+.tl-team-schedule__person-text {
+  display: grid;
+  min-width: 0;
+}
+
+.tl-team-schedule__person-name,
+.tl-team-schedule__person-meta {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-team-schedule__person-name {
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-team-schedule__person-meta {
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-team-schedule__day {
+  padding: var(--tl-space-8) 0;
+  text-align: center;
+}
+
+.tl-team-schedule__weekday {
+  display: block;
+  /* 주말 · 오늘 칸의 옅은 바탕 위에서도 4.5:1(다크 tertiary는 4.1:1) */
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-team-schedule__date {
+  display: inline-grid;
+  place-items: center;
+  min-width: var(--tl-space-24);
+  height: var(--tl-space-24);
+  border-radius: var(--tl-radius-full);
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-team-schedule__day[data-weekend] .tl-team-schedule__date {
+  color: var(--tl-color-fg-secondary);
+  font-weight: var(--tl-font-weight-400);
+}
+
+/* 오늘: 날짜 숫자를 채운 원 + 열 연한 회색. 회사 색이 아닌 중립색(DeadlineStrip 오늘과 같다, D-146 제안) */
+.tl-team-schedule__day[data-today] .tl-team-schedule__date {
+  background: var(--tl-color-fg-strong);
+  color: var(--tl-color-fg-inverse);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-team-schedule__cell {
+  height: var(--tl-density-row-height);
+  padding: var(--tl-space-4) calc(var(--tl-space-4) / 2);
+  vertical-align: middle;
+}
+
+.tl-team-schedule [data-weekend]:is(td, th) {
+  background: var(--tl-team-schedule-weekend);
+}
+
+.tl-team-schedule [data-today]:is(td, th) {
+  background: var(--tl-team-schedule-today);
+}
+
+/* 일정: 연한 바탕 + 종류 아이콘 + 글자. 왼쪽 띠를 쓰지 않는다(D-56) */
+.tl-team-schedule__event {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: calc(var(--tl-density-row-height) - var(--tl-space-12));
+  margin: 0;
+  padding: 0 var(--tl-space-8);
+  border: 0;
+  border-radius: var(--tl-radius-sm);
+  background: var(--tl-team-schedule-fill);
+  color: var(--tl-color-fg-primary);
+  font: inherit;
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-weight: var(--tl-font-weight-500);
+  text-align: left;
+  transition: box-shadow var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+button.tl-team-schedule__event {
+  cursor: pointer;
+}
+
+button.tl-team-schedule__event:hover {
+  box-shadow: inset 0 0 0 var(--tl-border-width-1) var(--tl-team-schedule-mark);
+}
+
+.tl-team-schedule__event[data-part='am'] {
+  width: 50%;
+  margin-right: auto;
+}
+
+.tl-team-schedule__event[data-part='pm'] {
+  width: 50%;
+  margin-left: auto;
+}
+
+.tl-team-schedule__event[data-clip-start] {
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+}
+
+.tl-team-schedule__event[data-clip-end] {
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+}
+
+.tl-team-schedule__event-icon {
+  flex: none;
+  color: var(--tl-team-schedule-mark);
+}
+
+.tl-team-schedule__event-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 한 달 보기: 하루짜리 일정은 아이콘만 가운데(글자는 화면 낭독기에만, 칸 폭 40) */
+.tl-team-schedule[data-dense] .tl-team-schedule__event[data-single] {
+  justify-content: center;
+  padding-inline: 0;
+}
+
+.tl-team-schedule[data-dense] .tl-team-schedule__event[data-single] .tl-team-schedule__event-label {
+  position: absolute;
+  width: var(--tl-border-width-1);
+  height: var(--tl-border-width-1);
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.tl-team-schedule__empty {
+  margin: 0;
+  padding: var(--tl-space-24);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-lg);
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-label-font-size);
+  text-align: center;
+}
+
+@media (max-width: 639px) {
+  .tl-team-schedule {
+    --tl-team-schedule-name: calc(var(--tl-space-64) * 2);
+  }
+}

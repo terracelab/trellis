@@ -1,0 +1,22 @@
+{
+  "id": "scm/trade/shipments",
+  "title": "선적 · 통관",
+  "intent": "수입 화물의 선적부터 입항 · 통관 · 반출까지 단계와 도착 예정일을 보고, B/L과 발주를 연결한다",
+  "module": "trade",
+  "pattern": "ListDetail",
+  "industries": ["trade"],
+  "components": [
+    "PageHeader",
+    "Tabs",
+    "Card",
+    "Stepper",
+    "DescriptionList",
+    "Badge",
+    "DueBadge",
+    "Banner",
+    "Button"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["card", "steps", "documents"],
+  "order": 60
+}

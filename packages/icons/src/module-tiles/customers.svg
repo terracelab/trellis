@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-customers-title">
+  <title id="tl-tile-customers-title">고객</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-customers-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-customers-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#63D4F5"/>
+      <stop offset=".5" stop-color="#2089DB"/>
+      <stop offset="1" stop-color="#1453BD"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-customers-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-customers-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <filter id="tl-tile-customers-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-customers-small" x="-45%" y="-45%" width="200%" height="210%">
+      <feDropShadow dx="4" dy="11" stdDeviation="10" flood-color="#193052" flood-opacity=".28"/>
+    </filter>
+    <filter id="tl-tile-customers-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-customers-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-customers-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-customers-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-customers-blur)"/>
+    <g filter="url(#tl-tile-customers-shadow)">
+      <path d="M286.5 417.9A240 240 0 0 1 719.8 380" fill="none" stroke="url(#tl-tile-customers-white)" stroke-width="72"/>
+      <circle cx="286.5" cy="417.9" r="36" fill="url(#tl-tile-customers-white)"/>
+      <path d="M789.1 340 650.5 420 769.8 466.6Z" fill="url(#tl-tile-customers-white)" stroke="url(#tl-tile-customers-white)" stroke-width="18" stroke-linejoin="round"/>
+      <path d="M737.5 582.1A240 240 0 0 1 304.2 620" fill="none" stroke="url(#tl-tile-customers-white)" stroke-width="72"/>
+      <circle cx="737.5" cy="582.1" r="36" fill="url(#tl-tile-customers-white)"/>
+      <path d="M234.9 660 373.5 580 254.2 533.4Z" fill="url(#tl-tile-customers-white)" stroke="url(#tl-tile-customers-white)" stroke-width="18" stroke-linejoin="round"/>
+      <circle cx="512" cy="440" r="60" fill="url(#tl-tile-customers-white)"/>
+      <path d="M392 672c10-98 56-150 120-150s110 52 120 150Z" fill="url(#tl-tile-customers-white)"/>
+    </g>
+    <g filter="url(#tl-tile-customers-small)">
+      <circle cx="628" cy="658" r="56" fill="#51D9B7"/>
+      <circle cx="628" cy="658" r="40" fill="#E9FFF9"/>
+      <path d="M628 636v44M606 658h44" fill="none" stroke="#28AA9B" stroke-width="14" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>

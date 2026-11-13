@@ -1,0 +1,69 @@
+{
+  "color": {
+    "cvd": {
+      "$description": "색각 친화 차트(data-chart=\"cvd\") 원색. 식자재 ERP 리뉴얼에서 가져온 Okabe–Ito 계열 — 적록 색약에서도 명도 · 색상으로 구분된다(D-97). 다크 값은 어두운 면에 맞춘 값",
+      "vermilion": {
+        "$value": "#D55E00",
+        "$type": "color",
+        "$description": "주홍"
+      },
+      "blue": {
+        "$value": "#0072B2",
+        "$type": "color",
+        "$description": "파랑"
+      },
+      "orange": {
+        "$value": "#E69F00",
+        "$type": "color",
+        "$description": "주황"
+      },
+      "sky": {
+        "$value": "#56B4E9",
+        "$type": "color",
+        "$description": "하늘"
+      },
+      "purple": {
+        "$value": "#CC79A7",
+        "$type": "color",
+        "$description": "자주"
+      },
+      "gray": {
+        "$value": "#8B929C",
+        "$type": "color",
+        "$description": "회색(비교)"
+      },
+      "dark": {
+        "vermilion": {
+          "$value": "#D97324",
+          "$type": "color",
+          "$description": "다크 주홍"
+        },
+        "blue": {
+          "$value": "#006A9F",
+          "$type": "color",
+          "$description": "다크 파랑"
+        },
+        "orange": {
+          "$value": "#B68B13",
+          "$type": "color",
+          "$description": "다크 주황"
+        },
+        "sky": {
+          "$value": "#339DD0",
+          "$type": "color",
+          "$description": "다크 하늘"
+        },
+        "purple": {
+          "$value": "#C473A6",
+          "$type": "color",
+          "$description": "다크 자주"
+        },
+        "gray": {
+          "$value": "#9A9A9A",
+          "$type": "color",
+          "$description": "다크 회색(비교)"
+        }
+      }
+    }
+  }
+}

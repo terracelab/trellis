@@ -1,0 +1,67 @@
+{
+  "font": {
+    "family": {
+      "sans": {
+        "$value": [
+          "Pretendard Variable",
+          "Pretendard",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Apple SD Gothic Neo",
+          "Noto Sans KR",
+          "system-ui",
+          "sans-serif"
+        ],
+        "$type": "fontFamily",
+        "$description": "첫 항목이 번들 서체. 나머지는 폴백(D-22)"
+      },
+      "mono": {
+        "$value": [
+          "ui-monospace",
+          "SFMono-Regular",
+          "Menlo",
+          "Consolas",
+          "Liberation Mono",
+          "monospace"
+        ],
+        "$type": "fontFamily",
+        "$description": "코드 · 번호. 시스템 고정폭만 쓴다(식자재 ERP의 IBM Plex Mono는 번들하지 않는다, 외부 네트워크 0, D-97)"
+      }
+    },
+    "weight": {
+      "400": {
+        "$value": 400,
+        "$type": "fontWeight"
+      },
+      "500": {
+        "$value": 500,
+        "$type": "fontWeight"
+      },
+      "600": {
+        "$value": 600,
+        "$type": "fontWeight"
+      },
+      "700": {
+        "$value": 700,
+        "$type": "fontWeight"
+      }
+    },
+    "numeric": {
+      "$value": "tabular-nums",
+      "$type": "string",
+      "$description": "숫자는 항상 고정폭"
+    },
+    "letterSpacing": {
+      "tight": {
+        "$value": "-0.01em",
+        "$type": "dimension",
+        "$description": "한글 제목"
+      },
+      "normal": {
+        "$value": "0em",
+        "$type": "dimension",
+        "$description": "본문"
+      }
+    }
+  }
+}

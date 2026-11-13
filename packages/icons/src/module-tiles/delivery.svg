@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-delivery-title">
+  <title id="tl-tile-delivery-title">배송·배차</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-delivery-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-delivery-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFCE91"/>
+      <stop offset=".5" stop-color="#F5A524"/>
+      <stop offset="1" stop-color="#CD8600"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-delivery-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-delivery-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-delivery-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-delivery-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-delivery-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-delivery-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-delivery-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#CD8600" opacity=".25" filter="url(#tl-tile-delivery-blur)"/>
+    <g transform="rotate(-2 512 512)">
+      <rect x="214" y="328" width="366" height="345" rx="31" fill="url(#tl-tile-delivery-edge)"/>
+      <rect x="214" y="328" width="345" height="317" rx="30" fill="url(#tl-tile-delivery-white)"/>
+      <path d="M580 415h115l114 135v123H580z" fill="url(#tl-tile-delivery-white)"/>
+      <path d="M612 449h67l76 95H612z" fill="#F5A524"/>
+      <rect x="201" y="637" width="621" height="45" rx="14" fill="url(#tl-tile-delivery-edge)"/>
+      <rect x="741" y="584" width="45" height="20" rx="7" fill="#F5A524"/>
+      <g>
+        <circle cx="339" cy="683" r="69" fill="#25364B"/>
+        <circle cx="339" cy="683" r="32" fill="url(#tl-tile-delivery-edge)"/>
+      </g>
+      <g>
+        <circle cx="689" cy="683" r="69" fill="#25364B"/>
+        <circle cx="689" cy="683" r="32" fill="url(#tl-tile-delivery-edge)"/>
+      </g>
+    </g>
+  </g>
+</svg>

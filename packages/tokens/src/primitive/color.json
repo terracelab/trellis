@@ -1,0 +1,411 @@
+{
+  "color": {
+    "$description": "생성물: pnpm --filter @terracelab/trellis-tokens gen:colors. 직접 고치지 말고 scales.config.json을 고친다.",
+    "base": {
+      "white": {
+        "$value": "#FFFFFF",
+        "$type": "color"
+      },
+      "black": {
+        "$value": "#000000",
+        "$type": "color"
+      }
+    },
+    "blue": {
+      "50": {
+        "$value": "#F0F5FF",
+        "$type": "color"
+      },
+      "100": {
+        "$value": "#DBE7FF",
+        "$type": "color"
+      },
+      "200": {
+        "$value": "#BFD4FF",
+        "$type": "color"
+      },
+      "300": {
+        "$value": "#94B8FF",
+        "$type": "color"
+      },
+      "400": {
+        "$value": "#5F91FF",
+        "$type": "color"
+      },
+      "500": {
+        "$value": "#2F6BFF",
+        "$type": "color",
+        "$description": "기준값(scales.config.json)"
+      },
+      "600": {
+        "$value": "#1F56E2",
+        "$type": "color"
+      },
+      "700": {
+        "$value": "#1141BE",
+        "$type": "color"
+      },
+      "800": {
+        "$value": "#082E96",
+        "$type": "color"
+      },
+      "900": {
+        "$value": "#031D6E",
+        "$type": "color"
+      },
+      "950": {
+        "$value": "#000B46",
+        "$type": "color"
+      }
+    },
+    "neutral": {
+      "50": {
+        "$value": "#F7F7F8",
+        "$type": "color",
+        "$description": "앵커(scales.config.json)"
+      },
+      "100": {
+        "$value": "#F3F4F6",
+        "$type": "color",
+        "$description": "앵커(scales.config.json)"
+      },
+      "200": {
+        "$value": "#E5E7EB",
+        "$type": "color",
+        "$description": "앵커(scales.config.json)"
+      },
+      "300": {
+        "$value": "#D1D5DB",
+        "$type": "color",
+        "$description": "앵커(scales.config.json)"
+      },
+      "400": {
+        "$value": "#9CA3AF",
+        "$type": "color",
+        "$description": "앵커(scales.config.json)"
+      },
+      "500": {
+        "$value": "#646B78",
+        "$type": "color",
+        "$description": "기준값(scales.config.json)"
+      },
+      "600": {
+        "$value": "#4B5563",
+        "$type": "color",
+        "$description": "앵커(scales.config.json)"
+      },
+      "700": {
+        "$value": "#374151",
+        "$type": "color",
+        "$description": "앵커(scales.config.json)"
+      },
+      "800": {
+        "$value": "#1F2937",
+        "$type": "color",
+        "$description": "앵커(scales.config.json)"
+      },
+      "900": {
+        "$value": "#111827",
+        "$type": "color",
+        "$description": "앵커(scales.config.json)"
+      },
+      "950": {
+        "$value": "#030712",
+        "$type": "color",
+        "$description": "앵커(scales.config.json)"
+      }
+    },
+    "graphite": {
+      "50": {
+        "$value": "#F2F2F2",
+        "$type": "color",
+        "$description": "앵커(scales.config.json)"
+      },
+      "100": {
+        "$value": "#DCDCDC",
+        "$type": "color",
+        "$description": "앵커(scales.config.json)"
+      },
+      "200": {
+        "$value": "#A6A6A6",
+        "$type": "color",
+        "$description": "앵커(scales.config.json)"
+      },
+      "300": {
+        "$value": "#9A9A9A",
+        "$type": "color",
+        "$description": "앵커(scales.config.json)"
+      },
+      "400": {
+        "$value": "#6E6E73",
+        "$type": "color",
+        "$description": "앵커(scales.config.json)"
+      },
+      "500": {
+        "$value": "#4A4A4E",
+        "$type": "color",
+        "$description": "기준값(scales.config.json)"
+      },
+      "600": {
+        "$value": "#3A3A3D",
+        "$type": "color",
+        "$description": "앵커(scales.config.json)"
+      },
+      "700": {
+        "$value": "#2C2C2F",
+        "$type": "color",
+        "$description": "앵커(scales.config.json)"
+      },
+      "800": {
+        "$value": "#232326",
+        "$type": "color",
+        "$description": "앵커(scales.config.json)"
+      },
+      "900": {
+        "$value": "#1C1C1E",
+        "$type": "color",
+        "$description": "앵커(scales.config.json)"
+      },
+      "950": {
+        "$value": "#141414",
+        "$type": "color",
+        "$description": "앵커(scales.config.json)"
+      }
+    },
+    "red": {
+      "50": {
+        "$value": "#FFF2F0",
+        "$type": "color"
+      },
+      "100": {
+        "$value": "#FFE0DE",
+        "$type": "color"
+      },
+      "200": {
+        "$value": "#FFC8C4",
+        "$type": "color"
+      },
+      "300": {
+        "$value": "#FFA29D",
+        "$type": "color"
+      },
+      "400": {
+        "$value": "#F67270",
+        "$type": "color"
+      },
+      "500": {
+        "$value": "#E5484D",
+        "$type": "color",
+        "$description": "기준값(scales.config.json)"
+      },
+      "600": {
+        "$value": "#C7313A",
+        "$type": "color"
+      },
+      "700": {
+        "$value": "#A31A27",
+        "$type": "color"
+      },
+      "800": {
+        "$value": "#7E0818",
+        "$type": "color"
+      },
+      "900": {
+        "$value": "#59000C",
+        "$type": "color"
+      },
+      "950": {
+        "$value": "#320004",
+        "$type": "color"
+      }
+    },
+    "green": {
+      "50": {
+        "$value": "#EEF8F0",
+        "$type": "color"
+      },
+      "100": {
+        "$value": "#DAEEDF",
+        "$type": "color"
+      },
+      "200": {
+        "$value": "#BBE2C5",
+        "$type": "color"
+      },
+      "300": {
+        "$value": "#91CFA1",
+        "$type": "color"
+      },
+      "400": {
+        "$value": "#5AB577",
+        "$type": "color"
+      },
+      "500": {
+        "$value": "#1F9D55",
+        "$type": "color",
+        "$description": "기준값(scales.config.json)"
+      },
+      "600": {
+        "$value": "#008543",
+        "$type": "color"
+      },
+      "700": {
+        "$value": "#006934",
+        "$type": "color"
+      },
+      "800": {
+        "$value": "#004F25",
+        "$type": "color"
+      },
+      "900": {
+        "$value": "#003617",
+        "$type": "color"
+      },
+      "950": {
+        "$value": "#001C09",
+        "$type": "color"
+      }
+    },
+    "amber": {
+      "50": {
+        "$value": "#FCF4EA",
+        "$type": "color"
+      },
+      "100": {
+        "$value": "#FCEBD8",
+        "$type": "color"
+      },
+      "200": {
+        "$value": "#FEDFBA",
+        "$type": "color"
+      },
+      "300": {
+        "$value": "#FFCE91",
+        "$type": "color"
+      },
+      "400": {
+        "$value": "#FBB85C",
+        "$type": "color"
+      },
+      "500": {
+        "$value": "#F5A524",
+        "$type": "color",
+        "$description": "기준값(scales.config.json)"
+      },
+      "600": {
+        "$value": "#CD8600",
+        "$type": "color"
+      },
+      "700": {
+        "$value": "#9F6700",
+        "$type": "color"
+      },
+      "800": {
+        "$value": "#734A00",
+        "$type": "color"
+      },
+      "900": {
+        "$value": "#4A2E00",
+        "$type": "color"
+      },
+      "950": {
+        "$value": "#221200",
+        "$type": "color"
+      }
+    },
+    "violet": {
+      "50": {
+        "$value": "#F4F4FF",
+        "$type": "color"
+      },
+      "100": {
+        "$value": "#E5E5FF",
+        "$type": "color"
+      },
+      "200": {
+        "$value": "#D1D0FF",
+        "$type": "color"
+      },
+      "300": {
+        "$value": "#B5B1FF",
+        "$type": "color"
+      },
+      "400": {
+        "$value": "#9486FF",
+        "$type": "color"
+      },
+      "500": {
+        "$value": "#7C5CFF",
+        "$type": "color",
+        "$description": "기준값(scales.config.json)"
+      },
+      "600": {
+        "$value": "#6846E1",
+        "$type": "color"
+      },
+      "700": {
+        "$value": "#5331BC",
+        "$type": "color"
+      },
+      "800": {
+        "$value": "#3F2094",
+        "$type": "color"
+      },
+      "900": {
+        "$value": "#2B116C",
+        "$type": "color"
+      },
+      "950": {
+        "$value": "#170244",
+        "$type": "color"
+      }
+    },
+    "teal": {
+      "50": {
+        "$value": "#EDF7F7",
+        "$type": "color"
+      },
+      "100": {
+        "$value": "#DAEEEE",
+        "$type": "color"
+      },
+      "200": {
+        "$value": "#BCE3E2",
+        "$type": "color"
+      },
+      "300": {
+        "$value": "#92D0D0",
+        "$type": "color"
+      },
+      "400": {
+        "$value": "#5AB8B8",
+        "$type": "color"
+      },
+      "500": {
+        "$value": "#1BA3A3",
+        "$type": "color",
+        "$description": "기준값(scales.config.json)"
+      },
+      "600": {
+        "$value": "#008989",
+        "$type": "color"
+      },
+      "700": {
+        "$value": "#006B6B",
+        "$type": "color"
+      },
+      "800": {
+        "$value": "#005050",
+        "$type": "color"
+      },
+      "900": {
+        "$value": "#003535",
+        "$type": "color"
+      },
+      "950": {
+        "$value": "#001B1B",
+        "$type": "color"
+      }
+    }
+  }
+}

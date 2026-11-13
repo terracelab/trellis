@@ -1,0 +1,131 @@
+/* 한 라벨 아래 체크박스 여러 개. 선택지는 Checkbox 그대로이고 묶음은 배치 · 전체 선택 · 더 보기만 맡는다.
+   전체 선택은 배치와 관계없이 맨 위 한 줄 */
+.tl-checkbox-group {
+  display: grid;
+  justify-items: start;
+  gap: var(--tl-space-8);
+  min-width: 0;
+  outline: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+}
+
+.tl-checkbox-group__options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+.tl-checkbox-group[data-orientation='horizontal'] .tl-checkbox-group__options {
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: var(--tl-space-16);
+}
+
+.tl-checkbox-group__all,
+.tl-checkbox-group__option {
+  display: flex;
+  min-width: 0;
+}
+
+/* 줄 끝 정보(건수 · 배지 · 링크): 라벨 첫 줄 높이에 맞추고, 세로 배치면 줄 끝으로 민다 */
+.tl-checkbox-group__option {
+  align-items: flex-start;
+  gap: var(--tl-space-8);
+}
+
+.tl-checkbox-group__meta {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--tl-space-4);
+  min-height: var(--tl-density-body-line-height);
+  color: var(--tl-color-fg-secondary);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-checkbox-group__meta a {
+  border-radius: var(--tl-radius-xs);
+  color: var(--tl-color-fg-link);
+}
+
+.tl-checkbox-group[data-meta][data-orientation='vertical'] .tl-checkbox-group__options {
+  justify-self: stretch;
+}
+
+.tl-checkbox-group[data-orientation='vertical'] .tl-checkbox-group__meta {
+  margin-left: auto;
+}
+
+.tl-checkbox-group__option[hidden] {
+  display: none;
+}
+
+.tl-checkbox-group__more {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  min-height: var(--tl-density-control-height-sm);
+  padding: 0;
+  border: 0;
+  border-radius: var(--tl-radius-xs);
+  background: transparent;
+  color: var(--tl-color-fg-link);
+  font: inherit;
+  font-size: var(--tl-type-label-font-size);
+  cursor: pointer;
+}
+
+.tl-checkbox-group__more:hover {
+  text-decoration: underline;
+}
+
+/* 휴대폰: 선택지 줄 높이를 손가락 크기(touch 밀도 40)로 */
+@media (max-width: 639px) {
+  .tl-checkbox-group__options {
+    gap: 0;
+  }
+
+  .tl-checkbox-group[data-orientation='horizontal'] .tl-checkbox-group__options {
+    column-gap: var(--tl-space-16);
+  }
+
+  .tl-checkbox-group .tl-checkbox__row {
+    align-items: center;
+    min-height: var(--tl-density-control-height-md);
+  }
+
+  .tl-checkbox-group .tl-checkbox__box {
+    margin-top: 0;
+  }
+
+  .tl-checkbox-group .tl-checkbox__description {
+    padding-bottom: var(--tl-space-8);
+  }
+
+  /* 줄 끝 정보 · Spinner도 40 줄 가운데에 */
+  .tl-checkbox-group__meta {
+    min-height: var(--tl-density-control-height-md);
+  }
+
+  .tl-checkbox-group .tl-checkbox__spinner {
+    margin-top: calc((var(--tl-density-control-height-md) - var(--tl-size-icon-16)) / 2);
+  }
+
+  .tl-checkbox-group__more {
+    min-height: var(--tl-density-control-height-md);
+  }
+}
+
+/* 라벨 앞 색 점(캘린더 · 범주 범례, R-T58). 색은 점뿐이고 뜻은 라벨이 말한다 */
+.tl-checkbox-group__dot {
+  display: inline-block;
+  width: var(--tl-space-8);
+  height: var(--tl-space-8);
+  margin-inline-end: var(--tl-space-8);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-checkbox-group-color);
+  vertical-align: middle;
+}

@@ -1,0 +1,22 @@
+{
+  "id": "erp/accounting/aging",
+  "title": "채권 연령",
+  "intent": "거래처별 미수금 · 미지급금을 기한이 지난 날 수(미도래 · 1~30일 · 31~60일 · 61~90일 · 90일 초과)로 나눠 합계와 함께 보고, 오래된 문서에서 거래처 원장으로 간다",
+  "module": "accounting",
+  "pattern": "Dashboard",
+  "industries": ["trade", "distribution", "manufacturing", "tax", "general"],
+  "components": [
+    "PageHeader",
+    "Tabs",
+    "Button",
+    "KpiCard",
+    "Card",
+    "DataGrid",
+    "SegmentedBar",
+    "Drawer",
+    "DescriptionList"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["sides", "buckets"],
+  "order": 25
+}

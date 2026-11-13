@@ -1,0 +1,61 @@
+/* 구분선(PG-41). 선 굵기 border.width.1, 색은 border.divider · border.strong */
+.tl-divider {
+  --tl-divider-color: var(--tl-color-border-divider);
+  --tl-divider-space: 0;
+
+  flex: none;
+  align-self: stretch;
+  box-sizing: border-box;
+  margin: var(--tl-divider-space) 0;
+  border: 0;
+  border-top: var(--tl-border-width-1) solid var(--tl-divider-color);
+}
+
+.tl-divider[data-variant='strong'] {
+  --tl-divider-color: var(--tl-color-border-strong);
+}
+
+.tl-divider[data-spacing='sm'] {
+  --tl-divider-space: var(--tl-space-8);
+}
+
+.tl-divider[data-spacing='md'] {
+  --tl-divider-space: var(--tl-space-16);
+}
+
+.tl-divider[data-spacing='lg'] {
+  --tl-divider-space: var(--tl-space-24);
+}
+
+/* 세로줄: 둘레(flex 줄)의 높이를 채운다. 글줄 안에서는 글자 높이 */
+.tl-divider[data-orientation='vertical'] {
+  display: inline-block;
+  min-height: var(--tl-type-caption-line-height);
+  margin: 0 var(--tl-divider-space);
+  border-top: 0;
+  border-left: var(--tl-border-width-1) solid var(--tl-divider-color);
+  vertical-align: middle;
+}
+
+/* 가운데 글자: 양쪽 선 + 보조 글자 */
+.tl-divider[data-labelled] {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-12);
+  border-top: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-divider[data-labelled]::before,
+.tl-divider[data-labelled]::after {
+  content: '';
+  flex: 1 1 0;
+  border-top: var(--tl-border-width-1) solid var(--tl-divider-color);
+}
+
+.tl-divider__label {
+  flex: none;
+  white-space: nowrap;
+}

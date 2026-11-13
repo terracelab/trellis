@@ -1,0 +1,18 @@
+---
+title: 토큰
+description: Trellis 토큰 전체입니다. 색 · 간격 · 글자 같은 값의 CSS 변수 이름과 라이트 · 다크 값을 표로 봅니다.
+---
+
+import TokenTable from '../../../../components/TokenTable.astro';
+
+값은 가안이고 G2 승인 때 확정합니다. 이름(CSS 변수)은 G1에서 동결되며, 이름을 바꾸거나 지우는 것은 major 버전입니다. 표의 견본은 CSS 변수로 칠해져 있어 오른쪽 위 테마 전환이 바로 반영됩니다.
+
+```css
+/* 쓰는 법 */
+.panel {
+  background: var(--tl-color-bg-surface);
+  padding: var(--tl-density-card-padding);
+}
+```
+
+<TokenTable />

@@ -1,0 +1,12 @@
+{
+  "id": "platform/admin/roles",
+  "title": "권한",
+  "intent": "역할마다 모듈 × 동작(조회 · 등록 · 수정 · 삭제 · 승인 · 다운로드)과 데이터 범위를 정하고 저장한다",
+  "module": "platform",
+  "pattern": "Settings",
+  "industries": ["general"],
+  "components": ["PageHeader", "Tabs", "Card", "PermissionMatrix", "ActionBar", "Button", "Banner"],
+  "sizes": [1440, 1024],
+  "slots": ["actions", "scope", "modules"],
+  "order": 11
+}

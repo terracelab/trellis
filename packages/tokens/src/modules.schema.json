@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Trellis 모듈 레지스트리",
+  "description": "packages/tokens/src/modules.json의 스키마. 규격은 docs/spec/components.md §7.",
+  "type": "object",
+  "required": ["groups", "modules"],
+  "additionalProperties": false,
+  "properties": {
+    "groups": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9-]*$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "required": ["label", "color"],
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "color": {
+            "type": "string",
+            "pattern": "^color\\.module\\.[a-z][a-z0-9-]*$",
+            "description": "semantic 토큰 그룹 경로. default·subtle·gradientFrom·gradientTo가 있어야 한다"
+          }
+        }
+      }
+    },
+    "modules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "group", "label", "icon", "badge"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "description": "바꾸면 major"
+          },
+          "group": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "icon": {
+            "type": "string",
+            "pattern": "^(custom:)?[a-z0-9]+(-[a-z0-9]+)*$",
+            "description": "Lucide 이름, 자체 아이콘은 custom:<name>"
+          },
+          "badge": {
+            "enum": ["count", "approval", "status", "none"]
+          }
+        }
+      }
+    }
+  }
+}

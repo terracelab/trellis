@@ -1,0 +1,30 @@
+{
+  "id": "scm/delivery/dispatch",
+  "title": "배차",
+  "intent": "오늘 배송 건의 지역 · 중량 · 냉동 여부를 보고 행마다 차량을 골라 적재율과 온도를 확인한 뒤 배차를 확정하고 차량별 경로 순서를 정한다",
+  "module": "delivery",
+  "pattern": "ListDetail",
+  "industries": ["distribution", "trade", "commerce"],
+  "components": [
+    "PageHeader",
+    "Tabs",
+    "Button",
+    "Banner",
+    "Card",
+    "Progress",
+    "StatusDot",
+    "FilterBar",
+    "Input",
+    "SegmentedControl",
+    "DataGrid",
+    "Badge",
+    "Select",
+    "ActionBar",
+    "Drawer",
+    "DescriptionList",
+    "Stepper"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["trucks", "columns", "rules", "route"],
+  "order": 10
+}

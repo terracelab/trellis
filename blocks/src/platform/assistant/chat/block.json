@@ -1,0 +1,29 @@
+{
+  "id": "platform/assistant/chat",
+  "title": "업무 도우미",
+  "intent": "에이전트에게 문서 · 전표 · 재고를 묻고 실행 단계 · 근거 출처가 붙은 답을 받으며, 데이터 변경 제안은 사람이 승인 · 반려한다",
+  "module": "platform",
+  "pattern": "ConversationalWork",
+  "industries": ["general", "trade", "distribution", "tax"],
+  "components": [
+    "PageHeader",
+    "Button",
+    "IconButton",
+    "SelectableList",
+    "MessageThread",
+    "RichText",
+    "Citation",
+    "RunSteps",
+    "ProposalCard",
+    "ChangeDiff",
+    "ReasonDialog",
+    "SuggestionChips",
+    "Composer",
+    "EmptyState",
+    "DescriptionList",
+    "Drawer"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["conversations", "proposal", "composer"],
+  "order": 20
+}

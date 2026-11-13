@@ -1,0 +1,11 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "exactOptionalPropertyTypes": false,
+    "jsx": "react-jsx",
+    "resolveJsonModule": true,
+    "types": ["node"]
+  },
+  "include": ["src", "scripts"]
+}

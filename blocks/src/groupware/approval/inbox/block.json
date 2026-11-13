@@ -1,0 +1,27 @@
+{
+  "id": "groupware/approval/inbox",
+  "title": "결재함",
+  "intent": "결재할 문서 · 기안한 문서 · 참조 문서를 탭으로 나눠 보고, 기한 지난 결재를 먼저 처리하거나 여러 건을 한 번에 승인한다",
+  "module": "approval",
+  "pattern": "ApprovalFlow",
+  "industries": ["trade", "distribution", "commerce", "manufacturing", "general"],
+  "components": [
+    "PageHeader",
+    "Tabs",
+    "Banner",
+    "FilterBar",
+    "Input",
+    "Select",
+    "DataGrid",
+    "PersonLabel",
+    "ApprovalLine",
+    "Badge",
+    "DueBadge",
+    "ActionBar",
+    "Button",
+    "Dialog"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["tabs", "columns", "filters", "bulkActions"],
+  "order": 10
+}

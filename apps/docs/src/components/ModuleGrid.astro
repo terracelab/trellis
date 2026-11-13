@@ -1,0 +1,64 @@
+---
+// 업무 모듈과 일러스트 타일 — modules.json(@terracelab/trellis-tokens) + module-tiles(@terracelab/trellis-icons)
+// lang="en"이면 묶음 · 모듈 이름은 src/i18n/modules.en.json(없으면 한국어 이름)
+import { moduleTileByModule, moduleTileManifest, moduleTileSprite } from '@terracelab/trellis-icons/module-tiles';
+import modules from '@terracelab/trellis-tokens/modules';
+import modulesEn from '../i18n/modules.en.json';
+
+interface Props {
+  lang?: 'ko' | 'en';
+}
+const { lang = 'ko' } = Astro.props;
+const isEn = lang === 'en';
+const groupsEn: Record<string, string> = modulesEn.groups;
+const labelsEn: Record<string, string> = modulesEn.modules;
+
+type Group = keyof typeof modules.groups;
+const groups = Object.keys(modules.groups) as Group[];
+const groupLabel = (g: Group) => (isEn ? (groupsEn[g] ?? modules.groups[g].label) : modules.groups[g].label);
+const moduleLabel = (m: { id: string; label: string }) => (isEn ? (labelsEn[m.id] ?? m.label) : m.label);
+const unassigned = moduleTileManifest.tiles.filter((t) => !t.module);
+---
+
+<div class="tl-site-modules not-content">
+  <Fragment set:html={moduleTileSprite} />
+  {
+    groups.map((g) => {
+      const items = modules.modules.filter((m) => m.group === g);
+      return (
+        <section class="tl-site-module-group" aria-labelledby={`mod-${g}`}>
+          <h2 id={`mod-${g}`}>
+            <span class="tl-site-module-dot" style={`background: var(--tl-color-module-${g}-default)`} />
+            {groupLabel(g)} <span class="tl-site-token-group-n">{items.length}</span>
+          </h2>
+          <ul class="tl-site-module-list">
+            {items.map((m) => {
+              const tile = moduleTileByModule[m.id];
+              return (
+                <li class="tl-site-module">
+                  {tile ? (
+                    <svg class="tl-site-module-tile" aria-hidden="true" focusable="false">
+                      <use href={`#tl-tile-${tile}`} />
+                    </svg>
+                  ) : (
+                    <span class="tl-site-module-tile" data-fallback />
+                  )}
+                  <strong>{moduleLabel(m)}</strong>
+                  <code>{m.id}</code>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      );
+    })
+  }
+  {
+    unassigned.length > 0 && (
+      <p class="tl-site-module-note">
+        {isEn ? 'Tiles not assigned to a module' : '모듈에 배정되지 않은 타일'}:{' '}
+        {unassigned.map((t) => (isEn ? t.id : `${t.label}(${t.id})`)).join(', ')}
+      </p>
+    )
+  }
+</div>

@@ -1,0 +1,108 @@
+.tl-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tl-space-8);
+  min-width: 0;
+  padding: var(--tl-space-32) var(--tl-space-16);
+  color: var(--tl-color-fg-primary);
+  text-align: center;
+}
+
+.tl-empty-state[data-size='sm'] {
+  gap: var(--tl-space-4);
+  padding: var(--tl-space-16) var(--tl-space-12);
+}
+
+.tl-empty-state__icon {
+  display: inline-grid;
+  place-items: center;
+  width: var(--tl-space-40);
+  height: var(--tl-space-40);
+  margin-bottom: var(--tl-space-4);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-empty-state[data-size='sm'] .tl-empty-state__icon {
+  width: var(--tl-space-32);
+  height: var(--tl-space-32);
+}
+
+.tl-empty-state__title {
+  margin: 0;
+  font-size: var(--tl-type-body-font-size);
+  line-height: var(--tl-type-body-line-height);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-empty-state[data-size='sm'] .tl-empty-state__title {
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+}
+
+.tl-empty-state__description {
+  max-width: calc(var(--tl-space-64) * 6);
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-empty-state__action {
+  display: flex;
+  gap: var(--tl-space-8);
+  margin-top: var(--tl-space-8);
+}
+
+.tl-empty-state[data-size='sm'] .tl-empty-state__action {
+  margin-top: var(--tl-space-4);
+}
+
+/* 오류(PR-30): 원 바탕은 그대로 두고 아이콘만 위험 색. 붉은 바탕 · 띠는 쓰지 않는다(D-56) */
+.tl-empty-state[data-kind='error'] .tl-empty-state__icon {
+  color: var(--tl-color-status-danger-default);
+}
+
+/* 요청 ID: 문의할 때 그대로 옮겨 적는 한 줄. 눌러 한 번에 고를 수 있게 */
+.tl-empty-state__request {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+  overflow-wrap: anywhere;
+  user-select: all;
+}
+
+/* 화면 하나를 차지하는 오류(headingLevel 1 · 2, PG-44): 제목이 화면 제목이라 한 단계 크고 설명은 본문 크기 */
+.tl-empty-state[data-heading='page'] {
+  gap: var(--tl-space-12);
+}
+
+.tl-empty-state[data-heading='page'] .tl-empty-state__icon {
+  width: var(--tl-space-48);
+  height: var(--tl-space-48);
+}
+
+.tl-empty-state[data-heading='page'] .tl-empty-state__title {
+  font-size: var(--tl-type-h3-font-size);
+  line-height: var(--tl-type-h3-line-height);
+  font-weight: var(--tl-type-h3-font-weight);
+  letter-spacing: var(--tl-type-h3-letter-spacing);
+}
+
+.tl-empty-state[data-heading='page'] .tl-empty-state__description {
+  max-width: calc(var(--tl-space-64) * 8);
+  font-size: var(--tl-type-body-font-size);
+  line-height: var(--tl-type-body-line-height);
+  word-break: keep-all;
+}
+
+.tl-empty-state[data-heading='page'] .tl-empty-state__action {
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: var(--tl-space-12);
+}

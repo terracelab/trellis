@@ -1,0 +1,67 @@
+{
+  "size": {
+    "icon": {
+      "16": {
+        "$value": "16px",
+        "$type": "dimension"
+      },
+      "20": {
+        "$value": "20px",
+        "$type": "dimension"
+      },
+      "24": {
+        "$value": "24px",
+        "$type": "dimension"
+      }
+    },
+    "moduleIcon": {
+      "32": {
+        "$value": "32px",
+        "$type": "dimension"
+      },
+      "40": {
+        "$value": "40px",
+        "$type": "dimension"
+      },
+      "48": {
+        "$value": "48px",
+        "$type": "dimension"
+      }
+    },
+    "avatar": {
+      "24": {
+        "$value": "24px",
+        "$type": "dimension"
+      },
+      "32": {
+        "$value": "32px",
+        "$type": "dimension"
+      },
+      "40": {
+        "$value": "40px",
+        "$type": "dimension"
+      },
+      "48": {
+        "$value": "48px",
+        "$type": "dimension"
+      }
+    },
+    "touch": {
+      "min": {
+        "$value": "44px",
+        "$type": "dimension",
+        "$description": "손가락으로 누르는 모든 것의 최소(WCAG 2.5.5 · iOS 44, D-97)"
+      },
+      "control": {
+        "$value": "48px",
+        "$type": "dimension",
+        "$description": "손가락 컨트롤(Button · Input · Select의 xl)"
+      },
+      "main": {
+        "$value": "56px",
+        "$type": "dimension",
+        "$description": "꼭 누를 주요 실행(하단 고정 단추 · 목록 한 줄)"
+      }
+    }
+  }
+}

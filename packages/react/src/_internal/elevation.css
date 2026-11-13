@@ -1,0 +1,45 @@
+/* 다크에서는 그림자가 아니라 면 단계와 선으로 깊이를 낸다(unslop 2 · D-55). 라이트 그림자는 그대로 */
+
+[data-theme='dark'] .tl-app-shell__sidebar {
+  box-shadow: none;
+}
+
+[data-theme='dark'] .tl-code-search__popup {
+  box-shadow: none;
+  border-color: var(--tl-color-border-default);
+}
+
+[data-theme='dark'] .tl-dialog {
+  box-shadow: none;
+  border-color: var(--tl-color-border-default);
+}
+
+[data-theme='dark'] .tl-drawer {
+  box-shadow: none;
+  border-color: var(--tl-color-border-default);
+}
+
+[data-theme='dark'] .tl-menu {
+  box-shadow: none;
+  border-color: var(--tl-color-border-default);
+}
+
+[data-theme='dark'] .tl-period-picker__popup {
+  box-shadow: none;
+  border-color: var(--tl-color-border-default);
+}
+
+[data-theme='dark'] .tl-select__popup {
+  box-shadow: none;
+  border-color: var(--tl-color-border-default);
+}
+
+[data-theme='dark'] /* 툴팁 */ .tl-chart-tooltip {
+  box-shadow: none;
+  border-color: var(--tl-color-border-default);
+}
+
+[data-theme='dark'] /* 툴팁 */ .tl-chart-tooltip {
+  box-shadow: none;
+  border-color: var(--tl-color-border-default);
+}

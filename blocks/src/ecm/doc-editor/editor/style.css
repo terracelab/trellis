@@ -1,0 +1,126 @@
+/* 문서 작성: 서식 도구 줄 자리 · 문서 한 장(바탕 위 종이) · 공동 작업자 목록 */
+/* 서식 도구 줄(Toolbar) 자리: 카드 위 띠 */
+.tl-block-doc-toolbar {
+  padding: var(--tl-space-8) var(--tl-density-card-padding);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-doc-form {
+  padding: var(--tl-density-card-padding);
+}
+
+.tl-block-doc-canvas {
+  padding: var(--tl-space-24);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: 0 0 var(--tl-radius-lg) var(--tl-radius-lg);
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-block-doc-sheet {
+  display: grid;
+  gap: var(--tl-space-24);
+  max-width: calc(var(--tl-space-64) * 12);
+  margin: 0 auto;
+  padding: var(--tl-space-40) var(--tl-space-48);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-xs);
+  background: var(--tl-color-bg-surface);
+  box-shadow: var(--tl-shadow-sm);
+}
+
+.tl-block-doc-sheet__head {
+  display: grid;
+  gap: var(--tl-space-12);
+  padding-bottom: var(--tl-space-16);
+  border-bottom: var(--tl-border-width-2) solid var(--tl-color-fg-primary);
+}
+
+.tl-block-doc-sheet__form {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-block-doc-sheet__title {
+  margin: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-h1-font-size);
+  line-height: var(--tl-type-h1-line-height);
+  font-weight: var(--tl-type-h1-font-weight);
+  letter-spacing: var(--tl-type-h1-letter-spacing);
+}
+
+.tl-block-doc-sheet__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tl-space-4) var(--tl-space-24);
+  margin: 0;
+  font-size: var(--tl-type-label-font-size);
+}
+
+.tl-block-doc-sheet__meta > div {
+  display: flex;
+  gap: var(--tl-space-8);
+}
+
+.tl-block-doc-sheet__meta dt {
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-block-doc-sheet__meta dd {
+  margin: 0;
+  color: var(--tl-color-fg-primary);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+/* 본문: Textarea 테두리를 걷어 종이 위에 바로 쓰는 것처럼 */
+.tl-textarea.tl-block-doc-body {
+  border-color: transparent;
+  background: transparent;
+}
+
+.tl-textarea.tl-block-doc-body:hover {
+  border-color: transparent;
+}
+
+.tl-textarea.tl-block-doc-body:focus-within {
+  border-color: var(--tl-color-border-divider);
+  outline: 0;
+}
+
+.tl-textarea.tl-block-doc-body[data-readonly] {
+  background: transparent;
+}
+
+/* inner-override: Textarea에 테두리 없는 문서 본문 모양이 없다(보강 요청) */
+.tl-block-doc-body .tl-textarea__control {
+  padding: 0;
+  font-size: var(--tl-type-body-font-size);
+  line-height: calc(var(--tl-type-body-line-height) + var(--tl-space-4));
+}
+
+.tl-block-doc-people {
+  display: grid;
+  gap: var(--tl-space-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-block-doc-people__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--tl-space-8);
+}
+
+@media (max-width: 1023px) {
+  .tl-block-doc-canvas {
+    padding: var(--tl-space-12);
+  }
+
+  .tl-block-doc-sheet {
+    padding: var(--tl-space-20) var(--tl-space-16);
+  }
+}

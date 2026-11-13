@@ -1,0 +1,153 @@
+.tl-menu__positioner {
+  z-index: var(--tl-z-dropdown);
+  outline: 0;
+}
+
+.tl-menu {
+  box-sizing: border-box;
+  min-width: max(var(--anchor-width), calc(var(--tl-space-64) * 2.5));
+  max-width: calc(var(--tl-space-64) * 5);
+  max-height: var(--available-height);
+  overflow-y: auto;
+  padding: var(--tl-space-4);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-elevated);
+  color: var(--tl-color-fg-primary);
+  box-shadow: var(--tl-shadow-md);
+  font-size: var(--tl-density-body-font-size);
+  outline: 0;
+  transform-origin: var(--transform-origin);
+  transition:
+    opacity var(--tl-duration-fast) var(--tl-easing-standard),
+    transform var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-menu[data-starting-style],
+.tl-menu[data-ending-style] {
+  opacity: 0;
+  transform: scale(0.98);
+}
+
+.tl-menu__item {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  height: var(--tl-density-row-height);
+  padding: 0 var(--tl-space-8);
+  border-radius: var(--tl-radius-sm);
+  white-space: nowrap;
+  cursor: default;
+  outline: 0;
+  user-select: none;
+}
+
+.tl-menu__item[data-highlighted] {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-menu__item[data-disabled] {
+  color: var(--tl-color-fg-disabled);
+}
+
+.tl-menu__icon {
+  display: inline-flex;
+  flex: none;
+  width: var(--tl-size-icon-16);
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-menu__item[data-danger] .tl-menu__icon {
+  color: var(--tl-color-status-danger-default);
+}
+
+.tl-menu__item[data-disabled] .tl-menu__icon {
+  color: var(--tl-color-fg-disabled);
+}
+
+.tl-menu__label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tl-menu__shortcut {
+  flex: none;
+  margin-left: var(--tl-space-16);
+  color: var(--tl-color-fg-tertiary);
+  font: inherit;
+  font-size: var(--tl-type-caption-font-size);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-menu__item[data-disabled] .tl-menu__shortcut {
+  color: var(--tl-color-fg-disabled);
+}
+
+.tl-menu__separator {
+  height: var(--tl-border-width-1);
+  margin: var(--tl-space-4) calc(var(--tl-space-4) * -1);
+  background: var(--tl-color-border-divider);
+}
+
+.tl-menu__group-label {
+  padding: var(--tl-space-4) var(--tl-space-8);
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-weight: var(--tl-font-weight-600);
+  user-select: none;
+}
+
+/* 좁은 화면 시트(D-60). 행은 _internal/sheet.css의 tl-sheet-option */
+.tl-menu-sheet__icon {
+  display: inline-flex;
+  flex: none;
+  width: var(--tl-size-icon-20);
+  color: var(--tl-color-fg-secondary);
+}
+
+/* 위험 동작은 아이콘만 위험 색, 글자는 중립(Menu와 같다) */
+.tl-menu-sheet__item[data-danger] .tl-menu-sheet__icon {
+  color: var(--tl-color-status-danger-default);
+}
+
+.tl-menu-sheet__item:disabled .tl-menu-sheet__icon,
+.tl-menu-sheet__item[data-disabled] .tl-menu-sheet__icon {
+  color: var(--tl-color-fg-disabled);
+}
+
+/* disabledReason 항목: 포커스가 닿는 aria-disabled 행. 글자는 비활성 색, 이유는 행 끝 보조 글자 */
+.tl-menu-sheet__item[data-disabled] {
+  color: var(--tl-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.tl-menu-sheet__reason {
+  flex: none;
+  max-width: 50%;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  text-align: right;
+}
+
+.tl-menu-sheet__group {
+  display: grid;
+}
+
+.tl-menu-sheet__label {
+  padding: var(--tl-space-12) var(--tl-space-8) var(--tl-space-4);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-menu-sheet__separator {
+  height: 0;
+  margin: var(--tl-space-4) var(--tl-space-8);
+  border: 0;
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}

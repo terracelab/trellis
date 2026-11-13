@@ -1,0 +1,21 @@
+{
+  "id": "erp/treasury/daily-cash",
+  "title": "자금 일보",
+  "intent": "전일 시재에 당일 수입을 더하고 지출을 빼 당일 시재를 맞추고, 계좌별 잔액 · 30일 추이 · 지급 예정을 함께 본다",
+  "module": "treasury",
+  "pattern": "Dashboard",
+  "industries": ["trade", "distribution", "manufacturing", "general"],
+  "components": [
+    "PageHeader",
+    "Badge",
+    "Button",
+    "Card",
+    "DataGrid",
+    "ChartCard",
+    "TrendChart",
+    "DueBadge"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["accounts", "transactions", "trend", "plannedPayments"],
+  "order": 10
+}

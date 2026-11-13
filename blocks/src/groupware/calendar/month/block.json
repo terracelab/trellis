@@ -1,0 +1,25 @@
+{
+  "id": "groupware/calendar/month",
+  "title": "일정",
+  "intent": "월 · 주 · 일 달력에서 내 일정 · 팀 · 회사 · 휴가 · 마감을 캘린더 색으로 함께 보고, 고른 날의 일정과 오늘 회의실 빈 시간을 확인해 예약한다",
+  "module": "calendar",
+  "pattern": "Dashboard",
+  "industries": ["trade", "distribution", "commerce", "manufacturing", "general"],
+  "components": [
+    "PageHeader",
+    "Button",
+    "MonthCalendar",
+    "Card",
+    "EmptyState",
+    "Dialog",
+    "Field",
+    "Input",
+    "DateField",
+    "Select",
+    "TimeField",
+    "CheckboxGroup"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["calendars", "eventChip", "dayPanel", "rooms"],
+  "order": 10
+}

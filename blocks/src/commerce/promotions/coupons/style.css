@@ -1,0 +1,76 @@
+/* 쿠폰 · 프로모션: 기간 칸 · 등록 Drawer 안 배치(두 칸 · 대상 상품 · 채널 묶음 · 미리 보기). 토큰만 쓴다 */
+.tl-block-cm-period {
+  display: grid;
+  justify-items: start;
+  gap: var(--tl-space-4);
+  min-width: 0;
+  padding-block: var(--tl-space-4);
+}
+
+.tl-block-cm-two {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tl-space-16);
+  align-items: start;
+}
+
+.tl-block-cm-targets {
+  display: grid;
+  gap: var(--tl-space-8);
+  justify-items: start;
+}
+
+.tl-block-cm-targets > :not(.tl-segmented-control) {
+  justify-self: stretch;
+}
+
+.tl-block-cm-target-list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-md);
+}
+
+.tl-block-cm-target-list > li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tl-space-8);
+  padding: var(--tl-space-4) var(--tl-space-4) var(--tl-space-4) var(--tl-space-12);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-cm-target-list > li:last-child {
+  border-bottom: 0;
+}
+
+.tl-block-cm-preview {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tl-space-16);
+  padding: var(--tl-space-16);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-sunken);
+}
+
+@media (max-width: 1023px) {
+  .tl-block-cm-two,
+  .tl-block-cm-preview {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.tl-block-cm-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--tl-density-gutter);
+}
+
+@media (max-width: 1023px) {
+  .tl-block-cm-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--tl-space-12);
+  }
+}

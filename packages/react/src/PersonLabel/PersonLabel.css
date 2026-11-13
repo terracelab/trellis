@@ -1,0 +1,104 @@
+/* 사람 표시: 아바타 + 이름 + 보조 한 줄. 표 칸(sm)은 한 줄, 목록(md)은 두 줄 */
+.tl-person-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--tl-radius-sm);
+  background: none;
+  color: var(--tl-color-fg-primary);
+  font: inherit;
+  text-align: start;
+  text-decoration: none;
+  vertical-align: middle;
+}
+
+.tl-person-label[data-size='md'] {
+  gap: var(--tl-space-12);
+}
+
+.tl-person-label__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.tl-person-label[data-size='sm'] .tl-person-label__text {
+  flex-direction: row;
+  align-items: baseline;
+  gap: var(--tl-space-8);
+}
+
+.tl-person-label__name {
+  overflow: hidden;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+  font-weight: var(--tl-font-weight-600);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: text-decoration-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-person-label__meta {
+  display: flex;
+  align-items: baseline;
+  gap: var(--tl-space-8);
+  min-width: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-weight: var(--tl-font-weight-400);
+}
+
+.tl-person-label__role {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-person-label__presence {
+  flex: none;
+}
+
+/* 표 칸(sm)의 근무 상태는 점만(R-T35). 점이 글줄 가운데에 오게 세로 가운데 */
+.tl-person-label[data-size='sm'] .tl-person-label__presence {
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
+}
+
+/* 누를 수 있으면 손가락 · 이름 밑줄로 알린다 */
+.tl-person-label[data-interactive] {
+  cursor: pointer;
+}
+
+.tl-person-label[data-interactive] .tl-person-label__name {
+  text-decoration: underline transparent;
+  text-underline-offset: var(--tl-space-4);
+}
+
+.tl-person-label[data-interactive]:hover .tl-person-label__name {
+  text-decoration-color: currentcolor;
+}
+
+/* 공석(PR-34): 이름 자리에 "담당자 없음"(fg.secondary, 보통 굵기). 동작 단추는 글 뒤에 붙고 줄 높이를 늘리지 않게 가운데 */
+.tl-person-label[data-vacant] .tl-person-label__name {
+  color: var(--tl-color-fg-secondary);
+  font-weight: var(--tl-font-weight-400);
+}
+
+.tl-person-label__action {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  align-self: center;
+}
+
+.tl-person-label[data-size='sm'] .tl-person-label__action {
+  margin-block: calc(-1 * var(--tl-space-4));
+}

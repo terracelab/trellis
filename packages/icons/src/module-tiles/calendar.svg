@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-calendar-title">
+  <title id="tl-tile-calendar-title">일정</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-calendar-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-calendar-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#62D68A"/>
+      <stop offset=".5" stop-color="#29A959"/>
+      <stop offset="1" stop-color="#087A35"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-calendar-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-calendar-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <filter id="tl-tile-calendar-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-calendar-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-calendar-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-calendar-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-calendar-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-calendar-blur)"/>
+    <g transform="rotate(-3 512 510)" filter="url(#tl-tile-calendar-shadow)">
+      <rect x="232" y="251" width="560" height="568" rx="83" fill="url(#tl-tile-calendar-white)"/>
+      <path d="M232 347c0-53 43-96 96-96h368c53 0 96 43 96 96v83H232v-83Z" fill="#27A75B"/>
+      <path d="M357 207v105M667 207v105" stroke="#F5FFF8" stroke-width="31" stroke-linecap="round"/>
+      <g fill="#A9B8C7">
+        <circle cx="354" cy="529" r="25"/>
+        <circle cx="460" cy="529" r="25"/>
+        <circle cx="566" cy="529" r="25"/>
+        <circle cx="672" cy="529" r="25"/>
+        <circle cx="354" cy="635" r="25"/>
+        <circle cx="460" cy="635" r="25"/>
+        <circle cx="566" cy="635" r="25"/>
+        <circle cx="672" cy="635" r="25"/>
+        <circle cx="354" cy="741" r="25"/>
+        <circle cx="460" cy="741" r="25"/>
+        <circle cx="566" cy="741" r="25"/>
+      </g>
+      <circle cx="566" cy="635" r="36" fill="#35C473"/>
+    </g>
+  </g>
+</svg>

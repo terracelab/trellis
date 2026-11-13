@@ -1,0 +1,23 @@
+{
+  "id": "groupware/attendance/my",
+  "title": "내 근태",
+  "intent": "오늘 출근 · 퇴근을 기록하고 이번 주 근무 시간을 40 · 52시간 기준과 비교하며 연차 잔여와 연장 · 휴가 신청 결재 상태를 본다",
+  "module": "attendance",
+  "pattern": "Dashboard",
+  "industries": ["trade", "distribution", "commerce", "manufacturing", "general"],
+  "components": [
+    "PageHeader",
+    "Button",
+    "TimeClock",
+    "WorkHoursMeter",
+    "LeaveBalance",
+    "Card",
+    "WorkTimeline",
+    "DataGrid",
+    "Badge",
+    "Dialog"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["workRule", "weekChart", "leaveBalance", "requests"],
+  "order": 10
+}

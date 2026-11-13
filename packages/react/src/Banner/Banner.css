@@ -1,0 +1,71 @@
+.tl-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  /* 좁은 자리 판단은 배너 폭으로. container-type이 내용 폭을 0으로 보므로 늘 부모 폭을 채운다 */
+  container-type: inline-size;
+  box-sizing: border-box;
+  gap: var(--tl-space-8);
+  width: 100%;
+  min-width: 0;
+  padding: var(--tl-space-12) var(--tl-density-card-padding);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-md);
+  /* 면은 중립, 상태는 아이콘 색 + 제목 글자로만 보인다(D-56). 색 바탕 · 왼쪽 띠는 쓰지 않는다 */
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+}
+
+.tl-banner__icon {
+  flex: none;
+  margin-top: calc((var(--tl-density-body-line-height) - var(--tl-size-icon-16)) / 2);
+  color: var(--tl-banner-accent);
+}
+
+.tl-banner__content {
+  display: grid;
+  /* 기준 폭 0: 글이 길어도 넓은 자리에서는 동작이 다음 줄로 넘어가지 않는다 */
+  flex: 1 1 0;
+  gap: var(--tl-space-4);
+  min-width: 0;
+}
+
+.tl-banner__title {
+  margin: 0;
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-density-body-line-height);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-banner__message {
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-banner__message > p {
+  margin: 0;
+}
+
+.tl-banner__action,
+.tl-banner__close {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--tl-space-8);
+  margin-block: calc(
+    (var(--tl-density-body-line-height) - var(--tl-density-control-height-sm)) / 2
+  );
+}
+
+/* 좁은 자리(휴대폰 · 좁은 카드): 동작 단추가 글을 좁은 기둥으로 밀지 않게 글 아래 줄로 내린다(PR-38).
+   글 첫머리(아이콘 다음)에 맞추고, 닫기는 첫 줄 오른쪽에 남는다 */
+@container (max-width: 559px) {
+  .tl-banner__action {
+    flex-basis: 100%;
+    order: 1;
+    flex-wrap: wrap;
+    margin-block: 0;
+    padding-inline-start: calc(var(--tl-size-icon-16) + var(--tl-space-8));
+  }
+}

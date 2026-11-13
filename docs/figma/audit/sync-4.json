@@ -1,0 +1,229 @@
+{
+  "task": "sync-4",
+  "file": "Foundations · Components · Screens",
+  "date": "2026-11-13",
+  "code": "e3e1d00",
+  "expect": {
+    "foundations.hash": "9ee5d49",
+    "foundations.length": 23110,
+    "foundations.variables": 483,
+    "foundations.allScopes": 0,
+    "foundations.codeSyntaxMismatch.length": 0,
+    "foundations.textStyles": 12,
+    "foundations.effectStyles": 3,
+    "foundations.forbiddenWords": 0,
+    "contracts.count": 121,
+    "contracts.withoutSet.length": 2,
+    "contracts.missingAxisValues.length": 1,
+    "contracts.extraAxisValues.length": 0,
+    "contracts.stateMissing.length": 0,
+    "contracts.stateExtra.length": 0,
+    "sets.count": 167,
+    "sets.variants": 2444,
+    "sets.bad.length": 0,
+    "sets.singleStateAxis.length": 0,
+    "sets.nonVisualAxis.length": 0,
+    "pages": 134,
+    "links.localCollections": 0,
+    "links.localVariables": 0,
+    "links.localTextStyles": 0,
+    "links.localEffectStyles": 0,
+    "links.localBindings": 0,
+    "links.rawSolid": 0,
+    "links.unboundText": 0,
+    "links.missingMain": 0,
+    "icons.figma": 173,
+    "icons.code": 173,
+    "tiles": 36,
+    "publishBlockers.propertyNameConflicts.length": 0,
+    "publishBlockers.duplicateVariantNames.length": 0,
+    "publishBlockers.emptyVariantValues.length": 0,
+    "publishBlockers.leadingUnderscoreOrDot.length": 0,
+    "layout.overlappingTopLevelNodes": 0,
+    "opacity.boundPaintsAlphaMismatch": 0,
+    "keys.sets": 167,
+    "keys.components": 234,
+    "keys.hashSets": "bb6cb043",
+    "keys.hashComponents": "60f13d5c",
+    "keys.hashMatches": true,
+    "forbiddenWords.components": 0,
+    "forbiddenWords.screens": 0,
+    "screens.localCollections": 0,
+    "screens.localTextStyles": 0,
+    "screens.localEffectStyles": 0,
+    "screens.rawSolid": 0,
+    "screens.unboundText": 0,
+    "screens.missingMain": 0,
+    "screens.frames": 48,
+    "screens.framesTwoModes": 48,
+    "screens.localSets": 2,
+    "screens.localMainInstances": 14
+  },
+  "measured": {
+    "foundations": {
+      "hash": "9ee5d49",
+      "length": 23110,
+      "variables": 483,
+      "allScopes": 0,
+      "codeSyntaxMismatch": [],
+      "textStyles": 12,
+      "effectStyles": 3,
+      "variablesWithDescription": 0,
+      "forbiddenWords": 0,
+      "scannedTexts": 2012,
+      "cover": {
+        "version": "tokens 1.0.0",
+        "meta": "2026-11-13 · e3e1d00",
+        "before": ["tokens 0.1.0", "2026-11-10 · 8b7c210"]
+      }
+    },
+    "contracts": {
+      "count": 121,
+      "withoutSet": ["Icon", "TrellisProvider"],
+      "missingAxisValues": ["CalendarHeatmap layout: auto"],
+      "extraAxisValues": [],
+      "stateMissing": [],
+      "stateExtra": [],
+      "stateOnParts": ["DashboardGrid", "DeadlineStrip", "DescriptionList"],
+      "valuedPropsNotAxes": {
+        "AmountInput": ["currency"],
+        "BulletBar": ["polarity"],
+        "Card": ["headingLevel"],
+        "Field": ["span"],
+        "HrRecord": ["headingLevel"],
+        "KpiCard": ["format"],
+        "NotificationList": ["headingLevel"],
+        "PersonLabel": ["status"],
+        "Popover": ["initialFocus"],
+        "ProfileHeader": ["headingLevel"],
+        "SectionHeader": ["headingLevel"]
+      }
+    },
+    "pages": 134,
+    "sets": {
+      "count": 167,
+      "variants": 2444,
+      "variantsBefore": 2439,
+      "bad": [],
+      "singleStateAxis": [],
+      "nonVisualAxis": []
+    },
+    "links": {
+      "scope": ["Cover", "AppShell", "TeamSchedule", "PageHeader", "FilterBar", "Banner"],
+      "localCollections": 0,
+      "localVariables": 0,
+      "localTextStyles": 0,
+      "localEffectStyles": 0,
+      "nodes": 4036,
+      "bindings": 12937,
+      "remoteBindings": 12937,
+      "localBindings": 0,
+      "rawSolid": 0,
+      "unboundText": 0,
+      "instances": 630,
+      "localMainInstances": 630,
+      "missingMain": 0
+    },
+    "icons": {
+      "figma": 173,
+      "code": 173
+    },
+    "tiles": 36,
+    "publishBlockers": {
+      "propertyNameConflicts": [],
+      "duplicateVariantNames": [],
+      "emptyVariantValues": [],
+      "leadingUnderscoreOrDot": []
+    },
+    "layout": {
+      "scope": "links.scope",
+      "overlappingTopLevelNodes": 0
+    },
+    "opacity": {
+      "scope": "links.scope",
+      "boundPaintsAlphaMismatch": 0
+    },
+    "keys": {
+      "sets": 167,
+      "components": 234,
+      "hashSets": "bb6cb043",
+      "hashComponents": "60f13d5c",
+      "hashKeysJsonSets": "bb6cb043",
+      "hashKeysJsonComponents": "60f13d5c",
+      "hashMatches": true
+    },
+    "forbiddenWords": {
+      "foundations": 0,
+      "components": 0,
+      "screens": 0,
+      "scanned": "변수 · 스타일 · 세트 · 컴포넌트 설명, 페이지 · 노드 이름, 글자 노드(Foundations 2,012 · Components 27,555 · Screens 전체)"
+    },
+    "status": {
+      "CURRENT": 355,
+      "UNPUBLISHED": 13,
+      "CHANGED": 33,
+      "before": { "CURRENT": 359, "UNPUBLISHED": 13, "CHANGED": 29 }
+    },
+    "changed": {
+      "TeamSchedule": {
+        "page": "TeamSchedule",
+        "variants": 4,
+        "what": "오늘 열 fg/primary 8% · 날짜 원 fg/strong · 숫자 fg/inverse(D-146), 주말 열 fg/primary 4%. 덧칠은 tint 사각형 60개의 노드 불투명도",
+        "status": "CHANGED"
+      },
+      "FilterBar": {
+        "page": "FilterBar",
+        "variants": 4,
+        "what": "격자 줄 4개에 아래 구분선(줄 끝까지), 앞 칸 4개 폭 고정",
+        "status": "CHANGED"
+      },
+      "PageHeader": {
+        "page": "PageHeader",
+        "kind": "component",
+        "what": "형제 3개 type/h3 · 기준선 맞춤 · 간격 space/32 · 세로 구분선 3(D-141)",
+        "status": "CHANGED"
+      },
+      "Banner": {
+        "page": "Banner",
+        "variants": 10,
+        "axes": "tone 5 × layout 2",
+        "what": "layout 축(wide · narrow) 추가. 기존 5변형 key 유지, narrow 5변형 새로",
+        "status": "CHANGED"
+      },
+      "AppShell / Aside": {
+        "page": "AppShell",
+        "kind": "component",
+        "what": "숨긴 폭 손잡이 `resize handle`(BOOLEAN)",
+        "status": "CHANGED"
+      },
+      "AppShell": {
+        "page": "AppShell",
+        "variants": 4,
+        "what": "안의 AppShell / Aside 인스턴스가 바뀌어 따라 바뀜",
+        "status": "CHANGED"
+      }
+    },
+    "screens": {
+      "pages": 10,
+      "nodes": 20162,
+      "localCollections": 0,
+      "localTextStyles": 0,
+      "localEffectStyles": 0,
+      "rawSolid": 0,
+      "unboundText": 0,
+      "instances": 2952,
+      "missingMain": 0,
+      "frames": 48,
+      "framesTwoModes": 48,
+      "localSets": 2,
+      "localMainInstances": 14,
+      "localMainBy": { "PersonLabel": 12, "ProfileHeader": 2 },
+      "libraryImport": {
+        "PersonLabel": { "remote": true, "variants": 30 },
+        "ProfileHeader": { "remote": true, "variants": 120 },
+        "Banner": { "remote": true, "variants": 5 }
+      },
+      "componentsKeyList": { "sets": 117, "components": 206 }
+    }
+  }
+}

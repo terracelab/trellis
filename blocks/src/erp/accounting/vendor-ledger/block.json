@@ -1,0 +1,26 @@
+{
+  "id": "erp/accounting/vendor-ledger",
+  "title": "거래처 원장",
+  "intent": "거래처별 채권 · 채무 잔액과 기한을 보고, 한 거래처의 매출 · 매입 · 입금 · 출금 내역을 잔액과 함께 따라간다",
+  "module": "accounting",
+  "pattern": "ListDetail",
+  "industries": ["trade", "distribution", "tax", "general"],
+  "components": [
+    "PageHeader",
+    "Tabs",
+    "DataGrid",
+    "Badge",
+    "DueBadge",
+    "KpiCard",
+    "Card",
+    "DescriptionList",
+    "Progress",
+    "SegmentedBar",
+    "Banner",
+    "PeriodPicker",
+    "Button"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["partyColumns", "ledgerColumns", "aging"],
+  "order": 40
+}

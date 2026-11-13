@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-quality-title">
+  <title id="tl-tile-quality-title">품질</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-quality-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-quality-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9CA3AF"/>
+      <stop offset=".5" stop-color="#646B78"/>
+      <stop offset="1" stop-color="#374151"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-quality-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-quality-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-quality-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-quality-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-quality-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-quality-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-quality-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#374151" opacity=".25" filter="url(#tl-tile-quality-blur)"/>
+    <g transform="rotate(-3 512 512)">
+      <path d="m367 616-40 182 106-40 66 66 40-196zM504 628l47 196 66-66 106 40-51-182z" fill="url(#tl-tile-quality-edge)"/>
+      <path d="M512 217 L549.5442716096554 244.95479825716694 L593.889503509361 229.9700231817843 L620.9577199374912 268.15843419479177 L667.7630918575054 267.6104964906389 L681.7056274847714 312.2943725152286 L726.389503509361 326.2369081424946 L725.8415658052083 373.0422800625088 L764.0299768182157 400.1104964906389 L749.0452017428331 444.4557283903446 L777 482 L749.045201742833 519.5442716096554 L764.0299768182157 563.889503509361 L725.8415658052083 590.9577199374912 L726.389503509361 637.7630918575054 L681.7056274847714 651.7056274847714 L667.7630918575054 696.389503509361 L620.9577199374912 695.8415658052082 L593.889503509361 734.0299768182157 L549.5442716096554 719.0452017428331 L512 747 L474.4557283903446 719.0452017428331 L430.11049649063887 734.0299768182157 L403.0422800625089 695.8415658052083 L356.23690814249466 696.389503509361 L342.2943725152286 651.7056274847714 L297.610496490639 637.7630918575054 L298.15843419479177 590.9577199374912 L259.9700231817843 563.8895035093611 L274.954798257167 519.5442716096554 L247 482.00000000000006 L274.95479825716694 444.45572839034463 L259.9700231817843 400.110496490639 L298.1584341947917 373.0422800625088 L297.61049649063887 326.23690814249466 L342.2943725152286 312.2943725152286 L356.2369081424946 267.610496490639 L403.0422800625087 268.15843419479177 L430.11049649063887 229.9700231817843 L474.4557283903446 244.95479825716697Z" fill="url(#tl-tile-quality-white)"/>
+      <circle cx="512" cy="482" r="185" fill="#E7EDF4"/>
+      <path d="m411 481 70 72 140-156" fill="none" stroke="#39AF77" stroke-width="42" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+</svg>

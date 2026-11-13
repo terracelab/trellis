@@ -1,0 +1,401 @@
+/* DataGrid 바로 위 도구 줄. 자기 면 · 구분선 없이 놓인 곳의 바탕을 그대로 쓴다(D-56) */
+.tl-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tl-space-8);
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+/* flex로 감싸 안의 입력(width 100%)이 칸 폭에 맞춰 줄어들게 한다.
+   검색은 줄의 첫 행동이라 칩보다 넓고 같은 높이, 한 단계 진한 테두리(PR-27). 앱이 sm을 줘도 md 높이 */
+.tl-filter-bar__search {
+  display: flex;
+  flex: 0 1 calc(var(--tl-space-64) * 5);
+  min-width: calc(var(--tl-space-64) * 2.5);
+}
+
+.tl-filter-bar__search .tl-input,
+.tl-filter-bar__search .tl-input[data-size] {
+  height: var(--tl-density-control-height-md);
+  border-color: var(--tl-color-border-strong);
+  transition: border-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-filter-bar__search .tl-input__icon {
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-filter-bar__search .tl-input:hover {
+  border-color: var(--tl-color-fg-tertiary);
+}
+
+.tl-filter-bar__search .tl-input:focus-within {
+  border-color: var(--tl-color-border-focus);
+}
+
+.tl-filter-bar__filters {
+  display: flex;
+  flex: 0 1 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+/* 필터 칩(PR-27): "이름 값 ▾"를 테두리 하나로. 안 컨트롤은 테두리 · 바탕 없이 값만 */
+.tl-filter-bar__chip {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  max-width: calc(var(--tl-space-64) * 5);
+  height: var(--tl-density-control-height-md);
+  padding-left: var(--tl-space-12);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-surface);
+  transition:
+    border-color var(--tl-duration-fast) var(--tl-easing-standard),
+    background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-filter-bar__chip:hover {
+  border-color: var(--tl-color-border-strong);
+}
+
+.tl-filter-bar__chip-label {
+  flex: none;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-density-input-font-size);
+  white-space: nowrap;
+}
+
+.tl-filter-bar__chip > .tl-select,
+.tl-filter-bar__chip > .tl-period-picker {
+  width: auto;
+  min-width: 0;
+  height: 100%;
+  padding: 0 var(--tl-space-8) 0 var(--tl-space-8);
+  border: 0;
+  background: transparent;
+  font-weight: var(--tl-font-weight-600);
+}
+
+/* 기본값이 아닌 값을 고른 칩만: 선택 테두리 + 옅은 브랜드 바탕, 이름도 링크색 */
+.tl-filter-bar__chip[data-active] {
+  border-color: var(--tl-color-border-selected);
+  background: var(--tl-color-brand-subtle);
+}
+
+.tl-filter-bar__chip[data-active] .tl-filter-bar__chip-label {
+  color: var(--tl-color-fg-link);
+}
+
+/* 칩 해제(PR-30): 기본값이 아닌 칩 끝의 × 단추. 칩 높이를 다 써서 누르기 쉽게 */
+.tl-filter-bar__chip-clear {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  align-self: stretch;
+  min-width: var(--tl-space-32);
+  margin: 0;
+  padding: 0 var(--tl-space-8);
+  border: 0;
+  border-radius: 0 var(--tl-radius-md) var(--tl-radius-md) 0;
+  background: transparent;
+  color: var(--tl-color-fg-secondary);
+  cursor: pointer;
+  transition: color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-filter-bar__chip-clear:hover {
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-filter-bar__chip:has(> .tl-filter-bar__chip-clear) > .tl-select,
+.tl-filter-bar__chip:has(> .tl-filter-bar__chip-clear) > .tl-period-picker {
+  padding-right: 0;
+}
+
+/* 칩 안 값 글자(접힌 grid 요약) */
+.tl-filter-bar__chip-value {
+  padding: 0 var(--tl-space-12) 0 var(--tl-space-8);
+  font-weight: var(--tl-font-weight-600);
+  white-space: nowrap;
+}
+
+.tl-filter-bar__end {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-12);
+  margin-left: auto;
+}
+
+.tl-filter-bar__count {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  white-space: nowrap;
+}
+
+.tl-filter-bar__count-value {
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-500);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-filter-bar__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+}
+
+/* 좁은 화면(breakpoint.sm 미만): 검색 한 줄, "필터 N" + 칩 가로 줄, 건수 · 동작 줄(PR-30) */
+.tl-filter-bar[data-mode='sheet'] {
+  flex-direction: column;
+  /* 세로 방향에서 wrap이면 줄 폭이 가장 넓은 칩 줄로 늘어난다(390 가로 넘침). 한 줄로 두고 칩 줄만 스크롤 */
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+
+.tl-filter-bar__row {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+.tl-filter-bar[data-mode='sheet'] .tl-filter-bar__search {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.tl-filter-bar[data-mode='sheet'] .tl-filter-bar__end {
+  justify-content: space-between;
+  margin-left: 0;
+}
+
+/* 좁은 화면 칩 줄(PR-30): "필터 N" 단추 + 칩을 가로로 민다. 줄은 하나로 두고 넘치면 스크롤 */
+.tl-filter-bar__chips {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-width: 0;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.tl-filter-bar__chips::-webkit-scrollbar {
+  display: none;
+}
+
+/* 칩 · 필터 단추는 손가락 크기(size.touch.min) */
+.tl-filter-bar__chips > .tl-filter-bar__chip,
+.tl-filter-bar__chips > .tl-button {
+  flex: none;
+  height: var(--tl-size-touch-min);
+}
+
+/* 시트 안: 컨트롤을 한 줄에 하나씩 꽉 채워 놓는다 */
+.tl-filter-bar__sheet-filters {
+  display: grid;
+  gap: var(--tl-space-12);
+  padding: var(--tl-space-4) var(--tl-space-4) 0;
+}
+
+.tl-filter-bar__sheet-field {
+  display: grid;
+  gap: var(--tl-space-4);
+}
+
+.tl-filter-bar__sheet-label {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-type-label-font-weight);
+}
+
+/* 시트 안 선택지가 적으면(6개 이하, PR-30) 칩 묶음으로 바로 펼친다. 시트 위에 시트를 열지 않는다 */
+.tl-filter-bar__choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tl-space-8);
+}
+
+.tl-filter-bar__choice {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  min-height: var(--tl-size-touch-min);
+  margin: 0;
+  padding: 0 var(--tl-space-16);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-primary);
+  font: inherit;
+  cursor: pointer;
+  transition:
+    border-color var(--tl-duration-fast) var(--tl-easing-standard),
+    background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-filter-bar__choice:hover {
+  border-color: var(--tl-color-border-strong);
+}
+
+.tl-filter-bar__choice[aria-checked='true'] {
+  border-color: var(--tl-color-border-selected);
+  background: var(--tl-color-brand-subtle);
+  color: var(--tl-color-fg-link);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-filter-bar__choice:disabled {
+  color: var(--tl-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.tl-filter-bar__sheet-filters .tl-select,
+.tl-filter-bar__sheet-filters .tl-period-picker,
+.tl-filter-bar__sheet-filters .tl-input {
+  width: 100%;
+  height: var(--tl-density-control-height-md);
+}
+
+/* 휴대폰 줄의 검색 칸은 sm을 줘도 md 높이(손가락) */
+.tl-filter-bar[data-mode='sheet'] .tl-filter-bar__row .tl-input {
+  height: var(--tl-density-control-height-md);
+}
+
+/* ── 조회 화면 격자(layout="grid", PR-26): 라벨 열 + 입력 칸, 아래 줄에 건수 · 초기화 · 검색 ── */
+.tl-filter-bar[data-layout='grid'] {
+  display: grid;
+  gap: 0;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-surface);
+  overflow: hidden;
+}
+
+.tl-filter-bar__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.tl-filter-bar[data-columns='3'] .tl-filter-bar__grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* 한 칸 = 라벨(고정 폭, canvas 바탕) + 입력. 칸 사이 · 줄 사이는 구분선 */
+.tl-filter-bar__field {
+  position: relative;
+  display: grid;
+  grid-template-columns: calc(var(--tl-space-64) * 1.5) minmax(0, 1fr);
+  min-width: 0;
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+/* 줄을 다 채우지 못한 격자(3칸에 조건 둘)는 빈 칸 아래에 줄 구분선이 없어 선이 중간에서 끊긴다.
+   칸마다 아래 선을 오른쪽 끝까지 잇는다. 넘친 부분은 root의 overflow가 자른다 */
+.tl-filter-bar__field::after {
+  position: absolute;
+  bottom: calc(var(--tl-border-width-1) * -1);
+  left: 0;
+  width: 100vw;
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  content: '';
+  pointer-events: none;
+}
+
+.tl-filter-bar__field + .tl-filter-bar__field {
+  border-left: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-filter-bar[data-columns='2'] .tl-filter-bar__field:nth-child(2n + 1),
+.tl-filter-bar[data-columns='3'] .tl-filter-bar__field:nth-child(3n + 1),
+.tl-filter-bar__field[data-wide] {
+  border-left: 0;
+}
+
+.tl-filter-bar__field[data-wide] {
+  grid-column: 1 / -1;
+}
+
+.tl-filter-bar__field-label {
+  display: flex;
+  align-items: center;
+  padding: 0 var(--tl-space-12);
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-filter-bar__field-control {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-width: 0;
+  padding: var(--tl-space-8) var(--tl-space-12);
+}
+
+.tl-filter-bar__field-control > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.tl-filter-bar__field[data-wide] .tl-filter-bar__field-control > * {
+  flex: 1 1 auto;
+}
+
+.tl-filter-bar__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tl-space-12);
+  padding: var(--tl-space-8) var(--tl-space-12);
+}
+
+.tl-filter-bar__foot-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tl-space-8);
+  margin-left: auto;
+}
+
+/* 태블릿: 칸이 좁으면 한 줄에 하나 */
+@media (max-width: 1023px) {
+  .tl-filter-bar[data-layout='grid'] .tl-filter-bar__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tl-filter-bar[data-layout='grid'] .tl-filter-bar__field {
+    border-left: 0;
+  }
+}
+
+/* 접힌 grid(collapsible, PR-30): 격자 대신 적용한 조건 칩 한 줄 */
+.tl-filter-bar__summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tl-space-8);
+  padding: var(--tl-space-8) var(--tl-space-12);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-filter-bar__summary > .tl-filter-bar__chip {
+  height: var(--tl-density-control-height-sm);
+}
+
+.tl-filter-bar__summary-empty {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}

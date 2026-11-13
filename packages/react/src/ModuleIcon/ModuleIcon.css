@@ -1,0 +1,44 @@
+.tl-module-icon {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: var(--tl-size-module-icon-40);
+  height: var(--tl-size-module-icon-40);
+  overflow: hidden;
+  border-radius: 22%;
+  vertical-align: middle;
+}
+
+.tl-module-icon[data-size='32'] {
+  width: var(--tl-size-module-icon-32);
+  height: var(--tl-size-module-icon-32);
+}
+
+.tl-module-icon[data-size='48'] {
+  width: var(--tl-size-module-icon-48);
+  height: var(--tl-size-module-icon-48);
+}
+
+/* 일러스트 타일: SVG 문서가 1024 고정 크기라 칸에 맞춘다 */
+.tl-module-icon[data-kind='tile'] > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* 생성형 폴백(D-36): 그룹 색 세로 그라데이션 + 흰 라인 아이콘 */
+.tl-module-icon[data-kind='fallback'] {
+  background: linear-gradient(var(--tl-module-icon-from), var(--tl-module-icon-to));
+  color: var(--tl-color-module-on-tile);
+}
+
+.tl-module-icon[data-kind='unknown'] {
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-module-icon__glyph {
+  display: block;
+  width: 56%;
+  height: 56%;
+}

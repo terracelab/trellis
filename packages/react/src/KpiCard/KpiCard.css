@@ -1,0 +1,252 @@
+.tl-kpi-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--tl-space-4);
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: var(--tl-density-card-padding);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-primary);
+  font: inherit;
+  text-align: left;
+}
+
+button.tl-kpi-card {
+  cursor: pointer;
+  transition:
+    background-color var(--tl-duration-fast) var(--tl-easing-standard),
+    border-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-kpi-card[data-pressable]:hover,
+.tl-kpi-card[data-pressable][data-force-state='hover'] {
+  border-color: var(--tl-color-border-strong);
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-kpi-card[data-pressable]:active,
+.tl-kpi-card[data-pressable][data-force-state='active'] {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-kpi-card[data-state='loading'] {
+  cursor: progress;
+}
+
+.tl-kpi-card__head {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  min-width: 0;
+}
+
+.tl-kpi-card__icon {
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-kpi-card__label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-type-label-font-weight);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 화살표는 머리 줄 오른쪽 끝. 휴대폰에서는 카드 오른쪽 가운데 */
+.tl-kpi-card__chevron {
+  position: absolute;
+  top: var(--tl-density-card-padding);
+  right: var(--tl-density-card-padding);
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-kpi-card[data-pressable] .tl-kpi-card__head {
+  padding-right: var(--tl-space-20);
+}
+
+.tl-kpi-card__value {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  /* 단위는 붙여 쓴다(content.md §4). 글자 크기가 달라 보이는 틈만 둔다 */
+  gap: calc(var(--tl-space-4) / 2);
+  min-width: 0;
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-kpi-card__number {
+  /* 카드가 숫자보다 좁으면 카드 안에서 줄을 바꾼다(테두리 밖으로 나가지 않게). 넉넉한 폭에서는 달라지지 않는다 */
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--tl-color-fg-strong);
+  font-size: var(--tl-type-amount-lg-font-size);
+  line-height: var(--tl-type-amount-lg-line-height);
+  font-weight: var(--tl-type-amount-lg-font-weight);
+  letter-spacing: var(--tl-type-amount-lg-letter-spacing);
+}
+
+.tl-kpi-card[data-size='lg'] .tl-kpi-card__number {
+  font-size: var(--tl-type-display-font-size);
+  line-height: var(--tl-type-display-line-height);
+  font-weight: var(--tl-type-display-font-weight);
+  letter-spacing: var(--tl-type-display-letter-spacing);
+}
+
+.tl-kpi-card__unit {
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-font-weight-500);
+}
+
+/* 증감 줄은 Delta(size sm). 카드 안에서는 한 줄을 다 쓴다 */
+.tl-kpi-card__delta {
+  display: flex;
+}
+
+/* 가린 값: 자리 글자는 흐리게, 아래 이유 한 줄 */
+.tl-kpi-card__number[data-masked] {
+  color: var(--tl-color-fg-tertiary);
+  letter-spacing: 0;
+}
+
+.tl-kpi-card__reason,
+.tl-kpi-card__error-text {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  min-width: 0;
+}
+
+.tl-kpi-card__reason {
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-kpi-card__reason-icon {
+  flex: none;
+}
+
+/* 불러오지 못함: 값 자리에 아이콘 + 글자 + 다시 시도. 색 바탕은 쓰지 않는다 */
+.tl-kpi-card__error {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--tl-space-4) var(--tl-space-8);
+  min-height: var(--tl-type-amount-lg-line-height);
+}
+
+.tl-kpi-card__error-text {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-kpi-card__error-icon {
+  flex: none;
+  color: var(--tl-color-status-danger-default);
+}
+
+/* 작은 지표(서랍 머리 · 상세 위): 여백 · 글자를 한 단계 줄인다 */
+.tl-kpi-card[data-size='sm'] {
+  gap: var(--tl-space-2);
+  padding: var(--tl-space-8) var(--tl-space-12);
+}
+
+.tl-kpi-card[data-size='sm'] .tl-kpi-card__label {
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-kpi-card[data-size='sm'] .tl-kpi-card__number {
+  font-size: var(--tl-type-amount-font-size);
+  line-height: var(--tl-type-amount-line-height);
+  font-weight: var(--tl-type-amount-font-weight);
+  letter-spacing: var(--tl-type-amount-letter-spacing);
+}
+
+.tl-kpi-card[data-size='sm'] .tl-kpi-card__chevron {
+  top: var(--tl-space-8);
+  right: var(--tl-space-12);
+}
+
+.tl-kpi-card[data-size='sm'] .tl-kpi-card__error {
+  min-height: var(--tl-type-amount-line-height);
+}
+
+.tl-kpi-card__placeholder {
+  display: grid;
+  gap: var(--tl-space-4);
+}
+
+.tl-kpi-card__caption {
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+/* 휴대폰(D-61): 세로로 쌓지 않고 왼쪽 이름 · 설명, 오른쪽 값 · 증감의 두 열. 카드 높이가 한 줄 반으로 준다 */
+@media (max-width: 639px) {
+  .tl-kpi-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'head value'
+      'caption delta';
+    align-items: baseline;
+    column-gap: var(--tl-space-12);
+    row-gap: 0;
+  }
+
+  .tl-kpi-card[data-pressable] {
+    padding-right: calc(var(--tl-density-card-padding) + var(--tl-space-24));
+  }
+
+  .tl-kpi-card[data-pressable] .tl-kpi-card__head {
+    padding-right: 0;
+  }
+
+  .tl-kpi-card__head {
+    grid-area: head;
+  }
+
+  .tl-kpi-card__value,
+  .tl-kpi-card__placeholder,
+  .tl-kpi-card__error {
+    grid-area: value;
+    justify-self: end;
+  }
+
+  .tl-kpi-card__delta,
+  .tl-kpi-card__reason {
+    grid-area: delta;
+    justify-self: end;
+  }
+
+  .tl-kpi-card__caption {
+    grid-area: caption;
+  }
+
+  .tl-kpi-card__chevron {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .tl-kpi-card[data-size='lg'] .tl-kpi-card__number {
+    font-size: var(--tl-type-amount-lg-font-size);
+    line-height: var(--tl-type-amount-lg-line-height);
+    letter-spacing: var(--tl-type-amount-lg-letter-spacing);
+  }
+}

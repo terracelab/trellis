@@ -1,0 +1,12 @@
+{
+  "id": "home/launcher/modules",
+  "title": "모듈 런처",
+  "intent": "앱에 켜진 업무 모듈을 묶음별 타일로 보고 이름 · 초성으로 찾아 연다. 별을 누른 모듈은 위 즐겨찾기 줄에 모인다",
+  "module": "home",
+  "pattern": "NotificationHome",
+  "industries": ["trade", "distribution", "commerce", "manufacturing", "tax", "general"],
+  "components": ["PageHeader", "Input", "Card", "ModuleIcon", "IconButton", "EmptyState", "Button"],
+  "sizes": [1440, 1024, 390],
+  "slots": ["entries", "favorites", "groups"],
+  "order": 3
+}

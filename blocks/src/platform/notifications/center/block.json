@@ -1,0 +1,24 @@
+{
+  "id": "platform/notifications/center",
+  "title": "알림 센터",
+  "intent": "모든 모듈의 알림을 모아 보고 읽음 처리하며, 이벤트마다 앱 · 메일 · 문자 · 알림톡으로 받을지 정한다",
+  "module": "platform",
+  "pattern": "Settings",
+  "industries": ["general"],
+  "components": [
+    "PageHeader",
+    "Tabs",
+    "FilterBar",
+    "Select",
+    "Switch",
+    "NotificationCard",
+    "Card",
+    "Checkbox",
+    "ModuleIcon",
+    "EmptyState",
+    "Button"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["filters", "rules", "quietHours"],
+  "order": 12
+}

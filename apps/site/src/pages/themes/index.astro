@@ -1,0 +1,214 @@
+---
+// 회사 테마. 왼쪽 판에서 컬러칩 · 회사 색 · 회색 톤을 고르면 사이트 전체와 오른쪽 미리 보기에 바로 입혀진다.
+// 미리 보기는 실제 컴포넌트로 조립한 샘플 화면이다. 폼 카드만 눌러 볼 수 있고 나머지는 보여 주기용(inert)이다.
+// 폼 카드는 client:load다: 체크박스 · 스위치의 이름 연결이 켜진 뒤에 붙어서, 늦게 켜면 그 사이 이름 없는 칸이 된다.
+// 숫자(토큰 수 · 검사 수)는 엔진에서 읽는다. 바뀌는 것 · 안 바뀌는 것은 docs/guides/theme.md와 같다.
+import '../../styles/themes.css';
+import {
+  Avatar,
+  Badge,
+  Button,
+  Card,
+  Icon,
+  IconButton,
+  Input,
+  Link,
+  SideNav,
+  Tabs,
+} from '@terracelab/trellis-react';
+import { BRAND_TOKENS } from '@terracelab/trellis-tokens/theme';
+import ThemeForm from '../../components/ThemeForm';
+import ThemePanel from '../../components/ThemePanel';
+import Base from '../../layouts/Base.astro';
+import { exampleOf } from '../../lib/examples';
+import { FACTS, LINKS } from '../../lib/site';
+
+const title = '회사 테마 · Trellis';
+const description = `회사 색 하나로 Trellis 테마를 만듭니다. 컬러칩 ${FACTS.presets}개나 직접 고른 색을 화면에 입혀 보고 대비 검사 ${FACTS.themeChecks}건의 결과를 확인합니다.`;
+
+const KpiRow = exampleOf('KpiCard', 'HomeRow');
+const Clock = exampleOf('TimeClock', 'Working');
+const ChannelMix = exampleOf('SegmentedBar', 'Basic');
+const Ask = exampleOf('Composer', 'Suggestions');
+
+const NAV = [
+  { id: 'home', items: [{ id: 'dashboard', label: '대시보드', icon: 'layout-dashboard' }] },
+  {
+    id: 'groupware',
+    label: '그룹웨어',
+    group: 'groupware',
+    items: [
+      { id: 'approval', label: '전자결재', icon: 'stamp', count: 12 },
+      { id: 'attendance', label: '근태', icon: 'clock' },
+      { id: 'calendar', label: '일정', icon: 'calendar' },
+    ],
+  },
+  {
+    id: 'erp',
+    label: 'ERP',
+    group: 'erp',
+    items: [
+      { id: 'tax', label: '세금계산서', icon: 'receipt' },
+      { id: 'ledger', label: '거래처 원장', icon: 'scale' },
+      { id: 'treasury', label: '자금 일보', icon: 'wallet' },
+    ],
+  },
+] as const;
+const APPROVALS = [
+  ['지출결의서', '김지훈 대리 · 경영지원팀', '1,240,000', 'pending'],
+  ['구매품의서', '이수민 과장 · 구매팀', '8,700,000', 'approved'],
+  ['휴가 신청', '박서연 팀장 · 영업팀', '', 'draft'],
+  ['출장 정산', '정우성 이사 · 영업팀', '386,000', 'rejected'],
+  ['법인카드 한도 변경', '한예린 대리 · 재무팀', '', 'withdrawn'],
+] as const;
+const LEDGER = [
+  ['11-03', '한빛무역 입금', '12,400,000', ''],
+  ['11-04', '포장재 발주', '', '3,150,000'],
+  ['11-05', '대양상사 입금', '4,820,000', ''],
+] as const;
+---
+
+<Base title={title} description={description} page="themes">
+  <div class="tl-site-themes">
+    <aside class="tl-site-themes-panel" aria-labelledby="themes-h">
+      <header class="tl-site-themes-intro">
+        <h1 class="tl-site-themes-title" id="themes-h">회사 테마</h1>
+        <p class="tl-site-text">
+          회사 색 하나를 넣으면 엔진이 주 버튼 · 링크 · 포커스 링 · 사이드바 토큰 {BRAND_TOKENS.length}개를 라이트 · 다크 ·
+          고대비 라이트 · 고대비 다크로 계산하고 대비 검사 {FACTS.themeChecks}건을 돌립니다.
+        </p>
+        <p class="tl-site-text">상태 · 수입과 지출 · 결재 · 차트 색은 바뀌지 않습니다.</p>
+        <a class="tl-site-arrow" href={LINKS.theming}>테마 안내<Icon name="arrow-right" size={16} /></a>
+      </header>
+      <ThemePanel client:load />
+    </aside>
+
+    <section class="tl-site-themes-preview" aria-labelledby="preview-h">
+      <header class="tl-site-themes-preview-head">
+        <h2 class="tl-site-themes-preview-title" id="preview-h">미리 보기</h2>
+        <p class="tl-site-themes-preview-note">샘플 화면입니다. 세금계산서 발행 카드는 눌러 볼 수 있습니다.</p>
+      </header>
+
+      <div class="tl-site-theme-frame">
+        <div class="tl-site-theme-side" inert>
+          <SideNav label="샘플 메뉴" activeId="approval" sections={NAV}>
+            <span slot="header" class="tl-site-theme-company">테라트레이딩</span>
+          </SideNav>
+        </div>
+
+        <div class="tl-site-theme-main">
+          <div class="tl-site-theme-top" inert>
+            <div class="tl-site-theme-search">
+              <Input type="search" icon="search" size="sm" label="통합검색" placeholder="거래처 · 품목 · 문서 번호" />
+            </div>
+            <IconButton icon="bell" label="알림" count={6} />
+            <span class="tl-site-theme-user">
+              <Avatar name="김테라" size={24} decorative />
+              김테라 팀장
+            </span>
+          </div>
+
+          <div class="tl-site-theme-body">
+            <div class="tl-site-theme-head" inert>
+              <div>
+                <p class="tl-site-theme-screen">11월 6일(금)</p>
+                <p class="tl-site-theme-sub">테라트레이딩(주) · 경영지원팀</p>
+              </div>
+              <div class="tl-site-theme-actions">
+                <Button icon="download">엑셀 내려받기</Button>
+                <Button variant="primary" icon="plus">결재 요청</Button>
+              </div>
+            </div>
+
+            <div inert>
+              <KpiRow />
+            </div>
+
+            <div class="tl-site-theme-grid">
+              <div data-col="wide" inert>
+                <Card
+                  title="결재함"
+                  subtitle="결재 상태 다섯 개는 회사 색과 따로 정해져 있습니다"
+                  headingLevel={3}
+                  padding="none"
+                >
+                  <Link slot="action" href="#preview-h">전체 보기</Link>
+                  <div class="tl-site-theme-tabs">
+                    <Tabs
+                      label="결재 상태"
+                      defaultValue="pending"
+                      items={[
+                        { value: 'all', label: '전체', count: 48 },
+                        { value: 'pending', label: '진행', count: 12 },
+                        { value: 'approved', label: '승인', count: 31 },
+                        { value: 'rejected', label: '반려', count: 5 },
+                      ]}
+                    />
+                  </div>
+                  <ul class="tl-site-theme-list">
+                    {
+                      APPROVALS.map(([name, who, amount, state]) => (
+                        <li>
+                          <span class="tl-site-theme-doc">
+                            <strong>{name}</strong>
+                            <span>{who}</span>
+                          </span>
+                          <span class="tl-site-theme-amount">{amount && `${amount}원`}</span>
+                          <Badge approval={state} />
+                        </li>
+                      ))
+                    }
+                  </ul>
+                </Card>
+              </div>
+
+              <div data-col="narrow" inert>
+                <Clock />
+              </div>
+
+              <div class="tl-site-theme-stack" data-col="wide">
+                <ThemeForm client:load />
+                <div inert>
+                  <Card title="업무 도우미" subtitle="전표 · 재고 · 규정을 묻습니다" headingLevel={3}>
+                    <Ask />
+                  </Card>
+                </div>
+              </div>
+
+              <div class="tl-site-theme-stack" data-col="narrow" inert>
+                <Card title="채널 구성" subtitle="10월 · 원" headingLevel={3} footer="차트 색은 회사 색을 바꿔도 그대로입니다">
+                  <ChannelMix />
+                </Card>
+                <Card title="입출금" subtitle="수입은 빨강 지출은 파랑으로 고정입니다" headingLevel={3} padding="none">
+                  <table class="tl-site-theme-table">
+                    <caption>단위: 원</caption>
+                    <thead>
+                      <tr>
+                        <th scope="col">일자</th>
+                        <th scope="col">적요</th>
+                        <th scope="col" data-align="right">수입</th>
+                        <th scope="col" data-align="right">지출</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {
+                        LEDGER.map(([date, memo, income, expense]) => (
+                          <tr>
+                            <td>{date}</td>
+                            <td>{memo}</td>
+                            <td data-align="right" data-finance="income">{income}</td>
+                            <td data-align="right" data-finance="expense">{expense}</td>
+                          </tr>
+                        ))
+                      }
+                    </tbody>
+                  </table>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</Base>

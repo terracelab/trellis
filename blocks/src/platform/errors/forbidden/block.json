@@ -1,0 +1,12 @@
+{
+  "id": "platform/errors/forbidden",
+  "title": "권한 없음",
+  "intent": "역할로 볼 수 없는 화면을 열었을 때 권한을 요청할 관리자와 요청 ID, 이전 화면 · 홈으로 단추를 보인다",
+  "module": "platform",
+  "pattern": "ErrorPage",
+  "industries": ["general"],
+  "components": ["EmptyState", "Button"],
+  "sizes": [1440, 1024, 390],
+  "slots": ["home", "request"],
+  "order": 91
+}

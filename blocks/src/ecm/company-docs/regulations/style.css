@@ -1,0 +1,18 @@
+/* 전사 규정 · 양식: 상세 Drawer의 개정 이력 묶음 */
+.tl-block-reg-history {
+  display: grid;
+  gap: var(--tl-space-8);
+}
+
+.tl-block-reg-history__title {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+/* 좁은 화면에서 문서명 칸이 사라지지 않게 표 최소 폭을 두고 상자 안에서 가로로 넘긴다 */
+/* inner-override: DataGrid에 표 최소 폭(auto 열 최소 폭) prop이 없다(보강 요청) */
+.tl-block-reg-grid .tl-data-grid__table {
+  min-width: calc(var(--tl-space-64) * 13.5);
+}

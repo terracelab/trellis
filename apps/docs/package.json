@@ -1,0 +1,38 @@
+{
+  "name": "@terracelab/docs",
+  "version": "0.0.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "description": "Trellis 문서 사이트 — trellis.terracelab.co.kr (Astro + Starlight, D-41 · D-45)",
+  "type": "module",
+  "scripts": {
+    "sync": "node scripts/sync-content.mjs",
+    "dev": "node scripts/sync-content.mjs && astro dev",
+    "build": "node scripts/sync-content.mjs && astro build",
+    "preview": "astro preview",
+    "check": "node scripts/check.mjs",
+    "check:i18n": "node scripts/i18n-status.mjs",
+    "typecheck": "node scripts/sync-content.mjs && astro check",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@astrojs/react": "7.1.4",
+    "@astrojs/starlight": "0.42.9",
+    "@terracelab/preview": "workspace:*",
+    "@terracelab/seo": "workspace:*",
+    "@terracelab/trellis-contracts": "workspace:*",
+    "@terracelab/trellis-icons": "workspace:*",
+    "@terracelab/trellis-react": "workspace:*",
+    "@terracelab/trellis-tokens": "workspace:*",
+    "astro": "7.4.7",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "@axe-core/playwright": "4.14.0",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "playwright": "1.64.1"
+  }
+}

@@ -1,0 +1,206 @@
+{
+  "task": "sync-3",
+  "file": "Components",
+  "date": "2026-11-12",
+  "code": "769837e",
+  "expect": {
+    "sets.count": 167,
+    "sets.variants": 2439,
+    "sets.bad.length": 0,
+    "sets.singleStateAxis.length": 0,
+    "sets.nonVisualAxis.length": 0,
+    "pages": 134,
+    "links.localCollections": 0,
+    "links.localVariables": 0,
+    "links.localTextStyles": 0,
+    "links.localEffectStyles": 0,
+    "links.localBindings": 0,
+    "links.rawSolid": 0,
+    "links.unboundText": 0,
+    "links.missingMain": 0,
+    "icons.figma": 173,
+    "icons.code": 173,
+    "icons.matchesCode": true,
+    "tiles": 36,
+    "publishBlockers.propertyNameConflicts.length": 0,
+    "publishBlockers.duplicateVariantNames.length": 0,
+    "publishBlockers.emptyVariantValues.length": 0,
+    "publishBlockers.leadingUnderscoreOrDot.length": 0,
+    "layout.overlappingTopLevelNodes": 0,
+    "opacity.boundPaintsAlphaMismatch": 0,
+    "keys.sets": 167,
+    "keys.components": 234,
+    "keys.preservedSets": 158,
+    "keys.preservedComponents": 230,
+    "keys.hashMatches": true
+  },
+  "measured": {
+    "pages": 134,
+    "sets": {
+      "count": 167,
+      "variants": 2439,
+      "bad": [],
+      "singleStateAxis": [],
+      "nonVisualAxis": []
+    },
+    "links": {
+      "scope": [
+        "Cover",
+        "Icons",
+        "AgentReplay",
+        "SectionHeader",
+        "NotificationItem",
+        "NotificationList",
+        "DeadlineStrip",
+        "Card",
+        "Link",
+        "Avatar",
+        "PersonLabel",
+        "MonthCalendar"
+      ],
+      "localCollections": 0,
+      "localVariables": 0,
+      "localTextStyles": 0,
+      "localEffectStyles": 0,
+      "nodes": 7150,
+      "bindings": 25114,
+      "remoteBindings": 25114,
+      "localBindings": 0,
+      "rawSolid": 0,
+      "unboundText": 0,
+      "instances": 560,
+      "localMainInstances": 560,
+      "missingMain": 0
+    },
+    "icons": {
+      "figma": 173,
+      "code": 173,
+      "matchesCode": true
+    },
+    "tiles": 36,
+    "publishBlockers": {
+      "propertyNameConflicts": [],
+      "duplicateVariantNames": [],
+      "emptyVariantValues": [],
+      "leadingUnderscoreOrDot": []
+    },
+    "layout": {
+      "scope": "links.scope + Paper",
+      "overlappingTopLevelNodes": 0
+    },
+    "opacity": {
+      "boundPaintsAlphaMismatch": 0
+    },
+    "keys": {
+      "sets": 167,
+      "components": 234,
+      "preservedSets": 158,
+      "preservedComponents": 230,
+      "hashSets": "bb6cb043",
+      "hashComponents": "60f13d5c",
+      "hashOldSets": "9308e5f3",
+      "hashOldComponents": "2e007e8b",
+      "hashMatches": true
+    },
+    "changed": {
+      "SectionHeader": {
+        "page": "SectionHeader",
+        "kind": "component",
+        "status": "UNPUBLISHED"
+      },
+      "NotificationItem": {
+        "page": "NotificationItem",
+        "variants": 18,
+        "axes": "tone 3 × unread 2 × state 3",
+        "status": "UNPUBLISHED"
+      },
+      "NotificationList": {
+        "page": "NotificationList",
+        "variants": 2,
+        "axes": "groupBy 2",
+        "status": "UNPUBLISHED"
+      },
+      "NotificationList / Empty": {
+        "page": "NotificationList",
+        "kind": "component",
+        "status": "UNPUBLISHED"
+      },
+      "DeadlineStrip": {
+        "page": "DeadlineStrip",
+        "variants": 3,
+        "axes": "layout 3",
+        "status": "UNPUBLISHED"
+      },
+      "DeadlineStrip / Point": {
+        "page": "DeadlineStrip",
+        "variants": 12,
+        "axes": "kind 4 × state 3",
+        "status": "UNPUBLISHED"
+      },
+      "DeadlineStrip / Row": {
+        "page": "DeadlineStrip",
+        "variants": 3,
+        "axes": "status 3",
+        "status": "UNPUBLISHED"
+      },
+      "AgentReplay": {
+        "page": "AgentReplay",
+        "variants": 6,
+        "axes": "status 3 × state 2",
+        "status": "UNPUBLISHED"
+      },
+      "AgentReplay / Pointer": {
+        "page": "AgentReplay",
+        "kind": "component",
+        "status": "UNPUBLISHED"
+      },
+      "Avatar / Vacant": {
+        "page": "Avatar",
+        "variants": 8,
+        "axes": "size 4 × shape 2",
+        "status": "UNPUBLISHED"
+      },
+      "PersonLabel / Vacant": {
+        "page": "PersonLabel",
+        "variants": 2,
+        "axes": "size 2",
+        "status": "UNPUBLISHED"
+      },
+      "MonthCalendar / Event": {
+        "page": "MonthCalendar",
+        "variants": 9,
+        "axes": "marks 3 × state 3",
+        "status": "UNPUBLISHED"
+      },
+      "icon/mouse-pointer-2": {
+        "page": "Icons",
+        "kind": "component",
+        "status": "UNPUBLISHED"
+      },
+      "Card": {
+        "page": "Card",
+        "variants": 6,
+        "axes": "padding 2 × emphasis 3",
+        "status": "CHANGED"
+      },
+      "Link": {
+        "page": "Link",
+        "variants": 30,
+        "axes": "variant 3 × underline 2 × state 5",
+        "status": "CHANGED"
+      },
+      "MonthCalendar": {
+        "page": "MonthCalendar",
+        "variants": 18,
+        "axes": "state 3 × view 3 × size 2",
+        "status": "CHANGED"
+      },
+      "Paper / Fields": {
+        "page": "Paper",
+        "variants": 4,
+        "axes": "columns 2 × density 2",
+        "status": "CHANGED"
+      }
+    }
+  }
+}

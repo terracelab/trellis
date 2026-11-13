@@ -1,0 +1,53 @@
+/* 알림 목록(PR-32): 머리 줄(읽지 않음 N건 · 모두 읽음) · 날짜 묶음 제목 · 줄 사이 구분선 */
+.tl-notification-list {
+  display: grid;
+  gap: var(--tl-space-16);
+  min-width: 0;
+}
+
+.tl-notification-list__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tl-space-8);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+}
+
+.tl-notification-list__unread {
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-notification-list__group {
+  display: grid;
+  gap: var(--tl-space-4);
+}
+
+.tl-notification-list__heading {
+  margin: 0;
+  padding-inline-start: var(--tl-space-8);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-notification-list__items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 줄 사이 구분선 */
+.tl-notification-list__row + .tl-notification-list__row {
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-notification-list__empty {
+  margin: 0;
+  padding: var(--tl-space-32) var(--tl-space-16);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-density-body-font-size);
+  text-align: center;
+}

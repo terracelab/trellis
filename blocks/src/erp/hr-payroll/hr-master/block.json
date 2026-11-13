@@ -1,0 +1,22 @@
+{
+  "id": "erp/hr-payroll/hr-master",
+  "title": "인사 마스터",
+  "intent": "사원 한 명의 인사기록카드(인적 사항 · 재직 · 급여 계좌 · 4대보험 · 병역 · 학력 · 경력 · 자격 · 가족 · 발령 · 상벌)를 보고, 주민등록번호 · 계좌는 인사 권한으로만 연다",
+  "module": "hr-payroll",
+  "pattern": "ListDetail",
+  "industries": ["trade", "distribution", "manufacturing", "commerce", "general"],
+  "components": [
+    "PageHeader",
+    "Input",
+    "Select",
+    "SelectableList",
+    "ProfileHeader",
+    "HrRecord",
+    "Button",
+    "Card",
+    "EmptyState"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["siblings", "people", "sections", "reveal"],
+  "order": 21
+}

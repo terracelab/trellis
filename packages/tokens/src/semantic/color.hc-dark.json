@@ -1,0 +1,253 @@
+{
+  "color": {
+    "brand": {
+      "default": {
+        "$value": "{color.brand.700}",
+        "$type": "color",
+        "$description": "주요 액션(회사 색, D-97)"
+      },
+      "hover": {
+        "$value": "{color.brand.800}",
+        "$type": "color",
+        "$description": "주요 액션 가리킴"
+      },
+      "active": {
+        "$value": "{color.brand.900}",
+        "$type": "color",
+        "$description": "주요 액션 누름"
+      },
+      "subtle": {
+        "$value": "{color.alpha.brand.16}",
+        "$type": "color",
+        "$description": "선택 바탕(선택 메뉴 · 선택 칩 · 선택 옵션). 위 글자는 fg.link"
+      },
+      "tint": {
+        "$value": "{color.alpha.brand.24}",
+        "$type": "color",
+        "$description": "옅은 강조 면(기간 사이 띠 · 지금 고치는 칸 · 끌어 놓을 자리 · 진행 막대 트랙). 위 글자는 fg.primary(D-97)"
+      },
+      "accent": {
+        "$value": "{color.brand.500}",
+        "$type": "color",
+        "$description": "회사 색 그대로의 강조(진행 막대 · 로고 · 선택 표시 점). 글자가 아닌 표시라 면 위 3:1(D-97)"
+      },
+      "onBrand": {
+        "$value": "{color.base.white}",
+        "$type": "color",
+        "$description": "브랜드 위 글자"
+      }
+    },
+    "bg": {
+      "rowSelected": {
+        "$value": "{color.alpha.brand.16}",
+        "$type": "color",
+        "$description": "표 · 목록의 선택 행 바탕(D-97)"
+      },
+      "nav": {
+        "$value": "{color.shell.925}",
+        "$type": "color",
+        "$description": "사이드바 면. 회사 색상의 저채도 짙은 톤(D-97)"
+      }
+    },
+    "fg": {
+      "link": {
+        "$value": "{color.brand.300}",
+        "$type": "color",
+        "$description": "링크 · 선택 글자 · 브랜드 글자"
+      },
+      "strong": {
+        "$value": "{color.base.white}",
+        "$type": "color",
+        "$description": "제목 · 강조 값. fg.primary보다 한 단계 진하다(D-97)"
+      },
+      "primary": {
+        "$value": "{color.graphite.50}",
+        "$type": "color",
+        "$description": "고대비: 본문"
+      },
+      "secondary": {
+        "$value": "{color.graphite.100}",
+        "$type": "color",
+        "$description": "고대비: 보조 글자"
+      },
+      "tertiary": {
+        "$value": "{color.graphite.200}",
+        "$type": "color",
+        "$description": "고대비: 힌트 · 타임스탬프"
+      },
+      "disabled": {
+        "$value": "{color.graphite.300}",
+        "$type": "color",
+        "$description": "고대비: 비활성 글자"
+      }
+    },
+    "border": {
+      "focus": {
+        "$value": "{color.brand.400}",
+        "$type": "color",
+        "$description": "포커스 링 2px. 면 · 바탕 위 3:1"
+      },
+      "focusStrong": {
+        "$value": "{color.brand.300}",
+        "$type": "color",
+        "$description": "포커스 강조 모드(data-focus=\"strong\") · 고대비의 포커스 링. 면 · 바탕 위 4.5:1(D-97)"
+      },
+      "selected": {
+        "$value": "{color.brand.400}",
+        "$type": "color",
+        "$description": "선택 · 현재 표시 선(1px 테두리 · 탭 밑줄 · 진행 단계). 면 · 바탕 위 3:1"
+      },
+      "default": {
+        "$value": "{color.graphite.300}",
+        "$type": "color",
+        "$description": "고대비: 카드 · 표 테두리"
+      },
+      "strong": {
+        "$value": "{color.graphite.200}",
+        "$type": "color",
+        "$description": "고대비: 입력 칸 · 강조 테두리"
+      },
+      "divider": {
+        "$value": "{color.graphite.400}",
+        "$type": "color",
+        "$description": "고대비: 구분선"
+      },
+      "hover": {
+        "$value": "{color.graphite.100}",
+        "$type": "color",
+        "$description": "고대비: 입력 칸을 가리켰을 때 테두리(식자재 ERP line-strong, D-97)"
+      }
+    },
+    "nav": {
+      "fg": {
+        "$value": "{color.base.white}",
+        "$type": "color",
+        "$description": "사이드바 항목 글자(쉴 때)"
+      },
+      "fgMuted": {
+        "$value": "{color.shell.100}",
+        "$type": "color",
+        "$description": "사이드바 묶음 이름 · 아이콘 · 하위 메뉴 글자"
+      },
+      "fgActive": {
+        "$value": "{color.base.white}",
+        "$type": "color",
+        "$description": "사이드바 지금 화면 · 가리킨 항목 글자"
+      },
+      "hover": {
+        "$value": "{color.shell.800}",
+        "$type": "color",
+        "$description": "사이드바 항목을 가리켰을 때 면"
+      },
+      "selected": {
+        "$value": "{color.brand.700}",
+        "$type": "color",
+        "$description": "사이드바 지금 화면 항목 면"
+      },
+      "border": {
+        "$value": "{color.shell.600}",
+        "$type": "color",
+        "$description": "사이드바 안 구분선"
+      },
+      "sub": {
+        "$value": "{color.shell.950}",
+        "$type": "color",
+        "$description": "사이드바 하위 메뉴 묶음 면(D-97)"
+      },
+      "focus": {
+        "$value": "{color.base.white}",
+        "$type": "color",
+        "$description": "사이드바 위 포커스 링(짙은 면 · 가리킴 · 선택 위 3:1)"
+      }
+    },
+    "status": {
+      "info": {
+        "default": {
+          "$value": "{color.blue.300}",
+          "$type": "color",
+          "$description": "고대비: 한 단계 밝게"
+        }
+      },
+      "success": {
+        "default": {
+          "$value": "{color.green.300}",
+          "$type": "color",
+          "$description": "고대비: 한 단계 밝게"
+        }
+      },
+      "danger": {
+        "default": {
+          "$value": "{color.red.300}",
+          "$type": "color",
+          "$description": "고대비: 한 단계 밝게"
+        }
+      }
+    },
+    "finance": {
+      "income": {
+        "$value": "{color.red.400}",
+        "$type": "color",
+        "$description": "고대비: 수입 빨강(400 유지 — 300은 지출 파랑과 색차 19로 20 미만, 6.1:1)"
+      },
+      "expense": {
+        "$value": "{color.blue.300}",
+        "$type": "color",
+        "$description": "고대비: 지출 파랑 한 단계 밝게"
+      },
+      "neutral": {
+        "$value": "{color.graphite.100}",
+        "$type": "color",
+        "$description": "고대비: 변동 없음"
+      }
+    },
+    "approval": {
+      "draft": {
+        "text": {
+          "$value": "{color.graphite.50}",
+          "$type": "color",
+          "$description": "고대비: 기안 글자"
+        }
+      },
+      "pending": {
+        "text": {
+          "$value": "{color.amber.300}",
+          "$type": "color",
+          "$description": "고대비: 진행 글자"
+        }
+      },
+      "approved": {
+        "text": {
+          "$value": "{color.green.300}",
+          "$type": "color",
+          "$description": "고대비: 승인 글자"
+        }
+      },
+      "rejected": {
+        "text": {
+          "$value": "{color.red.300}",
+          "$type": "color",
+          "$description": "고대비: 반려 글자"
+        }
+      },
+      "withdrawn": {
+        "text": {
+          "$value": "{color.graphite.200}",
+          "$type": "color",
+          "$description": "고대비: 회수 글자"
+        }
+      }
+    },
+    "chart": {
+      "grid": {
+        "$value": "{color.graphite.400}",
+        "$type": "color",
+        "$description": "고대비: 격자선 3:1"
+      },
+      "axis": {
+        "$value": "{color.graphite.200}",
+        "$type": "color",
+        "$description": "고대비: 축 글자"
+      }
+    }
+  }
+}

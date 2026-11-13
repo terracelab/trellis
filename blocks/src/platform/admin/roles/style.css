@@ -1,0 +1,61 @@
+/* 권한 화면의 표는 PermissionMatrix(PG-43)이고 이 파일을 쓰지 않는다.
+   아래 규칙은 platform/notifications/center(이벤트별 채널 표 · 안내 칸)가 import해서 쓴다 */
+.tl-block-matrix {
+  display: grid;
+  overflow-x: auto;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-md);
+}
+
+.tl-block-matrix__row {
+  display: grid;
+  grid-template-columns: minmax(calc(var(--tl-space-64) * 3), 1fr) repeat(
+      6,
+      minmax(var(--tl-space-64), calc(var(--tl-space-64) * 1.5))
+    );
+  align-items: center;
+  min-height: calc(var(--tl-density-row-height) + var(--tl-space-8));
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-matrix__row:last-child {
+  border-bottom: 0;
+}
+
+.tl-block-matrix__head {
+  min-height: var(--tl-density-row-height);
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-block-matrix__head > :not(:first-child),
+.tl-block-matrix__cell {
+  display: flex;
+  justify-content: center;
+}
+
+.tl-block-matrix__row > :first-child {
+  padding-left: var(--tl-space-12);
+}
+
+.tl-block-matrix__module {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-block-rules {
+  grid-template-columns: minmax(calc(var(--tl-space-64) * 5), 1fr) repeat(
+      4,
+      minmax(var(--tl-space-64), calc(var(--tl-space-64) * 1.25))
+    );
+}
+
+.tl-block-notes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(calc(var(--tl-space-64) * 5.5), 1fr));
+  gap: var(--tl-space-12);
+}

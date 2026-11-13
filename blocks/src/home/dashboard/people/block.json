@@ -1,0 +1,33 @@
+{
+  "id": "home/dashboard/people",
+  "title": "역할별 홈",
+  "intent": "대표 · 인사 담당 · 팀장 · 구성원 보기를 바꿔 인원 · 인건비, 인사 할 일 · 계약 만료 · 입사 준비, 팀 근태 · 결재, 내 출퇴근 · 연차를 한 홈에서 본다",
+  "module": "home",
+  "pattern": "Dashboard",
+  "industries": ["trade", "distribution", "commerce", "manufacturing", "general"],
+  "components": [
+    "PageHeader",
+    "SegmentedControl",
+    "KpiCard",
+    "Card",
+    "BarList",
+    "SegmentedBar",
+    "PersonLabel",
+    "StatusDot",
+    "Badge",
+    "DueBadge",
+    "Icon",
+    "DataGrid",
+    "Progress",
+    "TeamSchedule",
+    "TimeClock",
+    "WorkHoursMeter",
+    "LeaveBalance",
+    "EmptyState",
+    "Skeleton",
+    "Button"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["roles", "ceoKpis", "hrTasks", "teamWidgets", "memberWidgets"],
+  "order": 2
+}

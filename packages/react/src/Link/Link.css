@@ -1,0 +1,70 @@
+/* 글자 링크(PG-41). 글자 크기 · 굵기는 둘레를 따르고 색 · 밑줄 · 포커스 링만 정한다 */
+.tl-link {
+  border-radius: var(--tl-radius-xs);
+  color: var(--tl-color-fg-link);
+  font-weight: var(--tl-font-weight-500);
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: var(--tl-border-width-1);
+  text-underline-offset: var(--tl-border-width-3);
+  cursor: pointer;
+  transition:
+    color var(--tl-duration-fast) var(--tl-easing-standard),
+    text-decoration-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-link[data-variant='subtle'] {
+  color: var(--tl-color-fg-secondary);
+  font-weight: inherit;
+}
+
+/* 표 · 목록 안 링크(D-146 제안): 본문 색 500 + 가리킬 때 밑줄. 링크 색(회사 색)이 위험 빨강과 붙어
+   오류처럼 읽히지 않게 한다. DataGrid 칸 · DescriptionList 값 안의 default 링크는 저절로 이 모양 */
+.tl-link[data-variant='plain'],
+:where(.tl-data-grid__cell, .tl-data-grid__card, .tl-description-list)
+  .tl-link[data-variant='default'] {
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-link:focus-visible {
+  text-decoration-color: currentcolor;
+}
+
+/* 문장 안 링크: 색만으로 구분하지 않는다(WCAG 1.4.1) */
+.tl-link[data-underline='always'] {
+  text-decoration-color: currentcolor;
+}
+
+.tl-link:hover,
+.tl-link[data-force-state='hover'] {
+  text-decoration-color: currentcolor;
+}
+
+.tl-link[data-variant='subtle']:hover,
+.tl-link[data-variant='subtle'][data-force-state='hover'] {
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-link:active,
+.tl-link[data-force-state='active'] {
+  text-decoration-color: currentcolor;
+  text-decoration-thickness: var(--tl-border-width-2);
+}
+
+.tl-link[data-force-state='focus'] {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: var(--tl-border-width-2);
+}
+
+.tl-link[data-state='disabled'] {
+  color: var(--tl-color-fg-disabled);
+  text-decoration-color: transparent;
+  cursor: not-allowed;
+}
+
+/* 바깥 링크 표시: 글자 끝 작은 아이콘(꾸밈. 숨은 글자가 "새 창에서 열림"을 읽는다) */
+.tl-link__icon {
+  display: inline-block;
+  margin-inline-start: var(--tl-space-2);
+  vertical-align: text-bottom;
+}

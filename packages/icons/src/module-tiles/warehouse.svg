@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-warehouse-title">
+  <title id="tl-tile-warehouse-title">입출고</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-warehouse-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-warehouse-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFCE91"/>
+      <stop offset=".5" stop-color="#F5A524"/>
+      <stop offset="1" stop-color="#CD8600"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-warehouse-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-warehouse-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-warehouse-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-warehouse-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-warehouse-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-warehouse-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-warehouse-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#CD8600" opacity=".25" filter="url(#tl-tile-warehouse-blur)"/>
+    <g>
+      <path d="m226 410 286-177 286 177v357H226z" fill="url(#tl-tile-warehouse-edge)"/>
+      <path d="m226 410 286-177 253 177v332H226z" fill="url(#tl-tile-warehouse-white)"/>
+      <path d="m209 401 303-190 303 190-25 35-278-173-278 173z" fill="url(#tl-tile-warehouse-white)"/>
+      <rect x="337" y="426" width="313" height="316" rx="9" fill="#8FA1B5"/>
+      <path d="M350 441h287v83H350z" fill="url(#tl-tile-warehouse-edge)"/>
+      <path d="M364 463h258v12H364zM364 491h258v12H364z" fill="#A7B7C9"/>
+      <rect x="422" y="602" width="188" height="140" rx="14" fill="url(#tl-tile-warehouse-white)"/>
+      <path d="M495 602h41v57h-41z" fill="#F5A524"/>
+      <rect x="399" y="742" width="238" height="28" rx="7" fill="#F5A524"/>
+    </g>
+  </g>
+</svg>

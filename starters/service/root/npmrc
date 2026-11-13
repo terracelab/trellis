@@ -1,0 +1,2 @@
+# pnpm 9.x 로컬 설치에서도 package.json의 packageManager 버전(pnpm 12)으로 자동 전환한다.
+manage-package-manager-versions=true

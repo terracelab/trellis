@@ -1,0 +1,51 @@
+/* 인사 마스터: 왼쪽 사원 목록(고정 폭, SelectableList) · 오른쪽 인사기록카드. 1024 미만은 고르기 칸 + 카드 */
+.tl-block-hrm {
+  display: grid;
+  grid-template-columns: calc(var(--tl-space-64) * 4.5) minmax(0, 1fr);
+  align-items: start;
+  gap: var(--tl-space-32);
+}
+
+.tl-block-hrm__people {
+  position: sticky;
+  top: 0;
+  display: grid;
+  gap: var(--tl-space-12);
+  min-width: 0;
+}
+
+.tl-block-hrm__note {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+}
+
+.tl-block-hrm__picker {
+  display: none;
+}
+
+/* 한 사람만 볼 수 있으면(구성원 = 본인 카드) 목록 열 없이 카드만 */
+.tl-block-hrm[data-single] {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.tl-block-hrm__card {
+  display: grid;
+  gap: var(--tl-space-24);
+  min-width: 0;
+}
+
+@media (max-width: 1023px) {
+  .tl-block-hrm {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--tl-space-16);
+  }
+
+  .tl-block-hrm__people {
+    display: none;
+  }
+
+  .tl-block-hrm__picker {
+    display: block;
+  }
+}

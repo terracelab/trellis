@@ -1,0 +1,85 @@
+.tl-segmented-control {
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  box-sizing: border-box;
+  /* Field(grid) 안에서 칸 폭으로 늘어나지 않게. 꽉 채우기는 fullWidth */
+  width: fit-content;
+  max-width: 100%;
+  height: var(--tl-density-control-height-md);
+  padding: calc(var(--tl-space-4) / 2);
+  gap: calc(var(--tl-space-4) / 2);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+}
+
+.tl-segmented-control[data-size='sm'] {
+  height: var(--tl-density-control-height-sm);
+  font-size: var(--tl-type-caption-font-size);
+}
+
+.tl-segmented-control[data-full] {
+  display: flex;
+  width: 100%;
+}
+
+.tl-segmented-control__segment {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tl-space-4);
+  min-width: 0;
+  padding: 0 var(--tl-space-12);
+  border-radius: var(--tl-radius-sm);
+  font-weight: var(--tl-font-weight-500);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color var(--tl-duration-fast) var(--tl-easing-standard),
+    color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-segmented-control[data-size='sm'] .tl-segmented-control__segment {
+  padding: 0 var(--tl-space-8);
+}
+
+.tl-segmented-control[data-full] .tl-segmented-control__segment {
+  flex: 1 1 0;
+}
+
+.tl-segmented-control__segment:hover {
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-segmented-control__segment[data-checked] {
+  background: var(--tl-color-bg-surface);
+  box-shadow: var(--tl-shadow-sm);
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-segmented-control__segment[data-disabled] {
+  color: var(--tl-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.tl-segmented-control__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tl-segmented-control__count {
+  /* sunken 바탕 위라 secondary(fg.tertiary는 3.9:1) */
+  color: var(--tl-color-fg-secondary);
+  font-variant-numeric: var(--tl-font-numeric);
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-segmented-control__segment[data-checked] .tl-segmented-control__count {
+  color: var(--tl-color-fg-secondary);
+}

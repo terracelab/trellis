@@ -1,0 +1,185 @@
+.tl-skeleton {
+  /* 흰 바탕(PR-27)에서도 보이게 sunken과 divider 사이 단계 */
+  --tl-skeleton-base: color-mix(
+    in srgb,
+    var(--tl-color-border-divider) 60%,
+    var(--tl-color-bg-sunken)
+  );
+  --tl-skeleton-shine: color-mix(
+    in srgb,
+    var(--tl-color-bg-sunken) 40%,
+    var(--tl-color-bg-surface)
+  );
+
+  display: block;
+  width: 100%;
+  /* 빠른 응답(normal 이하)에는 보이지 않게 잠깐 뒤 나타난다(PR-27). 앱은 바로 그려도 깜빡이지 않는다 */
+  animation: tl-skeleton-in var(--tl-duration-normal) var(--tl-easing-enter)
+    var(--tl-duration-normal) both;
+}
+
+.tl-skeleton[data-immediate] {
+  animation: none;
+}
+
+/* 블록(rect · circle) · 줄(text) · 묶음 안 블록이 같은 반짝임을 쓴다 */
+.tl-skeleton[data-shape='rect'],
+.tl-skeleton[data-shape='circle'],
+.tl-skeleton__line,
+.tl-skeleton__bone {
+  background: linear-gradient(
+      90deg,
+      var(--tl-skeleton-base) 0%,
+      var(--tl-skeleton-shine) 50%,
+      var(--tl-skeleton-base) 100%
+    )
+    0 0 / 200% 100% var(--tl-skeleton-base);
+  animation: tl-skeleton-shine var(--tl-duration-pulse) linear infinite;
+}
+
+/* rect · circle은 루트가 블록이라 나타나기와 반짝임을 함께 건다 */
+.tl-skeleton[data-shape='rect'],
+.tl-skeleton[data-shape='circle'] {
+  animation:
+    tl-skeleton-in var(--tl-duration-normal) var(--tl-easing-enter) var(--tl-duration-normal) both,
+    tl-skeleton-shine var(--tl-duration-pulse) linear infinite;
+}
+
+.tl-skeleton[data-immediate][data-shape='rect'],
+.tl-skeleton[data-immediate][data-shape='circle'] {
+  animation: tl-skeleton-shine var(--tl-duration-pulse) linear infinite;
+}
+
+.tl-skeleton[data-shape='rect'] {
+  height: var(--tl-space-64);
+  border-radius: var(--tl-radius-md);
+}
+
+.tl-skeleton[data-shape='circle'] {
+  width: var(--tl-size-avatar-32);
+  height: var(--tl-size-avatar-32);
+  border-radius: var(--tl-radius-full);
+}
+
+.tl-skeleton__line {
+  display: block;
+  width: 100%;
+  height: var(--tl-space-12);
+  margin-block: calc((var(--tl-density-body-line-height) - var(--tl-space-12)) / 2);
+  border-radius: var(--tl-radius-xs);
+}
+
+.tl-skeleton__line[data-last] {
+  width: 60%;
+}
+
+/* 묶음 모양(PR-27): 실제 행 · 칸과 같은 높이로 두어 다 불러온 뒤 밀리지 않게 */
+.tl-skeleton[data-shape='list'],
+.tl-skeleton[data-shape='table'] {
+  display: grid;
+}
+
+.tl-skeleton[data-shape='kpi'],
+.tl-skeleton[data-shape='card'] {
+  display: grid;
+  padding: var(--tl-density-card-padding);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-surface);
+}
+
+.tl-skeleton__bone {
+  display: block;
+  width: 100%;
+  height: var(--tl-space-12);
+  border-radius: var(--tl-radius-xs);
+}
+
+.tl-skeleton__bone[data-round='square'] {
+  flex: none;
+  border-radius: 30%;
+}
+
+.tl-skeleton__bone[data-round='circle'] {
+  flex: none;
+  border-radius: var(--tl-radius-full);
+}
+
+.tl-skeleton__stack {
+  display: grid;
+  flex: 1 1 auto;
+  gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+.tl-skeleton__stack[data-gap='loose'] {
+  gap: var(--tl-space-16);
+}
+
+.tl-skeleton__row {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-12);
+  min-height: var(--tl-density-row-height-tall);
+  padding-block: var(--tl-space-8);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-skeleton__row:last-child {
+  border-bottom: 0;
+}
+
+.tl-skeleton__table-head,
+.tl-skeleton__table-row {
+  display: grid;
+  align-items: center;
+  gap: var(--tl-space-16);
+  padding: 0 var(--tl-space-12);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-skeleton__table-head {
+  height: var(--tl-density-row-height);
+}
+
+.tl-skeleton__table-row {
+  height: var(--tl-density-row-height-tall);
+}
+
+@keyframes tl-skeleton-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes tl-skeleton-shine {
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: -100% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-skeleton[data-shape='rect'],
+  .tl-skeleton[data-shape='circle'],
+  .tl-skeleton__line,
+  .tl-skeleton__bone {
+    animation: none;
+    background: var(--tl-skeleton-base);
+  }
+}
+
+[data-motion='reduce'] .tl-skeleton[data-shape='rect'],
+[data-motion='reduce'] .tl-skeleton[data-shape='circle'],
+[data-motion='reduce'] .tl-skeleton__line,
+[data-motion='reduce'] .tl-skeleton__bone {
+  animation: none;
+  background: var(--tl-skeleton-base);
+}

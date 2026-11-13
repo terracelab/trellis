@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-materials-title">
+  <title id="tl-tile-materials-title">자재</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-materials-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-materials-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9CA3AF"/>
+      <stop offset=".5" stop-color="#646B78"/>
+      <stop offset="1" stop-color="#374151"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-materials-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-materials-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-materials-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-materials-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-materials-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-materials-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-materials-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#374151" opacity=".25" filter="url(#tl-tile-materials-blur)"/>
+    <g transform="rotate(-4 512 512)">
+      <g>
+        <path d="M246 578h474v149H246z" fill="url(#tl-tile-materials-edge)"/>
+        <path d="M246 578h449v123H246z" fill="url(#tl-tile-materials-white)"/>
+        <path d="M695 578h25v149h-25z" fill="#8FA1B5"/>
+      </g>
+      <g>
+        <path d="M271 442h474v149H271z" fill="url(#tl-tile-materials-edge)"/>
+        <path d="M271 442h449v123H271z" fill="url(#tl-tile-materials-white)"/>
+        <path d="M720 442h25v149h-25z" fill="#8FA1B5"/>
+      </g>
+      <g>
+        <path d="M296 306h474v149H296z" fill="url(#tl-tile-materials-edge)"/>
+        <path d="M296 306h449v123H296z" fill="url(#tl-tile-materials-white)"/>
+        <path d="M745 306h25v149h-25z" fill="#8FA1B5"/>
+      </g>
+    </g>
+  </g>
+</svg>

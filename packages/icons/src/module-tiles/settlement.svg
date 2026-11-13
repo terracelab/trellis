@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-settlement-title">
+  <title id="tl-tile-settlement-title">정산</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-settlement-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-settlement-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFA29D"/>
+      <stop offset=".5" stop-color="#E5484D"/>
+      <stop offset="1" stop-color="#A31A27"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-settlement-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-settlement-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-settlement-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-settlement-gold" x1="610" y1="600" x2="850" y2="850" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF5B2"/>
+      <stop offset=".35" stop-color="#FFD24F"/>
+      <stop offset=".75" stop-color="#E69510"/>
+      <stop offset="1" stop-color="#AF5703"/>
+    </linearGradient>
+    <filter id="tl-tile-settlement-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-settlement-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-settlement-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-settlement-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#A31A27" opacity=".25" filter="url(#tl-tile-settlement-blur)"/>
+    <g transform="rotate(-5 512 512)">
+      <g transform="translate(0 38)">
+        <rect x="226" y="347" width="569" height="290" rx="27" fill="url(#tl-tile-settlement-edge)"/>
+        <rect x="226" y="337" width="569" height="265" rx="27" fill="url(#tl-tile-settlement-white)"/>
+      </g>
+      <g transform="translate(0 19)">
+        <rect x="226" y="347" width="569" height="290" rx="27" fill="url(#tl-tile-settlement-edge)"/>
+        <rect x="226" y="337" width="569" height="265" rx="27" fill="url(#tl-tile-settlement-white)"/>
+      </g>
+      <g transform="translate(0 0)">
+        <rect x="226" y="347" width="569" height="290" rx="27" fill="url(#tl-tile-settlement-edge)"/>
+        <rect x="226" y="337" width="569" height="265" rx="27" fill="url(#tl-tile-settlement-white)"/>
+      </g>
+      <path d="M430 337h124v303H430z" fill="#E5484D"/>
+      <path d="M270 379h119v14H270zM591 379h158v14H591zM270 548h119v14H270z" fill="#E5484D" opacity=".35"/>
+      <path d="M659 654v63c0 25 32 45 72 45s72-20 72-45v-63z" fill="#D69118"/>
+      <ellipse cx="731" cy="654" rx="72" ry="43" fill="url(#tl-tile-settlement-gold)"/>
+      <ellipse cx="731" cy="654" rx="48" ry="26" fill="#F5C24A"/>
+    </g>
+  </g>
+</svg>

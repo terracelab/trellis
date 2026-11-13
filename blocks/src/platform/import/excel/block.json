@@ -1,0 +1,27 @@
+{
+  "id": "platform/import/excel",
+  "title": "엑셀 업로드",
+  "intent": "전표 CSV를 업로드해 행마다 검증하고 틀린 칸과 확인할 항목을 보인 뒤 통과한 전표만 반영한다",
+  "module": "platform",
+  "pattern": "FormRegister",
+  "industries": ["trade", "distribution", "manufacturing", "general"],
+  "components": [
+    "PageHeader",
+    "Button",
+    "Card",
+    "Stepper",
+    "Field",
+    "FileUpload",
+    "DataGrid",
+    "ActionBar",
+    "StatusDot",
+    "IssueList",
+    "SegmentedControl",
+    "Checkbox",
+    "Icon",
+    "Progress"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["target", "columns", "rules"],
+  "order": 80
+}

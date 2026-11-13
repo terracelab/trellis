@@ -1,0 +1,105 @@
+/* 라벨 칩(PG-41). 중립 한 가지 색, 모서리는 작게(Badge의 알약과 구분). 상태 색은 없다 */
+.tl-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  min-width: 0;
+  max-width: 100%;
+  height: var(--tl-space-24);
+  padding: 0 var(--tl-space-8);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-sm);
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-font-weight-500);
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.tl-tag[data-size='sm'] {
+  height: var(--tl-space-20);
+  padding: 0 var(--tl-space-6);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-tag[data-variant='outline'] {
+  border-color: var(--tl-color-border-strong);
+  background: transparent;
+}
+
+/* 사람 칩: 원 아바타 24가 앞 끝에 붙는 알약. 크기와 관계없이 높이 24 */
+.tl-tag[data-person] {
+  gap: var(--tl-space-6);
+  height: var(--tl-space-24);
+  padding-inline-start: 0;
+  border-radius: var(--tl-radius-full);
+}
+
+.tl-tag[data-removable] {
+  padding-inline-end: var(--tl-space-4);
+}
+
+.tl-tag[data-state='disabled'] {
+  color: var(--tl-color-fg-disabled);
+}
+
+.tl-tag__icon {
+  flex: none;
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-tag__label {
+  overflow: hidden;
+  min-width: 0;
+  text-overflow: ellipsis;
+}
+
+/* × 단추: 보이는 칸은 16이고 누르는 영역은 24(WCAG 2.5.8) */
+.tl-tag__remove {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--tl-space-16);
+  height: var(--tl-space-16);
+  padding: 0;
+  border: 0;
+  border-radius: var(--tl-radius-xs);
+  background: transparent;
+  color: var(--tl-color-fg-secondary);
+  cursor: pointer;
+  transition:
+    color var(--tl-duration-fast) var(--tl-easing-standard),
+    background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-tag__remove::after {
+  content: '';
+  position: absolute;
+  inset: calc(var(--tl-space-4) * -1);
+}
+
+.tl-tag__remove svg {
+  width: 100%;
+  height: 100%;
+}
+
+.tl-tag[data-size='sm'] .tl-tag__remove {
+  width: var(--tl-space-14);
+  height: var(--tl-space-14);
+}
+
+.tl-tag__remove:hover,
+.tl-tag[data-force-state='hover'] .tl-tag__remove {
+  background: color-mix(in srgb, var(--tl-color-fg-primary) 10%, transparent);
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-tag[data-force-state='focus'] .tl-tag__remove {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: var(--tl-border-width-1);
+}

@@ -1,0 +1,77 @@
+{
+  "color": {
+    "alpha": {
+      "black": {
+        "40": {
+          "$value": "#00000066",
+          "$type": "color",
+          "$description": "검정 40% — 라이트 오버레이(식자재 ERP backdrop, D-97)"
+        },
+        "48": {
+          "$value": "#0000007A",
+          "$type": "color",
+          "$description": "검정 48% — 라이트 오버레이(D-14)"
+        },
+        "60": {
+          "$value": "#00000099",
+          "$type": "color",
+          "$description": "검정 60% — 다크 오버레이(식자재 ERP backdrop, D-97)"
+        },
+        "64": {
+          "$value": "#000000A3",
+          "$type": "color",
+          "$description": "검정 64% — 다크 오버레이(D-14)"
+        }
+      },
+      "blue": {
+        "16": {
+          "$value": "#5F91FF29",
+          "$type": "color",
+          "$description": "파랑 400 16% — 다크 정보 · 모듈 erp 바탕(D-97, PR-28 전 alpha.brand.16 값)"
+        }
+      },
+      "neutral": {
+        "16": {
+          "$value": "#9CA3AF29",
+          "$type": "color",
+          "$description": "회색 400 16% — 다크 subtle 바탕(선택 · 배지 · 모듈 카드, D-62)"
+        }
+      },
+      "red": {
+        "16": {
+          "$value": "#F6727029",
+          "$type": "color",
+          "$description": "빨강 400 16% — 다크 subtle 바탕(선택 · 배지 · 모듈 카드, D-62)"
+        }
+      },
+      "green": {
+        "16": {
+          "$value": "#5AB57729",
+          "$type": "color",
+          "$description": "초록 400 16% — 다크 subtle 바탕(선택 · 배지 · 모듈 카드, D-62)"
+        }
+      },
+      "amber": {
+        "16": {
+          "$value": "#FBB85C29",
+          "$type": "color",
+          "$description": "노랑 400 16% — 다크 subtle 바탕(선택 · 배지 · 모듈 카드, D-62)"
+        }
+      },
+      "violet": {
+        "16": {
+          "$value": "#9486FF29",
+          "$type": "color",
+          "$description": "보라 400 16% — 다크 subtle 바탕(선택 · 배지 · 모듈 카드, D-62)"
+        }
+      },
+      "teal": {
+        "16": {
+          "$value": "#5AB8B829",
+          "$type": "color",
+          "$description": "청록 400 16% — 다크 subtle 바탕(선택 · 배지 · 모듈 카드, D-62)"
+        }
+      }
+    }
+  }
+}

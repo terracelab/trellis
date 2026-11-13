@@ -1,0 +1,52 @@
+/* 추천 질문: 감싸는 줄의 알약 단추. 둘레 여백은 놓는 곳이 정한다(Composer 입력 위 · CommandPalette 찾기 칸 아래).
+   칩 모양 값은 CommandPalette의 빠른 질문과 같다(같은 부품을 쓴다) */
+.tl-suggestion-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+.tl-suggestion-chips__chip {
+  max-width: 100%;
+  height: var(--tl-density-control-height-sm);
+  padding: 0 var(--tl-space-12);
+  overflow: hidden;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-full);
+  background: transparent;
+  color: var(--tl-color-fg-secondary);
+  font: inherit;
+  font-size: var(--tl-type-caption-font-size);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--tl-duration-fast) var(--tl-easing-standard),
+    border-color var(--tl-duration-fast) var(--tl-easing-standard),
+    color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-suggestion-chips__chip:hover:not(:disabled),
+.tl-suggestion-chips[data-force-state='hover'] .tl-suggestion-chips__chip {
+  border-color: var(--tl-color-border-strong);
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-suggestion-chips[data-force-state='focus'] .tl-suggestion-chips__chip:first-child {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: var(--tl-border-width-2);
+}
+
+.tl-suggestion-chips__chip[aria-pressed='true'] {
+  border-color: var(--tl-color-border-strong);
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-suggestion-chips__chip:disabled {
+  border-color: var(--tl-color-border-divider);
+  color: var(--tl-color-fg-disabled);
+  cursor: not-allowed;
+}

@@ -1,0 +1,102 @@
+.tl-dialog__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--tl-z-overlay);
+  background: var(--tl-color-bg-overlay);
+  transition: opacity var(--tl-duration-normal) var(--tl-easing-standard);
+}
+
+.tl-dialog__backdrop[data-starting-style],
+.tl-dialog__backdrop[data-ending-style] {
+  opacity: 0;
+}
+
+.tl-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: var(--tl-z-modal);
+  display: flex;
+  flex-direction: column;
+  width: min(calc(var(--tl-space-64) * 8.75), calc(100vw - var(--tl-space-32)));
+  max-height: calc(100dvh - var(--tl-space-64));
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-elevated);
+  color: var(--tl-color-fg-primary);
+  box-shadow: var(--tl-shadow-lg);
+  transform: translate(-50%, -50%);
+  transition:
+    opacity var(--tl-duration-normal) var(--tl-easing-standard),
+    transform var(--tl-duration-normal) var(--tl-easing-standard);
+  outline: 0;
+}
+
+.tl-dialog[data-size='sm'] {
+  width: min(calc(var(--tl-space-64) * 6.25), calc(100vw - var(--tl-space-32)));
+}
+
+.tl-dialog[data-size='lg'] {
+  width: min(calc(var(--tl-space-64) * 12.5), calc(100vw - var(--tl-space-32)));
+}
+
+.tl-dialog[data-starting-style],
+.tl-dialog[data-ending-style] {
+  opacity: 0;
+  transform: translate(-50%, -48%);
+}
+
+.tl-dialog__head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--tl-space-12);
+  padding: var(--tl-space-20) var(--tl-space-24) 0;
+}
+
+.tl-dialog__icon {
+  margin-top: var(--tl-space-4);
+  color: var(--tl-color-status-danger-default);
+}
+
+.tl-dialog__titles {
+  display: grid;
+  flex: 1 1 auto;
+  gap: var(--tl-space-4);
+}
+
+.tl-dialog__title {
+  margin: 0;
+  color: var(--tl-color-fg-strong);
+  font-size: var(--tl-type-h2-font-size);
+  line-height: var(--tl-type-h2-line-height);
+  font-weight: var(--tl-type-h2-font-weight);
+}
+
+.tl-dialog__description {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-body-font-size);
+  line-height: var(--tl-type-body-line-height);
+}
+
+.tl-dialog__body {
+  overflow-y: auto;
+  padding: var(--tl-space-16) var(--tl-space-24);
+  font-size: var(--tl-density-body-font-size);
+}
+
+.tl-dialog__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--tl-space-8);
+  padding: var(--tl-space-12) var(--tl-space-24) var(--tl-space-20);
+}
+
+.tl-dialog__head:last-child {
+  padding-bottom: var(--tl-space-20);
+}
+
+/* 떠 있는 면(bg.elevated) 위 보조 글자: 다크에서 fg.tertiary는 3.56:1이라 secondary로(토큰 값 조정 제안 전까지, notes/contrast-2026-11.md) */
+.tl-dialog {
+  --tl-color-fg-tertiary: var(--tl-color-fg-secondary);
+}

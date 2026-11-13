@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-purchasing-title">
+  <title id="tl-tile-purchasing-title">구매</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-purchasing-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-purchasing-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#AE7BFF"/>
+      <stop offset=".5" stop-color="#7043DC"/>
+      <stop offset="1" stop-color="#41249E"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-purchasing-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-purchasing-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <filter id="tl-tile-purchasing-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-purchasing-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-purchasing-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-purchasing-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-purchasing-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-purchasing-blur)"/>
+    <g transform="rotate(5 500 510)" filter="url(#tl-tile-purchasing-shadow)">
+      <path d="M298 274h66v388c0 45 36 81 81 81h304v67H430c-73 0-132-59-132-132V274Z" fill="url(#tl-tile-purchasing-white)"/>
+      <rect x="383" y="318" width="244" height="213" rx="28" fill="#FFFFFF"/>
+      <path d="M383 370h244" stroke="#C8D3DE" stroke-width="10"/>
+      <path d="M505 318v213" stroke="#C8D3DE" stroke-width="10"/>
+      <rect x="534" y="535" width="210" height="178" rx="27" fill="#E6ECF3"/>
+      <path d="M534 580h210M639 535v178" stroke="#B9C7D6" stroke-width="10"/>
+      <circle cx="447" cy="803" r="48" fill="#213760"/>
+      <circle cx="694" cy="803" r="48" fill="#213760"/>
+    </g>
+  </g>
+</svg>

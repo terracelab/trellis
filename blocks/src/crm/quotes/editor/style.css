@@ -1,0 +1,105 @@
+/* 견적서 작성: 품목 줄(수량 · 단가 · 할인율) · 합계 띠 · 이전 견적 · 미리 보기 조건 */
+.tl-block-quote-span {
+  grid-column: 1 / -1;
+}
+
+.tl-block-quote-totals {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--tl-space-16);
+  padding: var(--tl-space-16);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-block-quote-totals[data-compact] {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.tl-block-quote-totals__korean {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+}
+
+.tl-block-quote-history {
+  display: grid;
+  gap: var(--tl-space-8);
+}
+
+.tl-block-quote-history__title {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-block-quote-history__list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-block-quote-history__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-height: var(--tl-density-row-height);
+  padding-block: var(--tl-space-4);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-quote-history__row:last-child {
+  border-bottom: 0;
+}
+
+.tl-block-quote-history__amount {
+  font-variant-numeric: var(--tl-font-numeric);
+  text-align: right;
+}
+
+.tl-block-quote-terms {
+  margin: 0;
+  padding: var(--tl-space-12);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-md);
+  color: var(--tl-color-fg-secondary);
+  font: inherit;
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-body-line-height);
+  white-space: pre-wrap;
+}
+
+.tl-block-quote-due {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+}
+
+@media (max-width: 1279px) {
+  .tl-block-quote-totals {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1023px) {
+  .tl-block-quote-totals,
+  .tl-block-quote-totals[data-compact] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* 버튼 넷이 좁은 화면에서 넘치지 않게 줄을 바꾼다 */
+@media (max-width: 1023px) {
+  /* inner-override: ActionBar에 좁은 화면에서 단추 줄을 바꾸는 prop이 없다(보강 요청) */
+  .tl-block-quote-bar .tl-action-bar__actions {
+    flex: 1 1 auto;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+}

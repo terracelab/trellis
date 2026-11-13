@@ -1,0 +1,53 @@
+---
+// 컴포넌트 목록 — manifest.components를 기본 · 차트로 나눠 보여 준다. 스토리 · VRT가 생기면 상태가 '안정'으로 바뀐다
+// lang="en"이면 /en/ 주소와 spec.en.md의 요약(sync-content가 src/generated/components.en.json에 쓴다)을 쓴다
+import manifest from '@terracelab/trellis-react/docs/manifest.json';
+import en from '../generated/components.en.json';
+import { withBase } from '../lib/site';
+
+interface Props {
+  lang?: 'ko' | 'en';
+}
+const { lang = 'ko' } = Astro.props;
+const isEn = lang === 'en';
+const summaries: Record<string, string> = en.summaries;
+const T = isEn
+  ? { core: 'Core components', chart: 'Charts and data visualization', stable: 'Stable', preview: 'Preview', examples: 'examples', web: 'Web', native: 'Web · Native', prefix: '/en' }
+  : { core: '기본 컴포넌트', chart: '차트 · 데이터 시각화', stable: '안정', preview: '미리보기', examples: '예시', web: '웹', native: '웹 · 네이티브', prefix: '' };
+
+const kebab = (s: string) => s.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+const groups = [
+  [T.core, manifest.components.filter((c) => c.category === 'core')],
+  [T.chart, manifest.components.filter((c) => c.category === 'chart')],
+] as const;
+---
+
+<div class="not-content">
+  {
+    groups.map(([title, list]) => (
+      <>
+        <h2 class="tl-site-cards-title">
+          {title} <span class="tl-site-token-group-n">{list.length}</span>
+        </h2>
+        <ul class="tl-site-cards">
+          {list.map((c) => (
+            <li class="tl-site-card">
+              <a href={withBase(`${T.prefix}/docs/components/${kebab(c.name)}/`)}>
+                <span class="tl-site-card-head">
+                  <strong>{c.name}</strong>
+                  <span class="tl-site-status" data-status={c.status === 'stable' ? 'ready' : 'preview'}>
+                    {c.status === 'stable' ? T.stable : T.preview}
+                  </span>
+                </span>
+                <span class="tl-site-card-desc">{isEn ? summaries[c.name] : c.summary}</span>
+                <span class="tl-site-card-meta">
+                  props {c.props.length} · {T.examples} {c.examples.length} · {c.platforms.native ? T.native : T.web}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </>
+    ))
+  }
+</div>

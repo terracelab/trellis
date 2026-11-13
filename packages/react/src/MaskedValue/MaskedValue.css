@@ -1,0 +1,58 @@
+/* 가린 값 + 보기 단추(PR-30). 글줄 안에 놓이고 표 칸에서도 행 높이를 바꾸지 않는다 */
+.tl-masked-value {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0 var(--tl-space-4);
+  min-width: 0;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+.tl-masked-value__text {
+  color: var(--tl-color-fg-primary);
+  font-variant-numeric: var(--tl-font-numeric);
+  overflow-wrap: anywhere;
+}
+
+.tl-masked-value__timer,
+.tl-masked-value__lock {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-2);
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+/* 잠금 이유는 문장이라 좁은 칸 · 큰 글자에서 줄을 바꾼다(R-44 ④). 아이콘은 첫 줄에 남는다 */
+.tl-masked-value__lock {
+  align-items: flex-start;
+  min-width: 0;
+  white-space: normal;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.tl-masked-value__timer-icon,
+.tl-masked-value__lock-icon {
+  flex: none;
+}
+
+/* 여러 줄이 되어도 아이콘은 첫 줄 가운데(글줄 높이와 아이콘 높이 차의 절반만 내린다) */
+.tl-masked-value__lock-icon {
+  margin-block-start: calc((var(--tl-type-caption-line-height) - var(--tl-size-icon-16)) / 2);
+}
+
+.tl-masked-value__lock {
+  margin-left: var(--tl-space-4);
+}
+
+/* 단추가 글줄 높이를 넘지 않게 위아래를 당긴다(표 행 높이 유지) */
+.tl-masked-value .tl-icon-button {
+  margin-block: calc(
+    (var(--tl-density-body-line-height) - var(--tl-density-control-height-sm)) / 2
+  );
+}

@@ -1,0 +1,71 @@
+.tl-calendar-heatmap {
+  display: grid;
+  gap: var(--tl-space-4);
+  min-width: 0;
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+/* 달력: 7열 × 주 수 행 */
+.tl-calendar-heatmap__weekdays,
+.tl-calendar-heatmap__grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: var(--tl-border-width-2);
+}
+
+.tl-calendar-heatmap__weekdays span {
+  text-align: center;
+  color: var(--tl-color-chart-axis);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-calendar-heatmap__cell {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  min-height: var(--tl-space-24);
+  border-radius: var(--tl-radius-sm);
+  background: var(--tl-color-chart-track);
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-caption-font-size);
+}
+
+.tl-calendar-heatmap__cell[data-empty] {
+  background: transparent;
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-calendar-heatmap__cell[data-level='1'] {
+  background: var(--tl-color-chart-heat-1);
+}
+.tl-calendar-heatmap__cell[data-level='2'] {
+  background: var(--tl-color-chart-heat-2);
+}
+.tl-calendar-heatmap__cell[data-level='3'] {
+  background: var(--tl-color-chart-heat-3);
+}
+.tl-calendar-heatmap__cell[data-level='4'] {
+  background: var(--tl-color-chart-heat-4);
+  color: var(--tl-color-chart-heat-ink);
+}
+.tl-calendar-heatmap__cell[data-level='5'] {
+  background: var(--tl-color-chart-heat-5);
+  color: var(--tl-color-chart-heat-ink);
+}
+
+/* 연간: 주 열 × 7행, 글자 없음 */
+.tl-calendar-heatmap[data-layout='year'] .tl-calendar-heatmap__weekdays {
+  display: none;
+}
+
+.tl-calendar-heatmap[data-layout='year'] .tl-calendar-heatmap__grid {
+  grid-template-columns: repeat(var(--tl-heat-weeks), minmax(0, 1fr));
+  grid-template-rows: repeat(7, minmax(0, 1fr));
+  grid-auto-flow: column;
+}
+
+.tl-calendar-heatmap[data-layout='year'] .tl-calendar-heatmap__cell {
+  min-height: var(--tl-space-8);
+  border-radius: var(--tl-radius-xs);
+}

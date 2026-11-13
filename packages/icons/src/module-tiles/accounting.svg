@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-accounting-title">
+  <title id="tl-tile-accounting-title">회계</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-accounting-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-accounting-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#62C3FF"/>
+      <stop offset=".5" stop-color="#2D87EA"/>
+      <stop offset="1" stop-color="#1552BD"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-accounting-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-accounting-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-accounting-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-accounting-gold" x1="610" y1="600" x2="850" y2="850" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF5B2"/>
+      <stop offset=".35" stop-color="#FFD24F"/>
+      <stop offset=".75" stop-color="#E69510"/>
+      <stop offset="1" stop-color="#AF5703"/>
+    </linearGradient>
+    <filter id="tl-tile-accounting-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-accounting-small" x="-45%" y="-45%" width="200%" height="210%">
+      <feDropShadow dx="4" dy="11" stdDeviation="10" flood-color="#193052" flood-opacity=".28"/>
+    </filter>
+    <filter id="tl-tile-accounting-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-accounting-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-accounting-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-accounting-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-accounting-blur)"/>
+    <g transform="translate(243 175) rotate(-4 250 320)" filter="url(#tl-tile-accounting-shadow)">
+      <path d="M452 47c37 10 60 43 60 81v457l-55 42V101l-5-54Z" fill="url(#tl-tile-accounting-edge)"/>
+      <rect width="468" height="626" rx="76" fill="url(#tl-tile-accounting-white)"/>
+      <rect x="60" y="62" width="348" height="145" rx="34" fill="#D7E2EC"/>
+      <rect x="79" y="81" width="310" height="107" rx="22" fill="#104A75"/>
+      <path d="M108 121h207" stroke="#9CE8FF" stroke-width="13" stroke-linecap="round"/>
+      <g fill="#D9E3EC">
+        <rect x="60" y="255" width="88" height="70" rx="22"/>
+        <rect x="190" y="255" width="88" height="70" rx="22"/>
+        <rect x="60" y="355" width="88" height="70" rx="22"/>
+        <rect x="190" y="355" width="88" height="70" rx="22"/>
+        <rect x="60" y="455" width="88" height="70" rx="22"/>
+        <rect x="190" y="455" width="88" height="70" rx="22"/>
+      </g>
+      <g fill="#2486EA">
+        <rect x="320" y="255" width="88" height="70" rx="22"/>
+        <rect x="320" y="355" width="88" height="70" rx="22"/>
+        <rect x="320" y="455" width="88" height="70" rx="22"/>
+      </g>
+    </g>
+    <g transform="translate(640 696) scale(0.94)" filter="url(#tl-tile-accounting-small)">
+      <path d="M0 80v71c0 38 52 68 116 68s116-30 116-68V80H0Z" fill="#D48108"/>
+      <ellipse cx="116" cy="80" rx="116" ry="68" fill="url(#tl-tile-accounting-gold)"/>
+      <ellipse cx="116" cy="80" rx="88" ry="49" fill="none" stroke="#DF9615" stroke-width="10"/>
+      <path d="M24 131c22 24 56 36 92 36 39 0 72-13 92-36" fill="none" stroke="#FFD75B" stroke-width="7" opacity=".65"/>
+    </g>
+  </g>
+</svg>

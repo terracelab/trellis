@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-inventory-title">
+  <title id="tl-tile-inventory-title">재고</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-inventory-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-inventory-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFCE91"/>
+      <stop offset=".5" stop-color="#F5A524"/>
+      <stop offset="1" stop-color="#CD8600"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-inventory-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-inventory-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-inventory-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-inventory-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-inventory-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-inventory-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-inventory-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#CD8600" opacity=".25" filter="url(#tl-tile-inventory-blur)"/>
+    <g transform="rotate(-3 512 512)">
+      <g>
+        <rect x="237" y="521" width="258" height="237" rx="24" fill="url(#tl-tile-inventory-edge)"/>
+        <rect x="237" y="521" width="237" height="214" rx="22" fill="url(#tl-tile-inventory-white)"/>
+        <path d="M333 521h46v83l-23-12-23 12z" fill="#F5A524"/>
+        <rect x="267" y="680" width="61" height="12" rx="6" fill="#F5A524" opacity=".5"/>
+      </g>
+      <g>
+        <rect x="521" y="521" width="258" height="237" rx="24" fill="url(#tl-tile-inventory-edge)"/>
+        <rect x="521" y="521" width="237" height="214" rx="22" fill="url(#tl-tile-inventory-white)"/>
+        <path d="M617 521h46v83l-23-12-23 12z" fill="#F5A524"/>
+        <rect x="551" y="680" width="61" height="12" rx="6" fill="#F5A524" opacity=".5"/>
+      </g>
+      <g>
+        <rect x="380" y="272" width="258" height="237" rx="24" fill="url(#tl-tile-inventory-edge)"/>
+        <rect x="380" y="272" width="237" height="214" rx="22" fill="url(#tl-tile-inventory-white)"/>
+        <path d="M476 272h46v83l-23-12-23 12z" fill="#F5A524"/>
+        <rect x="410" y="431" width="61" height="12" rx="6" fill="#F5A524" opacity=".5"/>
+      </g>
+    </g>
+  </g>
+</svg>

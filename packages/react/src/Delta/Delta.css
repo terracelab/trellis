@@ -1,0 +1,34 @@
+/* 증감 하나(PR-30). 글줄 안에 놓인다. 색은 인라인 변수(--tl-delta-icon · --tl-delta-text)로 받는다 */
+.tl-delta {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--tl-space-4);
+  min-width: 0;
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+}
+
+.tl-delta[data-size='sm'] {
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-delta__label {
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-delta__value {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-2);
+  color: var(--tl-delta-text, var(--tl-color-fg-secondary));
+  font-weight: var(--tl-font-weight-600);
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+.tl-delta__icon {
+  flex: none;
+  color: var(--tl-delta-icon, var(--tl-color-fg-tertiary));
+}

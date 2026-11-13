@@ -1,0 +1,238 @@
+/* 데모 앱 자체 스타일(tl-demo-*). 화면은 블록이, 틀은 AppShell이 그린다 */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--tl-color-bg-canvas);
+  color: var(--tl-color-fg-primary);
+  font-family: var(--tl-font-family-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.tl-demo-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+}
+
+.tl-demo-user {
+  padding-left: var(--tl-space-8);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  white-space: nowrap;
+}
+
+.tl-demo-nav-foot {
+  /* 사이드바는 브랜드 짙은 면(PR-27): nav 글자 토큰 */
+  color: var(--tl-color-nav-fg-muted);
+  font-size: var(--tl-type-caption-font-size);
+}
+
+.tl-demo-loading,
+.tl-demo-message {
+  display: grid;
+  place-items: center;
+  min-height: 60%;
+  padding: var(--tl-space-40);
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-demo-catalog-tools {
+  max-width: calc(var(--tl-space-64) * 6);
+}
+
+.tl-demo-catalog {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(calc(var(--tl-space-64) * 5), 1fr));
+  gap: var(--tl-density-gutter);
+}
+
+.tl-demo-catalog__item {
+  display: flex;
+  border-radius: var(--tl-radius-lg);
+  color: inherit;
+  text-decoration: none;
+}
+
+.tl-demo-catalog__item > .tl-card {
+  flex: 1 1 auto;
+}
+
+.tl-demo-catalog__item:hover .tl-card {
+  border-color: var(--tl-color-border-strong);
+}
+
+.tl-demo-catalog__intent {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-body-line-height);
+}
+
+.tl-demo-notes {
+  display: grid;
+  gap: var(--tl-space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-demo-note {
+  display: grid;
+  gap: var(--tl-space-4);
+  width: 100%;
+  padding: var(--tl-space-12);
+  border: var(--tl-border-width-1) solid transparent;
+  border-radius: var(--tl-radius-md);
+  background: transparent;
+  color: var(--tl-color-fg-primary);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.tl-demo-note:hover {
+  background: var(--tl-color-bg-canvas);
+}
+
+.tl-demo-note[data-unread] {
+  border-color: var(--tl-color-border-divider);
+  background: var(--tl-color-bg-surface);
+}
+
+.tl-demo-note__module {
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-demo-note__title {
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-demo-note__body {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+}
+
+.tl-demo-note__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+@media (max-width: 1279px) {
+  .tl-demo-user {
+    display: none;
+  }
+}
+
+.tl-demo-theme {
+  display: grid;
+  gap: var(--tl-space-16);
+}
+
+.tl-demo-theme__command {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+}
+
+.tl-demo-theme__command code {
+  color: var(--tl-color-fg-primary);
+  font-family: var(--tl-font-family-sans);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+/* 바 왼쪽의 소개 사이트 링크. 바는 스크롤해도 위에 붙어 있어 어느 화면에서나 보인다 */
+.tl-demo-home {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--tl-space-4);
+  height: var(--tl-density-control-height-sm);
+  padding: 0 var(--tl-space-8);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-500);
+  line-height: var(--tl-type-label-line-height);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.tl-demo-home:hover {
+  border-color: var(--tl-color-border-strong);
+  background: var(--tl-color-bg-sunken);
+}
+
+/* 휴대폰: 바가 좁아 화살표만 남긴다(이름은 aria-label). 누르는 자리는 손가락 크기 */
+@media (max-width: 639px) {
+  .tl-demo-home {
+    justify-content: center;
+    min-width: var(--tl-size-touch-min);
+    height: var(--tl-size-touch-min);
+    padding: 0;
+    border-color: transparent;
+    background: none;
+  }
+
+  .tl-demo-home__text {
+    display: none;
+  }
+}
+
+/* 접근성 설정 서랍 */
+.tl-demo-a11y {
+  display: grid;
+  gap: var(--tl-space-20);
+}
+
+.tl-demo-a11y__scale {
+  display: grid;
+  gap: var(--tl-space-8);
+}
+
+.tl-demo-a11y__label {
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-demo-a11y__hint {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+/* 업무 도우미 옆 칸: 대화가 남는 높이를 채우고 입력은 아래에 붙는다 */
+.tl-demo-assistant__empty {
+  display: grid;
+  flex: 1 1 auto;
+  place-items: center;
+  min-height: 0;
+  padding: var(--tl-space-16);
+  overflow-y: auto;
+}
+
+.tl-demo-assistant__input {
+  padding: var(--tl-space-12) var(--tl-space-16);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  background: var(--tl-color-bg-surface);
+}
+
+@media (max-width: 639px) {
+  .tl-demo-assistant__input {
+    padding-inline: var(--tl-space-12);
+  }
+}

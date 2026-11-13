@@ -1,0 +1,57 @@
+/* 자주 묻는 질문. 값은 전부 --tl-* 변수에서 나온다 */
+.tl-site-faq-head {
+  display: grid;
+  justify-items: center;
+  gap: var(--tl-space-16);
+  padding-block: var(--tl-space-64);
+  text-align: center;
+}
+
+.tl-site-faq-title {
+  margin: 0;
+  font-size: var(--tl-site-hero-size);
+  line-height: 1.26;
+  font-weight: var(--tl-font-weight-600);
+  letter-spacing: var(--tl-font-letter-spacing-tight);
+}
+
+.tl-site-faq-list {
+  display: grid;
+  max-width: calc(var(--tl-space-64) * 11);
+  margin-inline: auto;
+}
+
+.tl-site-faq-item {
+  display: grid;
+  gap: var(--tl-space-8);
+  padding-block: var(--tl-space-24);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-site-faq-item:last-child {
+  border-bottom: 0;
+}
+
+.tl-site-faq-q {
+  margin: 0;
+  /* /faq/#theme 처럼 질문으로 바로 들어오면 붙어 있는 상단 바 아래에 제목이 보이게 한다 */
+  scroll-margin-top: calc(var(--tl-site-bar-height) + var(--tl-space-16));
+  color: var(--tl-color-fg-strong);
+  font-size: var(--tl-type-h2-font-size);
+  line-height: var(--tl-type-h2-line-height);
+  font-weight: var(--tl-font-weight-600);
+  text-wrap: balance;
+}
+
+.tl-site-faq-a {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-body-font-size);
+  line-height: 1.7;
+  text-wrap: pretty;
+}
+
+.tl-site-faq-a a {
+  color: var(--tl-color-fg-link);
+  text-underline-offset: var(--tl-space-4);
+}

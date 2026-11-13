@@ -1,0 +1,54 @@
+name: Sites
+
+# trellis.terracelab.co.kr(apps/docs) · one.terracelab.co.kr(apps/one) → Cloudflare Pages (D-45)
+# 필요: secrets CLOUDFLARE_API_TOKEN · CLOUDFLARE_ACCOUNT_ID, Pages 프로젝트 trellis-docs · terrace-one,
+#       DNS CNAME(docs/plan/notes/sites-hosting.md). 공개(GD 승인) 뒤 repo variable SITE_INDEXABLE=1.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: sites-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: build · check · deploy
+    runs-on: ubuntu-latest
+    environment: sites
+    permissions:
+      contents: read
+      deployments: write
+    env:
+      TRELLIS_FORBIDDEN_WORDS: ${{ secrets.TRELLIS_FORBIDDEN_WORDS }}
+      SITE_INDEXABLE: ${{ vars.SITE_INDEXABLE }}
+      # Cloudflare 키가 등록되기 전에는 검사까지만 하고 배포는 건너뛴다
+      HAS_CLOUDFLARE: ${{ secrets.CLOUDFLARE_API_TOKEN != '' }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm turbo run build --filter=@terracelab/docs... --filter=@terracelab/one...
+      - run: pnpm --filter @terracelab/docs exec playwright install --with-deps chromium
+      - run: pnpm --filter @terracelab/docs check
+      - run: pnpm --filter @terracelab/one check
+      - run: pnpm --filter @terracelab/demo check
+      - name: Deploy trellis.terracelab.co.kr
+        if: env.HAS_CLOUDFLARE == 'true'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy apps/docs/dist --project-name=trellis-docs --branch=${{ github.ref_name }}
+      - name: Deploy one.terracelab.co.kr
+        if: env.HAS_CLOUDFLARE == 'true'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy apps/one/dist --project-name=terrace-one --branch=${{ github.ref_name }}

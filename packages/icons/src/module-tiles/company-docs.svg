@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-company-docs-title">
+  <title id="tl-tile-company-docs-title">전사문서</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-company-docs-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-company-docs-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B18BFF"/>
+      <stop offset=".5" stop-color="#7957EA"/>
+      <stop offset="1" stop-color="#4E2DB9"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-company-docs-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-company-docs-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <filter id="tl-tile-company-docs-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-company-docs-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-company-docs-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-company-docs-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-company-docs-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-company-docs-blur)"/>
+    <g transform="rotate(-4 510 505)" filter="url(#tl-tile-company-docs-shadow)">
+      <path d="M321 186h309l137 137v467c0 40-32 72-72 72H321c-40 0-72-32-72-72V258c0-40 32-72 72-72Z" fill="url(#tl-tile-company-docs-white)"/>
+      <path d="M630 186v112c0 39 31 70 70 70h67" fill="#D0DBE6"/>
+      <path d="m630 186 137 137h-92c-25 0-45-20-45-45v-92Z" fill="#F7FAFD"/>
+      <g fill="#AABACB">
+        <rect x="345" y="435" width="317" height="19" rx="9.5"/>
+        <rect x="345" y="499" width="254" height="19" rx="9.5"/>
+        <rect x="345" y="563" width="290" height="19" rx="9.5"/>
+        <rect x="345" y="627" width="218" height="19" rx="9.5"/>
+      </g>
+      <circle cx="655" cy="694" r="72" fill="#7652E7"/>
+      <path d="M618 694h74M655 657v74" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>

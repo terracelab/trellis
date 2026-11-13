@@ -1,0 +1,8 @@
+# Trellis는 git 하위 모듈(trellis/)로 두고 같은 워크스페이스로 묶는다(D-58).
+# trellis 루트도 넣어야 Trellis 빌드 도구(@types/node · zod 등)가 설치된다.
+# pnpm -r 대신 --filter로 실행한다(trellis 루트의 turbo 스크립트를 부르지 않게).
+packages:
+  - apps/*
+  - trellis
+  - trellis/packages/*
+  - trellis/blocks

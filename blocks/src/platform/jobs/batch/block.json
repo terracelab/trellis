@@ -1,0 +1,25 @@
+{
+  "id": "platform/jobs/batch",
+  "title": "배치 작업",
+  "intent": "정해진 시각에 도는 작업(세금계산서 발행 · 국세청 결과 · 환율 · 재고 마감)의 주기 · 마지막 결과 · 로그를 보고 바로 실행하거나 끈다",
+  "module": "platform",
+  "pattern": "ListDetail",
+  "industries": ["general"],
+  "components": [
+    "PageHeader",
+    "KpiCard",
+    "DataGrid",
+    "StatusDot",
+    "Switch",
+    "Badge",
+    "ModuleIcon",
+    "Drawer",
+    "DescriptionList",
+    "Timeline",
+    "Progress",
+    "Button"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["columns", "detail", "schedule"],
+  "order": 13
+}

@@ -1,0 +1,258 @@
+.tl-payslip {
+  display: grid;
+  gap: var(--tl-space-20);
+  min-width: 0;
+  padding: var(--tl-space-24);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-xl);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-payslip__head {
+  display: grid;
+  gap: var(--tl-space-4);
+}
+
+.tl-payslip__company,
+.tl-payslip__pay-date {
+  margin: 0;
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+}
+
+.tl-payslip__title {
+  margin: 0;
+  font-size: var(--tl-type-h1-font-size);
+  line-height: var(--tl-type-h1-line-height);
+  font-weight: var(--tl-type-h1-font-weight);
+  letter-spacing: var(--tl-type-h1-letter-spacing);
+}
+
+.tl-payslip__mono {
+  color: var(--tl-color-fg-secondary);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+/* 이름 | 값 칸: 넓으면 네 칸, 좁으면 두 칸 */
+.tl-payslip__fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(var(--tl-space-64) * 2.5)), 1fr));
+  gap: var(--tl-space-12) var(--tl-space-20);
+  margin: 0;
+}
+
+.tl-payslip__field {
+  display: grid;
+  gap: var(--tl-space-4);
+  min-width: 0;
+}
+
+.tl-payslip__field dt {
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-payslip__field dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-payslip__field dd.tl-payslip__mono {
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-payslip__section {
+  display: grid;
+  gap: var(--tl-space-12);
+  padding-top: var(--tl-space-16);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-payslip__section-title {
+  margin: 0;
+  font-size: var(--tl-type-h3-font-size);
+  line-height: var(--tl-type-h3-line-height);
+  font-weight: var(--tl-type-h3-font-weight);
+}
+
+.tl-payslip__unit {
+  margin: 0;
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  text-align: right;
+}
+
+.tl-payslip__tables {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: var(--tl-space-24);
+  margin-top: calc(var(--tl-space-12) * -1);
+}
+
+.tl-payslip__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+}
+
+.tl-payslip__caption {
+  padding-bottom: var(--tl-space-8);
+  font-size: var(--tl-type-h3-font-size);
+  line-height: var(--tl-type-h3-line-height);
+  font-weight: var(--tl-type-h3-font-weight);
+  text-align: left;
+}
+
+.tl-payslip__table th,
+.tl-payslip__table td {
+  padding: var(--tl-space-8) 0;
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  font-weight: var(--tl-font-weight-400);
+  text-align: left;
+  vertical-align: top;
+}
+
+.tl-payslip__table thead th {
+  padding-top: 0;
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-payslip__table [data-numeric] {
+  padding-left: var(--tl-space-12);
+  font-variant-numeric: var(--tl-font-numeric);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.tl-payslip__item {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--tl-space-4) var(--tl-space-8);
+}
+
+.tl-payslip__tag {
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-payslip__basis {
+  display: block;
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+/* 합계 줄: 굵은 위 선 + 굵은 글자(바탕을 칠하지 않는다) */
+.tl-payslip__table tfoot th,
+.tl-payslip__table tfoot td {
+  border-top: var(--tl-border-width-2) solid var(--tl-color-border-strong);
+  border-bottom: 0;
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-payslip__net {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--tl-space-8) var(--tl-space-16);
+  margin: 0;
+  padding-top: var(--tl-space-16);
+  border-top: var(--tl-border-width-2) solid var(--tl-color-fg-primary);
+}
+
+.tl-payslip__net-label {
+  font-size: var(--tl-type-h3-font-size);
+  line-height: var(--tl-type-h3-line-height);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-payslip__net-value {
+  display: inline-flex;
+  align-items: baseline;
+  gap: calc(var(--tl-space-4) / 2);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-payslip__net-number {
+  font-size: var(--tl-type-display-font-size);
+  line-height: var(--tl-type-display-line-height);
+  font-weight: var(--tl-type-display-font-weight);
+  letter-spacing: var(--tl-type-display-letter-spacing);
+}
+
+.tl-payslip__net-unit {
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-payslip__note {
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-payslip__loading {
+  display: grid;
+  gap: var(--tl-space-16);
+}
+
+@media (max-width: 639px) {
+  .tl-payslip {
+    padding: var(--tl-space-16);
+  }
+
+  .tl-payslip__tables {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* 인쇄: 테마와 관계없이 흰 종이 · 검은 글자(paper 토큰) */
+@media print {
+  .tl-payslip {
+    border-color: var(--tl-paper-line);
+    background: var(--tl-paper-bg);
+    color: var(--tl-paper-fg);
+    break-inside: avoid;
+  }
+
+  .tl-payslip
+    :is(
+      .tl-payslip__company,
+      .tl-payslip__pay-date,
+      .tl-payslip__mono,
+      .tl-payslip__field dt,
+      .tl-payslip__unit,
+      .tl-payslip__tag,
+      .tl-payslip__basis,
+      .tl-payslip__net-unit,
+      .tl-payslip__note,
+      thead th
+    ) {
+    color: var(--tl-paper-muted);
+  }
+
+  .tl-payslip :is(th, td, .tl-payslip__section) {
+    border-color: var(--tl-paper-line);
+  }
+
+  .tl-payslip :is(tfoot th, tfoot td, .tl-payslip__net) {
+    border-top-color: var(--tl-paper-line-strong);
+  }
+}

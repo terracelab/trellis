@@ -1,0 +1,83 @@
+/* 생산 실적 등록: 현장 터치(넓은 밀도 · lg 컨트롤). 값은 토큰만 */
+.tl-block-wo {
+  min-height: 100%;
+}
+
+.tl-block-wo__list {
+  display: grid;
+  align-content: start;
+  gap: var(--tl-space-12);
+}
+
+.tl-block-wo__machines {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tl-space-12) var(--tl-space-16);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-block-wo__machines li {
+  display: grid;
+  gap: var(--tl-space-4);
+}
+
+.tl-block-wo__figures {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--tl-space-12);
+}
+
+.tl-block-wo__controls {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+}
+
+.tl-block-wo__section {
+  display: grid;
+  gap: var(--tl-space-12);
+  padding-top: var(--tl-space-16);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-wo__lots {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-block-wo__lots li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-height: var(--tl-density-row-height);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-wo__lots li:last-child {
+  border-bottom: 0;
+}
+
+.tl-block-wo__inputs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tl-space-12);
+}
+
+@media (max-width: 639px) {
+  .tl-block-wo__figures {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tl-block-wo__machines {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tl-block-wo__lots li {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+}

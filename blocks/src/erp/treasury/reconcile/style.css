@@ -1,0 +1,78 @@
+/* 은행 대사: 잔액 줄 · 상태 한 줄 · 조정 항목. 두 목록은 DataGrid(카드 안 표) */
+.tl-block-recon-eq {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--tl-space-16);
+}
+
+@media (max-width: 1023px) {
+  .tl-block-recon-eq {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.tl-block-recon-status {
+  margin: var(--tl-space-12) 0 0;
+  padding-top: var(--tl-space-12);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-block-recon-matched {
+  display: grid;
+}
+
+.tl-block-recon-adjusted {
+  display: grid;
+  gap: var(--tl-space-4);
+  padding: var(--tl-space-12) var(--tl-density-card-padding);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-recon-adjusted__title {
+  margin: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-block-recon-adjusted ul {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-block-recon-adjusted li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--tl-space-12);
+  min-height: var(--tl-density-row-height);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+}
+
+.tl-block-recon-adjusted__amount {
+  color: var(--tl-color-finance-expense);
+  font-variant-numeric: var(--tl-font-numeric);
+  text-align: right;
+}
+
+.tl-block-recon-selection {
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+/* 휴대폰: 목록 고르기와 표 사이 간격 */
+@media (max-width: 639px) {
+  .tl-block-recon-adjusted li {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .tl-block-recon-adjusted li > .tl-block-code {
+    grid-column: 1 / -1;
+  }
+}

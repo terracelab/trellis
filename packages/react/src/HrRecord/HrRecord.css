@@ -1,0 +1,153 @@
+/* 인사기록카드: 위 항목 이동 줄 · 가린 정보 단추, 항목마다 굵은 제목 + 라벨 · 값 또는 작은 표.
+   항목 사이는 여백과 가는 구분선만(바탕 · 띠 없음) */
+.tl-hr-record {
+  display: grid;
+  min-width: 0;
+}
+
+.tl-hr-record__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-12);
+  min-width: 0;
+  padding-bottom: var(--tl-space-12);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-hr-record__nav {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-x: auto;
+}
+
+.tl-hr-record__nav ul {
+  display: flex;
+  gap: var(--tl-space-4);
+  width: max-content;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-hr-record__nav-link {
+  display: inline-flex;
+  align-items: center;
+  height: var(--tl-density-control-height-sm);
+  padding-inline: var(--tl-space-12);
+  border-radius: var(--tl-radius-md);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-font-weight-500);
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--tl-duration-fast) var(--tl-easing-standard),
+    color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-hr-record__nav-link:hover {
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-hr-record__reveal {
+  flex: none;
+  margin-inline-start: auto;
+}
+
+.tl-hr-record__section {
+  display: grid;
+  gap: var(--tl-space-16);
+  min-width: 0;
+  padding-block: var(--tl-space-24);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  scroll-margin-top: var(--tl-space-16);
+}
+
+.tl-hr-record__bar + .tl-hr-record__section,
+.tl-hr-record__section:first-child {
+  border-top: 0;
+}
+
+.tl-hr-record__title {
+  margin: 0;
+  color: var(--tl-color-fg-strong);
+  font-size: var(--tl-type-h3-font-size);
+  line-height: var(--tl-type-h3-line-height);
+  font-weight: var(--tl-font-weight-600);
+  letter-spacing: var(--tl-type-h3-letter-spacing);
+  scroll-margin-top: var(--tl-space-16);
+}
+
+.tl-hr-record__title:focus {
+  outline: none;
+}
+
+.tl-hr-record__title:focus-visible {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: var(--tl-border-width-2);
+}
+
+.tl-hr-record__empty {
+  margin: 0;
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+}
+
+/* 작은 표: 머리 회색 · 줄 사이 가는 선, 칸은 줄바꿈해서 가로로 넘치지 않는다 */
+.tl-hr-record__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+}
+
+.tl-hr-record__table th {
+  padding: var(--tl-space-8) var(--tl-space-12) var(--tl-space-8) 0;
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-500);
+  text-align: start;
+  white-space: nowrap;
+}
+
+.tl-hr-record__table td {
+  padding: var(--tl-space-12) var(--tl-space-12) var(--tl-space-12) 0;
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  color: var(--tl-color-fg-primary);
+  vertical-align: top;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+/* 날짜 · 번호 칸은 글자 폭만큼, 남는 폭은 글자 칸이 가진다 */
+.tl-hr-record__table th[data-numeric],
+.tl-hr-record__table td[data-numeric] {
+  width: 1%;
+  padding-inline-end: var(--tl-space-24);
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+.tl-hr-record__table tr:last-child td {
+  border-bottom: 0;
+}
+
+@media (max-width: 640px) {
+  .tl-hr-record__bar {
+    flex-wrap: wrap;
+  }
+
+  .tl-hr-record__reveal {
+    margin-inline-start: 0;
+  }
+
+  .tl-hr-record__table th[data-numeric],
+  .tl-hr-record__table td[data-numeric] {
+    padding-inline-end: var(--tl-space-12);
+    white-space: normal;
+  }
+}

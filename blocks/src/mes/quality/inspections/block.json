@@ -1,0 +1,32 @@
+{
+  "id": "mes/quality/inspections",
+  "title": "품질 검사",
+  "intent": "입고에 연결된 수입 검사와 작업지시에 연결된 공정 검사의 판정을 보고, 불량 유형을 비교하며 불합격 로트의 반품 · 폐기 · 재작업을 정한다",
+  "module": "quality",
+  "pattern": "ListDetail",
+  "industries": ["manufacturing", "distribution", "trade"],
+  "components": [
+    "PageHeader",
+    "Tabs",
+    "Button",
+    "KpiCard",
+    "FilterBar",
+    "Input",
+    "SegmentedControl",
+    "DataGrid",
+    "Badge",
+    "Card",
+    "BarList",
+    "Drawer",
+    "DescriptionList",
+    "Timeline",
+    "Dialog",
+    "Field",
+    "RadioGroup",
+    "QuantityInput",
+    "Textarea"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["columns", "filters", "checks", "dispositions"],
+  "order": 10
+}

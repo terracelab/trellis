@@ -1,0 +1,33 @@
+{
+  "id": "scm/warehouse/receiving",
+  "title": "입고 알림 · 처리",
+  "intent": "도착 알림이 온 입고 건을 골라 받은 수량 · 로트 · 유통기한 · 판정을 입력하고 입고를 확정하거나 반품한다",
+  "module": "warehouse",
+  "pattern": "WarehouseScan",
+  "industries": ["trade", "distribution", "manufacturing"],
+  "components": [
+    "PageHeader",
+    "Tabs",
+    "Card",
+    "Badge",
+    "Stepper",
+    "Banner",
+    "ScanField",
+    "QuantityInput",
+    "Input",
+    "DateField",
+    "SegmentedControl",
+    "DescriptionList",
+    "Attachment",
+    "Timeline",
+    "ActionBar",
+    "Button",
+    "EmptyState",
+    "StatusDot",
+    "SelectableCard",
+    "ReasonDialog"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["list", "inspection", "lotRules", "actions"],
+  "order": 30
+}

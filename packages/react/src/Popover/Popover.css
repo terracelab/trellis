@@ -1,0 +1,84 @@
+/* 트리거에 붙어 열리는 패널. 모양은 Menu · 필터 창과 같은 면(bg.elevated + border.default) */
+.tl-popover__positioner {
+  z-index: var(--tl-z-dropdown);
+  outline: 0;
+}
+
+.tl-popover {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: min(calc(var(--tl-space-64) * 5), var(--available-width));
+  max-height: var(--available-height);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-elevated);
+  color: var(--tl-color-fg-primary);
+  box-shadow: var(--tl-shadow-md);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+  outline: 0;
+  transform-origin: var(--transform-origin);
+  transition:
+    opacity var(--tl-duration-fast) var(--tl-easing-standard),
+    transform var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-popover[data-width='sm'] {
+  width: min(calc(var(--tl-space-64) * 3.75), var(--available-width));
+}
+
+.tl-popover[data-width='lg'] {
+  width: min(calc(var(--tl-space-64) * 6.25), var(--available-width));
+}
+
+.tl-popover[data-starting-style],
+.tl-popover[data-ending-style] {
+  opacity: 0;
+  transform: scale(0.98);
+}
+
+/* 다크는 그림자 대신 면 단계와 선으로 깊이를 낸다(D-55) */
+[data-theme='dark'] .tl-popover {
+  box-shadow: none;
+}
+
+.tl-popover__head {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-height: var(--tl-density-control-height-lg);
+  padding: var(--tl-space-4) var(--tl-space-4) 0 var(--tl-space-12);
+}
+
+.tl-popover__title {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-popover__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--tl-space-4) var(--tl-space-12) var(--tl-space-12);
+  overscroll-behavior: contain;
+}
+
+.tl-popover__footer {
+  display: flex;
+  flex: none;
+  justify-content: flex-end;
+  gap: var(--tl-space-8);
+  padding: var(--tl-space-8) var(--tl-space-12);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+/* 좁은 화면 시트(D-60). 머리 · 여백 · 아래 동작은 _internal/sheet.css */
+.tl-popover-sheet__body {
+  padding: 0 var(--tl-space-8);
+}

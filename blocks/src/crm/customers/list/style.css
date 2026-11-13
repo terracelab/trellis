@@ -1,0 +1,123 @@
+/* 고객: 표 칸(담당 · 미수금 링크) · 360 Drawer(숫자 줄 · 월 매출 · 연락처) */
+.tl-block-crm-name {
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-block-crm-owner {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+.tl-block-crm-link {
+  border-radius: var(--tl-radius-xs);
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-500);
+  font-variant-numeric: var(--tl-font-numeric);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: var(--tl-space-4);
+}
+
+.tl-block-crm-link:is(:hover, :focus-visible) {
+  text-decoration-color: currentcolor;
+}
+
+.tl-block-crm-zero {
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-block-crm-figures {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--tl-space-16);
+  padding: var(--tl-space-16);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-block-crm-section {
+  display: grid;
+  gap: var(--tl-space-8);
+}
+
+.tl-block-crm-section__title {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-block-crm-spark {
+  display: grid;
+  gap: var(--tl-space-4);
+}
+
+/* 스파크라인을 Drawer 폭에 맞춰 늘린다(viewBox 비율 유지) */
+.tl-block-crm-sparkline {
+  width: 100%;
+  height: auto;
+}
+
+.tl-block-crm-spark__legend {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--tl-space-8);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-block-crm-contacts {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-md);
+}
+
+.tl-block-crm-contacts__row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--tl-space-12);
+  padding: var(--tl-space-8) var(--tl-space-12);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-crm-contacts__row:last-child {
+  border-bottom: 0;
+}
+
+.tl-block-crm-contacts__row .tl-badge {
+  margin-left: var(--tl-space-8);
+}
+
+.tl-block-crm-contacts__reach {
+  justify-items: end;
+  text-align: right;
+}
+
+@media (max-width: 1023px) {
+  .tl-block-crm-figures {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tl-block-crm-contacts__row {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .tl-block-crm-contacts__reach {
+    grid-column: 2;
+    justify-items: start;
+    text-align: left;
+  }
+}
+
+/* 좁은 화면에서 고객 칸이 사라지지 않게 표 최소 폭을 두고 상자 안에서 가로로 넘긴다 */
+/* inner-override: DataGrid에 표 최소 폭(auto 열 최소 폭) prop이 없다(보강 요청) */
+.tl-block-crm-grid .tl-data-grid__table {
+  min-width: calc(var(--tl-space-64) * 13.75);
+}

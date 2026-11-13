@@ -1,0 +1,121 @@
+/* 알림 목록 한 줄(PR-32). 점 자리 · (모듈 아이콘) · 제목 줄(제목 · 배지 · 시각) · 본문 두 줄 */
+.tl-notification-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--tl-space-8);
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: var(--tl-space-12) var(--tl-space-12) var(--tl-space-12) var(--tl-space-8);
+  border: 0;
+  border-radius: var(--tl-radius-md);
+  background: none;
+  color: var(--tl-color-fg-primary);
+  font: inherit;
+  text-align: start;
+  text-decoration: none;
+}
+
+.tl-notification-item[data-interactive] {
+  cursor: pointer;
+  transition: background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-notification-item[data-interactive]:hover,
+.tl-notification-item[data-force-state='hover'] {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-notification-item[data-force-state='focus'] {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: calc(-1 * var(--tl-border-width-2));
+}
+
+.tl-notification-item.tl-focusable:focus-visible {
+  outline-offset: calc(-1 * var(--tl-border-width-2));
+}
+
+/* 점 자리: 늘 같은 폭이고 제목 첫 줄 가운데에 점이 선다 */
+.tl-notification-item__mark {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--tl-space-8);
+  height: var(--tl-density-body-line-height);
+}
+
+.tl-notification-item__unread {
+  width: calc(var(--tl-space-4) + var(--tl-border-width-2));
+  height: calc(var(--tl-space-4) + var(--tl-border-width-2));
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-brand-default);
+}
+
+.tl-notification-item__icon {
+  flex: none;
+}
+
+.tl-notification-item__main {
+  display: grid;
+  flex: 1 1 auto;
+  gap: var(--tl-space-2);
+  min-width: 0;
+}
+
+.tl-notification-item__head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+.tl-notification-item__title {
+  flex: 0 1 auto;
+  min-width: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-notification-item[data-unread] .tl-notification-item__title {
+  color: var(--tl-color-fg-strong);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-notification-item__badge {
+  flex: none;
+  align-self: center;
+}
+
+/* 시각은 줄 오른쪽 끝(제목이 길어도 밀리지 않는다) */
+.tl-notification-item__time {
+  flex: none;
+  margin-inline-start: auto;
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+/* 본문은 두 줄까지(전체 글은 알림이 가리키는 화면에) */
+.tl-notification-item__body {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+/* 휴대폰: 줄 전체가 손가락 크기 이상 */
+@media (max-width: 639px) {
+  .tl-notification-item {
+    min-height: var(--tl-size-touch-min);
+  }
+}

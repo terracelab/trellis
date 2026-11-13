@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-channels-title">
+  <title id="tl-tile-channels-title">판매 채널</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-channels-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-channels-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFA29D"/>
+      <stop offset=".5" stop-color="#E5484D"/>
+      <stop offset="1" stop-color="#A31A27"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-channels-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-channels-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-channels-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-channels-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-channels-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-channels-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-channels-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#A31A27" opacity=".25" filter="url(#tl-tile-channels-blur)"/>
+    <g>
+      <rect x="261" y="396" width="502" height="355" rx="22" fill="url(#tl-tile-channels-edge)"/>
+      <rect x="261" y="396" width="480" height="334" rx="20" fill="url(#tl-tile-channels-white)"/>
+      <path d="M257 291h510l47 172H210z" fill="url(#tl-tile-channels-white)"/>
+      <path d="M257 291h85l17 172h-119z" fill="#E5484D"/>
+      <path d="M427 291h85l17 172h-119z" fill="#E5484D"/>
+      <path d="M597 291h85l17 172h-119z" fill="#E5484D"/>
+      <path d="M210 463h604v25c0 18-15 33-33 33H243c-18 0-33-15-33-33z" fill="url(#tl-tile-channels-white)"/>
+      <rect x="309" y="554" width="167" height="176" rx="9" fill="#E5484D" opacity=".8"/>
+      <rect x="522" y="554" width="170" height="117" rx="9" fill="#E5484D" opacity=".45"/>
+      <circle cx="449" cy="650" r="9" fill="#FFFFFF"/>
+    </g>
+  </g>
+</svg>

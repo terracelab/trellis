@@ -1,0 +1,156 @@
+/* 도구 줄: 묶음(단추 · 부품) + 세로 구분선 + 끝 글자. 단추는 IconButton ghost와 같은 토큰, 켠 단추는 바탕 한 단계 */
+.tl-toolbar {
+  --tl-toolbar-size: var(--tl-density-control-height-sm);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tl-space-4);
+  min-width: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-density-body-font-size);
+}
+
+.tl-toolbar[data-size='md'] {
+  --tl-toolbar-size: var(--tl-density-control-height-md);
+}
+
+.tl-toolbar[data-orientation='vertical'] {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+
+.tl-toolbar__group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tl-space-4);
+  min-width: 0;
+}
+
+.tl-toolbar[data-orientation='vertical'] .tl-toolbar__group {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.tl-toolbar__content {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.tl-toolbar__separator {
+  flex: none;
+  align-self: center;
+  width: var(--tl-border-width-1);
+  height: var(--tl-space-20);
+  margin-inline: var(--tl-space-4);
+  background: var(--tl-color-border-divider);
+}
+
+.tl-toolbar[data-orientation='vertical'] .tl-toolbar__separator {
+  width: auto;
+  height: var(--tl-border-width-1);
+  margin: var(--tl-space-4) 0;
+}
+
+.tl-toolbar__button {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tl-space-4);
+  min-width: var(--tl-toolbar-size);
+  height: var(--tl-toolbar-size);
+  padding: 0;
+  border: var(--tl-border-width-1) solid transparent;
+  border-radius: var(--tl-radius-md);
+  background: transparent;
+  color: var(--tl-color-fg-secondary);
+  font: inherit;
+  font-size: var(--tl-type-label-font-size);
+  cursor: pointer;
+  transition:
+    background-color var(--tl-duration-fast) var(--tl-easing-standard),
+    color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-toolbar__button[data-label] {
+  padding-inline: var(--tl-space-8);
+}
+
+.tl-toolbar__button:hover,
+.tl-toolbar[data-force-state='hover']
+  .tl-toolbar__group:first-of-type
+  .tl-toolbar__button:first-of-type {
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-toolbar__button:active,
+.tl-toolbar[data-force-state='active']
+  .tl-toolbar__group:first-of-type
+  .tl-toolbar__button:first-of-type {
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-strong);
+}
+
+.tl-toolbar[data-force-state='focus']
+  .tl-toolbar__group:first-of-type
+  .tl-toolbar__button:first-of-type {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: var(--tl-border-width-2);
+}
+
+/* 켠 단추: 바탕 한 단계 + 링크 글자색(굵은 띠 없이) */
+.tl-toolbar__button[aria-pressed='true'] {
+  background: var(--tl-color-brand-subtle);
+  color: var(--tl-color-fg-link);
+}
+
+.tl-toolbar__button[aria-disabled='true'],
+.tl-toolbar__button[aria-disabled='true']:hover {
+  background: transparent;
+  color: var(--tl-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.tl-toolbar__text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--tl-size-icon-16);
+  font-size: var(--tl-type-body-font-size);
+  line-height: 1;
+}
+
+.tl-toolbar__button[data-text-style='bold'] .tl-toolbar__text {
+  font-weight: var(--tl-font-weight-700);
+}
+
+.tl-toolbar__button[data-text-style='italic'] .tl-toolbar__text {
+  font-style: italic;
+}
+
+.tl-toolbar__button[data-text-style='underline'] .tl-toolbar__text {
+  text-decoration: underline;
+}
+
+.tl-toolbar__button[data-text-style='strike'] .tl-toolbar__text {
+  text-decoration: line-through;
+}
+
+.tl-toolbar__label {
+  white-space: nowrap;
+}
+
+.tl-toolbar__end {
+  margin-left: auto;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-toolbar[data-orientation='vertical'] .tl-toolbar__end {
+  margin: var(--tl-space-4) 0 0;
+}

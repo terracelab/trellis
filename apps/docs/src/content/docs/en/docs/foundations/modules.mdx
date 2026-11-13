@@ -1,0 +1,15 @@
+---
+title: Modules and tiles
+description: Business modules (ERP, groupware, ECM, CRM, distribution, e-commerce, manufacturing) and their illustrated tiles. The sidebar, launcher and notification cards use this list.
+---
+
+import ModuleGrid from '../../../../../components/ModuleGrid.astro';
+
+The module list comes from `@terracelab/trellis-tokens/modules` (modules.json). Labels, icons and badge types are defined there only, and the sidebar, launcher and notification cards use the same list. The labels in modules.json are Korean. This page shows English names for reference. The tile illustrations are in `@terracelab/trellis-icons/module-tiles`. Insert the sprite once in the document, then use `<use href="#tl-tile-<id>">`.
+
+```ts
+import modules from '@terracelab/trellis-tokens/modules';
+import { moduleTileSprite, moduleTileByModule } from '@terracelab/trellis-icons/module-tiles';
+```
+
+<ModuleGrid lang="en" />

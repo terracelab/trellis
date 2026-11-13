@@ -1,0 +1,8 @@
+{
+  "name": "@terracelab/playground",
+  "version": "0.0.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "description": "Theme A 화면 조립 테스트 (P2-12)",
+  "type": "module"
+}

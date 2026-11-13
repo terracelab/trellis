@@ -1,0 +1,13 @@
+/*
+ * 스크롤바(R-37). 마우스 · 윈도우처럼 스크롤바가 늘 보이는 환경에서 밝은 회색 15px 막대가 서지 않게 한다.
+ * 색: 손잡이 border.strong, 홈은 투명. 테마 선택자마다 다시 정해 안쪽에 다른 테마를 걸어도 그 테마 색이다.
+ * 굵기: Trellis 요소(tl-*)와 문서 루트만 thin. 앱이 직접 만든 스크롤 상자는 색만 따른다.
+ * scrollbar-color를 모르는 Safari는 기본 그대로다. 테마 색 체계(color-scheme)는 tokens.css가 넣는다.
+ */
+:where(:root, [data-theme]) {
+  scrollbar-color: var(--tl-color-border-strong) transparent;
+}
+
+:where(html, body, [class^='tl-'], [class*=' tl-']) {
+  scrollbar-width: thin;
+}

@@ -1,0 +1,140 @@
+/* 차트 공통(Recharts 래퍼). 값은 전부 --tl-* 변수. 계열 색은 SVG 속성에 var()로 들어간다 */
+.tl-chart {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  color: var(--tl-color-fg-primary);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-chart .recharts-wrapper,
+.tl-chart .recharts-surface {
+  outline: none;
+}
+
+.tl-chart .recharts-cartesian-axis-tick-value,
+.tl-chart .recharts-text,
+.tl-chart .recharts-label {
+  font-size: var(--tl-type-caption-font-size);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-chart .recharts-label {
+  fill: var(--tl-color-chart-axis);
+}
+
+.tl-chart__end-label {
+  fill: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-caption-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+/* 툴팁 */
+.tl-chart-tooltip {
+  min-width: calc(var(--tl-space-64) * 2);
+  padding: var(--tl-space-8) var(--tl-space-12);
+  background: var(--tl-color-bg-elevated);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-md);
+  box-shadow: var(--tl-shadow-md);
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-chart-tooltip__label {
+  margin-bottom: var(--tl-space-4);
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-chart-tooltip__rows {
+  display: grid;
+  gap: var(--tl-space-4);
+  margin: 0;
+}
+
+.tl-chart-tooltip__row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--tl-space-16);
+}
+
+.tl-chart-tooltip__row dt {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-chart-tooltip__row dd {
+  margin: 0;
+  font-weight: var(--tl-font-weight-600);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-chart-tooltip__swatch {
+  width: var(--tl-space-8);
+  height: var(--tl-space-8);
+  border-radius: var(--tl-radius-xs);
+}
+
+.tl-chart-glyph {
+  width: var(--tl-size-icon-16);
+  height: var(--tl-size-icon-16);
+  flex: none;
+}
+
+/* 첫 그리기(PR-26): 선 · 면은 왼쪽에서 오른쪽으로 드러나고 막대는 바닥(가로 막대는 왼쪽)에서 자란다.
+   데이터가 바뀌어 다시 그릴 때는 같은 요소가 남아 움직이지 않는다. 숫자를 세어 올리지는 않는다 */
+.tl-chart .recharts-line,
+.tl-chart .recharts-area {
+  animation: tl-chart-reveal calc(var(--tl-duration-slower) * 2) var(--tl-easing-enter) both;
+}
+
+.tl-chart .recharts-bar-rectangle {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: tl-chart-grow-y calc(var(--tl-duration-slower) * 2) var(--tl-easing-enter) both;
+}
+
+.tl-bar-list .recharts-bar-rectangle {
+  transform-origin: 0 50%;
+  animation-name: tl-chart-grow-x;
+}
+
+@keyframes tl-chart-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  to {
+    clip-path: inset(0);
+  }
+}
+
+@keyframes tl-chart-grow-y {
+  from {
+    transform: scaleY(0);
+  }
+
+  to {
+    transform: none;
+  }
+}
+
+@keyframes tl-chart-grow-x {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: none;
+  }
+}
+
+/* 차트 라이브러리가 요소에 직접 거는 전환까지 끈다(시간 토큰이 닿지 않는다) */
+@media (prefers-reduced-motion: reduce) {
+  .tl-chart * {
+    transition: none !important;
+  }
+}

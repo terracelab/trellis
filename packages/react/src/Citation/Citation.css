@@ -1,0 +1,143 @@
+/* 출처: list = 답변 아래 번호 붙은 칩 목록(감싸는 줄), inline = 글 안 작은 번호 상자. 색은 중립(출처는 상태가 아니다) */
+.tl-citation[data-layout='list'] {
+  display: grid;
+  gap: var(--tl-space-4);
+  min-width: 0;
+}
+
+.tl-citation__label {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-citation__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tl-space-6) var(--tl-space-8);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-citation__item {
+  display: flex;
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* 칩: 번호 상자 + 문서 이름 + 쪽. 1px 테두리 전체(왼쪽 띠 없음, D-57) */
+.tl-citation__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-6);
+  min-width: 0;
+  max-width: 100%;
+  min-height: var(--tl-density-control-height-sm);
+  padding: 0 var(--tl-space-8) 0 var(--tl-space-4);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-primary);
+  font: inherit;
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  text-align: left;
+  text-decoration: none;
+  transition:
+    background-color var(--tl-duration-fast) var(--tl-easing-standard),
+    border-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+:is(a, button).tl-citation__chip {
+  cursor: pointer;
+}
+
+:is(a, button).tl-citation__chip:hover,
+.tl-citation[data-force-state='hover'] .tl-citation__item:first-child .tl-citation__chip {
+  border-color: var(--tl-color-border-strong);
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-citation[data-force-state='focus'] .tl-citation__item:first-child .tl-citation__chip,
+.tl-citation[data-force-state='focus'] .tl-citation__marker:first-child {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: var(--tl-border-width-2);
+}
+
+.tl-citation__index {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--tl-space-20);
+  height: var(--tl-space-20);
+  padding: 0 var(--tl-space-4);
+  border-radius: var(--tl-radius-xs);
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-secondary);
+  font-weight: var(--tl-font-weight-600);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-citation__title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-citation__location {
+  flex: none;
+  color: var(--tl-color-fg-secondary);
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+.tl-citation__external {
+  flex: none;
+  color: var(--tl-color-fg-tertiary);
+}
+
+/* ── 글 안 번호 ── */
+.tl-citation[data-layout='inline'] {
+  display: inline-flex;
+  gap: var(--tl-space-2);
+  margin-inline: var(--tl-space-2) 0;
+  vertical-align: text-top;
+}
+
+.tl-citation__marker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--tl-space-16);
+  height: var(--tl-space-16);
+  padding: 0 var(--tl-space-4);
+  border: 0;
+  border-radius: var(--tl-radius-xs);
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-secondary);
+  font: inherit;
+  font-size: var(--tl-type-micro-font-size);
+  line-height: 1;
+  font-weight: var(--tl-font-weight-600);
+  font-variant-numeric: var(--tl-font-numeric);
+  text-decoration: none;
+  transition:
+    background-color var(--tl-duration-fast) var(--tl-easing-standard),
+    color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+:is(a, button).tl-citation__marker {
+  cursor: pointer;
+}
+
+:is(a, button).tl-citation__marker:hover,
+.tl-citation[data-force-state='hover'] .tl-citation__marker:first-child {
+  background: var(--tl-color-brand-subtle);
+  color: var(--tl-color-fg-primary);
+}

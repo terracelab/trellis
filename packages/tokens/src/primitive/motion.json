@@ -1,0 +1,82 @@
+{
+  "duration": {
+    "100": {
+      "$value": "100ms",
+      "$type": "duration"
+    },
+    "150": {
+      "$value": "150ms",
+      "$type": "duration"
+    },
+    "200": {
+      "$value": "200ms",
+      "$type": "duration"
+    },
+    "300": {
+      "$value": "300ms",
+      "$type": "duration"
+    },
+    "fast": {
+      "$value": "{duration.100}",
+      "$type": "duration",
+      "$description": "hover · active · 선택 바뀜(배경 · 글자색 · 테두리), 작은 팝업(Menu · Popover · Tooltip)"
+    },
+    "normal": {
+      "$value": "{duration.150}",
+      "$type": "duration",
+      "$description": "대화 상자 · 화면 들어오기 · 접기"
+    },
+    "slow": {
+      "$value": "{duration.200}",
+      "$type": "duration",
+      "$description": "서랍 · 탭 밑줄 · 사이드바 덮개"
+    },
+    "slower": {
+      "$value": "{duration.300}",
+      "$type": "duration",
+      "$description": "아래 시트 · 토스트 · 진행 막대 폭"
+    },
+    "spin": {
+      "$value": "900ms",
+      "$type": "duration",
+      "$description": "도는 것 한 바퀴(Spinner)"
+    },
+    "pulse": {
+      "$value": "1500ms",
+      "$type": "duration",
+      "$description": "반복 표시 한 주기(스켈레톤 · 깜빡임 · 진행 줄)"
+    },
+    "essential": {
+      "$value": "900ms",
+      "$type": "duration",
+      "$description": "움직임 줄이기에서도 0이 되지 않는 시간. 상태를 알리는 회전(Spinner)만 쓴다(식자재 ERP animate-spin 예외, D-97)"
+    }
+  },
+  "easing": {
+    "standard": {
+      "$value": [0.2, 0, 0, 1],
+      "$type": "cubicBezier",
+      "$description": "기본 전환. 가안(G2 승인 항목, D-21)"
+    },
+    "decelerate": {
+      "$value": [0, 0, 0, 1],
+      "$type": "cubicBezier",
+      "$description": "들어올 때. 가안(G2 승인 항목, D-21)"
+    },
+    "accelerate": {
+      "$value": [0.3, 0, 1, 1],
+      "$type": "cubicBezier",
+      "$description": "나갈 때. 가안(G2 승인 항목, D-21)"
+    },
+    "enter": {
+      "$value": "{easing.decelerate}",
+      "$type": "cubicBezier",
+      "$description": "나타날 때"
+    },
+    "exit": {
+      "$value": "{easing.accelerate}",
+      "$type": "cubicBezier",
+      "$description": "사라질 때"
+    }
+  }
+}

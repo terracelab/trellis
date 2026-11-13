@@ -1,0 +1,460 @@
+/* 테라스원 소개 사이트. 미리보기 CSS(@terracelab/preview/styles.css) 위에 사이트 크롬만 얹는다. --tl-* 변수만 */
+
+.tl-site-one {
+  scroll-padding-top: calc(var(--tl-layout-global-bar-height) + var(--tl-space-16));
+}
+
+/* 390 배치는 태블릿에서도 쓰이므로 열 폭을 조금 넓힌다 */
+.tl-site-one[data-width='390'] .tl-preview-frame {
+  max-width: calc(var(--tl-space-64) * 10);
+}
+
+.tl-site-skip {
+  position: absolute;
+  top: calc(var(--tl-space-64) * -1);
+  left: var(--tl-space-16);
+  z-index: var(--tl-z-toast);
+  padding: var(--tl-space-8) var(--tl-space-12);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-elevated);
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-site-skip:focus {
+  top: var(--tl-space-8);
+}
+
+/* ── 상단 바 ──────────────────────────────────────────────── */
+.tl-site-bar {
+  position: sticky;
+  top: 0;
+  z-index: var(--tl-z-sticky);
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-24);
+  min-height: calc(var(--tl-layout-global-bar-height) + var(--tl-space-8));
+  padding-inline: var(--tl-layout-gutter-default);
+  background: var(--tl-color-bg-surface);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-site-brand {
+  display: flex;
+  align-items: baseline;
+  gap: var(--tl-space-8);
+  color: var(--tl-color-fg-primary);
+  text-decoration: none;
+}
+
+.tl-site-brand-name {
+  font-size: var(--tl-type-h2-font-size);
+  line-height: var(--tl-type-h2-line-height);
+  font-weight: var(--tl-font-weight-700);
+  letter-spacing: var(--tl-type-h2-letter-spacing);
+}
+
+.tl-site-brand-sub {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-site-nav {
+  display: flex;
+  gap: var(--tl-space-4);
+  align-self: stretch;
+}
+
+.tl-site-nav a {
+  display: inline-flex;
+  align-items: center;
+  padding-inline: var(--tl-space-12);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-500);
+  text-decoration: none;
+}
+
+.tl-site-nav a:hover {
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-site-bar-side {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  margin-left: auto;
+}
+
+.tl-site-theme {
+  height: var(--tl-density-control-height-md);
+  padding-inline: var(--tl-space-12);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-secondary);
+  font: inherit;
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-500);
+  cursor: pointer;
+}
+
+.tl-site-theme[aria-pressed='true'] {
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-site-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  height: var(--tl-density-control-height-md);
+  padding-inline: var(--tl-space-12);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-brand-default);
+  color: var(--tl-color-brand-on-brand);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+  text-decoration: none;
+}
+
+.tl-site-cta:hover {
+  background: var(--tl-color-brand-hover);
+}
+
+.tl-site-nav a:focus-visible,
+.tl-site-theme:focus-visible,
+.tl-site-cta:focus-visible,
+.tl-site-brand:focus-visible,
+.tl-site-foot a:focus-visible {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: var(--tl-border-width-2);
+}
+
+/* ── 섹션 머리 ────────────────────────────────────────────── */
+.tl-site-section {
+  display: grid;
+  gap: var(--tl-space-32);
+  scroll-margin-top: calc(var(--tl-layout-global-bar-height) + var(--tl-space-24));
+}
+
+.tl-site-head {
+  display: grid;
+  gap: var(--tl-space-8);
+  max-width: 64ch;
+}
+
+.tl-site-eyebrow {
+  margin: 0;
+  color: var(--tl-color-fg-link);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-site-title {
+  margin: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: calc(var(--tl-type-display-font-size) * 1.15);
+  line-height: 1.3;
+  font-weight: var(--tl-type-display-font-weight);
+  letter-spacing: var(--tl-type-display-letter-spacing);
+  word-break: keep-all;
+}
+
+.tl-site-lead {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-h3-font-size);
+  line-height: 1.7;
+  word-break: keep-all;
+}
+
+/* ── 모듈 20 ──────────────────────────────────────────────── */
+.tl-site-modules {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--tl-space-16);
+}
+
+.tl-site-module-col {
+  display: grid;
+  align-content: start;
+  gap: var(--tl-space-12);
+  padding: var(--tl-space-20);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-xl);
+  background: var(--tl-color-bg-surface);
+}
+
+.tl-site-module-head {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  margin: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-h2-font-size);
+  line-height: var(--tl-type-h2-line-height);
+  font-weight: var(--tl-type-h2-font-weight);
+}
+
+.tl-site-module-dot {
+  width: var(--tl-space-12);
+  height: var(--tl-space-12);
+  border-radius: var(--tl-radius-full);
+}
+
+.tl-site-module-count {
+  margin-left: auto;
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-500);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-site-module-line {
+  margin: 0 0 var(--tl-space-8);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+}
+
+.tl-site-module-list {
+  display: grid;
+  gap: var(--tl-space-12);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-site-module {
+  display: grid;
+  grid-template-columns: var(--tl-size-module-icon-40) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--tl-space-12);
+}
+
+.tl-site-module-text {
+  display: grid;
+  min-width: 0;
+}
+
+.tl-site-module-text strong {
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-body-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-site-module-text span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+}
+
+/* ── 구축 방식 · 업종 ─────────────────────────────────────── */
+.tl-site-steps,
+.tl-site-industries {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--tl-space-16);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-site-industries > li {
+  display: flex;
+}
+
+.tl-site-step,
+.tl-site-industry {
+  display: grid;
+  align-content: start;
+  gap: var(--tl-space-8);
+  padding: var(--tl-space-20);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-xl);
+  background: var(--tl-color-bg-surface);
+}
+
+.tl-site-step-no {
+  display: inline-grid;
+  place-items: center;
+  width: var(--tl-space-32);
+  height: var(--tl-space-32);
+  margin-bottom: var(--tl-space-4);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-brand-subtle);
+  color: var(--tl-color-fg-link);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-site-step strong,
+.tl-site-industry strong {
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-h3-font-size);
+}
+
+.tl-site-step p,
+.tl-site-industry p {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: 1.6;
+  word-break: keep-all;
+}
+
+.tl-site-industry {
+  flex: 1 1 auto;
+  color: inherit;
+  text-decoration: none;
+}
+
+.tl-site-industry:hover {
+  border-color: var(--tl-color-border-strong);
+}
+
+.tl-site-industry:focus-visible {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: var(--tl-border-width-2);
+}
+
+.tl-site-industry-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tl-space-8);
+}
+
+.tl-site-badge {
+  flex: none;
+  padding: 0 var(--tl-space-8);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-brand-subtle);
+  color: var(--tl-color-fg-link);
+  font-size: var(--tl-type-caption-font-size);
+  font-weight: var(--tl-font-weight-600);
+  line-height: 1.8;
+}
+
+/* ── Trellis ──────────────────────────────────────────────── */
+.tl-site-trellis {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--tl-space-48);
+  padding: var(--tl-space-48);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-xl);
+  background: var(--tl-color-bg-surface);
+}
+
+.tl-site-trellis-copy {
+  display: grid;
+  gap: var(--tl-space-16);
+}
+
+.tl-site-facts {
+  display: grid;
+  gap: var(--tl-space-12);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-site-facts li {
+  display: grid;
+  gap: var(--tl-space-4);
+  padding: var(--tl-space-16) var(--tl-space-20);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-surface);
+}
+
+.tl-site-facts strong {
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-h3-font-size);
+}
+
+.tl-site-facts span {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: 1.6;
+}
+
+/* ── 바닥 ─────────────────────────────────────────────────── */
+.tl-site-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tl-space-8) var(--tl-space-24);
+  padding: var(--tl-space-24) var(--tl-layout-gutter-default) var(--tl-space-40);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+}
+
+.tl-site-foot a {
+  color: var(--tl-color-fg-link);
+}
+
+/* ── 폭별 배치(미리보기와 같은 data-width) ───────────────── */
+.tl-site-one[data-width='1024'] .tl-site-modules,
+.tl-site-one[data-width='1024'] .tl-site-steps,
+.tl-site-one[data-width='1024'] .tl-site-industries {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.tl-site-one[data-width='390'] .tl-site-modules,
+.tl-site-one[data-width='390'] .tl-site-steps,
+.tl-site-one[data-width='390'] .tl-site-industries,
+.tl-site-one[data-width='390'] .tl-site-trellis {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.tl-site-one[data-width='390'] .tl-site-trellis {
+  padding: var(--tl-space-24);
+}
+
+.tl-site-one[data-width='390'] .tl-site-nav,
+.tl-site-one[data-width='390'] .tl-site-brand-sub {
+  display: none;
+}
+
+.tl-site-one[data-width='390'] .tl-site-bar {
+  gap: var(--tl-space-12);
+  padding-inline: var(--tl-space-16);
+}
+
+.tl-site-one[data-width='390'] .tl-site-title {
+  font-size: var(--tl-type-display-font-size);
+}
+
+/* 바의 보조 링크(Trellis 문서) */
+.tl-site-link {
+  padding: 0 var(--tl-space-8);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-500);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.tl-site-link:hover {
+  color: var(--tl-color-fg-primary);
+  text-decoration: underline;
+}
+
+.tl-site-link:focus-visible {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: var(--tl-border-width-2);
+  border-radius: var(--tl-radius-xs);
+}
+
+.tl-site-one[data-width='390'] .tl-site-link {
+  display: none;
+}
+
+.tl-site-lead a {
+  color: var(--tl-color-fg-link);
+}

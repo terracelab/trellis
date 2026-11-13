@@ -1,0 +1,13 @@
+/* 우클릭 · 길게 누르기 메뉴를 받는 영역. 상자를 만들지 않아 감싼 목록의 배치(높이 채우기 · 격자)를 바꾸지 않는다.
+   팝업 · 항목 · 시트는 Menu와 같은 모양이라 tl-menu · tl-menu__* · tl-menu-sheet__* 클래스를 함께 쓴다(Menu.css) */
+.tl-context-menu {
+  display: contents;
+  -webkit-touch-callout: none;
+}
+
+/* 손가락으로 길게 누를 때 글자 선택이 먼저 잡히지 않게(터치 기기만) */
+@media (hover: none) {
+  .tl-context-menu:not([data-disabled]) {
+    user-select: none;
+  }
+}

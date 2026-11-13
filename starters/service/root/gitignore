@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
+# pnpm check 결과(스크린샷 · result.json)
+check-results/

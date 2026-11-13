@@ -1,0 +1,285 @@
+.tl-approval-line {
+  --tl-approval-line-gap: var(--tl-space-16);
+  display: flex;
+  align-items: stretch;
+  gap: var(--tl-approval-line-gap);
+  /* 부모가 flex · grid여도 결재선이 줄어든다(R-T14) */
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+  padding: 0 0 var(--tl-space-4);
+  overflow-x: auto;
+  list-style: none;
+}
+
+.tl-approval-line__step {
+  position: relative;
+  display: flex;
+  flex: 0 0 calc(var(--tl-space-64) * 2);
+  flex-direction: column;
+  box-sizing: border-box;
+  min-width: 0;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-surface);
+}
+
+/* 칸 사이 선 */
+.tl-approval-line__step + .tl-approval-line__step::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  width: var(--tl-approval-line-gap);
+  height: var(--tl-border-width-1);
+  margin-right: var(--tl-border-width-1);
+  background: var(--tl-color-border-default);
+}
+
+.tl-approval-line__role {
+  padding: var(--tl-space-4) var(--tl-space-8);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-md) var(--tl-radius-md) 0 0;
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-weight: var(--tl-font-weight-600);
+  text-align: center;
+}
+
+.tl-approval-line__body {
+  display: grid;
+  flex: 1 1 auto;
+  justify-items: center;
+  align-content: start;
+  gap: var(--tl-space-4);
+  min-width: 0;
+  padding: var(--tl-space-8);
+  text-align: center;
+}
+
+.tl-approval-line__person {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-approval-line__name {
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-approval-line__title {
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+}
+
+.tl-approval-line__badge {
+  display: inline-flex;
+}
+
+.tl-approval-line__time {
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-approval-line__comment {
+  /*
+   * 한 줄 자르기(nowrap) 글자 폭이 결재선과 부모의 최소 폭을 넓히지 않게 글자 폭을 빼고 잰다(R-T14).
+   * 폭은 칸이 정한다(가로 칸은 stretch, 세로 · 좁은 화면은 flex 100%). 루트에 contain을 걸면
+   * 내용 폭으로 크기를 정하는 부모(flex auto)에서 결재선 전체가 0으로 접혀 의견 칸에만 건다
+   */
+  contain: inline-size;
+  justify-self: stretch;
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 지금 결재할 사람 */
+.tl-approval-line__step[data-status='pending'] {
+  border-color: var(--tl-color-approval-pending-default);
+  box-shadow: 0 0 0 var(--tl-border-width-1) var(--tl-color-approval-pending-default);
+}
+
+.tl-approval-line__step[data-status='pending'] .tl-approval-line__role {
+  background: var(--tl-color-approval-pending-subtle);
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-approval-line__step[data-status='waiting'] .tl-approval-line__name {
+  color: var(--tl-color-fg-secondary);
+}
+
+/* 세로: 역할 칸을 왼쪽에, 의견은 아래 줄 전체 */
+.tl-approval-line[data-orientation='vertical'] {
+  --tl-approval-line-gap: var(--tl-space-12);
+  flex-direction: column;
+  overflow-x: visible;
+}
+
+.tl-approval-line[data-orientation='vertical'] .tl-approval-line__step {
+  flex: none;
+  flex-direction: row;
+}
+
+.tl-approval-line[data-orientation='vertical']
+  .tl-approval-line__step
+  + .tl-approval-line__step::before {
+  top: auto;
+  right: auto;
+  bottom: 100%;
+  left: calc(var(--tl-space-64) / 2);
+  width: var(--tl-border-width-1);
+  height: var(--tl-approval-line-gap);
+  margin: 0 0 var(--tl-border-width-1);
+}
+
+.tl-approval-line[data-orientation='vertical'] .tl-approval-line__role {
+  display: flex;
+  flex: 0 0 var(--tl-space-64);
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border-right: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-bottom: 0;
+  border-radius: var(--tl-radius-md) 0 0 var(--tl-radius-md);
+}
+
+.tl-approval-line[data-orientation='vertical'] .tl-approval-line__body {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--tl-space-4) var(--tl-space-8);
+  text-align: left;
+}
+
+.tl-approval-line[data-orientation='vertical'] .tl-approval-line__time {
+  margin-left: auto;
+}
+
+.tl-approval-line[data-orientation='vertical'] .tl-approval-line__comment {
+  flex: 1 0 100%;
+}
+
+/* 좁은 화면(640 미만)에서는 가로 결재선도 세로로 쌓는다(가로 스크롤 대신) */
+@media (max-width: 639px) {
+  .tl-approval-line[data-orientation='horizontal'] {
+    --tl-approval-line-gap: var(--tl-space-12);
+    flex-direction: column;
+    overflow-x: visible;
+  }
+
+  .tl-approval-line[data-orientation='horizontal'] .tl-approval-line__step {
+    flex: none;
+    flex-direction: row;
+  }
+
+  .tl-approval-line[data-orientation='horizontal']
+    .tl-approval-line__step
+    + .tl-approval-line__step::before {
+    top: auto;
+    right: auto;
+    bottom: 100%;
+    left: calc(var(--tl-space-64) / 2);
+    width: var(--tl-border-width-1);
+    height: var(--tl-approval-line-gap);
+    margin: 0 0 var(--tl-border-width-1);
+  }
+
+  .tl-approval-line[data-orientation='horizontal'] .tl-approval-line__role {
+    display: flex;
+    flex: 0 0 var(--tl-space-64);
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border-right: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+    border-bottom: 0;
+    border-radius: var(--tl-radius-md) 0 0 var(--tl-radius-md);
+  }
+
+  .tl-approval-line[data-orientation='horizontal'] .tl-approval-line__body {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--tl-space-4) var(--tl-space-8);
+    text-align: left;
+  }
+
+  .tl-approval-line[data-orientation='horizontal'] .tl-approval-line__time {
+    margin-left: auto;
+  }
+
+  .tl-approval-line[data-orientation='horizontal'] .tl-approval-line__comment {
+    flex: 1 0 100%;
+  }
+}
+
+/* ── compact(R-T24): 결재 5색 점 + "2/3 합의" 한 줄. 표 칸 · 목록 행에 ── */
+.tl-approval-line[data-variant='compact'] {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  padding: 0;
+  overflow: visible;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+  white-space: nowrap;
+}
+
+.tl-approval-line__dots {
+  display: inline-flex;
+  flex: none;
+  gap: var(--tl-space-4);
+}
+
+/* 대기는 빈 원, 나머지는 결재 5색으로 채운 원 */
+.tl-approval-line__dot {
+  box-sizing: border-box;
+  width: var(--tl-space-8);
+  height: var(--tl-space-8);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-strong);
+  border-radius: var(--tl-radius-full);
+}
+
+.tl-approval-line__dot[data-status='draft'] {
+  border-color: var(--tl-color-approval-draft-default);
+  background: var(--tl-color-approval-draft-default);
+}
+
+.tl-approval-line__dot[data-status='pending'] {
+  border-color: var(--tl-color-approval-pending-default);
+  background: var(--tl-color-approval-pending-default);
+}
+
+.tl-approval-line__dot[data-status='approved'] {
+  border-color: var(--tl-color-approval-approved-default);
+  background: var(--tl-color-approval-approved-default);
+}
+
+.tl-approval-line__dot[data-status='rejected'] {
+  border-color: var(--tl-color-approval-rejected-default);
+  background: var(--tl-color-approval-rejected-default);
+}
+
+.tl-approval-line__dot[data-status='withdrawn'] {
+  border-color: var(--tl-color-approval-withdrawn-default);
+  background: var(--tl-color-approval-withdrawn-default);
+}
+
+.tl-approval-line__summary {
+  font-variant-numeric: var(--tl-font-numeric);
+}

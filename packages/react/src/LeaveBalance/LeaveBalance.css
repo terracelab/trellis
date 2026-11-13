@@ -1,0 +1,190 @@
+.tl-leave-balance__body {
+  --tl-leave-balance-used: var(--tl-color-brand-default);
+  --tl-leave-balance-planned: color-mix(
+    in srgb,
+    var(--tl-color-brand-default) 40%,
+    var(--tl-color-bg-surface)
+  );
+
+  display: grid;
+  gap: var(--tl-space-12);
+}
+
+.tl-leave-balance__summary {
+  display: grid;
+  justify-items: start;
+  gap: var(--tl-space-4);
+}
+
+.tl-leave-balance__label {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-type-label-font-weight);
+}
+
+.tl-leave-balance__value {
+  display: flex;
+  align-items: baseline;
+  gap: calc(var(--tl-space-4) / 2);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-leave-balance__number {
+  color: var(--tl-color-fg-strong);
+  font-size: var(--tl-type-display-font-size);
+  line-height: var(--tl-type-display-line-height);
+  font-weight: var(--tl-type-display-font-weight);
+  letter-spacing: var(--tl-type-display-letter-spacing);
+}
+
+.tl-leave-balance__unit {
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-leave-balance__advance {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-leave-balance__advance .tl-icon {
+  color: var(--tl-color-status-warning-default);
+}
+
+/* 사용 · 예정은 칠하고 남은 몫은 바탕(track) */
+.tl-leave-balance__bar {
+  display: flex;
+  height: var(--tl-space-8);
+  overflow: hidden;
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-chart-track);
+}
+
+.tl-leave-balance__seg {
+  flex: none;
+  inline-size: var(--tl-leave-balance-size);
+  height: 100%;
+  background: var(--tl-leave-balance-used);
+  transition: inline-size var(--tl-duration-slow) var(--tl-easing-standard);
+}
+
+.tl-leave-balance__seg[data-kind='planned'] {
+  background: var(--tl-leave-balance-planned);
+}
+
+.tl-leave-balance__figures {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tl-space-4) var(--tl-space-20);
+  margin: 0;
+}
+
+.tl-leave-balance__figures > div {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-leave-balance__figures dt {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-leave-balance__figures [data-kind='used'] dt::before,
+.tl-leave-balance__figures [data-kind='planned'] dt::before {
+  content: '';
+  width: var(--tl-space-8);
+  height: var(--tl-space-8);
+  border-radius: var(--tl-radius-xs);
+  background: var(--tl-leave-balance-used);
+}
+
+.tl-leave-balance__figures [data-kind='planned'] dt::before {
+  background: var(--tl-leave-balance-planned);
+}
+
+.tl-leave-balance__figures dd {
+  margin: 0;
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-600);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+/* 소멸일 · 사용 촉진: 아이콘 + 글자 한 줄(틴트 배경 없음) */
+.tl-leave-balance__line {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--tl-space-8);
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+}
+
+.tl-leave-balance__line-icon {
+  flex: none;
+  margin-top: calc((var(--tl-type-label-line-height) - var(--tl-size-icon-16)) / 2);
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-leave-balance__line[data-kind='promotion'] {
+  padding-top: var(--tl-space-12);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-leave-balance__line[data-kind='promotion'] .tl-leave-balance__line-icon {
+  color: var(--tl-color-status-warning-default);
+}
+
+.tl-leave-balance__types {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  list-style: none;
+}
+
+.tl-leave-balance__type {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(var(--tl-space-48), auto);
+  align-items: baseline;
+  gap: var(--tl-space-12);
+  padding-block: var(--tl-space-8);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+}
+
+.tl-leave-balance__type-name {
+  overflow: hidden;
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-500);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-leave-balance__type-usage {
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-leave-balance__type-left {
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-600);
+  font-variant-numeric: var(--tl-font-numeric);
+  text-align: right;
+}

@@ -1,0 +1,30 @@
+{
+  "id": "groupware/approval/draft",
+  "title": "기안 작성",
+  "intent": "양식을 고르고 제목 · 본문 · 첨부를 쓴 뒤 결재선과 참조자를 사람 검색으로 정해 결재 요청한다",
+  "module": "approval",
+  "pattern": "FormRegister",
+  "industries": ["trade", "distribution", "commerce", "manufacturing", "general"],
+  "components": [
+    "PageHeader",
+    "Badge",
+    "Card",
+    "FormSection",
+    "Field",
+    "Select",
+    "Input",
+    "ApprovalLineEditor",
+    "CodeSearch",
+    "ApprovalLine",
+    "DateField",
+    "AmountInput",
+    "Textarea",
+    "FileUpload",
+    "ActionBar",
+    "Button",
+    "Dialog"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["templates", "defaultLine", "formFields", "attachments"],
+  "order": 30
+}

@@ -1,0 +1,232 @@
+.tl-side-nav {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  /* 사이드바는 브랜드 가장 짙은 면(PR-27). 위 글자 · 아이콘은 nav 토큰만 쓴다 */
+  background: var(--tl-color-bg-nav);
+  color: var(--tl-color-nav-fg);
+  font-size: var(--tl-density-body-font-size);
+}
+
+/* 짙은 면 위 포커스 링은 nav.focus(3:1) */
+.tl-side-nav .tl-focusable:focus-visible {
+  outline-color: var(--tl-color-nav-focus);
+}
+
+.tl-side-nav__header {
+  padding: var(--tl-space-12);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-nav-border);
+}
+
+.tl-side-nav__scroll {
+  display: grid;
+  align-content: start;
+  gap: var(--tl-space-12);
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--tl-space-12) var(--tl-space-8);
+  /* 짙은 면 위 스크롤바(R-37): 평소 nav.hover로 가라앉고, 가리키거나 키보드로 들어오면 nav.fgMuted.
+     펼친 사이드바는 자리를 늘 비워 두어 스크롤바가 생겨도 항목이 옆으로 밀리지 않는다.
+     접힌 사이드바(64)는 비워 두면 아이콘이 가운데에서 비켜나므로 비우지 않는다 */
+  scrollbar-color: var(--tl-color-nav-hover) transparent;
+}
+
+.tl-side-nav:not([data-collapsed]) .tl-side-nav__scroll {
+  scrollbar-gutter: stable;
+}
+
+.tl-side-nav__scroll:is(:hover, :focus-within) {
+  scrollbar-color: var(--tl-color-nav-fg-muted) transparent;
+}
+
+.tl-side-nav__footer {
+  padding: var(--tl-space-12);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-nav-border);
+}
+
+.tl-side-nav__section {
+  display: grid;
+  gap: var(--tl-space-4);
+}
+
+.tl-side-nav__section-head {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  width: 100%;
+  height: var(--tl-density-control-height-sm);
+  padding: 0 var(--tl-space-8);
+  border: 0;
+  border-radius: var(--tl-radius-sm);
+  background: transparent;
+  color: var(--tl-color-nav-fg-muted);
+  font: inherit;
+  font-size: var(--tl-type-caption-font-size);
+  font-weight: var(--tl-font-weight-600);
+  text-align: left;
+  transition: color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+button.tl-side-nav__section-head {
+  cursor: pointer;
+}
+
+button.tl-side-nav__section-head:hover {
+  color: var(--tl-color-nav-fg-active);
+}
+
+.tl-side-nav__section-label {
+  flex: 1 1 auto;
+}
+
+.tl-side-nav__section-meta {
+  color: var(--tl-color-nav-fg-muted);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-side-nav__dot {
+  width: var(--tl-space-8);
+  height: var(--tl-space-8);
+  flex: none;
+  border-radius: var(--tl-radius-full);
+}
+
+.tl-side-nav__list {
+  display: grid;
+  gap: var(--tl-border-width-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-side-nav__list .tl-side-nav__list {
+  margin-top: var(--tl-border-width-2);
+  /* 하위 메뉴 묶음은 한 단계 짙은 면(식자재 ERP sidebar-sub, D-97) */
+  padding-block: var(--tl-space-4);
+  border-radius: var(--tl-radius-sm);
+  background: var(--tl-color-nav-sub);
+}
+
+.tl-side-nav__item {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  width: 100%;
+  height: var(--tl-density-row-height);
+  padding: 0 var(--tl-space-8);
+  border: 0;
+  border-radius: var(--tl-radius-md);
+  background: transparent;
+  color: var(--tl-color-nav-fg);
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--tl-duration-fast) var(--tl-easing-standard),
+    color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-side-nav__item[data-depth='0'] {
+  font-weight: var(--tl-font-weight-500);
+}
+
+/* 하위 항목은 부모 글자 시작에 아이콘을 맞춘다: 여백 8 + 아이콘 20 + 간격 8 */
+.tl-side-nav__item[data-depth='1'] {
+  padding-left: calc(var(--tl-space-8) + var(--tl-size-icon-20) + var(--tl-space-8));
+  color: var(--tl-color-nav-fg-muted);
+}
+
+.tl-side-nav__item:hover,
+.tl-side-nav__item:active,
+.tl-side-nav:is([data-force-state='hover'], [data-force-state='active'])
+  .tl-side-nav__item[data-depth='0']:not([data-active]) {
+  background: var(--tl-color-nav-hover);
+  color: var(--tl-color-nav-fg-active);
+}
+
+/* 스토리 · VRT의 강제 포커스: 지금 화면 항목에 짙은 면 위 포커스 링 */
+.tl-side-nav[data-force-state='focus'] .tl-side-nav__item[data-active] {
+  outline: var(--tl-border-width-2) solid var(--tl-color-nav-focus);
+  outline-offset: calc(var(--tl-border-width-2) * -1);
+}
+
+/* 지금 화면: 한 단계 밝은 면 + 흰 굵은 글자. 왼쪽 띠는 없다(D-56) */
+.tl-side-nav__item[data-active] {
+  background: var(--tl-color-nav-selected);
+  color: var(--tl-color-nav-fg-active);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-side-nav__icon {
+  flex: none;
+  color: var(--tl-color-nav-fg-muted);
+  transition: color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-side-nav__item:hover .tl-side-nav__icon,
+.tl-side-nav__item[data-active] .tl-side-nav__icon {
+  color: var(--tl-color-nav-fg-active);
+}
+
+.tl-side-nav__icon-gap {
+  width: var(--tl-size-icon-20);
+  flex: none;
+}
+
+.tl-side-nav__label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 건수는 알약 없이 작은 숫자 글자(D-56 · PR-26). 지연 · 오류만 위험 색 글자 */
+.tl-side-nav__count {
+  flex: none;
+  color: var(--tl-color-nav-fg-active);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-weight: var(--tl-font-weight-600);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+/* 지연 · 오류 건수: 짙은 면에서 빨간 글자는 대비가 모자라 흰 숫자 앞 빨간 점으로 보인다 */
+.tl-side-nav__count[data-tone='danger'] {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+}
+
+.tl-side-nav__count[data-tone='danger']::before {
+  content: '';
+  width: calc(var(--tl-space-4) + var(--tl-border-width-2));
+  height: calc(var(--tl-space-4) + var(--tl-border-width-2));
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-status-danger-default);
+}
+
+.tl-side-nav__chevron {
+  color: var(--tl-color-nav-fg-muted);
+}
+
+.tl-side-nav[data-collapsed] .tl-side-nav__label,
+.tl-side-nav[data-collapsed] .tl-side-nav__count,
+.tl-side-nav[data-collapsed] .tl-side-nav__chevron,
+.tl-side-nav[data-collapsed] .tl-side-nav__icon-gap {
+  display: none;
+}
+
+.tl-side-nav[data-collapsed] .tl-side-nav__item {
+  justify-content: center;
+  padding: 0;
+}
+
+/* 접힌 묶음 안에 지금 화면이 있다(R-42): 머리 글자를 지금 화면 색 · 한 단계 굵게. 화면 낭독기에는 숨은 글로 알린다 */
+.tl-side-nav__section-head[data-has-active] {
+  color: var(--tl-color-nav-fg-active);
+  font-weight: var(--tl-font-weight-700);
+}

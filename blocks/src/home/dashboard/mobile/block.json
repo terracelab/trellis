@@ -1,0 +1,24 @@
+{
+  "id": "home/dashboard/mobile",
+  "title": "휴대폰 홈",
+  "intent": "휴대폰에서 출퇴근을 기록하고 바로 가기(휴가 신청 · 결재함 · 임금명세서 · 일정)를 엄지로 누르며 오늘 할 일과 남은 연차를 본다",
+  "module": "home",
+  "pattern": "NotificationHome",
+  "industries": ["trade", "distribution", "commerce", "manufacturing", "general"],
+  "components": [
+    "PageHeader",
+    "TimeClock",
+    "ModuleIcon",
+    "Card",
+    "Icon",
+    "Badge",
+    "DueBadge",
+    "StatusDot",
+    "LeaveBalance",
+    "EmptyState",
+    "Button"
+  ],
+  "sizes": [390],
+  "slots": ["quickActions", "tasks", "leave"],
+  "order": 4
+}

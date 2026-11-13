@@ -1,0 +1,51 @@
+{
+  "name": "@terracelab/trellis-contracts",
+  "version": "1.0.0",
+  "description": "웹·네이티브 공통 컴포넌트 contract 타입과 spec",
+  "type": "module",
+  "license": "Apache-2.0",
+  "keywords": [
+    "trellis",
+    "terracelab",
+    "design-system",
+    "typescript",
+    "formatting"
+  ],
+  "homepage": "https://trellis.terracelab.co.kr",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/terracelab/trellis.git",
+    "directory": "packages/contracts"
+  },
+  "bugs": {
+    "url": "https://github.com/terracelab/trellis/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "@terracelab/source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "NOTICE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@terracelab/trellis-tokens": "workspace:*",
+    "@terracelab/trellis-icons": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "~6.0.3"
+  }
+}

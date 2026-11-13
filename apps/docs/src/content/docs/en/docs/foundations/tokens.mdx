@@ -1,0 +1,20 @@
+---
+title: Tokens
+description: All Trellis tokens. Semantic colors (light and dark), density, spacing, radius, type and shadow, with CSS variable names and values.
+---
+
+import TokenTable from '../../../../../components/TokenTable.astro';
+
+The values are provisional and will be fixed at the G2 approval. The names (CSS variables) are frozen at G1. Renaming or removing a token is a major version. The swatches in the tables are painted with CSS variables, so the theme switch at the top right changes them right away.
+
+Two token groups follow Korean business conventions. In the finance colors, income and increases are red, and expenses and decreases are blue. The approval colors cover the five approval states (draft, in progress, approved, rejected and withdrawn).
+
+```css
+/* How to use */
+.panel {
+  background: var(--tl-color-bg-surface);
+  padding: var(--tl-density-card-padding);
+}
+```
+
+<TokenTable lang="en" />

@@ -1,0 +1,55 @@
+/* 카드 밖 구역 제목(PR-38). 화면 제목(h1 28) < 구역 제목(type.h2) > 카드 제목(type.h3) */
+.tl-section-header {
+  display: grid;
+  gap: var(--tl-space-12);
+  min-width: 0;
+}
+
+.tl-section-header__head {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--tl-space-12);
+  min-width: 0;
+}
+
+.tl-section-header__titles {
+  display: grid;
+  flex: 1 1 auto;
+  gap: var(--tl-space-4);
+  min-width: 0;
+}
+
+.tl-section-header__title {
+  margin: 0;
+  color: var(--tl-color-fg-strong);
+  font-size: var(--tl-type-h2-font-size);
+  line-height: var(--tl-type-h2-line-height);
+  font-weight: var(--tl-type-h2-font-weight);
+  letter-spacing: var(--tl-type-h2-letter-spacing);
+}
+
+/* 건수: 제목 뒤 흐린 숫자(알약 · 배지 아님). 숫자는 tabular. 앞 공백 글자 + space.4 */
+.tl-section-header__count {
+  margin-inline-start: var(--tl-space-4);
+  color: var(--tl-color-fg-tertiary);
+  font-weight: var(--tl-font-weight-500);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-section-header__description {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+}
+
+.tl-section-header__action {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--tl-space-8);
+}
+
+.tl-section-header__body {
+  min-width: 0;
+}

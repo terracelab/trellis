@@ -1,0 +1,32 @@
+{
+  "id": "erp/hr-payroll/employees",
+  "title": "인사 기록",
+  "intent": "사원을 부서 · 직급 · 입사일 · 재직 상태로 찾고, 프로필 · 재직 정보 · 연차 잔여 · 발령 이력을 본 뒤 승진 · 전보 · 휴직 발령을 등록한다",
+  "module": "hr-payroll",
+  "pattern": "ListDetail",
+  "industries": ["trade", "distribution", "manufacturing", "commerce", "general"],
+  "components": [
+    "PageHeader",
+    "Tabs",
+    "FilterBar",
+    "Input",
+    "Select",
+    "DataGrid",
+    "PersonLabel",
+    "StatusDot",
+    "DataBar",
+    "Drawer",
+    "ProfileHeader",
+    "HrRecord",
+    "Banner",
+    "DescriptionList",
+    "Progress",
+    "Button",
+    "Dialog",
+    "Field",
+    "DateField"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["siblings", "columns", "filters", "profile", "appointments"],
+  "order": 20
+}

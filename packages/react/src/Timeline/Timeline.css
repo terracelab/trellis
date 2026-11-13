@@ -1,0 +1,103 @@
+.tl-timeline {
+  display: grid;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-timeline__item {
+  display: grid;
+  grid-template-columns: var(--tl-size-icon-24) minmax(0, 1fr);
+  column-gap: var(--tl-space-12);
+  min-width: 0;
+}
+
+.tl-timeline__rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tl-timeline__marker {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  border-radius: var(--tl-radius-full);
+}
+
+/* 점: 제목 첫 줄 가운데에 맞춘다 */
+.tl-timeline__marker[data-kind='dot'] {
+  width: var(--tl-space-8);
+  height: var(--tl-space-8);
+  margin-block: calc((var(--tl-type-label-line-height) - var(--tl-space-8)) / 2);
+  background: var(--tl-timeline-accent);
+  box-shadow: 0 0 0 var(--tl-border-width-2) var(--tl-color-bg-surface);
+}
+
+.tl-timeline__marker[data-kind='icon'] {
+  width: var(--tl-size-icon-24);
+  height: var(--tl-size-icon-24);
+  margin-top: calc((var(--tl-type-label-line-height) - var(--tl-size-icon-24)) / 2);
+  background: var(--tl-timeline-accent-bg);
+  color: var(--tl-timeline-accent);
+}
+
+.tl-timeline__line {
+  flex: 1 1 auto;
+  width: var(--tl-border-width-2);
+  min-height: var(--tl-space-8);
+  margin-block: var(--tl-space-4);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-border-divider);
+}
+
+.tl-timeline__item:last-child .tl-timeline__line {
+  visibility: hidden;
+}
+
+.tl-timeline__content {
+  display: grid;
+  align-content: start;
+  gap: var(--tl-space-4);
+  min-width: 0;
+  padding-bottom: var(--tl-space-16);
+}
+
+.tl-timeline__item:last-child .tl-timeline__content {
+  padding-bottom: 0;
+}
+
+.tl-timeline[data-dense] .tl-timeline__content {
+  gap: 0;
+  padding-bottom: var(--tl-space-8);
+}
+
+.tl-timeline__title {
+  margin: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-timeline__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tl-space-8);
+  margin: 0;
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-timeline__time {
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-timeline__description {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}

@@ -1,0 +1,292 @@
+---
+// 컴포넌트 목록. 구성: 머리(개수 · 한 문장 · 설치와 문서) → 왼쪽 검색과 이름 목록 → 묶음마다 미리보기 카드.
+// 미리보기는 문서와 같은 예시 파일(packages/react/src/<Name>/<Name>.examples.tsx)을 빌드 때 서버에서 그린 것이다.
+// 보여 주기용이라 카드 안은 inert이고, 카드를 누르면 그 컴포넌트의 문서로 간다.
+import '../../styles/components.css';
+import { moduleTileSprite } from '@terracelab/trellis-icons/module-tiles';
+import { Input } from '@terracelab/trellis-react';
+import { createElement } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+import GalleryChart, { HYDRATED } from '../../components/GalleryChart';
+import { GALLERY, type GalleryItem } from '../../components/GalleryGroups';
+import Base from '../../layouts/Base.astro';
+import { exampleOf } from '../../lib/examples';
+import { FACTS, LINKS, kebab, to } from '../../lib/site';
+
+const title = '컴포넌트 · Trellis';
+const description = `Trellis의 React 컴포넌트 ${FACTS.components}종을 묶음별 미리보기로 봅니다. 기본 컴포넌트 ${FACTS.components - FACTS.charts}종과 차트 ${FACTS.charts}종입니다.`;
+
+/** 첫 예시 대신 보일 예시. 첫 예시가 닫힌 단추만 그릴 때 내용이 보이는 예시로 바꾼다 */
+const EXAMPLE: Record<string, string> = {
+  Toast: 'Tones',
+};
+
+/**
+ * 미리보기 폭. 기본은 내용이 원하는 폭이고, 부모 폭을 채워야 모양이 나오는 것만 폭을 정해 준다
+ * (sm 320 · md 448 · lg 640 · xl 1024). 여기 없는데 폭이 0으로 나오는 예시는 스크립트가 md로 그린다
+ */
+const STAGE: Record<string, 'sm' | 'md' | 'lg' | 'xl'> = {
+  AppShell: 'lg',
+  ApprovalLineEditor: 'md',
+  Banner: 'md',
+  BarList: 'md',
+  ChartCard: 'md',
+  ComboChart: 'md',
+  DeadlineStrip: 'lg',
+  FileViewer: 'md',
+  PermissionMatrix: 'lg',
+  SelectableCard: 'md',
+  Skeleton: 'sm',
+  TrendChart: 'md',
+  WaterfallChart: 'md',
+  WorkTimeline: 'lg',
+};
+
+const failed: string[] = [];
+const exampleFor = (item: GalleryItem) => EXAMPLE[item.name] ?? item.examples[0];
+function preview(item: GalleryItem) {
+  const example = exampleFor(item);
+  // 브라우저에서 켜는 차트는 아래 템플릿에서 GalleryChart가 그린다
+  if (!example || HYDRATED.includes(item.name)) return null;
+  try {
+    const html = renderToStaticMarkup(createElement(exampleOf(item.name, example)), {
+      identifierPrefix: `${kebab(item.name)}-`,
+    });
+    // 예시 안의 h1(PageHeader · 종이 제목)은 페이지의 h1이 아니다. 카드 제목 아래 단계로 낮춘다(페이지에 h1은 하나)
+    const demoted = html.replace(/<(\/?)h1\b/g, '<$1h4');
+    return demoted.trim() ? demoted : null;
+  } catch (error) {
+    failed.push(`${item.name}.${example}: ${error instanceof Error ? error.message : String(error)}`);
+    return null;
+  }
+}
+
+const groups = GALLERY.map((group) => ({
+  ...group,
+  cards: group.items.map((item) => ({
+    ...item,
+    id: `c-${kebab(item.name)}`,
+    html: preview(item),
+    live: HYDRATED.includes(item.name) ? exampleFor(item) : undefined,
+  })),
+}));
+if (failed.length) console.warn(`컴포넌트 목록: 서버에서 못 그린 예시 ${failed.length}개\n- ${failed.join('\n- ')}`);
+if (process.env.GALLERY_DEBUG)
+  for (const g of groups)
+    for (const c of g.cards)
+      console.log(`[gallery] ${g.id} ${c.name} ${c.live ? 'LIVE' : c.html === null ? 'EMPTY' : c.html.length}`);
+---
+
+<Base title={title} description={description} page="components">
+  <Fragment set:html={moduleTileSprite} />
+  <div class="tl-site-sheet">
+    <div class="tl-site-gallery">
+    <header class="tl-site-gallery-head">
+      <h1 class="tl-site-title">컴포넌트 {FACTS.components}종</h1>
+      <p class="tl-site-lead">
+        기본 컴포넌트 {FACTS.components - FACTS.charts}종과 차트 {FACTS.charts}종입니다. 카드를 누르면 props와 예시가 있는
+        문서로 갑니다.
+      </p>
+      <div class="tl-site-actions">
+        <a class="tl-button tl-focusable" data-variant="primary" data-size="lg" href={LINKS.start}>설치 안내</a>
+        <a class="tl-button tl-focusable" data-variant="secondary" data-size="lg" href={to('docs/components/')}>문서에서 보기</a>
+      </div>
+    </header>
+
+    <aside class="tl-site-gallery-side" aria-label="컴포넌트 찾기">
+      <div class="tl-site-gallery-search" role="search" data-gallery-search>
+        <Input type="search" icon="search" label="컴포넌트 검색" placeholder="이름 · 설명" />
+        <p class="tl-site-gallery-count" data-gallery-count aria-live="polite">{FACTS.components}개</p>
+      </div>
+      <nav class="tl-site-gallery-jump" aria-label="묶음">
+        {groups.map((g) => <a href={`#g-${g.id}`} data-gallery-jump={g.id}>{g.label}</a>)}
+      </nav>
+      <nav class="tl-site-gallery-nav" aria-label="컴포넌트 이름">
+        {
+          groups.map((g) => (
+            <div class="tl-site-gallery-nav-group" data-gallery-nav={g.id}>
+              <p class="tl-site-gallery-nav-title" id={`n-${g.id}`}>{g.label}</p>
+              <ul aria-labelledby={`n-${g.id}`}>
+                {g.cards.map((c) => (
+                  <li data-gallery-item={c.id}>
+                    <a href={`#${c.id}`}>{c.name}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </nav>
+    </aside>
+
+    <div class="tl-site-gallery-main">
+      {
+        groups.map((g) => (
+          <section class="tl-site-gallery-group" id={`g-${g.id}`} aria-labelledby={`g-${g.id}-h`} data-gallery-group={g.id}>
+            <header class="tl-site-gallery-group-head">
+              <h2 class="tl-site-gallery-group-title" id={`g-${g.id}-h`}>{g.label}</h2>
+              <p class="tl-site-gallery-group-count" data-gallery-total={g.cards.length}>{g.cards.length}종</p>
+            </header>
+            <ul class="tl-site-gallery-grid">
+              {g.cards.map((c) => (
+                <li
+                  class="tl-site-gallery-card"
+                  id={c.id}
+                  data-gallery-card
+                  data-search={`${c.name} ${c.summary}`.toLowerCase()}
+                >
+                  <div
+                    class="tl-site-gallery-well"
+                    data-gallery-well
+                    data-empty={(c.html === null && !c.live) || undefined}
+                    inert
+                  >
+                    {c.live ? (
+                      <div class="tl-site-gallery-stage" data-stage={STAGE[c.name]} data-live>
+                        <GalleryChart component={c.name} example={c.live} client:visible />
+                      </div>
+                    ) : (
+                      c.html !== null && (
+                        <div class="tl-site-gallery-stage" data-stage={STAGE[c.name]} set:html={c.html} />
+                      )
+                    )}
+                  </div>
+                  <h3 class="tl-site-gallery-name">
+                    <a href={LINKS.component(c.name)}>{c.name}</a>
+                  </h3>
+                  <p class="tl-site-gallery-summary">{c.summary}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+      <div class="tl-site-gallery-empty" data-gallery-empty hidden>
+        <p class="tl-site-text">찾는 글자가 들어간 컴포넌트가 없습니다.</p>
+        <button type="button" class="tl-button tl-focusable" data-variant="secondary" data-size="md" data-gallery-reset>
+          검색 지우기
+        </button>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    // 미리보기를 칸에 맞춘다: 폭에 맞춰 줄이고(바닥 0.4배), 조금 넘치는 높이는 더 줄이고, 많이 넘치면 위에서부터 보이고 자른다.
+    // 맞춘 뒤에 보이게 해서(data-fit) 크기가 바뀌는 순간이 안 보인다. 스크립트가 안 돌면 CSS가 기본 배율로 보인다.
+    (function () {
+      var FLOOR = 0.4;
+      var wells = Array.prototype.slice.call(document.querySelectorAll('[data-gallery-well]'));
+      function fit(list) {
+        var jobs = [];
+        // 쓰기 → 읽기 → 쓰기로 나눠 배치를 한 번만 계산한다
+        list.forEach(function (well) {
+          var stage = well.firstElementChild;
+          if (!stage || !well.clientWidth) return;
+          stage.style.zoom = '1';
+          jobs.push({ well: well, stage: stage });
+        });
+        jobs.forEach(function (job) {
+          // 폭을 정해 주지 않았는데 0으로 나오면 부모 폭이 필요한 예시다
+          if (job.stage.offsetWidth < 8 && !job.stage.hasAttribute('data-stage'))
+            job.stage.setAttribute('data-stage', 'md');
+        });
+        jobs.forEach(function (job) {
+          var style = getComputedStyle(job.well);
+          job.width = job.well.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+          job.height = job.well.clientHeight - parseFloat(style.paddingTop) - parseFloat(style.paddingBottom);
+          job.w = job.stage.offsetWidth;
+          job.h = job.stage.offsetHeight;
+        });
+        jobs.forEach(function (job) {
+          if (!job.w || !job.h) return;
+          var byWidth = Math.min(1, job.width / job.w);
+          var byHeight = job.height / job.h;
+          var zoom = byHeight >= byWidth ? byWidth : byHeight >= byWidth * 0.7 ? byHeight : byWidth;
+          zoom = Math.max(FLOOR, zoom);
+          job.stage.style.zoom = String(zoom);
+          job.well.toggleAttribute('data-crop', job.h * zoom > job.height + 1);
+          job.well.toggleAttribute('data-crop-x', job.w * zoom > job.width + 1);
+          job.well.setAttribute('data-fit', '');
+        });
+      }
+      function fitAll() {
+        fit(wells);
+      }
+      fitAll();
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
+      var timer;
+      window.addEventListener('resize', function () {
+        clearTimeout(timer);
+        timer = setTimeout(fitAll, 120);
+      });
+      // 검색으로 다시 보이는 카드는 숨어 있던 동안 폭이 0이었다
+      document.addEventListener('tl-site-gallery-filter', fitAll);
+      // 브라우저에서 켜는 차트는 그려진 뒤 크기가 바뀐다
+      if ('ResizeObserver' in window) {
+        var observer = new ResizeObserver(function (entries) {
+          fit(
+            entries.map(function (entry) {
+              return entry.target.parentElement;
+            }),
+          );
+        });
+        document.querySelectorAll('.tl-site-gallery-stage[data-live]').forEach(function (stage) {
+          observer.observe(stage);
+        });
+      }
+    })();
+  </script>
+
+  <script>
+    // 검색: 이름과 설명에서 찾는다. 맞는 카드가 없는 묶음은 숨기고, Esc로 지운다.
+    const input = document.querySelector<HTMLInputElement>('[data-gallery-search] input');
+    const count = document.querySelector<HTMLElement>('[data-gallery-count]');
+    const empty = document.querySelector<HTMLElement>('[data-gallery-empty]');
+    const reset = document.querySelector<HTMLButtonElement>('[data-gallery-reset]');
+    const cards = [...document.querySelectorAll<HTMLElement>('[data-gallery-card]')];
+
+    function apply() {
+      const query = (input?.value ?? '').trim().toLowerCase();
+      let shown = 0;
+      for (const card of cards) {
+        const hit = !query || (card.dataset['search'] ?? '').includes(query);
+        card.hidden = !hit;
+        const item = document.querySelector<HTMLElement>(`[data-gallery-item="${card.id}"]`);
+        if (item) item.hidden = !hit;
+        if (hit) shown += 1;
+      }
+      for (const group of document.querySelectorAll<HTMLElement>('[data-gallery-group]')) {
+        const visible = group.querySelectorAll('[data-gallery-card]:not([hidden])').length;
+        const any = visible > 0;
+        const id = group.dataset['galleryGroup'];
+        group.hidden = !any;
+        // 묶음 제목 옆 숫자는 찾는 동안 보이는 카드 수, 지우면 전체 수
+        const total = group.querySelector<HTMLElement>('[data-gallery-total]');
+        if (total) total.textContent = `${query ? visible : total.dataset['galleryTotal']}종`;
+        for (const el of document.querySelectorAll<HTMLElement>(
+          `[data-gallery-nav="${id}"], [data-gallery-jump="${id}"]`,
+        ))
+          el.hidden = !any;
+      }
+      if (count) count.textContent = `${shown}개`;
+      if (empty) empty.hidden = shown > 0;
+      document.dispatchEvent(new CustomEvent('tl-site-gallery-filter'));
+    }
+
+    input?.addEventListener('input', apply);
+    input?.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape' || !input.value) return;
+      input.value = '';
+      apply();
+    });
+    reset?.addEventListener('click', () => {
+      if (!input) return;
+      input.value = '';
+      apply();
+      input.focus();
+    });
+    // 뒤로 가기로 돌아오면 브라우저가 입력 값을 되살린다
+    if (input?.value) apply();
+  </script>
+</Base>

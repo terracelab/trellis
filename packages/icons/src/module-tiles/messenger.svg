@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-messenger-title">
+  <title id="tl-tile-messenger-title">메신저</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-messenger-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-messenger-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#55CE80"/>
+      <stop offset=".5" stop-color="#21A451"/>
+      <stop offset="1" stop-color="#077235"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-messenger-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-messenger-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <filter id="tl-tile-messenger-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-messenger-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-messenger-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-messenger-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-messenger-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-messenger-blur)"/>
+    <g filter="url(#tl-tile-messenger-shadow)">
+      <path d="M512 220c-185 0-318 119-318 277 0 91 45 171 120 221l-31 115 127-65c32 8 66 12 102 12 185 0 318-119 318-283S697 220 512 220Z" fill="url(#tl-tile-messenger-white)"/>
+      <path d="M315 478c23-104 112-172 220-172" fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round" opacity=".85"/>
+      <g fill="#36AB62">
+        <circle cx="399" cy="511" r="27"/>
+        <circle cx="512" cy="511" r="27"/>
+        <circle cx="625" cy="511" r="27"/>
+      </g>
+    </g>
+  </g>
+</svg>

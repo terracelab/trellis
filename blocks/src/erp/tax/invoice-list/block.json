@@ -1,0 +1,28 @@
+{
+  "id": "erp/tax/invoice-list",
+  "title": "세금계산서",
+  "intent": "매출 · 매입 세금계산서를 상태별로 찾고, 골라서 일괄 발행하거나 전송 실패를 다시 보낸다",
+  "module": "tax",
+  "pattern": "ListDetail",
+  "industries": ["trade", "distribution", "tax", "general"],
+  "components": [
+    "PageHeader",
+    "Tabs",
+    "Banner",
+    "FilterBar",
+    "Input",
+    "PeriodPicker",
+    "SegmentedControl",
+    "DataGrid",
+    "Badge",
+    "ActionBar",
+    "Button",
+    "Dialog",
+    "Drawer",
+    "DescriptionList",
+    "Timeline"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["columns", "filters", "rowActions", "detail"],
+  "order": 10
+}

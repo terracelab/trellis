@@ -1,0 +1,119 @@
+/* 문서함: 폴더 트리 | 목록 | 미리 보기. 1280 미만은 미리 보기가 아래로, 1024 미만은 한 열 */
+.tl-block-ecm-browser {
+  display: grid;
+  grid-template-columns: calc(var(--tl-space-64) * 3) minmax(0, 1fr) calc(var(--tl-space-64) * 4.75);
+  gap: var(--tl-density-gutter);
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.tl-block-ecm-tree,
+.tl-block-ecm-files,
+.tl-block-ecm-preview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tl-space-12);
+  min-width: 0;
+  min-height: 0;
+}
+
+.tl-block-ecm-tree {
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-surface);
+  gap: 0;
+}
+
+.tl-block-ecm-tree__scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--tl-space-8);
+}
+
+.tl-block-ecm-tree__foot {
+  padding: var(--tl-space-12);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-ecm-file {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+.tl-block-ecm-file__icon {
+  flex: none;
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-block-ecm-preview > .tl-card {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+/* 미리 보기(FileViewer)는 위에 고정, 문서 정보 카드가 남은 높이를 쓰고 안에서 스크롤한다 */
+.tl-block-ecm-preview > .tl-file-viewer {
+  flex: none;
+}
+
+.tl-block-ecm-preview__foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tl-space-8);
+}
+
+.tl-block-ecm-section {
+  display: grid;
+  gap: var(--tl-space-8);
+}
+
+.tl-block-ecm-section__title {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+/* 좁은 화면에서 이름 칸이 사라지지 않게 표 최소 폭을 두고 상자 안에서 가로로 넘긴다 */
+/* inner-override: DataGrid에 표 최소 폭(auto 열 최소 폭) prop이 없다(보강 요청) */
+.tl-block-ecm-files .tl-data-grid__table {
+  min-width: calc(var(--tl-space-64) * 9);
+}
+
+/* 1280 미만: 트리 | 목록은 고정 높이 한 줄, 미리 보기는 그 아래(페이지가 스크롤한다) */
+@media (max-width: 1279px) {
+  .tl-block-ecm-browser {
+    flex: none;
+    grid-template-columns: calc(var(--tl-space-64) * 3) minmax(0, 1fr);
+    grid-template-rows: calc(var(--tl-space-64) * 8) auto;
+  }
+
+  .tl-block-ecm-preview {
+    grid-column: 1 / -1;
+  }
+
+  .tl-block-ecm-preview > .tl-card {
+    overflow: visible;
+  }
+}
+
+@media (max-width: 1023px) {
+  .tl-block-ecm-browser {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto calc(var(--tl-space-64) * 8) auto;
+  }
+
+  .tl-block-ecm-tree__scroll {
+    max-height: calc(var(--tl-space-64) * 4);
+  }
+}
+
+/* 휴대폰: 목록을 고정 높이에 가두지 않는다(카드 목록이 아래 미리 보기를 덮지 않게). 문서를 누르면 크게 보기가 열린다 */
+@media (max-width: 639px) {
+  .tl-block-ecm-browser {
+    grid-template-rows: auto auto auto;
+  }
+}

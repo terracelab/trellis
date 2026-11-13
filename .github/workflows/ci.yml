@@ -1,0 +1,103 @@
+name: CI
+
+# CI 게이트 v1(PR-05 · P1-16): PR마다, main에 들어올 때마다 아래가 모두 초록불이어야 한다.
+#   verify   build · lint(eslint trellis 규칙 · stylelint · prettier) · typecheck · test · 금칙어 · 블록 검사
+#   checks   문서 사이트(한 · 영) · 테라스원 소개 · 데모(59화면 × 2폭) · 명세 미리보기 · 소개 사이트 묶음 — axe · 외부 요청 · 콘솔 오류
+#   vrt      Storybook VRT(고정 Docker 이미지, 스냅샷 갱신은 vrt-update 라벨 + 사람 승인)
+#   changeset 공개 패키지를 바꾼 PR은 changeset 동봉
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # 저장소 밖 금칙어 목록. 비어 있으면 금칙어 검사는 경고만 남긴다
+  TRELLIS_FORBIDDEN_WORDS: ${{ secrets.TRELLIS_FORBIDDEN_WORDS }}
+
+jobs:
+  verify:
+    name: build · lint · typecheck · test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: node scripts/check-forbidden.mjs
+      - run: pnpm build
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: node blocks/scripts/check-blocks.mjs
+
+  checks:
+    name: docs · one · demo · preview · site checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm --filter @terracelab/docs exec playwright install --with-deps chromium
+      - run: pnpm --filter @terracelab/docs check
+      - run: pnpm --filter @terracelab/one check
+      - run: pnpm --filter @terracelab/demo check
+      - run: pnpm --filter @terracelab/preview check
+      - run: pnpm --filter @terracelab/site check
+
+  vrt:
+    name: storybook · vrt
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.64.1-noble
+      options: --ipc=host
+    env:
+      # vrt/run.mjs가 docker run 대신 이 컨테이너 안에서 바로 Playwright를 돌린다
+      VRT_IN_DOCKER: '1'
+      # 이미지에 든 브라우저 자리. 컨테이너 잡은 HOME이 /github/home이라 기본 자리(~/.cache)에는 브라우저가 없다
+      PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
+    steps:
+      - uses: actions/checkout@v7
+      - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm vrt
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vrt-report
+          path: |
+            apps/storybook/playwright-report
+            apps/storybook/test-results
+          retention-days: 14
+
+  changeset:
+    name: changeset status
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm changeset status --since=origin/main

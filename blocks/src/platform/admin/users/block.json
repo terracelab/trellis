@@ -1,0 +1,12 @@
+{
+  "id": "platform/admin/users",
+  "title": "사용자",
+  "intent": "회사 계정을 찾고 역할 · 2단계 인증 · 잠금 상태를 확인하고 바꾼다",
+  "module": "platform",
+  "pattern": "ListDetail",
+  "industries": ["general"],
+  "components": ["PageHeader", "DataGrid", "Badge", "Drawer", "Button", "Input", "Select", "Field"],
+  "sizes": [1440, 1024, 390],
+  "slots": ["columns", "filters", "detail"],
+  "order": 10
+}

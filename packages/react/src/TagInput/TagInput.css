@@ -1,0 +1,194 @@
+/* 칩 입력(PG-41). 칸 모양은 Input과 같고, 칩이 넘치면 줄이 늘어난다. 추천 목록은 칸 바로 아래 */
+.tl-tag-input {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
+.tl-tag-input__box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tl-space-4);
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--tl-density-control-height-md);
+  padding: var(--tl-space-4) var(--tl-space-8) var(--tl-space-4) var(--tl-space-4);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-strong);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-primary);
+  cursor: text;
+  transition: border-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-tag-input[data-size='xs'] .tl-tag-input__box {
+  min-height: var(--tl-density-control-height-xs);
+  padding-block: var(--tl-space-2);
+  border-radius: var(--tl-radius-sm);
+}
+
+.tl-tag-input[data-size='sm'] .tl-tag-input__box {
+  min-height: var(--tl-density-control-height-sm);
+  padding-block: var(--tl-space-2);
+}
+
+.tl-tag-input[data-size='lg'] .tl-tag-input__box {
+  min-height: var(--tl-density-control-height-lg);
+  padding-inline-end: var(--tl-space-12);
+}
+
+.tl-tag-input[data-size='xl'] .tl-tag-input__box {
+  min-height: var(--tl-density-control-height-xl);
+  padding-inline-end: var(--tl-space-12);
+}
+
+.tl-tag-input__box:hover,
+.tl-tag-input[data-force-state='hover'] .tl-tag-input__box {
+  border-color: var(--tl-color-border-hover);
+}
+
+.tl-tag-input__box:focus-within,
+.tl-tag-input[data-force-state='focus'] .tl-tag-input__box {
+  border-color: var(--tl-color-border-focus);
+  outline: var(--tl-border-width-1) solid var(--tl-color-border-focus);
+}
+
+.tl-tag-input[data-state='error'] .tl-tag-input__box {
+  border-color: var(--tl-color-status-danger-default);
+}
+
+.tl-tag-input[data-state='error'] .tl-tag-input__box:focus-within {
+  outline-color: var(--tl-color-status-danger-default);
+}
+
+.tl-tag-input[data-state='disabled'] .tl-tag-input__box {
+  border-color: transparent;
+  background: var(--tl-color-bg-sunken);
+  cursor: not-allowed;
+}
+
+/* 칩 목록: 칸 안에서 줄바꿈되는 한 덩어리. 넓어지면 입력 칸이 다음 줄로 간다 */
+.tl-tag-input__tags {
+  display: flex;
+  flex: 0 1 auto;
+  flex-wrap: wrap;
+  gap: var(--tl-space-4);
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-tag-input__tag {
+  display: inline-flex;
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* 입력 칸: 남은 폭을 채우고, 칩 뒤 한 줄이 좁으면 다음 줄로 */
+.tl-tag-input__control {
+  flex: 1 1 calc(var(--tl-space-64) * 1.5);
+  min-width: calc(var(--tl-space-64) * 1.5);
+  height: var(--tl-space-24);
+  padding: 0 var(--tl-space-4);
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: var(--tl-density-input-font-size);
+}
+
+.tl-tag-input__control::placeholder {
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-tag-input__control:disabled {
+  color: var(--tl-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+/* 추천 목록: 칸 바로 아래, 칸 폭 그대로. 대화 상자 안에서도 위에 뜬다(z.dropdown > z.modal) */
+.tl-tag-input__popup {
+  position: absolute;
+  top: calc(100% + var(--tl-space-4));
+  inset-inline: 0;
+  z-index: var(--tl-z-dropdown);
+  box-sizing: border-box;
+  max-height: calc(var(--tl-space-64) * 4);
+  overflow-y: auto;
+  padding: var(--tl-space-4);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-elevated);
+  color: var(--tl-color-fg-primary);
+  box-shadow: var(--tl-shadow-md);
+  font-size: var(--tl-density-body-font-size);
+}
+
+.tl-tag-input__list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-tag-input__option {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-width: 0;
+  min-height: var(--tl-density-row-height);
+  padding: 0 var(--tl-space-8);
+  border-radius: var(--tl-radius-sm);
+  cursor: default;
+  user-select: none;
+  transition: background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-tag-input__option[data-highlighted] {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-tag-input__option[aria-disabled='true'] {
+  color: var(--tl-color-fg-disabled);
+}
+
+.tl-tag-input__option-label {
+  overflow: hidden;
+  min-width: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 보조 글자는 읽어야 하는 글자라 secondary(tertiary는 다크 elevated 위에서 4.5:1이 안 된다) */
+.tl-tag-input__option-meta {
+  margin-inline-start: auto;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  white-space: nowrap;
+}
+
+/* "추가" 줄: 링크 색 글자 + 앞 아이콘, 위 구분선 */
+.tl-tag-input__option[data-add] {
+  color: var(--tl-color-fg-link);
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-tag-input__option[data-add]:not(:first-child) {
+  margin-top: var(--tl-space-4);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: 0 0 var(--tl-radius-sm) var(--tl-radius-sm);
+}
+
+.tl-tag-input__add-icon {
+  flex: none;
+}
+
+.tl-tag-input__empty {
+  margin: 0;
+  padding: var(--tl-space-8);
+  color: var(--tl-color-fg-secondary);
+}

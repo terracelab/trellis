@@ -1,0 +1,12 @@
+{
+  "id": "platform/errors/not-found",
+  "title": "주소 없음",
+  "intent": "주소에 화면이 없을 때 영역 가운데에 안내와 요청한 주소, 홈으로 · 이전 화면 단추를 보인다",
+  "module": "platform",
+  "pattern": "ErrorPage",
+  "industries": ["general"],
+  "components": ["EmptyState", "Button"],
+  "sizes": [1440, 1024, 390],
+  "slots": ["home"],
+  "order": 90
+}

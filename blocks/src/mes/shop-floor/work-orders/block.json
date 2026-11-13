@@ -1,0 +1,30 @@
+{
+  "id": "mes/shop-floor/work-orders",
+  "title": "생산 실적 등록",
+  "intent": "라인별 오늘 작업지시를 골라 원료 로트를 스캔하고 작업을 시작 · 정지하며 양품 · 불량 수량과 불량 유형을 실적으로 저장한다",
+  "module": "shop-floor",
+  "pattern": "WarehouseScan",
+  "industries": ["manufacturing"],
+  "components": [
+    "PageHeader",
+    "Tabs",
+    "Button",
+    "Card",
+    "Badge",
+    "Progress",
+    "StatusDot",
+    "Banner",
+    "ScanField",
+    "DueBadge",
+    "EmptyState",
+    "Field",
+    "QuantityInput",
+    "SegmentedControl",
+    "Timeline",
+    "ActionBar",
+    "SelectableCard"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["orders", "lotRules", "defectTypes", "actions"],
+  "order": 20
+}

@@ -1,0 +1,33 @@
+{
+  "id": "erp/tax/invoice-issue",
+  "title": "세금계산서 발행",
+  "intent": "거래처와 품목을 고르면 공급가액 · 세액 · 한글 금액이 계산되고, 종이로 미리 보고 인쇄한 뒤 확인 후 발행한다",
+  "module": "tax",
+  "pattern": "FormRegister",
+  "industries": ["trade", "distribution", "tax", "general"],
+  "components": [
+    "PageHeader",
+    "FormSection",
+    "LineItemsEditor",
+    "Field",
+    "Select",
+    "DateField",
+    "SegmentedControl",
+    "CodeSearch",
+    "MaskedInput",
+    "Input",
+    "QuantityInput",
+    "AmountInput",
+    "Textarea",
+    "Banner",
+    "DescriptionList",
+    "Card",
+    "ActionBar",
+    "Button",
+    "Dialog",
+    "Paper"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["supplier", "buyer", "lines", "validation"],
+  "order": 11
+}

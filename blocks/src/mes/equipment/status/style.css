@@ -1,0 +1,6 @@
+/* 설비 현황: 센서 추이. 값은 토큰만 */
+
+/* y축 글자가 SVG 왼쪽 끝에서 잘리지 않게 카드 여백으로 내보낸다 */
+.tl-block-eq-chart svg {
+  overflow: visible;
+}

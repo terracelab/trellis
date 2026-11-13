@@ -1,0 +1,31 @@
+{
+  "id": "groupware/approval/document",
+  "title": "결재 문서 보기",
+  "intent": "결재선과 본문 · 지출 내역 · 첨부 · 의견 이력을 한 장에서 보고, 결재자는 승인하거나 사유를 적어 반려하고 기안자는 회수한다",
+  "module": "approval",
+  "pattern": "ApprovalFlow",
+  "industries": ["trade", "distribution", "commerce", "manufacturing", "general"],
+  "components": [
+    "PageHeader",
+    "Badge",
+    "DueBadge",
+    "Button",
+    "Menu",
+    "Banner",
+    "Card",
+    "ApprovalLine",
+    "DescriptionList",
+    "DataGrid",
+    "Attachment",
+    "Field",
+    "Textarea",
+    "Timeline",
+    "PersonLabel",
+    "ActionBar",
+    "EmptyState",
+    "ReasonDialog"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["formBody", "expenseColumns", "actions", "history"],
+  "order": 20
+}

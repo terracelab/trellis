@@ -1,0 +1,32 @@
+/* 합계잔액시산표: 카드 안 표 · 대차 검증 숫자. 구분 소계는 DataGrid groupBy, 결산 준비는 Checklist */
+.tl-block-tb-grid {
+  border: 0;
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: 0 0 var(--tl-radius-lg) var(--tl-radius-lg);
+}
+
+/* inner-override: DataGrid에 표 최소 폭(auto 열 최소 폭) prop이 없다(보강 요청) */
+.tl-block-tb-grid .tl-data-grid__table {
+  min-width: calc(var(--tl-space-64) * 11.75);
+}
+
+.tl-block-tb-account {
+  display: inline-flex;
+  gap: var(--tl-space-8);
+}
+
+.tl-block-tb-account > :first-child {
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-block-tb-check {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tl-space-16);
+}
+
+@media (max-width: 1023px) {
+  .tl-block-tb-check {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

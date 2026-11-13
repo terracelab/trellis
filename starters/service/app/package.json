@@ -1,0 +1,30 @@
+{
+  "name": "@terracelab/starter-web",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Trellis 서비스 시작 템플릿의 웹 앱. create-service가 apps/web으로 복사한다(D-58)",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@terracelab/trellis-blocks": "workspace:*",
+    "@terracelab/trellis-contracts": "workspace:*",
+    "@terracelab/trellis-icons": "workspace:*",
+    "@terracelab/trellis-react": "workspace:*",
+    "@terracelab/trellis-tokens": "workspace:*",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "react-router": "7.18.4"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "typescript": "~6.0.3",
+    "vite": "8.3.6"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "id": "scm/warehouse/picking",
+  "title": "피킹 목록",
+  "intent": "출고 · 자재 출고 피킹 줄을 위치 순서로 걸으며 스캔으로 확인하고, 부족하면 사유를 남기고 남은 수량을 다른 위치에서 집는다",
+  "module": "warehouse",
+  "pattern": "WarehouseScan",
+  "industries": ["trade", "distribution", "commerce", "manufacturing"],
+  "components": [
+    "PageHeader",
+    "Badge",
+    "Button",
+    "Card",
+    "SelectableList",
+    "Select",
+    "Progress",
+    "ScanField",
+    "Field",
+    "QuantityInput",
+    "CodeSearch",
+    "DataGrid",
+    "StatusDot",
+    "EmptyState",
+    "ActionBar"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["shortReasons"],
+  "order": 31
+}

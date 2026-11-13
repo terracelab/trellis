@@ -1,0 +1,55 @@
+/* 배차: 차량 카드 줄. 값은 토큰만 */
+.tl-block-trucks {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--tl-density-gutter);
+}
+
+.tl-block-truck {
+  display: grid;
+  gap: var(--tl-space-8);
+}
+
+.tl-block-truck__driver {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+}
+
+.tl-block-truck__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tl-space-8);
+}
+
+/* 차량이 한 줄(4 · 2 · 1칸)보다 많으면 줄을 늘리지 않고 가로로 넘긴다. 아래 배송 표가 눌리지 않게 */
+.tl-block-trucks[data-many] {
+  grid-template-columns: none;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - var(--tl-density-gutter) * 3) / 4);
+  overflow-x: auto;
+  padding-block-end: var(--tl-space-4);
+}
+
+@media (max-width: 1279px) {
+  .tl-block-trucks {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tl-block-trucks[data-many] {
+    grid-template-columns: none;
+    grid-auto-columns: calc((100% - var(--tl-density-gutter)) / 2);
+  }
+}
+
+@media (max-width: 639px) {
+  .tl-block-trucks {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tl-block-trucks[data-many] {
+    grid-template-columns: none;
+    grid-auto-columns: 85%;
+  }
+}

@@ -1,0 +1,5 @@
+/* 모양 · 색은 Badge가 그린다. 여기서는 숫자 폭만 고정한다 */
+.tl-due-badge__text {
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}

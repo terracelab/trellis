@@ -1,0 +1,79 @@
+.tl-segmented-bar {
+  display: grid;
+  gap: var(--tl-space-12);
+  min-width: 0;
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-segmented-bar__track {
+  display: flex;
+  gap: var(--tl-border-width-2);
+  height: var(--tl-density-control-height-md);
+  overflow: hidden;
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-chart-track);
+}
+
+.tl-segmented-bar[data-size='thin'] .tl-segmented-bar__track {
+  height: var(--tl-space-8);
+}
+
+.tl-segmented-bar__segment {
+  flex-basis: 0;
+  min-width: 0;
+}
+
+.tl-segmented-bar__empty {
+  align-self: center;
+  padding-inline: var(--tl-space-12);
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+}
+
+.tl-segmented-bar__legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(calc(var(--tl-space-64) * 3), 1fr));
+  gap: var(--tl-space-4) var(--tl-space-16);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-segmented-bar__item {
+  /* 좁은 카드에서 금액이 길면 이름을 자르지 않고 금액 · 비율을 다음 줄 오른쪽으로 내린다(backlog 2026-11-09) */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tl-space-2) var(--tl-space-8);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-segmented-bar__swatch {
+  flex: none;
+  width: var(--tl-space-12);
+  height: var(--tl-space-12);
+  border-radius: var(--tl-radius-xs);
+}
+
+.tl-segmented-bar__name {
+  flex: 1 1 calc(var(--tl-space-64) * 1.5);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-segmented-bar__num {
+  flex: none;
+  margin-left: auto;
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-segmented-bar__pct {
+  flex: none;
+  min-width: calc(var(--tl-space-24) * 2);
+  color: var(--tl-color-fg-tertiary);
+  text-align: right;
+}

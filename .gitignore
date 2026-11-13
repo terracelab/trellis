@@ -1,0 +1,42 @@
+# deps
+node_modules/
+.pnpm-store/
+
+# build output
+dist/
+.turbo/
+*.tsbuildinfo
+storybook-static/
+
+# test output
+coverage/
+playwright-report/
+test-results/
+packages/react/test/.examples/
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+
+# env & os
+.env
+.env.*
+!.env.example
+.DS_Store
+
+# 미리보기 빌드 생성물
+apps/preview/src/generated/
+
+# 저장소 밖 금칙어 목록(scripts/build-docs.mjs)
+.forbidden-words
+
+# 병렬 에이전트 작업 트리
+.claude/worktrees/
+
+# 검사 스크린샷(로컬)
+.shots/
+
+# 올리는 명령 메모(로컬)
+GITHUB.md

@@ -1,0 +1,37 @@
+/* 앱 자체 스타일(app-*). 값은 --tl-* 토큰만 쓴다 */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--tl-color-bg-canvas);
+  color: var(--tl-color-fg-primary);
+  font-family: var(--tl-font-family-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.app-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  font-weight: var(--tl-font-weight-600);
+}
+
+/* AppShell user 칸의 이름. 좁으면 말줄임 */
+.app-user {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 사이드바 안은 nav 토큰(짙은 회사 색 면 위 글자) */
+.app-nav-foot {
+  color: var(--tl-color-nav-fg-muted);
+  font-size: var(--tl-type-caption-font-size);
+}

@@ -1,0 +1,220 @@
+.tl-drawer__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--tl-z-overlay);
+  background: var(--tl-color-bg-overlay);
+  transition: opacity var(--tl-duration-slow) var(--tl-easing-standard);
+}
+
+.tl-drawer__backdrop[data-starting-style],
+.tl-drawer__backdrop[data-ending-style] {
+  opacity: 0;
+}
+
+.tl-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--tl-z-modal);
+  display: flex;
+  flex-direction: column;
+  width: min(calc(var(--tl-space-64) * 10), 100vw);
+  border-left: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  background: var(--tl-color-bg-elevated);
+  color: var(--tl-color-fg-primary);
+  box-shadow: var(--tl-shadow-lg);
+  transition: transform var(--tl-duration-slow) var(--tl-easing-enter);
+  outline: 0;
+}
+
+.tl-drawer[data-width='md'] {
+  width: min(calc(var(--tl-space-64) * 7.5), 100vw);
+}
+
+.tl-drawer[data-width='xl'] {
+  width: min(calc(var(--tl-space-64) * 13.75), 100vw);
+}
+
+.tl-drawer[data-starting-style],
+.tl-drawer[data-ending-style] {
+  transform: translateX(100%);
+}
+
+.tl-drawer__head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--tl-space-12);
+  padding: var(--tl-space-20) var(--tl-space-24) var(--tl-space-16);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-drawer__titles {
+  display: grid;
+  flex: 1 1 auto;
+  min-width: 0;
+  gap: var(--tl-space-4);
+}
+
+.tl-drawer__title {
+  color: var(--tl-color-fg-strong);
+  margin: 0;
+  font-size: var(--tl-type-h2-font-size);
+  line-height: var(--tl-type-h2-line-height);
+  font-weight: var(--tl-type-h2-font-weight);
+}
+
+/* 첫 초점 자리(tabindex -1)일 뿐 누르는 것이 아니라 링을 그리지 않는다. Tab 다음은 머리 단추 · 본문 */
+.tl-drawer__title:focus {
+  outline: none;
+}
+
+.tl-drawer__description {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+}
+
+.tl-drawer__actions {
+  display: flex;
+  gap: var(--tl-space-8);
+}
+
+.tl-drawer__body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: var(--tl-space-20) var(--tl-space-24);
+  font-size: var(--tl-density-body-font-size);
+}
+
+.tl-drawer__nav {
+  display: flex;
+  flex: none;
+  gap: var(--tl-space-2);
+}
+
+/* 서랍은 화면 바닥까지 닿는다(오른쪽 패널도 위아래 전체). 홈 표시줄 높이(안전 영역)만큼 아래를 띄운다 */
+.tl-drawer__body:last-child {
+  padding-bottom: calc(var(--tl-space-20) + env(safe-area-inset-bottom, 0));
+}
+
+.tl-drawer__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--tl-space-8);
+  padding: var(--tl-space-12) var(--tl-space-24)
+    calc(var(--tl-space-12) + env(safe-area-inset-bottom, 0));
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+/* ── 아래 시트(side bottom): _internal/sheet.css와 같은 모양 · 같은 움직임 ──────────────
+   Base UI Drawer라 아래로 쓸어 닫는다. 쓸 때 --drawer-swipe-movement-y · --drawer-swipe-progress가 온다 */
+.tl-drawer__backdrop[data-side='bottom'] {
+  z-index: var(--tl-z-modal);
+  min-height: 100dvh;
+  opacity: calc(1 - var(--drawer-swipe-progress, 0));
+  transition: opacity var(--tl-duration-slower) var(--tl-easing-enter);
+}
+
+.tl-drawer__backdrop[data-side='bottom'][data-starting-style],
+.tl-drawer__backdrop[data-side='bottom'][data-ending-style] {
+  opacity: 0;
+}
+
+.tl-drawer__backdrop[data-side='bottom'][data-swiping] {
+  transition-duration: 0ms;
+}
+
+.tl-drawer__viewport {
+  position: fixed;
+  inset: 0;
+  z-index: var(--tl-z-modal);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+/* 쓸어 올릴 때 아래가 비지 않게 시트를 화면 밖으로 조금 더 늘린다(bleed) */
+.tl-drawer[data-side='bottom'] {
+  --tl-sheet-bleed: var(--tl-space-48);
+  position: relative;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  width: 100%;
+  max-height: calc(85dvh + var(--tl-sheet-bleed));
+  margin-bottom: calc(-1 * var(--tl-sheet-bleed));
+  padding-bottom: var(--tl-sheet-bleed);
+  border-left: 0;
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-xl) var(--tl-radius-xl) 0 0;
+  transform: translateY(var(--drawer-swipe-movement-y, 0));
+  transition: transform var(--tl-duration-slower) var(--tl-easing-enter);
+}
+
+.tl-drawer[data-side='bottom'][data-height='full'] {
+  height: calc(92dvh + var(--tl-sheet-bleed));
+  max-height: none;
+}
+
+.tl-drawer[data-side='bottom'][data-starting-style],
+.tl-drawer[data-side='bottom'][data-ending-style] {
+  transform: translateY(100%);
+}
+
+.tl-drawer[data-side='bottom'][data-swiping] {
+  transition-duration: 0ms;
+  user-select: none;
+}
+
+.tl-drawer__handle {
+  flex: none;
+  width: var(--tl-space-40);
+  height: var(--tl-space-4);
+  margin: var(--tl-space-8) auto 0;
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-border-strong);
+}
+
+.tl-drawer[data-side='bottom'] .tl-drawer__head {
+  align-items: center;
+  padding: var(--tl-space-8) var(--tl-space-12) var(--tl-space-8) var(--tl-space-20);
+  border-bottom: 0;
+}
+
+.tl-drawer[data-side='bottom'] .tl-drawer__title {
+  font-size: var(--tl-type-h3-font-size);
+  line-height: var(--tl-type-h3-line-height);
+  font-weight: var(--tl-type-h3-font-weight);
+}
+
+/* 머리 단추(이전 · 다음 · 닫기)는 손가락 크기. 시트는 휴대폰에서 엄지로 닫는다 */
+.tl-drawer[data-side='bottom'] .tl-drawer__nav .tl-icon-button,
+.tl-drawer[data-side='bottom'] .tl-drawer__close {
+  width: var(--tl-size-touch-min);
+  height: var(--tl-size-touch-min);
+}
+
+.tl-drawer[data-side='bottom'] .tl-drawer__body {
+  min-height: 0;
+  padding: var(--tl-space-4) var(--tl-space-20) var(--tl-space-16);
+  overscroll-behavior: contain;
+}
+
+.tl-drawer[data-side='bottom'] .tl-drawer__body:last-child {
+  padding-bottom: calc(var(--tl-space-16) + env(safe-area-inset-bottom, 0));
+}
+
+.tl-drawer[data-side='bottom'] .tl-drawer__footer {
+  padding: var(--tl-space-12) var(--tl-space-16)
+    calc(var(--tl-space-12) + env(safe-area-inset-bottom, 0));
+}
+
+.tl-drawer[data-side='bottom'] .tl-drawer__footer > * {
+  flex: 1 1 0;
+}
+
+/* 떠 있는 면(bg.elevated) 위 보조 글자: 다크에서 fg.tertiary는 3.56:1이라 secondary로(토큰 값 조정 제안 전까지, notes/contrast-2026-11.md) */
+.tl-drawer {
+  --tl-color-fg-tertiary: var(--tl-color-fg-secondary);
+}

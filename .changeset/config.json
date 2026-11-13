@@ -1,0 +1,13 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@4.0.1/schema.json",
+  "baseBranch": "main",
+  "access": "public",
+  "ignore": [],
+  "fixed": [["@terracelab/trellis-*"]],
+  "linked": [],
+  "privatePackages": { "version": false, "tag": false },
+  "format": "auto",
+  "updateInternalDependencies": "patch",
+  "commit": false,
+  "changelog": "./changelog.cjs"
+}

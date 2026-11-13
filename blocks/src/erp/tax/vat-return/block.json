@@ -1,0 +1,23 @@
+{
+  "id": "erp/tax/vat-return",
+  "title": "부가세 신고",
+  "intent": "과세 기간의 매출세액 · 매입세액을 신고서 칸 번호대로 모아 납부할 세액을 확인하고 신고 단계를 진행한다",
+  "module": "tax",
+  "pattern": "TaxFiling",
+  "industries": ["trade", "distribution", "tax", "general"],
+  "components": [
+    "PageHeader",
+    "DueBadge",
+    "Badge",
+    "Stepper",
+    "KpiCard",
+    "Card",
+    "DataGrid",
+    "Banner",
+    "Button",
+    "CheckboxGroup"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["lines", "checklist", "export"],
+  "order": 12
+}

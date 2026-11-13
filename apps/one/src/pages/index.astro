@@ -1,0 +1,343 @@
+---
+// 테라스원 — 테라스랩 맞춤 구축 서비스 소개(D-49). 완성품이 아니라 회사마다 맞춰 만드는 올인원 업무 플랫폼이다.
+// 화면은 전부 Trellis 토큰·컴포넌트로 그린 샘플 조각이다.
+import '@terracelab/trellis-tokens/fonts.css';
+import '@terracelab/trellis-tokens/tokens.css';
+import '@terracelab/trellis-react/styles.css';
+import '@terracelab/preview/styles.css';
+import '../styles/site.css';
+import { homeWindow, moduleIcon } from '@terracelab/preview/home';
+import { cardsPanel, collagePanel, heroPanel } from '@terracelab/preview/showcase';
+import { moduleTileSprite } from '@terracelab/trellis-icons/module-tiles';
+import { jsonLd, organization, orgId, robotsMeta, verificationMeta, website } from '@terracelab/seo';
+import modules from '@terracelab/trellis-tokens/modules';
+
+const TRELLIS = 'https://trellis.terracelab.co.kr';
+const title = '테라스원 · 맞춤 구축 업무 플랫폼';
+const description =
+  '테라스원은 회사에 맞춰 구축하는 올인원 업무 플랫폼입니다. 회계 · 구매 · 전자결재 · 고객 관리 모듈 가운데 필요한 것을 골라 회사의 업무 규칙대로 만듭니다. 화면은 Trellis 디자인 시스템으로 만듭니다.';
+
+// 회사 개체 · 색인 여부는 Trellis 사이트와 같은 곳에서 온다(@terracelab/seo)
+const home = new URL('/', Astro.site).href;
+const structured = jsonLd(
+  organization(home),
+  website(home, { name: '테라스원', alternateName: ['Terrace One'], description, inLanguage: 'ko' }),
+  {
+    '@type': 'Service',
+    '@id': `${home}#service`,
+    name: '테라스원 맞춤 구축',
+    serviceType: '업무 플랫폼 맞춤 구축',
+    description,
+    provider: { '@id': orgId(home) },
+    areaServed: 'KR',
+  },
+);
+
+type Group = keyof typeof modules.groups;
+const groups = Object.keys(modules.groups) as Group[];
+const GROUP_LINE: Record<Group, string> = {
+  erp: '돈과 물건의 흐름',
+  groupware: '사람과 일정',
+  ecm: '회사의 문서',
+  crm: '고객과의 관계',
+  scm: '물건의 이동과 보관',
+  commerce: '온라인 판매',
+  mes: '공장 현장',
+};
+const MODULE_LINE: Record<string, string> = {
+  accounting: '전표 · 결산 · 부가세',
+  treasury: '시재 · 자금 일보',
+  purchasing: '발주 · 입고 · 거래처',
+  sales: '견적 · 수주 · 매출',
+  production: '작업 지시 · 실적',
+  'hr-payroll': '인사 기록 · 급여 명세',
+  mail: '받은 메일 · 보낸 메일',
+  approval: '기안 · 결재선 · 회수',
+  attendance: '출퇴근 · 연장 · 휴가',
+  calendar: '개인 · 팀 · 회의실',
+  board: '공지 · 부서 게시판',
+  messenger: '1:1 · 그룹 대화',
+  'my-docs': '내 문서 · 공유',
+  'company-docs': '규정 · 양식',
+  'dept-docs': '부서 공유 문서',
+  'doc-editor': '기안문 · 보고서',
+  customers: '거래처 · 담당자',
+  opportunities: '파이프라인 · 단계',
+  quotes: '견적서 · 이력',
+  support: '문의 · 처리 이력',
+  tax: '세금계산서 · 부가세 신고',
+  inventory: '재고 · 로트 · 유통기한',
+  warehouse: '입고 · 출고 · 검수',
+  delivery: '배차 · 배송 추적',
+  trade: '선적 · 통관 · 환율',
+  products: '상품 · 옵션 · 가격',
+  orders: '주문 · 배송 단계',
+  claims: '취소 · 반품 · 교환',
+  settlement: '채널 정산 · 수수료',
+  promotions: '쿠폰 · 할인',
+  channels: '판매 채널 연동',
+  'shop-floor': '작업지시 · 생산 실적',
+  equipment: '설비 상태 · 점검',
+  quality: '검사 · 불량',
+  materials: '자재 · BOM',
+};
+const STEPS = [
+  ['업무 정리', '지금 쓰는 엑셀 · 양식 · 결재선을 받아 모듈과 업무 규칙으로 정리합니다.'],
+  ['화면 확인', '고른 모듈의 화면을 회사 데이터 모양으로 채운 데모로 먼저 봅니다. 계약 전에 완성될 화면을 확인할 수 있습니다.'],
+  ['구축', 'Trellis 컴포넌트와 화면 블록을 조합해 만듭니다. 화면을 처음부터 그리지 않아 모듈이 늘어도 디자인이 흐트러지지 않습니다.'],
+  ['운영 · 확장', '모듈 추가와 규칙 변경은 같은 부품으로 이어서 만듭니다.'],
+] as const;
+const DEMO = '/demo/';
+const INDUSTRIES = [
+  ['세무 · 회계 사무', '세금계산서 발행 · 부가세 신고 · 전표 입력 · 거래처 원장', 'erp/tax/invoice-list'],
+  ['유통 · 물류', '발주 · 입고 검수 · 재고와 유통기한 · 선적 · 통관 · 배차', 'scm/warehouse/receiving'],
+  ['이커머스', '상품 · 주문 상세 · 취소와 반품 · 채널 정산', 'commerce/orders/list'],
+  ['제조', '현장 보드 · 생산 실적 · 설비 · 품질 검사', 'mes/shop-floor/board'],
+] as const;
+const nav = [
+  ['#process', '구축 방식'],
+  ['#modules', '모듈'],
+  ['#home', '샘플 화면'],
+  ['#trellis', '디자인 시스템'],
+];
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={Astro.site} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="테라스원" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="canonical" href={Astro.site} />
+    <meta name="robots" content={robotsMeta()} />
+    {verificationMeta().map((m) => <meta name={m.name} content={m.content} />)}
+    <script type="application/ld+json" set:html={structured} />
+  </head>
+  <body class="tl-preview-body">
+    <div class="tl-preview-app tl-site-one" data-theme="light" data-density="compact" data-width="1440">
+      <script is:inline>
+        // 첫 페인트 전에 폭·테마를 정한다(깜빡임 방지). 미리보기 CSS는 data-width로 배치를 바꾼다.
+        (function () {
+          var root = document.currentScript.parentElement;
+          var w = window.innerWidth;
+          root.dataset.width = w < 1024 ? '390' : w < 1280 ? '1024' : '1440';
+          var saved = null;
+          try { saved = localStorage.getItem('one-theme'); } catch (e) {}
+          root.dataset.theme = saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        })();
+      </script>
+      <Fragment set:html={moduleTileSprite} />
+      <a class="tl-site-skip" href="#main">본문으로 건너뛰기</a>
+      <header class="tl-site-bar">
+        <a class="tl-site-brand" href="/">
+          <span class="tl-site-brand-name">테라스원</span>
+          <span class="tl-site-brand-sub">Terrace One</span>
+        </a>
+        <nav class="tl-site-nav" aria-label="섹션">
+          {nav.map(([href, label]) => <a href={href}>{label}</a>)}
+        </nav>
+        <div class="tl-site-bar-side">
+          <button type="button" class="tl-site-theme" data-theme-toggle aria-pressed="false">
+            다크 테마
+          </button>
+          <a class="tl-site-link" href={TRELLIS}>Trellis 문서</a>
+          <a class="tl-site-cta" href={DEMO}>데모 열기</a>
+        </div>
+      </header>
+
+      <main class="tl-preview-content" id="main">
+        <div class="tl-preview-frame">
+          <section class="tl-preview-page tl-preview-showcase" aria-labelledby="one-title">
+            <Fragment
+              set:html={heroPanel({
+                level: 'h1',
+                headingId: 'one-title',
+                title:
+                  '필요한 업무만 골라<br><span class="tl-preview-hero-accent">회사 방식대로</span><br>구축합니다',
+                lead: '테라스원은 회사에 맞춰 구축하는 올인원 업무 플랫폼입니다. 회계·구매·전자결재·고객 관리 같은 모듈 가운데 필요한 것을 고르고, 결재선·계정과목·승인 규칙 같은 업무 로직을 회사에 맞춥니다. 화면은 Trellis 디자인 시스템으로 만들어 계약 전에 미리 볼 수 있습니다.',
+                link: { href: '#process', label: '구축 방식 보기' },
+              })}
+            />
+          </section>
+
+          <section class="tl-site-section" id="process" aria-labelledby="process-h">
+            <header class="tl-site-head">
+              <p class="tl-site-eyebrow">구축 방식</p>
+              <h2 class="tl-site-title" id="process-h">회사의 업무 규칙에 맞춰 만듭니다</h2>
+              <p class="tl-site-lead">
+                테라스원은 설치해서 바로 쓰는 완성품이 아닙니다. 필요한 모듈을 고르고, 회사가 지금 쓰는 양식과 결재 규칙을
+                옮겨 구축합니다.
+              </p>
+            </header>
+            <ol class="tl-site-steps">
+              {
+                STEPS.map(([name, text], i) => (
+                  <li class="tl-site-step">
+                    <span class="tl-site-step-no">{i + 1}</span>
+                    <strong>{name}</strong>
+                    <p>{text}</p>
+                  </li>
+                ))
+              }
+            </ol>
+          </section>
+
+          <section class="tl-site-section" id="modules" aria-labelledby="modules-h">
+            <header class="tl-site-head">
+              <p class="tl-site-eyebrow">모듈</p>
+              <h2 class="tl-site-title" id="modules-h">고를 수 있는 모듈 {modules.modules.length}종</h2>
+              <p class="tl-site-lead">
+                ERP · 그룹웨어 · 문서 · 고객 관리 · 유통·물류 · 이커머스 · 제조 일곱 묶음입니다. 고른 모듈끼리는 메뉴 · 알림 · 결재가 같은 자리에 같은
+                모양으로 붙습니다. 목록에 없는 업무는 같은 부품으로 새로 만듭니다.
+              </p>
+            </header>
+            <div class="tl-site-modules">
+              {
+                groups.map((g) => {
+                  const items = modules.modules.filter((m) => m.group === g);
+                  return (
+                    <section class="tl-site-module-col" aria-labelledby={`grp-${g}`}>
+                      <h3 class="tl-site-module-head" id={`grp-${g}`}>
+                        <span class="tl-site-module-dot" style={`background: var(--tl-color-module-${g}-default)`} />
+                        <span>{modules.groups[g].label}</span>
+                        <span class="tl-site-module-count">{items.length}</span>
+                      </h3>
+                      <p class="tl-site-module-line">{GROUP_LINE[g]}</p>
+                      <ul class="tl-site-module-list">
+                        {items.map((m) => (
+                          <li class="tl-site-module">
+                            <Fragment set:html={moduleIcon(m.id, 40)} />
+                            <span class="tl-site-module-text">
+                              <strong>{m.label}</strong>
+                              <span>{MODULE_LINE[m.id]}</span>
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </section>
+                  );
+                })
+              }
+            </div>
+          </section>
+
+          <section class="tl-site-section" id="industries" aria-labelledby="industries-h">
+            <header class="tl-site-head">
+              <p class="tl-site-eyebrow">업종</p>
+              <h2 class="tl-site-title" id="industries-h">업종별 화면</h2>
+              <p class="tl-site-lead">
+                업종마다 필요한 화면과 용어가 다릅니다. 카드를 누르면 그 업종의 화면을 데모에서 바로 열어 볼 수 있습니다.
+              </p>
+            </header>
+            <ul class="tl-site-industries">
+              {
+                INDUSTRIES.map(([name, screens, route]) => (
+                  <li>
+                    <a class="tl-site-industry" href={`${DEMO}#/${route}`}>
+                      <span class="tl-site-industry-head">
+                        <strong>{name}</strong>
+                        <span class="tl-site-badge">데모</span>
+                      </span>
+                      <p>{screens}</p>
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </section>
+
+          <section class="tl-preview-page tl-preview-showcase" aria-label="상태가 먼저 보이는 업무 홈">
+            <Fragment set:html={cardsPanel()} />
+          </section>
+
+          <section class="tl-site-section" id="home" aria-labelledby="home-h">
+            <header class="tl-site-head">
+              <p class="tl-site-eyebrow">샘플 화면</p>
+              <h2 class="tl-site-title" id="home-h">업무 홈 샘플</h2>
+              <p class="tl-site-lead">
+                고른 모듈의 할 일이 숫자 카드로 먼저 오고, 추이와 목록이 그 아래에 옵니다. 회사 이름과 숫자는 예시입니다.
+                무역 회사 기준으로 구성한 전체 화면은 <a href={DEMO}>데모</a>에서 볼 수 있습니다.
+              </p>
+            </header>
+            <Fragment set:html={homeWindow()} />
+          </section>
+
+          <section class="tl-preview-page tl-preview-showcase" id="devices" aria-label="여러 기기의 테라스원 화면">
+            <Fragment
+              set:html={collagePanel({
+                wordmark: '테라스원',
+                badge: '샘플',
+                title: '데스크톱과 모바일<br>같은 화면',
+                lead: '1440부터 390까지, 라이트와 다크에서 같은 부품으로 그립니다',
+              })}
+            />
+          </section>
+
+          <section class="tl-site-section tl-site-trellis" id="trellis" aria-labelledby="trellis-h">
+            <div class="tl-site-trellis-copy">
+              <p class="tl-site-eyebrow">디자인 시스템</p>
+              <h2 class="tl-site-title" id="trellis-h">모든 화면은 Trellis로 만듭니다</h2>
+              <p class="tl-site-lead">
+                Trellis는 테라스랩의 디자인 시스템입니다. 컴포넌트 · 화면 패턴 · 문구 규칙을 오픈소스로 공개할 예정이고,
+                에이전트가 읽는 문서가 패키지에 들어 있습니다. 개발자가 직접 만들어도, AI 에이전트에게 맡겨도 화면이 같은
+                규칙 안에서 나옵니다.
+              </p>
+              <a class="tl-site-cta" href={TRELLIS}>trellis.terracelab.co.kr</a>
+            </div>
+            <ul class="tl-site-facts">
+              <li><strong>수입 빨강 · 지출 파랑</strong><span>한국 업무 관습대로. 모든 금액은 원 단위 · 천 단위 구분 · 우측 정렬</span></li>
+              <li><strong>결재 다섯 단계</strong><span>기안 · 진행 · 승인 · 반려 · 회수. 어느 모듈에서도 같은 배지</span></li>
+              <li><strong>에이전트용 문서 동봉</strong><span>설치된 버전의 문서를 읽고, 있는 부품으로만 화면을 만듭니다</span></li>
+              <li><strong>설치형도 같은 화면</strong><span>글꼴과 아이콘을 패키지에 넣어 인터넷 없이도 똑같이 렌더</span></li>
+            </ul>
+          </section>
+        </div>
+      </main>
+
+      <footer class="tl-site-foot">
+        <span>© 2026 테라스랩</span>
+        <span>테라스원은 테라스랩의 맞춤 구축 서비스입니다. 이 페이지의 화면과 숫자는 샘플입니다.</span>
+        <a href={TRELLIS}>Trellis 디자인 시스템</a>
+      </footer>
+    </div>
+
+    <script>
+      import { mountCharts } from '@terracelab/preview/charts';
+
+      const root = document.querySelector<HTMLElement>('.tl-site-one')!;
+      const syncWidth = () => {
+        const w = window.innerWidth;
+        root.dataset['width'] = w < 1024 ? '390' : w < 1280 ? '1024' : '1440';
+      };
+      window.addEventListener('resize', syncWidth);
+
+      // 토글 버튼: 라벨은 고정("다크 테마"), 상태는 aria-pressed
+      const toggle = root.querySelector<HTMLButtonElement>('[data-theme-toggle]')!;
+      const paint = () => toggle.setAttribute('aria-pressed', String(root.dataset['theme'] === 'dark'));
+      toggle.addEventListener('click', () => {
+        root.dataset['theme'] = root.dataset['theme'] === 'dark' ? 'light' : 'dark';
+        try {
+          localStorage.setItem('one-theme', root.dataset['theme']!);
+        } catch {
+          /* 저장소를 못 쓰면 이번 방문만 */
+        }
+        paint();
+      });
+      paint();
+      mountCharts(root);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+# ContextMenu
+## 용도
+목록 행 · 파일 · 메시지에 딸린 동작을 우클릭 · 길게 누르기 · Shift+F10으로 바로 연다. 보이는 단추(행 끝 더 보기 Menu · 상세의 동작 단추)를 먼저 두고, 이것은 그 지름길로 쓴다. 단추 하나에 딸린 동작은 Menu.
+## 해부(Anatomy)
+area(`tl-context-menu`, 상자를 만들지 않는 감싸개 `display: contents`, 받은 목록의 배치를 바꾸지 않는다) · popup(Menu와 같다: `tl-menu`, `bg.elevated`, `border.default`, `shadow.md`(다크는 그림자 없이 선), `radius.md`, `z.dropdown`) · group-label · item(icon 16 `fg.secondary` · label `fg.primary` · shortcut) · separator(`border.divider`). 좁은 화면은 아래 시트(Menu 시트와 같은 행).
+## Props
+contract 표.
+## Variants
+항목은 Menu와 같다: 기본 · danger(아이콘만 `status.danger.default`, 글자는 중립) · disabled · 묶음 이름 · 구분선.
+## States
+default · hover(항목 강조 `bg.sunken`) · focus(키보드 강조도 같은 `bg.sunken`) · disabled(`disabled`면 열지 않고 브라우저 메뉴를 막지 않는다, 항목 disabled는 `fg.disabled`). active · loading · error는 해당 없음.
+## 동작
+- 여는 법: 영역 안에서 우클릭하면 누른 자리에, 포커스한 요소에서 Shift+F10 · 메뉴 키를 누르면 그 요소 왼쪽 아래에 연다. 터치는 500ms 길게 누르면 연다(10 넘게 움직이면 취소). 열린 동안 브라우저 메뉴는 뜨지 않는다.
+- 어느 행의 메뉴인가: 열 때 `onOpenChange(true, target)`의 target이 누른 요소(키보드는 포커스한 요소)다. 앱은 `target.closest('[data-id]')`처럼 행을 찾아 그 행의 items를 넘긴다. items가 비어 있으면(빈 자리) 열지 않는다.
+- 고르면: 항목의 `onSelect`를 부르고 닫는다. 닫히면 포커스가 연 요소로 돌아간다.
+- 좁은 화면(`breakpoint.sm` 미만, D-60): 같은 동작이 아래 시트를 연다. 제목은 `title`(없으면 "동작"), 행은 손가락 높이(`space.48`), 고르면 시트를 닫은 뒤 실행한다. 길게 누른 뒤 손을 떼며 오는 click은 한 번 삼켜 행이 열리지 않는다.
+
+| 키 | 동작 |
+| --- | --- |
+| Shift+F10 · 메뉴 키 | 포커스한 요소의 메뉴 열기 |
+| ArrowUp · ArrowDown | 항목 이동 |
+| Home · End | 처음 · 끝 항목 |
+| Enter · Space | 항목 실행 |
+| Escape | 닫고 연 요소로 |
+## 접근성
+`role="menu"` + `menuitem`, 묶음은 `group` + 라벨 연결. 우클릭 · 길게 누르기는 숨은 기능이라 같은 동작을 보이는 단추(더 보기 Menu · 상세 동작)로도 제공한다. 키보드 사용자는 행에 포커스를 두고 Shift+F10을 쓴다. 위험 동작은 색만으로 구분하지 않는다(라벨이 결과를 말한다). reduced-motion이면 페이드 없이 열린다.
+## 밀도
+항목 높이 `density.row-height`(compact 32 · comfortable 40), 글자 `density.body-font-size`. 시트 행은 밀도와 관계없이 `space.48`.
+## 플랫폼 차이
+네이티브는 길게 누르기(onLongPress)로 바텀시트 목록을 연다. 우클릭 · 키보드는 없다. 웹 `onOpenChange`의 둘째 인자(target)는 웹 전용이고, 네이티브는 항목을 감싼 쪽에서 무엇을 눌렀는지 안다. props는 같다.
+## 금지 사항
+이 메뉴에만 있는 동작(보이는 단추 없이) · 항목 10개 넘김 · 하위 메뉴 · 위험 항목 글자를 빨강으로 · 입력 칸 안에서 브라우저 메뉴(붙여넣기)를 막기. 리뷰로 막는다.
+## 스토리
+FileRows.
+## 참고
+Base UI Context Menu. 팝업 모양 · 항목 모델은 Menu(MenuEntry)와 같다. 블록 ecm/my-docs/browser(문서 행) · groupware/messenger/chat(메시지)(PR-08).

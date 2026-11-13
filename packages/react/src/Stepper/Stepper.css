@@ -1,0 +1,144 @@
+.tl-stepper {
+  --tl-stepper-marker: var(--tl-space-24);
+  display: flex;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-stepper[data-size='sm'] {
+  --tl-stepper-marker: var(--tl-space-20);
+}
+
+.tl-stepper__step {
+  --tl-stepper-line: var(--tl-border-width-1);
+  --tl-stepper-line-color: var(--tl-color-border-default);
+  position: relative;
+  display: flex;
+  flex: 1 1 0;
+  align-items: flex-start;
+  gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+.tl-stepper__step:last-child {
+  flex: 0 1 auto;
+}
+
+.tl-stepper__marker {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--tl-stepper-marker);
+  height: var(--tl-stepper-marker);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: 1;
+  font-weight: var(--tl-font-weight-600);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-stepper__text {
+  display: grid;
+  gap: var(--tl-border-width-2);
+  min-width: 0;
+  padding-top: calc((var(--tl-stepper-marker) - var(--tl-type-label-line-height)) / 2);
+}
+
+.tl-stepper__label {
+  overflow: hidden;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-font-weight-500);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-stepper__description {
+  overflow: hidden;
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-stepper__line {
+  flex: 1 1 auto;
+  min-width: var(--tl-space-16);
+  height: var(--tl-stepper-line);
+  margin: calc((var(--tl-stepper-marker) - var(--tl-stepper-line)) / 2) var(--tl-space-8) 0;
+  background: var(--tl-stepper-line-color);
+}
+
+/* 단계 상태 */
+.tl-stepper__step[data-status='done'] {
+  --tl-stepper-line: var(--tl-border-width-2);
+  --tl-stepper-line-color: var(--tl-color-brand-default);
+}
+
+.tl-stepper__step[data-status='done'] .tl-stepper__marker {
+  border-color: var(--tl-color-brand-default);
+  background: var(--tl-color-brand-default);
+  color: var(--tl-color-brand-on-brand);
+}
+
+.tl-stepper__step[data-status='current'] .tl-stepper__marker {
+  border: var(--tl-border-width-2) solid var(--tl-color-border-selected);
+  color: var(--tl-color-fg-link);
+  box-shadow: 0 0 0 var(--tl-border-width-2) var(--tl-color-brand-subtle);
+}
+
+.tl-stepper__step[data-status='error'] .tl-stepper__marker {
+  border-color: var(--tl-color-status-danger-default);
+  background: var(--tl-color-status-danger-default);
+  color: var(--tl-color-status-danger-on);
+}
+
+.tl-stepper__step[data-status='done'] .tl-stepper__label,
+.tl-stepper__step[data-status='error'] .tl-stepper__label {
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-stepper__step[data-status='current'] .tl-stepper__label {
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-600);
+}
+
+/* 세로: 단계마다 한 줄, 선은 마커 아래로 */
+.tl-stepper[data-orientation='vertical'] {
+  flex-direction: column;
+}
+
+.tl-stepper[data-orientation='vertical'] .tl-stepper__step {
+  flex: none;
+  padding-bottom: var(--tl-space-16);
+}
+
+.tl-stepper[data-orientation='vertical'] .tl-stepper__step:last-child {
+  padding-bottom: 0;
+}
+
+.tl-stepper[data-orientation='vertical'] .tl-stepper__label,
+.tl-stepper[data-orientation='vertical'] .tl-stepper__description {
+  white-space: normal;
+}
+
+.tl-stepper[data-orientation='vertical'] .tl-stepper__line {
+  position: absolute;
+  top: calc(var(--tl-stepper-marker) + var(--tl-space-4));
+  bottom: var(--tl-space-4);
+  left: calc((var(--tl-stepper-marker) - var(--tl-stepper-line)) / 2);
+  width: var(--tl-stepper-line);
+  min-width: 0;
+  height: auto;
+  margin: 0;
+}

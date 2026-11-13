@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-opportunities-title">
+  <title id="tl-tile-opportunities-title">영업기회</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-opportunities-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-opportunities-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5ED7D5"/>
+      <stop offset=".5" stop-color="#1CA7A8"/>
+      <stop offset="1" stop-color="#087678"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-opportunities-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-opportunities-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-opportunities-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-opportunities-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-opportunities-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-opportunities-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-opportunities-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-opportunities-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-opportunities-blur)"/>
+    <g transform="rotate(-3 510 500)" filter="url(#tl-tile-opportunities-shadow)">
+      <path d="M223 244h578L596 496v226l-168 115V496L223 244Z" fill="url(#tl-tile-opportunities-white)" stroke="#D4DEE8" stroke-width="8" stroke-linejoin="round"/>
+      <path d="m300 297 212 249 212-249" fill="#DDE6EF"/>
+      <path d="M512 546v180l84-56V496l205-252" fill="url(#tl-tile-opportunities-edge)"/>
+      <path d="M331 304h353" stroke="#FFFFFF" stroke-width="18" stroke-linecap="round" opacity=".8"/>
+    </g>
+  </g>
+</svg>

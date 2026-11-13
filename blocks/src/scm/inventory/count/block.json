@@ -1,0 +1,26 @@
+{
+  "id": "scm/inventory/count",
+  "title": "재고 실사",
+  "intent": "창고 · 구역 · 선반을 골라 장부 수량 옆에 실사 수량을 포장 단위로 세고, 차이와 사유를 모아 재고 조정으로 반영한다",
+  "module": "inventory",
+  "pattern": "WarehouseScan",
+  "industries": ["trade", "distribution", "commerce", "manufacturing"],
+  "components": [
+    "PageHeader",
+    "Badge",
+    "Button",
+    "KpiCard",
+    "Card",
+    "SelectableList",
+    "Field",
+    "CodeSearch",
+    "ScanField",
+    "Select",
+    "DataGrid",
+    "QuantityInput",
+    "ActionBar"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["locations"],
+  "order": 52
+}

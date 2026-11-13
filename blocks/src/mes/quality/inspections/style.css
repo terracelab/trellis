@@ -1,0 +1,23 @@
+/* 품질 검사: 처리 대기 로트 목록. 값은 토큰만 */
+.tl-block-qc-lots {
+  display: grid;
+  margin: 0;
+  padding: 0 var(--tl-density-card-padding) var(--tl-space-4);
+  list-style: none;
+}
+
+.tl-block-qc-lot {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-height: calc(var(--tl-density-row-height) + var(--tl-space-12));
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-qc-empty {
+  margin: 0;
+  padding: 0 var(--tl-density-card-padding) var(--tl-density-card-padding);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+}

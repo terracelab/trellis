@@ -1,0 +1,31 @@
+{
+  "id": "commerce/claims/list",
+  "title": "취소 · 반품 · 교환",
+  "intent": "구매자의 취소 · 반품 · 교환 요청을 사유 · 회수 상태 · 환불 금액과 함께 보고 승인하거나 사유를 적어 거부한다",
+  "module": "claims",
+  "pattern": "ListDetail",
+  "industries": ["commerce", "distribution"],
+  "components": [
+    "PageHeader",
+    "Tabs",
+    "Banner",
+    "FilterBar",
+    "Input",
+    "Select",
+    "SegmentedControl",
+    "DataGrid",
+    "Badge",
+    "StatusDot",
+    "ActionBar",
+    "Button",
+    "Dialog",
+    "Field",
+    "Textarea",
+    "Drawer",
+    "DescriptionList",
+    "Timeline"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["columns", "reasons", "approval", "detail"],
+  "order": 10
+}

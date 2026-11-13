@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-trade-title">
+  <title id="tl-tile-trade-title">수출입</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-trade-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-trade-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFCE91"/>
+      <stop offset=".5" stop-color="#F5A524"/>
+      <stop offset="1" stop-color="#CD8600"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-trade-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-trade-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-trade-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-trade-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-trade-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-trade-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-trade-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#CD8600" opacity=".25" filter="url(#tl-tile-trade-blur)"/>
+    <g transform="rotate(-2 512 512)">
+      <path d="M249 414h127v190H249z" fill="url(#tl-tile-trade-white)"/>
+      <path d="M270 372h87v43h-87zM285 319h22v53h-22z" fill="url(#tl-tile-trade-edge)"/>
+      <path d="M271 455h35v29h-35zM323 455h35v29h-35z" fill="#F5A524"/>
+      <rect x="390" y="354" width="194" height="122" rx="9" fill="url(#tl-tile-trade-white)"/>
+      <rect x="390" y="486" width="194" height="122" rx="9" fill="url(#tl-tile-trade-white)"/>
+      <rect x="595" y="486" width="194" height="122" rx="9" fill="#F5A524"/>
+      <path d="M211 600h607l-72 158H323z" fill="url(#tl-tile-trade-white)"/>
+      <path d="M237 638h563l-17 37H263z" fill="#25364B"/>
+      <path d="m283 698 40 60h423l28-60z" fill="url(#tl-tile-trade-edge)"/>
+      <path d="M419 370h10v91h-10zM419 502h10v91h-10z" fill="#CBD7E4"/>
+      <path d="M462 370h10v91h-10zM462 502h10v91h-10z" fill="#CBD7E4"/>
+      <path d="M505 370h10v91h-10zM505 502h10v91h-10z" fill="#CBD7E4"/>
+      <path d="M548 370h10v91h-10zM548 502h10v91h-10z" fill="#CBD7E4"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,341 @@
+.tl-code-search {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: var(--tl-density-control-height-md);
+  padding: 0 var(--tl-space-4) 0 var(--tl-space-8);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-strong);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-primary);
+  transition: border-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-code-search[data-size='xs'] {
+  gap: var(--tl-space-4);
+  height: var(--tl-density-control-height-xs);
+  padding: 0 var(--tl-space-2) 0 var(--tl-space-6);
+  border-radius: var(--tl-radius-sm);
+}
+
+.tl-code-search[data-size='sm'] {
+  height: var(--tl-density-control-height-sm);
+}
+
+.tl-code-search[data-size='lg'],
+.tl-code-search[data-size='xl'] {
+  padding: 0 var(--tl-space-8) 0 var(--tl-space-12);
+}
+
+.tl-code-search[data-size='lg'] {
+  height: var(--tl-density-control-height-lg);
+}
+
+.tl-code-search[data-size='xl'] {
+  height: var(--tl-density-control-height-xl);
+}
+
+.tl-code-search:hover {
+  border-color: var(--tl-color-border-hover);
+}
+
+.tl-code-search:focus-within {
+  border-color: var(--tl-color-border-focus);
+  outline: var(--tl-border-width-1) solid var(--tl-color-border-focus);
+}
+
+.tl-code-search[data-state='error'] {
+  border-color: var(--tl-color-status-danger-default);
+}
+
+.tl-code-search[data-state='error']:focus-within {
+  outline-color: var(--tl-color-status-danger-default);
+}
+
+.tl-code-search[data-state='disabled'] {
+  background: var(--tl-color-bg-sunken);
+  border-color: transparent;
+}
+
+.tl-code-search__icon {
+  flex: none;
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-code-search__control {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: var(--tl-density-input-font-size);
+}
+
+/* 큰 칸은 본문 크기(14) 이상, touch 16은 그대로 */
+.tl-code-search[data-size='lg'] .tl-code-search__control,
+.tl-code-search[data-size='xl'] .tl-code-search__control {
+  font-size: max(var(--tl-density-input-font-size), var(--tl-type-body-font-size));
+}
+
+.tl-code-search__control::placeholder {
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-code-search__control:disabled {
+  color: var(--tl-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.tl-code-search__clear,
+.tl-code-search__trigger {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--tl-space-20);
+  height: var(--tl-space-20);
+  padding: 0;
+  border: 0;
+  border-radius: var(--tl-radius-xs);
+  background: transparent;
+  color: var(--tl-color-fg-tertiary);
+  cursor: pointer;
+  transition: color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-code-search__clear:hover,
+.tl-code-search__trigger:hover {
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-code-search__trigger:disabled,
+.tl-code-search__clear:disabled {
+  color: var(--tl-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.tl-code-search__positioner {
+  z-index: var(--tl-z-dropdown);
+  outline: 0;
+}
+
+.tl-code-search__popup {
+  box-sizing: border-box;
+  min-width: var(--anchor-width);
+  max-width: var(--available-width);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-elevated);
+  color: var(--tl-color-fg-primary);
+  box-shadow: var(--tl-shadow-md);
+  font-size: var(--tl-density-body-font-size);
+  outline: 0;
+}
+
+.tl-code-search__list {
+  box-sizing: border-box;
+  /* 8행까지 보이고 그 뒤는 스크롤 */
+  max-height: min(
+    calc(var(--tl-density-row-height) * 8 + var(--tl-space-8)),
+    var(--available-height)
+  );
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--tl-space-4);
+  outline: 0;
+}
+
+.tl-code-search__list[data-empty] {
+  padding: 0;
+}
+
+.tl-code-search__empty:not(:empty) {
+  padding: var(--tl-space-12);
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-code-search__item {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-12);
+  min-height: var(--tl-density-row-height);
+  padding: 0 var(--tl-space-8);
+  border-radius: var(--tl-radius-sm);
+  cursor: default;
+  outline: 0;
+  user-select: none;
+}
+
+.tl-code-search__item[data-highlighted] {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-code-search__item[data-selected] .tl-code-search__label {
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-code-search__item[data-disabled] {
+  color: var(--tl-color-fg-disabled);
+}
+
+/* 코드 · 설명 · 보조 정보는 읽어야 하는 글자라 secondary(tertiary는 다크 elevated 위에서 4.5:1이 안 된다) */
+.tl-code-search__code {
+  flex: none;
+  min-width: calc(var(--tl-space-64) * 0.875);
+  color: var(--tl-color-fg-secondary);
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+.tl-code-search__text {
+  display: grid;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.tl-code-search__label,
+.tl-code-search__description {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-code-search__description {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-code-search__meta {
+  flex: none;
+  margin-left: auto;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+/* 좁은 화면(D-60): 칸 전체가 시트를 여는 단추. 지우기 단추는 손가락 크기 */
+.tl-code-search__button {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  cursor: pointer;
+  /* 칸 테두리까지 누르는 영역으로(sm 칸도 손가락 높이 40) */
+  height: calc(100% + var(--tl-border-width-1) * 2);
+  margin-block: calc(var(--tl-border-width-1) * -1);
+}
+
+.tl-code-search__button:focus-visible {
+  outline: 0;
+}
+
+.tl-code-search[data-mode='sheet']:has(.tl-code-search__button:focus-visible) {
+  border-color: var(--tl-color-border-focus);
+  outline: var(--tl-border-width-1) solid var(--tl-color-border-focus);
+}
+
+.tl-code-search[data-mode='sheet']:focus-within {
+  outline: 0;
+}
+
+.tl-code-search__value {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-code-search__value[data-placeholder] {
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-code-search__value .tl-code-search__code {
+  min-width: 0;
+}
+
+.tl-code-search[data-mode='sheet'] .tl-code-search__clear {
+  width: var(--tl-space-40);
+  height: var(--tl-space-40);
+}
+
+.tl-code-search-sheet__search {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  margin-bottom: var(--tl-space-8);
+  padding: 0 var(--tl-space-12);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-surface);
+}
+
+.tl-code-search-sheet__search:focus-within {
+  border-color: var(--tl-color-border-focus);
+  outline: var(--tl-border-width-1) solid var(--tl-color-border-focus);
+}
+
+.tl-code-search-sheet__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: var(--tl-space-48);
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--tl-color-fg-primary);
+  font: inherit;
+  font-size: var(--tl-density-input-font-size);
+}
+
+.tl-code-search-sheet__input::placeholder {
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-code-search-sheet__empty {
+  margin: 0;
+  padding: var(--tl-space-16) var(--tl-space-8);
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-code-search-sheet__option[aria-checked='true'] .tl-code-search__label {
+  font-weight: var(--tl-font-weight-600);
+}
+
+/* "새로 등록" · "그대로 쓰기" 줄: 목록 맨 아래, 링크 색 글자 + 앞 아이콘 */
+.tl-code-search__action-icon {
+  flex: none;
+  color: var(--tl-color-fg-link);
+}
+
+.tl-code-search__item[data-create] {
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: 0 0 var(--tl-radius-sm) var(--tl-radius-sm);
+  color: var(--tl-color-fg-link);
+}
+
+.tl-code-search__item[data-create] .tl-code-search__label {
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-code-search-sheet__actions {
+  display: grid;
+  margin-top: var(--tl-space-4);
+  padding-top: var(--tl-space-4);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-code-search-sheet__action {
+  color: var(--tl-color-fg-link);
+  font-weight: var(--tl-font-weight-500);
+}

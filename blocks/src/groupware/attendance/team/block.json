@@ -1,0 +1,31 @@
+{
+  "id": "groupware/attendance/team",
+  "title": "팀 근태",
+  "intent": "팀원 × 날짜 일정표로 휴가 · 반차 · 재택 · 외근 · 출장을 보고, 이번 주 요일별 근태로 주 52시간을 넘길 사람에게 근무 조정을 요청한다",
+  "module": "attendance",
+  "pattern": "InventoryMatrix",
+  "industries": ["trade", "distribution", "commerce", "manufacturing", "general"],
+  "components": [
+    "PageHeader",
+    "Button",
+    "KpiCard",
+    "Tabs",
+    "Banner",
+    "FilterBar",
+    "Input",
+    "SegmentedControl",
+    "Select",
+    "TeamSchedule",
+    "DataGrid",
+    "PersonLabel",
+    "StatusDot",
+    "HeatCell",
+    "Badge",
+    "Drawer",
+    "DescriptionList",
+    "Timeline"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["states", "columns", "filters", "riskRule", "schedule"],
+  "order": 20
+}

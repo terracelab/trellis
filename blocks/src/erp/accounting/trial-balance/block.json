@@ -1,0 +1,27 @@
+{
+  "id": "erp/accounting/trial-balance",
+  "title": "합계잔액시산표",
+  "intent": "기준월까지 계정별 차변 · 대변 합계와 잔액을 자산 · 부채 · 자본 · 수익 · 비용 순서로 보고 대차 일치를 확인한다",
+  "module": "accounting",
+  "pattern": "Dashboard",
+  "industries": ["trade", "distribution", "manufacturing", "tax", "general"],
+  "components": [
+    "PageHeader",
+    "Badge",
+    "Select",
+    "Button",
+    "KpiCard",
+    "Card",
+    "DataGrid",
+    "ChartCard",
+    "WaterfallChart",
+    "Checklist",
+    "SegmentedBar",
+    "Drawer",
+    "DescriptionList",
+    "TrendChart"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["period", "accountGroups", "columns", "detail", "closing"],
+  "order": 20
+}

@@ -1,0 +1,29 @@
+{
+  "id": "groupware/board/notices",
+  "title": "공지",
+  "intent": "필독 공지를 위에 고정해 분류 · 작성자 · 조회 수와 함께 보고, 본문과 첨부를 읽은 뒤 필독은 읽음 확인한다",
+  "module": "board",
+  "pattern": "ListDetail",
+  "industries": ["trade", "distribution", "commerce", "manufacturing", "general"],
+  "components": [
+    "PageHeader",
+    "Tabs",
+    "Button",
+    "FilterBar",
+    "Input",
+    "SegmentedControl",
+    "DataGrid",
+    "Badge",
+    "Icon",
+    "Card",
+    "Avatar",
+    "Attachment",
+    "Progress",
+    "StatusDot",
+    "EmptyState",
+    "PersonLabel"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["categories", "columns", "detail", "readReceipt"],
+  "order": 10
+}

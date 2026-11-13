@@ -1,0 +1,39 @@
+{
+  "name": "@terracelab/storybook",
+  "version": "0.0.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "description": "컴포넌트 스토리(예시 · Matrix · States 생성) + VRT 기준 이미지 (P1-04 · PR-03)",
+  "type": "module",
+  "scripts": {
+    "gen": "node scripts/gen-stories.mjs",
+    "dev": "node scripts/gen-stories.mjs && storybook dev --port 6006 --no-open --no-version-updates",
+    "storybook:build": "node scripts/gen-stories.mjs && storybook build --output-dir storybook-static --quiet",
+    "vrt": "node vrt/run.mjs",
+    "vrt:update": "node vrt/run.mjs --update",
+    "typecheck": "node scripts/gen-stories.mjs && tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "a11y": "node scripts/a11y.mjs"
+  },
+  "dependencies": {
+    "@terracelab/trellis-contracts": "workspace:*",
+    "@terracelab/trellis-icons": "workspace:*",
+    "@terracelab/trellis-react": "workspace:*",
+    "@terracelab/trellis-tokens": "workspace:*",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.64.1",
+    "@storybook/addon-a11y": "10.6.3",
+    "@storybook/react-vite": "10.6.3",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "react-is": "19.3.1",
+    "storybook": "10.6.3",
+    "typescript": "~6.0.3",
+    "vite": "8.3.6"
+  }
+}

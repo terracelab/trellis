@@ -1,0 +1,225 @@
+/* 토스트 한 장(정적 표현과 쌓인 토스트가 같이 쓴다) */
+.tl-toast {
+  --tl-toast-accent: var(--tl-color-border-strong);
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-elevated);
+  color: var(--tl-color-fg-primary);
+  /* 톤은 앞 아이콘 색으로만 보인다. 왼쪽 강조 띠는 쓰지 않는다(D-57) */
+  box-shadow: var(--tl-shadow-lg);
+}
+
+.tl-toast[data-tone='info'] {
+  --tl-toast-accent: var(--tl-color-status-info-default);
+}
+
+.tl-toast[data-tone='success'] {
+  --tl-toast-accent: var(--tl-color-status-success-default);
+}
+
+.tl-toast[data-tone='warning'] {
+  --tl-toast-accent: var(--tl-color-status-warning-default);
+}
+
+.tl-toast[data-tone='danger'] {
+  --tl-toast-accent: var(--tl-color-status-danger-default);
+}
+
+.tl-toast__content {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--tl-space-8);
+  padding: var(--tl-space-12) var(--tl-space-8) var(--tl-space-12) var(--tl-space-16);
+  overflow: hidden;
+  transition: opacity var(--tl-duration-slow) var(--tl-easing-standard);
+}
+
+.tl-toast__content[data-behind] {
+  opacity: 0;
+}
+
+.tl-toast__content[data-expanded] {
+  opacity: 1;
+}
+
+.tl-toast__icon {
+  display: inline-flex;
+  flex: none;
+  margin-top: calc((var(--tl-type-label-line-height) - var(--tl-size-icon-16)) / 2);
+  color: var(--tl-toast-accent);
+}
+
+.tl-toast__text {
+  display: grid;
+  flex: 1 1 auto;
+  gap: var(--tl-space-4);
+  min-width: 0;
+}
+
+.tl-toast__title {
+  margin: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-font-weight-600);
+  overflow-wrap: anywhere;
+}
+
+/* 같은 제목 · 같은 tone이 다시 오면 쌓지 않고 ×N으로 센다 */
+.tl-toast__count {
+  margin-left: var(--tl-space-4);
+  color: var(--tl-color-fg-secondary);
+  font-weight: var(--tl-font-weight-400);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-toast__description {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  overflow-wrap: anywhere;
+}
+
+.tl-toast__action,
+.tl-toast__close {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  height: var(--tl-density-control-height-sm);
+  margin-block: calc((var(--tl-type-label-line-height) - var(--tl-density-control-height-sm)) / 2);
+  border: 0;
+  border-radius: var(--tl-radius-sm);
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+  transition: background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-toast__action {
+  padding: 0 var(--tl-space-8);
+  /* 다크 토스트 바탕에서 링크 색은 3.8:1이라 본문 색 + 밑줄 */
+  color: var(--tl-color-fg-primary);
+  text-decoration: underline;
+  text-underline-offset: var(--tl-space-4);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+  white-space: nowrap;
+}
+
+.tl-toast__action:hover {
+  background: var(--tl-color-brand-subtle);
+}
+
+.tl-toast__close {
+  width: var(--tl-density-control-height-sm);
+  padding: 0;
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-toast__close:hover {
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-primary);
+}
+
+/* 우하단 알림 영역과 쌓임(Base UI Toast의 --toast-* 변수) */
+/* 아래 시트 footer · 휴대폰 탭바 · 고정 ActionBar가 있으면 그 위로(--tl-toast-offset-bottom, _internal/bottom-inset.ts) */
+.tl-toast__viewport {
+  position: fixed;
+  right: var(--tl-space-24);
+  bottom: calc(var(--tl-space-24) + var(--tl-toast-offset-bottom, var(--tl-space-0)));
+  z-index: var(--tl-z-toast);
+  width: min(calc(100vw - var(--tl-space-32)), calc(var(--tl-space-64) * 5.5));
+  outline: 0;
+}
+
+@media (max-width: 480px) {
+  .tl-toast__viewport {
+    right: var(--tl-space-16);
+    bottom: calc(var(--tl-space-16) + var(--tl-toast-offset-bottom, var(--tl-space-0)));
+  }
+}
+
+.tl-toast__viewport > .tl-toast {
+  --tl-toast-gap: var(--tl-space-8);
+  --tl-toast-peek: var(--tl-space-8);
+  --tl-toast-scale: calc(max(0, 1 - (var(--toast-index) * 0.05)));
+  --tl-toast-shrink: calc(1 - var(--tl-toast-scale));
+  --tl-toast-height: var(--toast-frontmost-height, var(--toast-height));
+  --tl-toast-offset-y: calc(
+    var(--toast-offset-y) * -1 + (var(--toast-index) * var(--tl-toast-gap) * -1) +
+      var(--toast-swipe-movement-y)
+  );
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: calc(1000 - var(--toast-index));
+  height: var(--tl-toast-height);
+  transform-origin: bottom center;
+  transform: translateX(var(--toast-swipe-movement-x))
+    translateY(
+      calc(
+        var(--toast-swipe-movement-y) - (var(--toast-index) * var(--tl-toast-peek)) -
+          (var(--tl-toast-shrink) * var(--tl-toast-height))
+      )
+    )
+    scale(var(--tl-toast-scale));
+  user-select: none;
+  transition:
+    transform var(--tl-duration-slower) var(--tl-easing-enter),
+    opacity var(--tl-duration-slower) var(--tl-easing-standard),
+    height var(--tl-duration-normal) var(--tl-easing-standard);
+}
+
+/* 펼쳤을 때 토스트 사이 틈에서도 마우스가 머문 것으로 본다 */
+.tl-toast__viewport > .tl-toast::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: calc(var(--tl-toast-gap) + var(--tl-border-width-1));
+}
+
+.tl-toast__viewport > .tl-toast[data-expanded] {
+  height: var(--toast-height);
+  transform: translateX(var(--toast-swipe-movement-x)) translateY(var(--tl-toast-offset-y));
+}
+
+.tl-toast__viewport > .tl-toast[data-starting-style],
+.tl-toast__viewport > .tl-toast[data-ending-style] {
+  transform: translateY(150%);
+}
+
+.tl-toast__viewport > .tl-toast[data-limited],
+.tl-toast__viewport > .tl-toast[data-ending-style] {
+  opacity: 0;
+}
+
+.tl-toast__viewport > .tl-toast[data-ending-style][data-swipe-direction='right'] {
+  transform: translateX(calc(var(--toast-swipe-movement-x) + 150%))
+    translateY(var(--tl-toast-offset-y));
+}
+
+.tl-toast__viewport > .tl-toast[data-ending-style][data-swipe-direction='down'] {
+  transform: translateY(calc(var(--toast-swipe-movement-y) + 150%));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-toast__viewport > .tl-toast {
+    transition: opacity var(--tl-duration-normal) linear;
+  }
+
+  .tl-toast__viewport > .tl-toast[data-starting-style],
+  .tl-toast__viewport > .tl-toast[data-ending-style] {
+    transform: none;
+  }
+
+  .tl-toast__content {
+    transition: none;
+  }
+}

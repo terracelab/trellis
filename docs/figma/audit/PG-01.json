@@ -1,0 +1,34 @@
+{
+  "task": "PG-01",
+  "file": "Foundations k1mrv5tz9JpPUIt72dXHSj + Components wm3bZ3mscnjwjmim1I8LeL",
+  "date": "2026-11-10",
+  "source": "figma-audit --emit keys를 두 파일에 돌린 결과(docs/figma/keys.json). 옮겨 적은 글은 Figma 안에서 낸 FNV 해시와 같다(Foundations edbd7854 · Components 72fa84fb)",
+  "expect": {
+    "Foundations.collections": 6,
+    "Foundations.variables": 483,
+    "Foundations.textStyles": 12,
+    "Foundations.effectStyles": 3,
+    "Foundations.keysCoverVariablesJson": true,
+    "Components.sets": 117,
+    "Components.components": 206,
+    "Components.icons": 156,
+    "Components.tiles": 36,
+    "Components.variables": 0
+  },
+  "measured": {
+    "Foundations": {
+      "collections": 6,
+      "variables": 483,
+      "textStyles": 12,
+      "effectStyles": 3,
+      "keysCoverVariablesJson": true
+    },
+    "Components": {
+      "sets": 117,
+      "components": 206,
+      "icons": 156,
+      "tiles": 36,
+      "variables": 0
+    }
+  }
+}

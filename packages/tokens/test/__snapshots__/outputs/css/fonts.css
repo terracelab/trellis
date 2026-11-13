@@ -1,0 +1,8 @@
+/* 생성물 — 수정 금지. pnpm --filter @terracelab/trellis-tokens build */
+@font-face {
+  font-family: "Pretendard Variable";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../../fonts/PretendardVariable.woff2") format("woff2");
+}

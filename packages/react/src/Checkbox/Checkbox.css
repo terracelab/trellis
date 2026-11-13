@@ -1,0 +1,131 @@
+.tl-checkbox {
+  display: inline-grid;
+  gap: calc(var(--tl-space-4) / 2);
+  min-width: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+}
+
+.tl-checkbox__row {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--tl-space-8);
+  cursor: pointer;
+}
+
+.tl-checkbox[data-state='disabled'] .tl-checkbox__row {
+  cursor: not-allowed;
+}
+
+/* 저장 중(CheckboxGroup pending): 라벨 줄 오른쪽에 Spinner(첫 줄 글자 가운데), 설명은 아래 한 줄 다 */
+.tl-checkbox[data-loading] {
+  grid-template-columns: auto auto;
+  column-gap: var(--tl-space-8);
+}
+
+.tl-checkbox[data-loading] .tl-checkbox__row {
+  cursor: progress;
+}
+
+.tl-checkbox[data-loading] .tl-checkbox__description {
+  grid-column: 1 / -1;
+}
+
+.tl-checkbox__spinner {
+  grid-row: 1;
+  grid-column: 2;
+  margin-top: calc((var(--tl-density-body-line-height) - var(--tl-size-icon-16)) / 2);
+  color: var(--tl-color-fg-secondary);
+}
+
+/* 누르는 자리는 24(WCAG 2.5.8), 보이는 상자는 16. 상자는 ::before로 그리고 바깥 여백을 음수로 맞춰 자리는 그대로 */
+.tl-checkbox__box {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--tl-space-24);
+  height: var(--tl-space-24);
+  /* 첫 줄 글자 가운데에 맞춘다(보이는 16 상자 기준) */
+  margin: calc(
+      (var(--tl-density-body-line-height) - var(--tl-size-icon-16)) / 2 - var(--tl-space-4)
+    )
+    calc(var(--tl-space-4) * -1) calc(var(--tl-space-4) * -1);
+  padding: 0;
+  border: 0;
+  border-radius: var(--tl-radius-sm);
+  background: transparent;
+  color: var(--tl-color-fg-inverse);
+}
+
+.tl-checkbox__box::before {
+  content: '';
+  position: absolute;
+  inset: var(--tl-space-4);
+  box-sizing: border-box;
+  border: var(--tl-border-width-1) solid var(--tl-color-fg-tertiary);
+  border-radius: var(--tl-radius-xs);
+  background: var(--tl-color-bg-surface);
+  transition:
+    background-color var(--tl-duration-fast) var(--tl-easing-standard),
+    border-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+/* 포커스 링은 보이는 상자 둘레에 */
+.tl-checkbox__box.tl-focusable:focus-visible {
+  outline-offset: calc(var(--tl-border-width-2) - var(--tl-space-4));
+}
+
+.tl-checkbox__row:hover .tl-checkbox__box::before {
+  border-color: var(--tl-color-border-focus);
+}
+
+.tl-checkbox__box[data-checked]::before,
+.tl-checkbox__box[data-indeterminate]::before {
+  border-color: var(--tl-color-brand-default);
+  background: var(--tl-color-brand-default);
+}
+
+.tl-checkbox__row:hover .tl-checkbox__box[data-checked]::before,
+.tl-checkbox__row:hover .tl-checkbox__box[data-indeterminate]::before {
+  border-color: var(--tl-color-brand-hover);
+  background: var(--tl-color-brand-hover);
+}
+
+.tl-checkbox[data-state='error'] .tl-checkbox__box::before {
+  border-color: var(--tl-color-status-danger-default);
+}
+
+.tl-checkbox__box[data-disabled],
+.tl-checkbox__row:hover .tl-checkbox__box[data-disabled] {
+  color: var(--tl-color-fg-disabled);
+}
+
+.tl-checkbox__box[data-disabled]::before,
+.tl-checkbox__row:hover .tl-checkbox__box[data-disabled]::before {
+  border-color: var(--tl-color-border-default);
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-checkbox__indicator {
+  position: relative;
+  display: inline-flex;
+}
+
+.tl-checkbox__label {
+  min-width: 0;
+}
+
+.tl-checkbox[data-state='disabled'] .tl-checkbox__label {
+  color: var(--tl-color-fg-disabled);
+}
+
+.tl-checkbox__description {
+  padding-left: calc(var(--tl-size-icon-16) + var(--tl-space-8));
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}

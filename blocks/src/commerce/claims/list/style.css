@@ -1,0 +1,20 @@
+/* 취소 · 반품 · 교환: 구매자 요청 문구 인용. 토큰만 쓴다 */
+.tl-block-cm-quote {
+  display: grid;
+  gap: var(--tl-space-4);
+  margin: 0;
+  padding: var(--tl-space-12) var(--tl-space-16);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-block-cm-quote > p {
+  margin: 0;
+  color: var(--tl-color-fg-primary);
+  line-height: var(--tl-type-body-line-height);
+}
+
+.tl-block-cm-quote > footer {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+}

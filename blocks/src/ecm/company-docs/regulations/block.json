@@ -1,0 +1,28 @@
+{
+  "id": "ecm/company-docs/regulations",
+  "title": "전사 규정 · 양식",
+  "intent": "인사 · 회계 · 구매 · 보안 규정과 양식을 분류별로 찾고, 개정 차수 · 시행일 · 개정 이력을 확인해 다운로드한다",
+  "module": "company-docs",
+  "pattern": "ListDetail",
+  "industries": ["general", "trade", "distribution", "manufacturing"],
+  "components": [
+    "PageHeader",
+    "Tabs",
+    "Banner",
+    "Button",
+    "FilterBar",
+    "Input",
+    "Select",
+    "SegmentedControl",
+    "DataGrid",
+    "Badge",
+    "IconButton",
+    "Drawer",
+    "DescriptionList",
+    "Attachment",
+    "Timeline"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["categories", "columns", "detail", "history"],
+  "order": 10
+}

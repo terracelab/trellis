@@ -1,0 +1,211 @@
+---
+// 모든 페이지의 틀: 머리(메타 · 테마 미리 적용) · 상단 바 · 본문 · 바닥.
+// 색 · 크기는 전부 --tl-* 변수다. 회사 색은 <html data-brand>로 바꾼다(presets.css).
+import '@terracelab/trellis-tokens/fonts.css';
+import '@terracelab/trellis-tokens/tokens.css';
+import '@terracelab/trellis-react/styles.css';
+import '../styles/base.css';
+import { Icon } from '@terracelab/trellis-react';
+import Mark from '../components/Mark.astro';
+import {
+  TRELLIS,
+  breadcrumbList,
+  jsonLd as toJsonLd,
+  organization,
+  orgId,
+  robotsMeta,
+  trellisWebsite,
+  verificationMeta,
+  websiteId,
+  type JsonLdNode,
+} from '@terracelab/seo';
+import { FACTS, LINKS, NAV, SITE_ABOUT, SITE_NAME, n, to, type PageKey } from '../lib/site';
+
+interface Props {
+  title: string;
+  description: string;
+  page: PageKey;
+  /** 색인에서 뺀다(404처럼 검색에 나오면 안 되는 페이지) */
+  noindex?: boolean;
+  /** 이 페이지만의 구조화 데이터(schema.org). 사이트 공통(회사 · 사이트 · 페이지 · 빵 부스러기)은 이 틀이 낸다 */
+  jsonLd?: JsonLdNode[];
+  /** 빵 부스러기의 마지막 이름. 없으면 상단 메뉴의 이름 */
+  crumb?: string;
+}
+const { title, description, page, noindex = false, jsonLd = [], crumb } = Astro.props;
+// 값(회사 · 사이트 개체 · 색인 여부)은 문서 · 테라스원과 같은 곳에서 온다: @terracelab/seo
+const abs = (path: string) => new URL(path, Astro.site).href;
+const canonical = abs(Astro.url.pathname);
+const home = abs(LINKS.home);
+const ogImage = abs(to('og.png'));
+const last = crumb ?? NAV.find((i) => i.key === page)?.label;
+const isHome = page === 'home' && !noindex;
+// 홈의 영어 짝은 문서의 영어 첫 화면이다(그쪽도 이 주소를 한국어 짝으로 가리킨다)
+const alternates = isHome
+  ? [
+      { hreflang: 'ko', href: home },
+      { hreflang: 'en', href: abs(LINKS.english) },
+      { hreflang: 'x-default', href: home },
+    ]
+  : [];
+
+// 구조화 데이터: 검색 · 답변 엔진이 "이 사이트가 무엇이고 누가 냈는지"를 글이 아니라 값으로 읽는다.
+// Trellis는 실행하는 앱이 아니라 코드 라이브러리라 SoftwareSourceCode로 적는다
+// (SoftwareApplication은 검색 결과 표시에 가격 · 평점을 요구해 값이 없으면 오류로 잡힌다).
+const softwareId = `${home}#software`;
+const ownsPage = jsonLd.some((node) => node['@type'] === 'FAQPage');
+const structured = toJsonLd(
+  organization(home),
+  trellisWebsite(home),
+  isHome && {
+    '@type': 'SoftwareSourceCode',
+    '@id': softwareId,
+    url: home,
+    name: SITE_NAME,
+    alternateName: TRELLIS.alternateName,
+    description: `${SITE_ABOUT} 토큰 ${n(FACTS.tokens)}개 · 컴포넌트 ${FACTS.components}종 · 화면 블록 ${FACTS.blocks}개가 들어 있습니다.`,
+    version: FACTS.release,
+    programmingLanguage: ['TypeScript', 'CSS'],
+    runtimePlatform: 'React',
+    inLanguage: ['ko', 'en'],
+    publisher: { '@id': orgId(home) },
+  },
+  !noindex &&
+    !ownsPage && {
+      '@type': 'WebPage',
+      '@id': `${canonical}#webpage`,
+      url: canonical,
+      name: title,
+      description,
+      inLanguage: 'ko',
+      isPartOf: { '@id': websiteId(home) },
+      primaryImageOfPage: ogImage,
+      ...(isHome ? { about: { '@id': softwareId } } : {}),
+    },
+  page !== 'home' && last
+    ? breadcrumbList([
+        { name: SITE_NAME, url: home },
+        { name: last, url: canonical },
+      ])
+    : null,
+  jsonLd,
+);
+const FOOT = [
+  ['문서', LINKS.docs],
+  ['컴포넌트', LINKS.components],
+  ['블록', LINKS.blocks],
+  ['테마', LINKS.themes],
+  ['데모', LINKS.demo],
+  ['변경 기록', LINKS.changelog],
+  ['자주 묻는 질문', LINKS.faq],
+  ['llms.txt', LINKS.llms],
+  ['English', LINKS.english],
+  ['GitHub', LINKS.source],
+] as const;
+---
+
+<!doctype html>
+<html lang="ko" data-theme="light" data-density="compact">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={TRELLIS.imageAlt.ko} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <link rel="icon" href={to('favicon.ico')} sizes="32x32" />
+    <link rel="icon" href={to('favicon.svg')} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={to('apple-touch-icon.png')} />
+    <link rel="manifest" href={to('site.webmanifest')} />
+    <link rel="canonical" href={canonical} />
+    {alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
+    <link rel="alternate" type="text/plain" href={to('llms.txt')} title="llms.txt" />
+    <link rel="sitemap" href={to('sitemap-index.xml')} />
+    <link rel="stylesheet" href={to('presets.css')} />
+    <meta name="robots" content={robotsMeta(noindex)} />
+    {isHome && verificationMeta().map((m) => <meta name={m.name} content={m.content} />)}
+    <script type="application/ld+json" set:html={structured} />
+    <script is:inline>
+      // 첫 페인트 전에 테마 · 회사 색을 정한다(깜빡임 방지). 직접 고른 색은 만들어 둔 CSS를 그대로 넣는다.
+      (function () {
+        var d = document.documentElement;
+        var theme = null, brand = null, css = null;
+        try {
+          theme = localStorage.getItem('trellis-site-theme');
+          brand = localStorage.getItem('trellis-site-brand');
+          css = localStorage.getItem('trellis-site-brand-css');
+        } catch (e) {}
+        d.dataset.theme = theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (brand) d.dataset.brand = brand;
+        if (brand === 'custom' && css) {
+          var s = document.createElement('style');
+          s.id = 'tl-theme-preview';
+          s.textContent = css;
+          document.head.appendChild(s);
+        }
+      })();
+    </script>
+  </head>
+  <body class="tl-site">
+    <a class="tl-site-skip" href="#main">본문으로 건너뛰기</a>
+    <header class="tl-site-bar" data-site-bar>
+      <a class="tl-site-brand" href={LINKS.home} aria-label="Trellis 홈" aria-current={page === 'home' ? 'page' : undefined}>
+        <Mark />
+        <span class="tl-site-brand-name">Trellis</span>
+      </a>
+      <nav class="tl-site-nav" aria-label="주 메뉴">
+        {
+          NAV.map((item) => (
+            <a href={item.href} aria-current={item.key === page ? 'page' : undefined}>
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+      <div class="tl-site-bar-side">
+        <button type="button" class="tl-site-icon-button tl-focusable" data-theme-toggle aria-pressed="false" aria-label="다크 테마">
+          <span class="tl-site-when-light"><Icon name="moon" size={20} /></span>
+          <span class="tl-site-when-dark"><Icon name="sun" size={20} /></span>
+        </button>
+        <a class="tl-button tl-focusable" data-variant="primary" data-size="md" href={LINKS.start}>시작하기</a>
+      </div>
+    </header>
+
+    <main id="main" class="tl-site-main">
+      <slot />
+    </main>
+
+    <footer class="tl-site-foot">
+      <div class="tl-site-foot-row">
+        <a class="tl-site-brand" href={LINKS.home} aria-label="Trellis 홈">
+          <Mark />
+          <span class="tl-site-brand-name">Trellis</span>
+        </a>
+        <nav class="tl-site-foot-nav" aria-label="바닥 메뉴">
+          {FOOT.map(([label, href]) => <a href={href}>{label}</a>)}
+        </nav>
+      </div>
+      <div class="tl-site-foot-row tl-site-foot-note">
+        <span>Trellis는 테라스랩의 디자인 시스템입니다. 지금 버전은 {FACTS.version}이고 화면의 회사 이름과 숫자는 샘플입니다.</span>
+        <span>글꼴 Pretendard · 아이콘 Lucide</span>
+        <span>© 2026 테라스랩</span>
+      </div>
+    </footer>
+
+    <script>
+      import '../scripts/theme';
+    </script>
+  </body>
+</html>

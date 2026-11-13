@@ -1,0 +1,46 @@
+{
+  "name": "trellis",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Trellis(트렐리스) — 테라스랩 디자인 시스템 모노레포",
+  "license": "Apache-2.0",
+  "packageManager": "pnpm@12.18.0",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test && node --test \"scripts/*.test.mjs\"",
+    "lint": "turbo run lint && pnpm run lint:css && pnpm run format:check",
+    "lint:css": "stylelint \"**/*.css\" --allow-empty-input",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "build:docs": "node scripts/build-docs.mjs",
+    "storybook": "turbo run build --filter=@terracelab/storybook^... && pnpm --filter @terracelab/storybook dev",
+    "storybook:build": "turbo run storybook:build --filter=@terracelab/storybook",
+    "vrt": "turbo run vrt --filter=@terracelab/storybook",
+    "vrt:update": "turbo run storybook:build --filter=@terracelab/storybook && pnpm --filter @terracelab/storybook vrt:update",
+    "public:push": "node scripts/publish-public.mjs",
+    "release:npm": "node scripts/publish-npm.mjs"
+  },
+  "devDependencies": {
+    "@changesets/cli": "3.0.3",
+    "@eslint/js": "10.0.1",
+    "@terracelab/eslint-plugin-trellis": "workspace:*",
+    "@types/node": "26.6.6",
+    "eslint": "10.14.0",
+    "globals": "17.14.0",
+    "prettier": "3.9.10",
+    "stylelint": "18.0.0",
+    "turbo": "2.11.10",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "8.72.1",
+    "vite": "8.3.6",
+    "vitest": "5.1.0",
+    "zod": "4.6.7"
+  }
+}

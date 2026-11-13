@@ -1,0 +1,47 @@
+/* Storybook 미리보기 바탕과 Matrix · States 격자. 값은 토큰만.
+   바탕은 문서 사이트 예시 칸과 같은 bg.surface(컴포넌트는 대개 카드 · 패널 위에 놓인다) */
+html,
+body {
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-primary);
+  font-family: var(--tl-font-family-sans);
+  font-size: var(--tl-type-body-font-size);
+  line-height: var(--tl-type-body-line-height);
+}
+
+.tl-storybook-frame {
+  padding: var(--tl-space-24);
+}
+
+.tl-storybook-matrix {
+  display: grid;
+  gap: var(--tl-space-12) var(--tl-space-16);
+  align-items: center;
+}
+
+.tl-storybook-matrix__head {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  white-space: nowrap;
+}
+
+.tl-storybook-matrix__cell,
+.tl-storybook-states__cell {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.tl-storybook-states {
+  display: grid;
+  gap: var(--tl-space-16);
+}
+
+.tl-storybook-states__note,
+.tl-storybook-missing {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}

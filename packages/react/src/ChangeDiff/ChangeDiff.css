@@ -1,0 +1,124 @@
+/* 필드별 이전 → 이후(PR-30). 이전 값은 취소선 + 흐린 글자, 이후 값은 진한 글자. 색으로 칠하지 않는다 */
+.tl-change-diff {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--tl-space-4);
+  min-width: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+}
+
+.tl-change-diff__empty {
+  margin: 0;
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-change-diff__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tl-change-diff__table th {
+  padding: var(--tl-space-4) var(--tl-space-8);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-weight: var(--tl-font-weight-500);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.tl-change-diff__table td {
+  height: var(--tl-density-row-height);
+  padding: var(--tl-space-4) var(--tl-space-8);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  vertical-align: middle;
+}
+
+.tl-change-diff__target,
+.tl-change-diff__field {
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-change-diff__change {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0 var(--tl-space-8);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-change-diff__before {
+  color: var(--tl-color-fg-tertiary);
+  text-decoration: line-through;
+}
+
+.tl-change-diff__after {
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-600);
+  text-decoration: none;
+}
+
+.tl-change-diff__arrow {
+  flex: none;
+  align-self: center;
+  color: var(--tl-color-fg-tertiary);
+}
+
+/* 한 줄 목록: 변경 이력 · 확인 창. 고정폭 글자로 값이 세로로 맞는다 */
+.tl-change-diff__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tl-space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--tl-font-family-mono);
+  font-size: var(--tl-type-mono-font-size);
+  line-height: var(--tl-type-mono-line-height);
+  font-weight: var(--tl-type-mono-font-weight);
+  letter-spacing: var(--tl-type-mono-letter-spacing);
+}
+
+.tl-change-diff__item {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0 var(--tl-space-12);
+  padding: var(--tl-space-2) 0;
+}
+
+.tl-change-diff__lead {
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-change-diff__more {
+  align-self: flex-start;
+}
+
+/* 휴대폰: 표도 줄마다 두 줄(항목 위 · 변경 아래) */
+@media (max-width: 639px) {
+  .tl-change-diff__table thead {
+    position: absolute;
+    width: var(--tl-border-width-1);
+    height: var(--tl-border-width-1);
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .tl-change-diff__table tr {
+    display: flex;
+    flex-direction: column;
+    padding: var(--tl-space-8) 0;
+    border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  }
+
+  .tl-change-diff__table td {
+    height: auto;
+    padding: 0 var(--tl-space-8);
+    border-bottom: 0;
+  }
+}

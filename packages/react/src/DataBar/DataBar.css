@@ -1,0 +1,30 @@
+.tl-data-bar {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: center;
+  gap: var(--tl-space-8);
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+.tl-data-bar svg {
+  display: block;
+  overflow: visible;
+  /* 좁은 열(DataGrid sm)에서는 막대가 먼저 줄고 값 글자는 남는다(backlog 2026-11-09) */
+  flex: 0 1 auto;
+  min-width: var(--tl-space-16);
+}
+
+.tl-data-bar__value {
+  min-width: calc(var(--tl-space-24) * 2);
+  text-align: right;
+}
+
+.tl-data-bar[data-state='error'] .tl-data-bar__value {
+  color: var(--tl-color-status-danger-default);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-data-bar__warn {
+  color: var(--tl-color-status-danger-default);
+}

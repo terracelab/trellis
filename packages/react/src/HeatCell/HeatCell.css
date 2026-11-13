@@ -1,0 +1,44 @@
+/* 표 칸 안에서 쓴다. td는 padding 0, 이 span이 칸을 채운다 */
+.tl-heat-cell {
+  display: block;
+  min-height: var(--tl-density-row-height);
+  padding: var(--tl-space-4) var(--tl-space-8);
+  line-height: calc(var(--tl-density-row-height) - var(--tl-space-8));
+  background: var(--tl-color-chart-track);
+  color: var(--tl-color-fg-primary);
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+.tl-heat-cell[data-align='right'] {
+  text-align: right;
+}
+.tl-heat-cell[data-align='center'] {
+  text-align: center;
+}
+.tl-heat-cell[data-align='left'] {
+  text-align: left;
+}
+
+.tl-heat-cell[data-level='0'] {
+  background: transparent;
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-heat-cell[data-level='1'] {
+  background: var(--tl-color-chart-heat-1);
+}
+.tl-heat-cell[data-level='2'] {
+  background: var(--tl-color-chart-heat-2);
+}
+.tl-heat-cell[data-level='3'] {
+  background: var(--tl-color-chart-heat-3);
+}
+.tl-heat-cell[data-level='4'] {
+  background: var(--tl-color-chart-heat-4);
+  color: var(--tl-color-chart-heat-ink);
+}
+.tl-heat-cell[data-level='5'] {
+  background: var(--tl-color-chart-heat-5);
+  color: var(--tl-color-chart-heat-ink);
+}

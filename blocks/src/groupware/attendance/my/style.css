@@ -1,0 +1,24 @@
+/* 내 근태: 신청 표. 오늘 · 주 근무 · 연차(PR-27) · 주간 출퇴근 막대(WorkTimeline, PG-42)는 컴포넌트 */
+.tl-block-att-note {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+}
+
+.tl-block-att-act {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+}
+
+.tl-block-att-grid {
+  border: 0;
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: 0 0 var(--tl-radius-lg) var(--tl-radius-lg);
+}
+
+/* inner-override: DataGrid에 표 최소 폭(auto 열 최소 폭) prop이 없다(보강 요청) */
+.tl-block-att-grid .tl-data-grid__table {
+  min-width: calc(var(--tl-space-64) * 10.5);
+}

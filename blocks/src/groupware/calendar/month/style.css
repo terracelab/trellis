@@ -1,0 +1,175 @@
+/* 일정: 달력(MonthCalendar) 옆 고른 날 일정 · 회의실 띠(09~18시). 캘린더 고르기 점은 CheckboxGroup color(R-T58) */
+
+/* 캘린더 색: 범주 색(chart.series) 다섯 슬롯 */
+[data-cal='mine'] {
+  --tl-block-cal-color: var(--tl-color-chart-series-1);
+}
+
+[data-cal='team'] {
+  --tl-block-cal-color: var(--tl-color-chart-series-2);
+}
+
+[data-cal='company'] {
+  --tl-block-cal-color: var(--tl-color-chart-series-3);
+}
+
+[data-cal='leave'] {
+  --tl-block-cal-color: var(--tl-color-chart-series-4);
+}
+
+[data-cal='deadline'] {
+  --tl-block-cal-color: var(--tl-color-chart-series-5);
+}
+
+/* 일정 색은 앞의 점으로(왼쪽 띠 대신, D-57) */
+.tl-block-cal-agenda__item::before {
+  display: inline-block;
+  width: var(--tl-space-8);
+  height: var(--tl-space-8);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-block-cal-color);
+  content: '';
+  align-self: start;
+  margin-top: calc((var(--tl-type-body-line-height) - var(--tl-space-8)) / 2);
+}
+
+/* 오른쪽 칸 */
+.tl-block-cal-side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tl-density-gutter);
+  min-width: 0;
+}
+
+.tl-block-cal-side > * {
+  flex: 0 0 auto;
+}
+
+.tl-block-cal-agenda {
+  display: grid;
+  gap: var(--tl-space-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-block-cal-agenda__item {
+  display: grid;
+  grid-template-columns: var(--tl-space-8) calc(var(--tl-space-48) + var(--tl-space-4)) minmax(
+      0,
+      1fr
+    );
+  gap: var(--tl-space-8);
+  padding: var(--tl-space-8) var(--tl-space-12);
+  border-radius: var(--tl-radius-sm);
+  background: var(--tl-color-bg-sunken);
+  font-size: var(--tl-type-body-font-size);
+}
+
+.tl-block-cal-agenda__item[data-past] > .tl-block-lines > :first-child {
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-block-cal-agenda__time {
+  display: grid;
+  align-content: start;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-block-cal-agenda__time > :first-child {
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-block-cal-agenda__now {
+  color: var(--tl-color-fg-strong);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-block-rooms {
+  display: grid;
+  gap: var(--tl-space-16);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-block-rooms__room {
+  display: grid;
+  gap: var(--tl-space-8);
+}
+
+.tl-block-rooms__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tl-space-8);
+  font-size: var(--tl-type-body-font-size);
+}
+
+.tl-block-rooms__strip {
+  position: relative;
+  height: var(--tl-space-8);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-chart-track);
+}
+
+.tl-block-rooms__slot {
+  position: absolute;
+  inset-block: 0;
+  left: calc(var(--s) * 1%);
+  width: calc((var(--e) - var(--s)) * 1%);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-chart-compare);
+}
+
+.tl-block-rooms__slot[data-mine] {
+  background: var(--tl-color-chart-series-1);
+}
+
+.tl-block-rooms__now {
+  position: absolute;
+  inset-block: calc(var(--tl-space-4) * -1);
+  left: calc(var(--s) * 1%);
+  width: var(--tl-border-width-2);
+  background: var(--tl-color-status-danger-default);
+}
+
+.tl-block-rooms__list {
+  display: grid;
+  gap: var(--tl-space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-block-rooms__list li {
+  display: grid;
+  grid-template-columns: calc(var(--tl-space-64) + var(--tl-space-24)) minmax(0, 1fr) auto;
+  gap: var(--tl-space-8);
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-caption-font-size);
+}
+
+.tl-block-rooms__list li > :nth-child(2) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-block-rooms__list li > :last-child,
+.tl-block-rooms__list li[data-past] {
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-block-cal-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tl-space-12);
+}
+
+.tl-block-cal-form > :first-child {
+  grid-column: 1 / -1;
+}

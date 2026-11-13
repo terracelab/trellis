@@ -1,0 +1,187 @@
+/* 역할별 홈: 보기 스위치 · 사람 목록 행 · 할 일 행 · 불러오는 중 뼈대. 값은 토큰만 */
+.tl-block-people-roles {
+  min-width: calc(var(--tl-space-64) * 5);
+}
+
+@media (max-width: 1023px) {
+  .tl-block-people-roles {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+.tl-block-people-list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  list-style: none;
+}
+
+.tl-block-people-list > li {
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-people-list > li:last-child {
+  border-bottom: 0;
+}
+
+/* 사람 한 줄: 이름(아바타 · 보조 줄) | 오른쪽 상태 · 날짜 */
+.tl-block-people-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tl-space-12);
+  min-height: calc(var(--tl-density-row-height) + var(--tl-space-12));
+  padding: var(--tl-space-8) var(--tl-density-card-padding);
+}
+
+.tl-block-people-row > .tl-person-label {
+  min-width: 0;
+}
+
+.tl-block-people-row[data-wrap] {
+  flex-wrap: wrap;
+}
+
+.tl-block-people-term {
+  flex: 1 1 calc(var(--tl-space-64) * 2);
+  min-width: 0;
+}
+
+.tl-block-people-end {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--tl-space-8);
+}
+
+.tl-block-people-date,
+.tl-block-people-num {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+.tl-block-people-num {
+  flex: none;
+  text-align: right;
+}
+
+.tl-block-people-num .tl-block-lines > :first-child {
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-body-font-size);
+}
+
+.tl-block-people-strong {
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-600);
+}
+
+/* 할 일 · 결재 한 줄(누르면 그 화면): 모듈 아이콘 | 제목 · 보조 | 기한 */
+.tl-block-people-task {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--tl-space-12);
+  width: 100%;
+  min-height: calc(var(--tl-density-row-height) + var(--tl-space-16));
+  padding: var(--tl-space-8) var(--tl-density-card-padding);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: var(--tl-type-body-font-size);
+  text-align: left;
+  transition: background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-block-people-task[data-cols='2'] {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+button.tl-block-people-task {
+  cursor: pointer;
+}
+
+button.tl-block-people-task:hover {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-block-people-list > li:last-child > .tl-block-people-task {
+  border-radius: 0 0 var(--tl-radius-lg) var(--tl-radius-lg);
+}
+
+.tl-block-people-schedule {
+  min-width: 0;
+  padding: 0 var(--tl-density-card-padding) var(--tl-density-card-padding);
+}
+
+/* inner-override: DataGrid에 표 최소 폭(auto 열 최소 폭) prop이 없다(보강 요청).
+   좁은 카드에서 사유(auto) 칸이 접히지 않게 하고, 표는 자기 상자 안에서 가로로 넘긴다 */
+.tl-block-people-grid .tl-data-grid__table {
+  min-width: calc(var(--tl-space-64) * 12);
+}
+
+/* 불러오는 중: 목록 · 표 뼈대에 카드 틀 */
+.tl-block-people-bone {
+  display: grid;
+  gap: var(--tl-space-16);
+  height: 100%;
+  padding: var(--tl-density-card-padding);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-surface);
+}
+
+@media (max-width: 639px) {
+  .tl-block-people-row {
+    align-items: flex-start;
+  }
+
+  .tl-block-people-task {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .tl-block-people-task[data-cols='2'] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tl-block-people-task > :last-child {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+  .tl-block-people-task[data-cols='2'] > :last-child {
+    grid-column: 1;
+  }
+}
+
+.tl-block-people-icon {
+  display: grid;
+  place-items: center;
+  width: var(--tl-space-32);
+  height: var(--tl-space-32);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-secondary);
+}
+
+/* 부서별 인원 카드: 막대 아래 고용 형태 한 줄 막대 */
+.tl-block-people-org {
+  display: grid;
+  gap: var(--tl-space-20);
+}
+
+.tl-block-people-org__mix {
+  display: grid;
+  gap: var(--tl-space-8);
+  padding-top: var(--tl-space-16);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-people-org__label {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+}

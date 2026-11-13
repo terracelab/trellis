@@ -1,0 +1,339 @@
+/* 기한 띠(R-40, D-138). 넓은 화면: 날짜 축(꾸밈)과 점 목록(ol)을 같은 칸 격자로 겹친다.
+   좁은 화면(breakpoint.sm 미만): 같은 목록을 날짜마다 세로 줄로 */
+.tl-deadline-strip {
+  container-type: inline-size;
+  min-width: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+}
+
+.tl-deadline-strip__track {
+  display: grid;
+  padding-inline: var(--tl-space-12);
+}
+
+/* 지난 기한 칸(있을 때만): "지남 n" 묶음이 들어갈 폭 */
+.tl-deadline-strip__axis,
+.tl-deadline-strip__points {
+  display: grid;
+  grid-area: 1 / 1;
+  grid-template-columns: repeat(var(--tl-deadline-strip-days), minmax(0, 1fr));
+  min-width: 0;
+}
+
+.tl-deadline-strip[data-overdue] .tl-deadline-strip__axis,
+.tl-deadline-strip[data-overdue] .tl-deadline-strip__points {
+  grid-template-columns: calc(var(--tl-space-64) + var(--tl-space-8)) repeat(
+      var(--tl-deadline-strip-days),
+      minmax(0, 1fr)
+    );
+}
+
+/* ── 날짜 축: 점이 앉는 줄 + 아래 날짜 글자 ── */
+.tl-deadline-strip__axis {
+  position: relative;
+  grid-template-rows: var(--tl-space-32) auto;
+  pointer-events: none;
+}
+
+/* 가로 축 선은 점 줄 가운데를 지난다(지난 기한 칸은 빼고) */
+.tl-deadline-strip__axis::before {
+  content: '';
+  position: absolute;
+  top: calc(var(--tl-space-32) / 2);
+  right: 0;
+  left: 0;
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-default);
+}
+
+.tl-deadline-strip[data-overdue] .tl-deadline-strip__axis::before {
+  left: calc(var(--tl-space-64) + var(--tl-space-8));
+}
+
+.tl-deadline-strip__axis-overdue {
+  grid-row: 1 / 3;
+  border-right: var(--tl-border-width-1) dashed var(--tl-color-border-strong);
+}
+
+.tl-deadline-strip__day {
+  position: relative;
+  display: grid;
+  grid-row: 1 / 3;
+  grid-template-rows: subgrid;
+  justify-items: center;
+  min-width: 0;
+}
+
+/* 오늘: 점 줄을 세로로 지나는 선 + 아래 글자 "오늘"(색만으로 말하지 않는다). 브랜드색이 아닌 중립색 */
+.tl-deadline-strip__day[data-today]::before {
+  content: '';
+  grid-row: 1;
+  width: var(--tl-border-width-2);
+  height: 100%;
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-fg-strong);
+}
+
+.tl-deadline-strip__label {
+  grid-row: 2;
+  padding-top: var(--tl-space-4);
+  overflow: hidden;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+.tl-deadline-strip__day[data-today] .tl-deadline-strip__label {
+  overflow: visible;
+  color: var(--tl-color-fg-strong);
+  font-weight: var(--tl-font-weight-600);
+}
+
+/* 칸이 좁으면(태블릿 · 1024 · 720 폭) 큰 눈금(첫날 · 1일 · 월요일)과 오늘만 글자를 둔다 */
+@container (max-width: 960px) {
+  .tl-deadline-strip__day:not([data-major], [data-today]) .tl-deadline-strip__label {
+    visibility: hidden;
+  }
+
+  .tl-deadline-strip__day[data-major] .tl-deadline-strip__label {
+    overflow: visible;
+  }
+}
+
+/* ── 점 목록: 축과 같은 칸에 날짜마다 하나 ── */
+.tl-deadline-strip__points {
+  position: relative;
+  z-index: 1;
+  grid-template-rows: var(--tl-space-32);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-deadline-strip__cell {
+  display: grid;
+  grid-row: 1;
+  place-items: center;
+  min-width: 0;
+}
+
+.tl-deadline-strip__cell[data-overdue] {
+  justify-items: start;
+}
+
+/* 누르는 자리는 space.24(점보다 넓게). 칸이 좁아도 줄어들지 않고 옆 칸 위로 겹친다 */
+.tl-deadline-strip__point {
+  display: inline-grid;
+  place-items: center;
+  min-width: var(--tl-space-24);
+  height: var(--tl-space-24);
+  padding: 0;
+  border: 0;
+  border-radius: var(--tl-radius-full);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition: background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-deadline-strip__point:hover,
+.tl-deadline-strip__point[data-open] {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-deadline-strip__dot {
+  flex: none;
+  width: var(--tl-space-12);
+  height: var(--tl-space-12);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-deadline-strip-color, var(--tl-color-chart-series-1));
+  /* 축 선 위에서 점이 떠 보이게 바탕색 테두리 */
+  box-shadow: 0 0 0 var(--tl-border-width-2) var(--tl-color-bg-surface);
+}
+
+/* 끝난 기한: 속 빈 점 */
+[data-done] > .tl-deadline-strip__dot {
+  background: var(--tl-color-bg-surface);
+  box-shadow:
+    inset 0 0 0 var(--tl-border-width-2)
+      var(--tl-deadline-strip-color, var(--tl-color-chart-series-1)),
+    0 0 0 var(--tl-border-width-2) var(--tl-color-bg-surface);
+}
+
+/* 같은 날 여러 건: 숫자 묶음 */
+.tl-deadline-strip__count {
+  display: inline-grid;
+  place-items: center;
+  min-width: var(--tl-space-20);
+  height: var(--tl-space-20);
+  padding: 0 var(--tl-space-4);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-strong);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-bg-surface);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-weight: var(--tl-font-weight-600);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-deadline-strip__point[data-kind='overdue'] {
+  padding: 0 var(--tl-space-4);
+  border-radius: var(--tl-radius-md);
+}
+
+.tl-deadline-strip__overdue {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-weight: var(--tl-font-weight-600);
+  white-space: nowrap;
+}
+
+.tl-deadline-strip__late {
+  flex: none;
+  color: var(--tl-color-status-danger-default);
+}
+
+.tl-deadline-strip__empty {
+  margin: var(--tl-space-8) 0 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+/* ── 묶음 패널: 띠 아래에 그날(지난 기한) 목록 ── */
+.tl-deadline-strip__panel {
+  margin-top: var(--tl-space-8);
+  padding: var(--tl-space-8) var(--tl-space-12);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-surface);
+}
+
+.tl-deadline-strip__panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tl-space-8);
+}
+
+.tl-deadline-strip__panel-title {
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+/* ── 기한 줄(패널 · 세로 목록): 점 · 이름 · 범주 · 남은 날 ── */
+.tl-deadline-strip__rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-deadline-strip__row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--tl-space-8);
+  width: 100%;
+  min-height: var(--tl-density-row-height);
+  padding: var(--tl-space-4) 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+
+button.tl-deadline-strip__row {
+  cursor: pointer;
+  border-radius: var(--tl-radius-sm);
+  transition: background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+button.tl-deadline-strip__row:hover {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-deadline-strip__row-text {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+.tl-deadline-strip__row-title {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.tl-deadline-strip__row[data-done] .tl-deadline-strip__row-title {
+  color: var(--tl-color-fg-secondary);
+  text-decoration: line-through;
+}
+
+.tl-deadline-strip__row-meta {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+}
+
+.tl-deadline-strip__due {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+.tl-deadline-strip__row[data-late] .tl-deadline-strip__due {
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-600);
+}
+
+/* ── 좁은 화면: 날짜마다 머리 + 기한 줄 ── */
+.tl-deadline-strip__list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-deadline-strip__list-day {
+  padding: var(--tl-space-8) 0;
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-deadline-strip__list-day:last-child {
+  border-bottom: 0;
+}
+
+.tl-deadline-strip__list-date {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-deadline-strip__list-day[data-overdue] .tl-deadline-strip__list-date {
+  gap: var(--tl-space-4);
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-deadline-strip__today-tag {
+  padding: 0 var(--tl-space-4);
+  border-radius: var(--tl-radius-xs);
+  background: var(--tl-color-fg-strong);
+  color: var(--tl-color-fg-inverse);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}

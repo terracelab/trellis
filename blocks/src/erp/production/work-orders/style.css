@@ -1,0 +1,51 @@
+/* 작업지시: 상세 실적 요약 · 실적 등록 칸 */
+.tl-block-wo-progress {
+  display: grid;
+  gap: var(--tl-space-12);
+  padding: var(--tl-space-16);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-block-wo-figures {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--tl-space-16);
+}
+
+.tl-block-wo-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tl-space-16);
+}
+
+.tl-block-wo-form > :nth-child(n + 3) {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 639px) {
+  .tl-block-wo-figures,
+  .tl-block-wo-form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* 표 안 실적: 막대 + 실적 / 계획. 열이 좁으면 막대가 먼저 줄고 숫자는 남는다(숫자가 칸에서 잘리지 않게) */
+.tl-block-wo-qty {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: center;
+  gap: var(--tl-space-4);
+  white-space: nowrap;
+}
+
+.tl-block-wo-qty > .tl-data-bar {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.tl-block-wo-qty__plan {
+  flex: none;
+  color: var(--tl-color-fg-secondary);
+  font-variant-numeric: var(--tl-font-numeric);
+}

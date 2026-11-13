@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-expense-title">
+  <title id="tl-tile-expense-title">지출결의</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-expense-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-expense-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF8FA7"/>
+      <stop offset=".5" stop-color="#ED5477"/>
+      <stop offset="1" stop-color="#B82E5C"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-expense-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-expense-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-expense-gold" x1="610" y1="600" x2="850" y2="850" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF5B2"/>
+      <stop offset=".35" stop-color="#FFD24F"/>
+      <stop offset=".75" stop-color="#E69510"/>
+      <stop offset="1" stop-color="#AF5703"/>
+    </linearGradient>
+    <filter id="tl-tile-expense-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-expense-small" x="-45%" y="-45%" width="200%" height="210%">
+      <feDropShadow dx="4" dy="11" stdDeviation="10" flood-color="#193052" flood-opacity=".28"/>
+    </filter>
+    <filter id="tl-tile-expense-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-expense-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-expense-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-expense-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-expense-blur)"/>
+    <g transform="rotate(-3 500 515)" filter="url(#tl-tile-expense-shadow)">
+      <rect x="273" y="248" width="480" height="586" rx="62" fill="url(#tl-tile-expense-white)"/>
+      <rect x="388" y="197" width="250" height="104" rx="40" fill="#DCE5EE"/>
+      <rect x="458" y="172" width="110" height="70" rx="35" fill="#F7FAFD"/>
+      <g>
+        <rect x="365" y="555" width="55" height="142" rx="16" fill="#6EC4F4"/>
+        <rect x="455" y="469" width="55" height="228" rx="16" fill="#A477EB"/>
+        <rect x="545" y="398" width="55" height="299" rx="16" fill="#F2B637"/>
+        <rect x="635" y="511" width="55" height="186" rx="16" fill="#ED6681"/>
+      </g>
+      <path d="M355 745h342" stroke="#BAC8D6" stroke-width="14" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(555 647) rotate(-24 100 90)" filter="url(#tl-tile-expense-small)">
+      <rect x="0" y="47" width="217" height="67" rx="33" fill="#263E71"/>
+      <path d="m217 47 60 33-60 34Z" fill="url(#tl-tile-expense-gold)"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,30 @@
+{
+  "id": "ecm/my-docs/ask",
+  "title": "문서 질의응답",
+  "intent": "문서 목록을 보며 옆 칸의 업무 도우미에게 문서 내용을 묻고, 답의 출처를 눌러 그 문서 미리 보기를 연다",
+  "module": "my-docs",
+  "pattern": "ConversationalWork",
+  "industries": ["general", "trade", "distribution", "tax"],
+  "components": [
+    "AppShell",
+    "PageHeader",
+    "Button",
+    "IconButton",
+    "Input",
+    "DataGrid",
+    "Card",
+    "DescriptionList",
+    "Attachment",
+    "Icon",
+    "MessageThread",
+    "RichText",
+    "Citation",
+    "RunSteps",
+    "SuggestionChips",
+    "Composer",
+    "EmptyState"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["preview", "columns"],
+  "order": 20
+}

@@ -1,0 +1,438 @@
+/* 편집형 품목 표. 칸은 sm 입력이 채우고, 줄 추가 · 합계는 표 아래 */
+.tl-line-items {
+  display: grid;
+  gap: var(--tl-space-8);
+  min-width: 0;
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+}
+
+.tl-line-items__scroll {
+  /* 칸 안의 읽어 주기 전용 글(tl-sr-only)이 이 스크롤 칸을 기준으로 놓이게 한다(없으면 표 폭만큼 화면이 넓어진다) */
+  position: relative;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-surface);
+}
+
+.tl-line-items__scroll:focus-visible {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: var(--tl-border-width-2);
+}
+
+.tl-line-items__table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-line-items__table col[data-width='side'] {
+  width: var(--tl-space-40);
+}
+
+.tl-line-items__table col[data-width='xs'] {
+  width: var(--tl-space-64);
+}
+
+.tl-line-items__table col[data-width='sm'] {
+  width: calc(var(--tl-space-64) * 1.75);
+}
+
+.tl-line-items__table col[data-width='md'] {
+  width: calc(var(--tl-space-64) * 2);
+}
+
+.tl-line-items__table col[data-width='lg'] {
+  width: calc(var(--tl-space-64) * 3);
+}
+
+.tl-line-items__table col[data-width='xl'] {
+  width: calc(var(--tl-space-64) * 4);
+}
+
+.tl-line-items__cell {
+  padding: var(--tl-space-4) var(--tl-space-8);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  color: var(--tl-color-fg-primary);
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tl-line-items__cell[data-align='right'] {
+  text-align: right;
+}
+
+.tl-line-items__cell[data-align='center'],
+.tl-line-items__cell[data-kind='number'],
+.tl-line-items__cell[data-kind='remove'] {
+  text-align: center;
+}
+
+/* 입력 칸은 넘치는 포커스 링이 잘리지 않게 */
+.tl-line-items__cell[data-line-cell] {
+  overflow: visible;
+}
+
+/* 줄 칸은 위에 맞춘다. 칸 오류 글자가 한 칸 아래로 늘어나도 같은 줄의 입력은 한 줄에 서고 글자는 입력 아래에 붙는다 */
+.tl-line-items tbody .tl-line-items__cell {
+  vertical-align: top;
+}
+
+/* 입력은 글자 기준선이 아니라 칸 위에 붙인다(입력 종류마다 1 차이가 나지 않게) */
+.tl-line-items tbody .tl-line-items__cell[data-line-cell] > *,
+.tl-line-items tbody .tl-line-items__cell[data-kind='remove'] > * {
+  vertical-align: top;
+}
+
+/* 입력이 없는 칸(번호 · 읽기 칸 · 삭제)은 입력 높이를 한 줄로 써서 글자가 옆 입력 글자와 같은 줄에 선다 */
+.tl-line-items tbody .tl-line-items__cell:not([data-line-cell], [data-kind='empty']) {
+  line-height: var(--tl-density-control-height-sm);
+}
+
+.tl-line-items__cell[data-kind='remove'] {
+  padding-inline: 0;
+}
+
+.tl-line-items__cell[data-kind='number'] {
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-line-items thead .tl-line-items__cell {
+  height: var(--tl-density-row-height);
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-line-items tfoot .tl-line-items__cell {
+  height: var(--tl-density-row-height);
+  border-bottom: 0;
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  background: var(--tl-color-bg-sunken);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-line-items__row:last-child > .tl-line-items__cell,
+.tl-line-items__row:has(+ .tl-line-items__error-row:last-child) > .tl-line-items__cell {
+  border-bottom: 0;
+}
+
+.tl-line-items__row[data-error] > .tl-line-items__cell,
+.tl-line-items__row[data-error]:has(+ .tl-line-items__error-row) > .tl-line-items__cell {
+  border-bottom: 0;
+}
+
+.tl-line-items__error-row > td {
+  padding: 0 var(--tl-space-8) var(--tl-space-8);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-line-items__error-row:last-child > td {
+  border-bottom: 0;
+}
+
+.tl-line-items__error {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  margin: 0;
+  color: var(--tl-color-status-danger-default);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  white-space: normal;
+}
+
+.tl-line-items__error > .tl-icon {
+  flex: none;
+}
+
+.tl-line-items__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--tl-space-8) var(--tl-space-16);
+}
+
+.tl-line-items__foot-start {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tl-space-8) var(--tl-space-12);
+}
+
+/* ── 좁은 화면: 줄마다 카드 ── */
+.tl-line-items__cards {
+  display: grid;
+  gap: var(--tl-space-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-line-items__card {
+  display: grid;
+  gap: var(--tl-space-8);
+  padding: var(--tl-space-12);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-surface);
+}
+
+.tl-line-items__card[data-error] {
+  border-color: var(--tl-color-status-danger-default);
+}
+
+/* 머리 줄도 위에 맞춘다. title 칸에 오류 글자가 붙어도 번호 · 삭제는 입력과 한 줄 */
+.tl-line-items__card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--tl-space-8);
+}
+
+.tl-line-items__card-head > .tl-line-items__number {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tl-density-control-height-sm);
+}
+
+/* title 칸이 있으면 그 칸 이름 줄만큼 내려 입력 줄에 맞춘다 */
+.tl-line-items__card-head:has(> .tl-line-items__card-field) > .tl-line-items__number,
+.tl-line-items__card-head:has(> .tl-line-items__card-field) > [data-line-remove] {
+  margin-top: calc(var(--tl-type-label-line-height) + var(--tl-space-4));
+}
+
+.tl-line-items__number {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-line-items__card-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tl-space-8) var(--tl-space-12);
+}
+
+.tl-line-items__card-field {
+  display: grid;
+  gap: var(--tl-space-4);
+  align-content: start;
+  min-width: 0;
+}
+
+.tl-line-items__card-field[data-span='full'] {
+  grid-column: 1 / -1;
+}
+
+.tl-line-items__card-label {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+}
+
+/* 읽기 칸 값은 입력 높이 안에서 가운데: 옆 칸 입력 글자와 같은 줄 */
+.tl-line-items__value {
+  display: flex;
+  align-items: center;
+  min-height: var(--tl-density-control-height-sm);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-line-items__card-field[data-align='right'] .tl-line-items__value {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.tl-line-items__card-field[data-align='center'] .tl-line-items__value {
+  justify-content: center;
+}
+
+.tl-line-items__card-totals {
+  display: grid;
+  gap: var(--tl-space-4);
+  margin: 0;
+}
+
+.tl-line-items__card-totals > div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--tl-space-12);
+}
+
+.tl-line-items__card-totals dt {
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-line-items__card-totals dd {
+  margin: 0;
+  font-weight: var(--tl-font-weight-600);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+/* ── 필수 · 칸 오류 · 빈 상태 ── */
+.tl-line-items__required {
+  display: inline-block;
+  width: var(--tl-space-4);
+  height: var(--tl-space-4);
+  margin-left: var(--tl-space-4);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-status-danger-default);
+  vertical-align: middle;
+}
+
+/* 칸 오류는 입력 바로 아래. 좁은 칸에서도 한글 낱말 중간에서 끊지 않는다 */
+.tl-line-items__cell-error {
+  display: block;
+  margin-top: var(--tl-space-4);
+  color: var(--tl-color-status-danger-default);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  white-space: normal;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.tl-line-items__cell[data-kind='empty'] {
+  text-align: center;
+}
+
+.tl-line-items__empty {
+  margin: 0;
+  padding: var(--tl-space-16) var(--tl-space-8);
+  color: var(--tl-color-fg-secondary);
+  text-align: center;
+  white-space: normal;
+}
+
+.tl-line-items[data-mode='cards'] > .tl-line-items__empty,
+.tl-line-items[data-mode='rows'] > .tl-line-items__empty {
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-surface);
+}
+
+/* ── 합계 묶음(공급가액 · 세액 · 합계) · 한글 금액 ── */
+.tl-line-items__totals-wrap {
+  display: grid;
+  justify-items: end;
+  gap: var(--tl-space-4);
+  margin-left: auto;
+}
+
+.tl-line-items__totals {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--tl-space-4) var(--tl-space-24);
+  margin: 0;
+}
+
+.tl-line-items__total {
+  display: grid;
+  justify-items: end;
+  gap: var(--tl-space-4);
+}
+
+.tl-line-items__total dt {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+}
+
+.tl-line-items__total dd {
+  margin: 0;
+  font-size: var(--tl-type-amount-font-size);
+  line-height: var(--tl-type-amount-line-height);
+  font-weight: var(--tl-type-amount-font-weight);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-line-items__footnote {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  text-align: right;
+}
+
+/* 휴대폰: 합계는 세로로 한 줄씩 */
+.tl-line-items[data-mode='cards'] .tl-line-items__totals-wrap {
+  justify-items: stretch;
+  width: 100%;
+}
+
+.tl-line-items[data-mode='cards'] .tl-line-items__totals {
+  display: grid;
+}
+
+.tl-line-items[data-mode='cards'] .tl-line-items__total {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ── 머리 줄: 번호 + title 칸 + 삭제 ── */
+.tl-line-items__card-head > .tl-line-items__card-field {
+  flex: 1 1 auto;
+}
+
+/* ── 줄 모양(표가 안 들어가는 폭, 640 이상): 카드 테두리 없이 줄 사이 선 ── */
+.tl-line-items[data-mode='rows'] .tl-line-items__cards {
+  gap: 0;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-surface);
+}
+
+.tl-line-items[data-mode='rows'] .tl-line-items__card {
+  border: 0;
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: 0;
+  background: transparent;
+}
+
+.tl-line-items[data-mode='rows'] .tl-line-items__card:last-child {
+  border-bottom: 0;
+}
+
+.tl-line-items[data-mode='rows'] .tl-line-items__card[data-error] {
+  border-color: var(--tl-color-border-divider);
+}
+
+.tl-line-items[data-mode='rows'] .tl-line-items__card-fields {
+  grid-template-columns: repeat(auto-fill, minmax(calc(var(--tl-space-64) * 2.5), 1fr));
+}
+
+/* 읽기 칸 상태: 앞 아이콘만 상태 색, 글자는 본문 색 */
+.tl-line-items__tone {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+}
+
+.tl-line-items__tone-icon {
+  flex: none;
+}
+
+.tl-line-items__tone[data-tone='danger'] .tl-line-items__tone-icon {
+  color: var(--tl-color-status-danger-default);
+}
+
+.tl-line-items__tone[data-tone='warning'] .tl-line-items__tone-icon {
+  color: var(--tl-color-status-warning-default);
+}
+
+.tl-line-items__tone[data-tone='success'] .tl-line-items__tone-icon {
+  color: var(--tl-color-status-success-default);
+}

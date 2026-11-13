@@ -1,0 +1,69 @@
+{
+  "density": {
+    "row": {
+      "height": {
+        "$value": "48px",
+        "$type": "dimension",
+        "$description": "표·목록 행 높이 — 휴대폰 손가락(44 · 48 · 56)(D-97)"
+      },
+      "heightTall": {
+        "$value": "64px",
+        "$type": "dimension",
+        "$description": "두 줄 칸(이름 + 보조 줄)이 있는 행(PR-26). 표 36 · 40 · 48에 맞춰 48 · 56 · 64(D-97)"
+      }
+    },
+    "control": {
+      "height": {
+        "xs": {
+          "$value": "44px",
+          "$type": "dimension",
+          "$description": "가장 작은 컨트롤(표 안 단추 · 칩). 손가락 기기에서는 누르는 영역이 넓어진다(D-97)"
+        },
+        "sm": {
+          "$value": "44px",
+          "$type": "dimension"
+        },
+        "md": {
+          "$value": "48px",
+          "$type": "dimension"
+        },
+        "lg": {
+          "$value": "56px",
+          "$type": "dimension"
+        },
+        "xl": {
+          "$value": "56px",
+          "$type": "dimension",
+          "$description": "손가락 컨트롤(48, 식자재 ERP control-xl)"
+        }
+      }
+    },
+    "card": {
+      "padding": {
+        "$value": "16px",
+        "$type": "dimension"
+      }
+    },
+    "body": {
+      "fontSize": {
+        "$value": "15px",
+        "$type": "dimension"
+      },
+      "lineHeight": {
+        "$value": "22px",
+        "$type": "dimension"
+      }
+    },
+    "input": {
+      "fontSize": {
+        "$value": "16px",
+        "$type": "dimension",
+        "$description": "입력 칸 글자. 휴대폰(touch)은 16 — iOS가 16 미만 입력 칸에 포커스하면 화면을 확대한다"
+      }
+    },
+    "gutter": {
+      "$value": "16px",
+      "$type": "dimension"
+    }
+  }
+}

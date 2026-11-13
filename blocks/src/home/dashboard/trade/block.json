@@ -1,0 +1,27 @@
+{
+  "id": "home/dashboard/trade",
+  "title": "무역 회사 대시보드",
+  "intent": "오늘 처리할 입고 · 세금계산서 · 결재와 매출 · 매입 · 미수금 · 재고 · 환율을 한 화면에서 본다",
+  "module": "home",
+  "pattern": "NotificationHome",
+  "industries": ["trade", "distribution"],
+  "components": [
+    "PageHeader",
+    "DashboardGrid",
+    "KpiCard",
+    "NotificationCard",
+    "ChartCard",
+    "ComboChart",
+    "Card",
+    "DataGrid",
+    "Badge",
+    "DueBadge",
+    "BulletBar",
+    "Sparkline",
+    "Button",
+    "IconButton"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["layout", "kpis", "todo", "widgets"],
+  "order": 1
+}

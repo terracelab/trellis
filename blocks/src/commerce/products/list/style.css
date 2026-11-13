@@ -1,0 +1,100 @@
+/* 상품 목록: 썸네일 자리(이미지 대신 글자 타일) · 채널 배지 줄 · 재고 링크. 토큰만 쓴다 */
+.tl-block-cm-product {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+.tl-block-cm-thumb {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: var(--tl-size-avatar-32);
+  height: var(--tl-size-avatar-32);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-caption-font-size);
+  font-weight: var(--tl-font-weight-600);
+  letter-spacing: var(--tl-font-letter-spacing-tight);
+}
+
+.tl-block-cm-thumb[data-tone='info'] {
+  background: var(--tl-color-status-info-subtle);
+}
+
+.tl-block-cm-thumb[data-tone='success'] {
+  background: var(--tl-color-status-success-subtle);
+}
+
+.tl-block-cm-thumb[data-tone='warning'] {
+  background: var(--tl-color-status-warning-subtle);
+}
+
+.tl-block-cm-thumb[data-tone='danger'] {
+  background: var(--tl-color-status-danger-subtle);
+}
+
+.tl-block-cm-thumb[data-tone='brand'] {
+  background: var(--tl-color-brand-subtle);
+}
+
+.tl-block-cm-thumb[data-tone='commerce'] {
+  background: var(--tl-color-module-commerce-subtle);
+}
+
+.tl-block-cm-chips {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--tl-space-4);
+  min-width: 0;
+  overflow: hidden;
+}
+
+.tl-block-cm-link {
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-500);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: var(--tl-space-4);
+  border-radius: var(--tl-radius-xs);
+}
+
+.tl-block-cm-link:is(:hover, :focus-visible) {
+  text-decoration-color: currentcolor;
+}
+
+.tl-block-cm-price-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tl-space-16);
+  align-items: start;
+}
+
+.tl-block-cm-channel-list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-block-cm-channel-list > li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tl-space-8);
+  min-height: var(--tl-density-row-height);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-cm-channel-list > li:last-child {
+  border-bottom: 0;
+}
+
+@media (max-width: 1023px) {
+  .tl-block-cm-price-form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

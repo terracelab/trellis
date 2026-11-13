@@ -1,0 +1,78 @@
+{
+  "space": {
+    "0": {
+      "$value": "0px",
+      "$type": "dimension"
+    },
+    "2": {
+      "$value": "2px",
+      "$type": "dimension",
+      "$description": "식자재 ERP 간격(D-97)"
+    },
+    "4": {
+      "$value": "4px",
+      "$type": "dimension"
+    },
+    "6": {
+      "$value": "6px",
+      "$type": "dimension",
+      "$description": "식자재 ERP 간격(D-97)"
+    },
+    "8": {
+      "$value": "8px",
+      "$type": "dimension"
+    },
+    "10": {
+      "$value": "10px",
+      "$type": "dimension",
+      "$description": "식자재 ERP 간격(D-97)"
+    },
+    "12": {
+      "$value": "12px",
+      "$type": "dimension"
+    },
+    "14": {
+      "$value": "14px",
+      "$type": "dimension",
+      "$description": "식자재 ERP 간격(D-97)"
+    },
+    "16": {
+      "$value": "16px",
+      "$type": "dimension"
+    },
+    "18": {
+      "$value": "18px",
+      "$type": "dimension",
+      "$description": "식자재 ERP 간격(D-97)"
+    },
+    "20": {
+      "$value": "20px",
+      "$type": "dimension"
+    },
+    "24": {
+      "$value": "24px",
+      "$type": "dimension"
+    },
+    "28": {
+      "$value": "28px",
+      "$type": "dimension",
+      "$description": "식자재 ERP 간격(D-97)"
+    },
+    "32": {
+      "$value": "32px",
+      "$type": "dimension"
+    },
+    "40": {
+      "$value": "40px",
+      "$type": "dimension"
+    },
+    "48": {
+      "$value": "48px",
+      "$type": "dimension"
+    },
+    "64": {
+      "$value": "64px",
+      "$type": "dimension"
+    }
+  }
+}

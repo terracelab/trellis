@@ -1,0 +1,30 @@
+{
+  "id": "ecm/dept-docs/shared",
+  "title": "부서 공유 문서",
+  "intent": "부서별 공유 문서를 보고, 구성원마다 보기 · 편집 · 관리 권한과 다운로드를 정하고, 외부 공유 링크의 만료일과 사용 여부를 관리한다",
+  "module": "dept-docs",
+  "pattern": "Settings",
+  "industries": ["general", "trade", "distribution", "manufacturing"],
+  "components": [
+    "PageHeader",
+    "Tabs",
+    "Button",
+    "Card",
+    "DataGrid",
+    "Icon",
+    "RadioGroup",
+    "Checkbox",
+    "Switch",
+    "Select",
+    "Banner",
+    "DateField",
+    "DueBadge",
+    "Badge",
+    "IconButton",
+    "ActionBar",
+    "PersonLabel"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["departments", "permissions", "linkPolicy", "links"],
+  "order": 10
+}

@@ -1,0 +1,225 @@
+---
+// 화면 블록 목록. 구성: 머리(개수 · 한 문장 · 데모) → 묶음으로 거르기 → 블록 카드(그림 · 이름 · 묶음 · 패턴 · 하는 일 · id)
+// → 쓰는 법(지금 있는 명령만). 블록과 숫자는 lib/blocks.ts · lib/site.ts가 저장소에서 읽는다.
+// 카드를 누르면 데모에서 그 화면이 열린다(링크는 이름 하나이고 누르는 자리만 카드 전체로 넓힌다).
+// 거르기는 주소(?group=erp)에 남아 링크로 보낼 수 있다.
+import '../../styles/blocks.css';
+import { Icon } from '@terracelab/trellis-react';
+import Shot from '../../components/Shot.astro';
+import Base from '../../layouts/Base.astro';
+import { BLOCKS, GROUPS, GROUP_LABEL, groupOf, isPhone, shotFile } from '../../lib/blocks';
+import { FACTS, LINKS, to } from '../../lib/site';
+
+const title = `화면 블록 ${FACTS.blocks}개 · Trellis`;
+const description = `Trellis 화면 블록 ${FACTS.blocks}개입니다. 목록 · 대시보드 · 결재 화면을 소스로 복사해 회사 규칙에 맞게 고칩니다.`;
+
+/** 블록을 서비스에 넣는 법을 설명하는 문서(서비스 시작하기 › 화면 블록) */
+const GUIDE = `${to('docs/guide/service/')}#화면-블록`;
+
+/** 패턴 이름. 데모의 블록 목록(apps/demo/src/pages/Catalog.tsx)과 같은 말을 쓴다 */
+const PATTERN_LABEL: Record<string, string> = {
+  NotificationHome: '알림 홈',
+  Dashboard: '대시보드',
+  ListDetail: '목록 · 상세',
+  FormRegister: '폼 · 등록',
+  ApprovalFlow: '결재',
+  ConversationalWork: '대화형',
+  LedgerEntry: '전표 입력',
+  TaxFiling: '신고서',
+  OrderDetail: '주문 상세',
+  WarehouseScan: '스캔 작업',
+  FloorBoard: '현장 보드',
+  InventoryMatrix: '재고 매트릭스',
+  Settings: '설정',
+  Auth: '로그인',
+  ErrorPage: '오류 화면',
+};
+const patternOf = (pattern: string) => {
+  const label = PATTERN_LABEL[pattern];
+  if (!label) throw new Error(`패턴 이름이 없다: ${pattern}`);
+  return label;
+};
+
+const FILTERS = [{ id: 'all', label: '전체', count: BLOCKS.length }, ...GROUPS];
+/** 전체 보기에서도 묶음끼리 모이게 거르기 줄의 순서대로 놓는다(묶음 안은 블록의 order) */
+const LIST = GROUPS.flatMap((g) => BLOCKS.filter((b) => groupOf(b.id) === g.id));
+
+/** 서비스 저장소의 ds:add = node trellis/scripts/add-block.mjs (starters/service/root/package.json) */
+const SAMPLE = 'erp/tax/invoice-list';
+const COMMANDS = [
+  ['pnpm ds:add --list', '블록 id와 이름을 모두 봅니다'],
+  [`pnpm ds:add ${SAMPLE}`, '블록을 apps/web/src/blocks/로 복사합니다'],
+  ['pnpm ds:add --outdated', '복사한 뒤 Trellis에서 바뀐 블록을 봅니다'],
+  [`pnpm ds:add --diff ${SAMPLE}`, '복사한 커밋 뒤로 바뀐 내용을 봅니다'],
+] as const;
+---
+
+<Base title={title} description={description} page="blocks">
+  <section class="tl-site-wrap tl-site-blocks-head" aria-labelledby="blocks-title">
+    <h1 class="tl-site-blocks-title" id="blocks-title">화면 블록 {FACTS.blocks}개</h1>
+    <p class="tl-site-lead">
+      목록 · 대시보드 · 결재 화면을 소스로 복사해 회사 규칙에 맞게 고칩니다. 카드를 누르면 데모에서 그 화면이
+      열립니다.
+    </p>
+    <div class="tl-site-actions">
+      <a class="tl-button tl-focusable" data-variant="primary" data-size="lg" href={LINKS.demo}>데모 열기</a>
+      <a class="tl-button tl-focusable" data-variant="secondary" data-size="lg" href={GUIDE}>블록 추가 방법</a>
+    </div>
+  </section>
+
+  <div class="tl-site-sheet">
+    <section class="tl-site-section tl-site-wrap" aria-labelledby="blocks-list">
+      <h2 class="tl-site-sr" id="blocks-list">블록 목록</h2>
+      <div class="tl-site-blocks-bar">
+        <div class="tl-site-blocks-filter" role="group" aria-label="묶음으로 거르기">
+          {
+            FILTERS.map((f) => (
+              <button
+                type="button"
+                class="tl-site-blocks-chip tl-focusable"
+                data-block-filter={f.id}
+                data-label={f.label}
+                aria-pressed={f.id === 'all' ? 'true' : 'false'}
+              >
+                {f.label}
+                <span class="tl-site-blocks-chip-n">{f.count}</span>
+              </button>
+            ))
+          }
+        </div>
+        <p class="tl-site-blocks-count" data-block-count aria-live="polite">전체 {BLOCKS.length}개</p>
+      </div>
+
+      <ul class="tl-site-blocks-grid">
+        {
+          LIST.map((b) => {
+            const key = shotFile(b.id);
+            const phone = isPhone(b);
+            return (
+              <li class="tl-site-block" data-block-group={groupOf(b.id)}>
+                <div class="tl-site-block-frame" data-phone={phone || undefined}>
+                  {phone ? (
+                    <div class="tl-site-block-phone">
+                      <Shot id={b.id} alt={`${b.title} 화면`} class="tl-site-block-shot" />
+                    </div>
+                  ) : (
+                    <Shot id={b.id} alt={`${b.title} 화면`} class="tl-site-block-shot" />
+                  )}
+                </div>
+                <div class="tl-site-block-text">
+                  <h3 class="tl-site-block-title">
+                    <a class="tl-site-block-link" href={LINKS.block(b.id)} aria-describedby={`block-${key}`}>
+                      {b.title}
+                    </a>
+                  </h3>
+                  <p class="tl-site-block-meta">
+                    {GROUP_LABEL[groupOf(b.id)]} · {patternOf(b.pattern)}
+                  </p>
+                  <p class="tl-site-block-intent" id={`block-${key}`}>
+                    {b.intent}
+                  </p>
+                  <p class="tl-site-block-id">{b.id}</p>
+                </div>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </section>
+
+    <section class="tl-site-section tl-site-wrap" aria-labelledby="blocks-use">
+      <div class="tl-site-blocks-use">
+        <div class="tl-site-blocks-use-copy">
+          <h2 class="tl-site-title" id="blocks-use">쓰는 법</h2>
+          <p class="tl-site-text">
+            서비스 저장소 루트에서 실행합니다. 블록 소스가 <code>apps/web/src/blocks/</code>로 복사되고 import 경로는
+            패키지 경로로 바뀝니다. 복사한 커밋은 <code>.trellis/blocks.lock</code>에 남습니다.
+          </p>
+          <p class="tl-site-text">
+            복사한 블록은 서비스가 소유합니다. 고쳐도 되는 자리는 블록 코드의 <code>slot</code> 주석 사이이고, Trellis가
+            바뀌어도 복사본은 저절로 바뀌지 않습니다.
+          </p>
+          <a class="tl-site-arrow" href={GUIDE}>서비스 시작하기<Icon name="arrow-right" size={16} /></a>
+        </div>
+        <div class="tl-site-blocks-use-box">
+          <ul class="tl-site-cmds">
+            {
+              COMMANDS.map(([command, note]) => (
+                <li class="tl-site-cmd">
+                  <code class="tl-site-cmd-code">{command}</code>
+                  <span class="tl-site-cmd-note">{note}</span>
+                  <button
+                    type="button"
+                    class="tl-site-icon-button tl-site-cmd-copy tl-focusable"
+                    data-copy={command}
+                    aria-label={`복사 ${command}`}
+                  >
+                    <span class="tl-site-cmd-idle">
+                      <Icon name="copy" size={16} />
+                    </span>
+                    <span class="tl-site-cmd-done">
+                      <Icon name="check" size={16} />
+                    </span>
+                  </button>
+                </li>
+              ))
+            }
+          </ul>
+          <p class="tl-site-blocks-use-note">
+            <code>pnpm ds:add</code>는 <code>node trellis/scripts/add-block.mjs</code>를 실행합니다.
+          </p>
+          <p class="tl-site-sr" role="status" data-copy-status></p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // 묶음으로 거르기: 카드의 hidden만 바꾼다. 고른 묶음은 주소(?group=)에 남긴다. 스크립트가 없으면 전부 보인다.
+    const chips = [...document.querySelectorAll<HTMLButtonElement>('[data-block-filter]')];
+    const cards = [...document.querySelectorAll<HTMLElement>('[data-block-group]')];
+    const count = document.querySelector<HTMLElement>('[data-block-count]');
+
+    function show(group: string, remember: boolean) {
+      const chip = chips.find((c) => c.dataset['blockFilter'] === group) ?? chips[0];
+      if (!chip) return;
+      const id = chip.dataset['blockFilter'] ?? 'all';
+      let shown = 0;
+      for (const card of cards) {
+        const on = id === 'all' || card.dataset['blockGroup'] === id;
+        card.hidden = !on;
+        if (on) shown += 1;
+      }
+      for (const c of chips) c.setAttribute('aria-pressed', String(c === chip));
+      if (count) count.textContent = `${chip.dataset['label'] ?? ''} ${shown}개`;
+      if (!remember) return;
+      const url = new URL(window.location.href);
+      if (id === 'all') url.searchParams.delete('group');
+      else url.searchParams.set('group', id);
+      window.history.replaceState(null, '', url);
+    }
+
+    for (const chip of chips)
+      chip.addEventListener('click', () => show(chip.dataset['blockFilter'] ?? 'all', true));
+    const asked = new URLSearchParams(window.location.search).get('group');
+    if (asked) show(asked, false);
+
+    // 명령 복사: 클립보드를 못 쓰면 명령 글자를 선택해 둔다
+    const status = document.querySelector<HTMLElement>('[data-copy-status]');
+    const DONE_MS = 1600;
+    for (const button of document.querySelectorAll<HTMLButtonElement>('[data-copy]'))
+      button.addEventListener('click', async () => {
+        const text = button.dataset['copy'] ?? '';
+        try {
+          await navigator.clipboard.writeText(text);
+          button.toggleAttribute('data-copied', true);
+          if (status) status.textContent = `복사했습니다. ${text}`;
+          window.setTimeout(() => button.toggleAttribute('data-copied', false), DONE_MS);
+        } catch {
+          const code = button.closest('li')?.querySelector('code');
+          if (code) window.getSelection()?.selectAllChildren(code);
+          if (status) status.textContent = '복사하지 못해 명령을 선택했습니다.';
+        }
+      });
+  </script>
+</Base>

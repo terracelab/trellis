@@ -1,0 +1,38 @@
+{
+  "color": {
+    "chart": {
+      "series": {
+        "1": {
+          "$value": "{color.cvd.dark.vermilion}",
+          "$type": "color",
+          "$description": "색각 친화 계열 1"
+        },
+        "2": {
+          "$value": "{color.cvd.dark.blue}",
+          "$type": "color",
+          "$description": "색각 친화 계열 2"
+        },
+        "3": {
+          "$value": "{color.cvd.dark.orange}",
+          "$type": "color",
+          "$description": "색각 친화 계열 3"
+        },
+        "4": {
+          "$value": "{color.cvd.dark.sky}",
+          "$type": "color",
+          "$description": "색각 친화 계열 4"
+        },
+        "5": {
+          "$value": "{color.cvd.dark.purple}",
+          "$type": "color",
+          "$description": "색각 친화 계열 5"
+        }
+      },
+      "compare": {
+        "$value": "{color.cvd.dark.gray}",
+        "$type": "color",
+        "$description": "색각 친화 비교 · 직전 기간"
+      }
+    }
+  }
+}

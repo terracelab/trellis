@@ -1,0 +1,152 @@
+---
+// 토큰 표 — 동봉 manifest.tokens에서 생성. 견본은 CSS 변수로 칠해 테마 전환이 바로 보인다.
+// lang="en"이면 머리글 · 묶음 이름은 영어, 용도는 src/i18n/tokens.en.json(없으면 빈 칸)
+import manifest from '@terracelab/trellis-react/docs/manifest.json';
+import tokensEn from '../i18n/tokens.en.json';
+
+interface Props {
+  lang?: 'ko' | 'en';
+}
+const { lang = 'ko' } = Astro.props;
+const isEn = lang === 'en';
+const descEn: Record<string, string> = tokensEn;
+const describe = (t: { css: string; description: string }) => (isEn ? (descEn[t.css] ?? '') : t.description);
+
+const GROUP_LABEL: Record<string, string> = isEn
+  ? { bg: 'Background', fg: 'Text', border: 'Border', brand: 'Brand', status: 'Status', finance: 'Finance', approval: 'Approval', module: 'Module', chart: 'Chart' }
+  : {
+      bg: '바탕',
+      fg: '글자',
+      border: '테두리',
+      brand: '브랜드',
+      status: '상태',
+      finance: '금융',
+      approval: '결재',
+      module: '모듈',
+      chart: '차트',
+    };
+const semantic = new Map<string, typeof manifest.tokens.semantic>();
+for (const t of manifest.tokens.semantic) {
+  const g = t.css.split('-')[4] ?? 'etc';
+  semantic.set(g, [...(semantic.get(g) ?? []), t]);
+}
+const SCALE_LABEL: Record<string, string> = isEn
+  ? { space: 'Spacing', radius: 'Radius', size: 'Size', border: 'Border width', shadow: 'Shadow', type: 'Type', font: 'Font', duration: 'Duration', easing: 'Easing', z: 'Stacking (z-index)', layout: 'Layout', breakpoint: 'Breakpoint', paper: 'Paper (theme independent)' }
+  : {
+      space: '간격',
+      radius: '반경',
+      size: '크기',
+      border: '테두리 두께',
+      shadow: '그림자',
+      type: '글자',
+      font: '글꼴',
+      duration: '시간',
+      easing: '가속',
+      z: '쌓임',
+      layout: '레이아웃',
+      breakpoint: '브레이크포인트',
+      paper: '종이(테마와 무관)',
+    };
+const scale = new Map<string, typeof manifest.tokens.scale>();
+for (const t of manifest.tokens.scale) {
+  const g = t.css.split('-')[3] ?? 'etc';
+  scale.set(g, [...(scale.get(g) ?? []), t]);
+}
+const T = isEn
+  ? { swatch: 'Swatch', css: 'CSS variable', value: 'Value', use: 'Use', tokens: 'tokens', density: 'Density' }
+  : { swatch: '견본', css: 'CSS 변수', value: '값', use: '용도', tokens: '토큰', density: '밀도' };
+---
+
+<div class="tl-site-token-tables not-content">
+  <p class="tl-site-token-count">
+    {
+      isEn
+        ? `${manifest.tokens.count} tokens in total. Components and apps use only the semantic, density and scale tokens below (not the primitive color scales).`
+        : `전체 ${manifest.tokens.count}개 · 컴포넌트와 앱은 아래 semantic · density · scale만 씁니다(primitive 색 스케일은 쓰지 않음).`
+    }
+  </p>
+  {
+    [...semantic].map(([g, items]) => (
+      <section class="tl-site-token-group" aria-labelledby={`tok-${g}`}>
+        <h2 id={`tok-${g}`}>
+          {GROUP_LABEL[g] ?? g} <span class="tl-site-token-group-n">{items.length}</span>
+        </h2>
+        <div class="tl-site-table-wrap" tabindex="0" role="region" aria-label={`${GROUP_LABEL[g] ?? g} ${T.tokens}`}>
+          <table class="tl-site-table">
+            <thead>
+              <tr>
+                <th scope="col"><span class="tl-site-sr">{T.swatch}</span></th>
+                <th scope="col">{T.css}</th>
+                <th scope="col">Light</th>
+                <th scope="col">Dark</th>
+                <th scope="col">{T.use}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {items.map((t) => (
+                <tr>
+                  <td>
+                    <span class="tl-site-chip" style={`background: var(${t.css})`} />
+                  </td>
+                  <td>
+                    <code>{t.css}</code>
+                  </td>
+                  <td class="tl-site-mono">{t.light}</td>
+                  <td class="tl-site-mono">{t.dark}</td>
+                  <td>{describe(t)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    ))
+  }
+  <section class="tl-site-token-group" aria-labelledby="tok-density">
+    <h2 id="tok-density">{T.density} <span class="tl-site-token-group-n">{manifest.tokens.density.length}</span></h2>
+    <div class="tl-site-table-wrap" tabindex="0" role="region" aria-label={`${T.density} ${T.tokens}`}>
+      <table class="tl-site-table">
+        <thead>
+          <tr><th scope="col">{T.css}</th><th scope="col">compact</th><th scope="col">comfortable</th><th scope="col">{T.use}</th></tr>
+        </thead>
+        <tbody>
+          {
+            manifest.tokens.density.map((t) => (
+              <tr>
+                <td><code>{t.css}</code></td>
+                <td class="tl-site-mono">{t.compact}</td>
+                <td class="tl-site-mono">{t.comfortable}</td>
+                <td>{describe(t)}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+  {
+    [...scale].map(([g, items]) => (
+      <section class="tl-site-token-group" aria-labelledby={`tok-s-${g}`}>
+        <h2 id={`tok-s-${g}`}>
+          {SCALE_LABEL[g] ?? g} <span class="tl-site-token-group-n">{items.length}</span>
+        </h2>
+        <div class="tl-site-table-wrap" tabindex="0" role="region" aria-label={`${SCALE_LABEL[g] ?? g} ${T.tokens}`}>
+          <table class="tl-site-table">
+            <thead>
+              <tr><th scope="col">{T.css}</th><th scope="col">{T.value}</th><th scope="col">{T.use}</th></tr>
+            </thead>
+            <tbody>
+              {items.map((t) => (
+                <tr>
+                  <td><code>{t.css}</code></td>
+                  <td class="tl-site-mono">{t.value}</td>
+                  <td>{describe(t)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    ))
+  }
+</div>

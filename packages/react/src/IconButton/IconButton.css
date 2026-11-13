@@ -1,0 +1,90 @@
+.tl-icon-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: var(--tl-density-control-height-md);
+  height: var(--tl-density-control-height-md);
+  padding: 0;
+  border: var(--tl-border-width-1) solid transparent;
+  border-radius: var(--tl-radius-md);
+  background: transparent;
+  color: var(--tl-color-fg-secondary);
+  cursor: pointer;
+  transition:
+    background-color var(--tl-duration-fast) var(--tl-easing-standard),
+    color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-icon-button[data-size='xs'] {
+  width: var(--tl-density-control-height-xs);
+  height: var(--tl-density-control-height-xs);
+  border-radius: var(--tl-radius-sm);
+}
+
+.tl-icon-button[data-size='sm'] {
+  width: var(--tl-density-control-height-sm);
+  height: var(--tl-density-control-height-sm);
+}
+
+.tl-icon-button[data-size='lg'] {
+  width: var(--tl-density-control-height-lg);
+  height: var(--tl-density-control-height-lg);
+}
+
+.tl-icon-button[data-size='xl'] {
+  width: var(--tl-density-control-height-xl);
+  height: var(--tl-density-control-height-xl);
+}
+
+.tl-icon-button:hover {
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-icon-button[aria-pressed='true'] {
+  background: var(--tl-color-brand-subtle);
+  color: var(--tl-color-fg-link);
+}
+
+.tl-icon-button[data-variant='secondary'] {
+  border-color: var(--tl-color-border-default);
+  background: var(--tl-color-bg-surface);
+}
+
+.tl-icon-button[data-variant='primary'] {
+  background: var(--tl-color-brand-default);
+  color: var(--tl-color-brand-on-brand);
+}
+
+.tl-icon-button:disabled {
+  color: var(--tl-color-fg-disabled);
+  background: transparent;
+  cursor: not-allowed;
+}
+
+.tl-icon-button__count {
+  /* 배지 높이 = 숫자 글자 + 위아래 2씩(기본 12 + 4 = 16). 글자 크기 모드에서 숫자가 커지면 배지도 같이 커진다(R-37 · R-36) */
+  --tl-icon-button-count-size: calc(var(--tl-type-caption-font-size) + var(--tl-space-4));
+
+  position: absolute;
+  top: calc(var(--tl-space-4) * -1);
+  right: calc(var(--tl-space-4) * -1);
+  min-width: var(--tl-icon-button-count-size);
+  height: var(--tl-icon-button-count-size);
+  padding: 0 var(--tl-space-4);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-icon-button-count-size);
+  font-weight: var(--tl-font-weight-600);
+  font-variant-numeric: var(--tl-font-numeric);
+  box-shadow: 0 0 0 var(--tl-border-width-2) var(--tl-color-bg-surface);
+}
+
+.tl-icon-button__count[data-tone='danger'] {
+  background: var(--tl-color-status-danger-default);
+  color: var(--tl-color-status-danger-on);
+}

@@ -1,0 +1,160 @@
+/* 좁은 화면의 고르는 시트(_internal/sheet.tsx, Base UI Drawer). 행은 손가락 높이(space.48).
+   아래로 쓸어 닫을 때 Base UI가 --drawer-swipe-movement-y · --drawer-swipe-progress를 준다 */
+.tl-sheet__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--tl-z-modal);
+  min-height: 100dvh;
+  background: var(--tl-color-bg-overlay);
+  opacity: calc(1 - var(--drawer-swipe-progress, 0));
+  transition: opacity var(--tl-duration-slower) var(--tl-easing-enter);
+}
+
+.tl-sheet__backdrop[data-starting-style],
+.tl-sheet__backdrop[data-ending-style] {
+  opacity: 0;
+}
+
+.tl-sheet__backdrop[data-swiping] {
+  transition-duration: 0ms;
+}
+
+.tl-sheet__viewport {
+  position: fixed;
+  inset: 0;
+  z-index: var(--tl-z-modal);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+/* 쓸어 올릴 때 아래가 비지 않게 시트를 화면 밖으로 조금 더 늘린다(bleed) */
+.tl-sheet {
+  --tl-sheet-bleed: var(--tl-space-48);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: calc(85dvh + var(--tl-sheet-bleed));
+  margin-bottom: calc(-1 * var(--tl-sheet-bleed));
+  padding-bottom: var(--tl-sheet-bleed);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-xl) var(--tl-radius-xl) 0 0;
+  background: var(--tl-color-bg-elevated);
+  color: var(--tl-color-fg-primary);
+  box-shadow: var(--tl-shadow-lg);
+  font-size: var(--tl-type-body-font-size);
+  line-height: var(--tl-type-body-line-height);
+  transform: translateY(var(--drawer-swipe-movement-y, 0));
+  transition: transform var(--tl-duration-slower) var(--tl-easing-enter);
+  outline: 0;
+}
+
+.tl-sheet[data-starting-style],
+.tl-sheet[data-ending-style] {
+  transform: translateY(100%);
+}
+
+.tl-sheet[data-swiping] {
+  transition-duration: 0ms;
+  user-select: none;
+}
+
+.tl-sheet__handle {
+  flex: none;
+  width: var(--tl-space-40);
+  height: var(--tl-space-4);
+  margin: var(--tl-space-8) auto 0;
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-border-strong);
+}
+
+.tl-sheet__head {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-12);
+  padding: var(--tl-space-8) var(--tl-space-16) var(--tl-space-8) var(--tl-space-20);
+}
+
+.tl-sheet__title {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  font-size: var(--tl-type-h3-font-size);
+  line-height: var(--tl-type-h3-line-height);
+  font-weight: var(--tl-type-h3-font-weight);
+}
+
+.tl-sheet__actions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--tl-space-4);
+}
+
+.tl-sheet__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0 var(--tl-space-12) var(--tl-space-16);
+  overscroll-behavior: contain;
+}
+
+.tl-sheet__body:last-child {
+  padding-bottom: calc(var(--tl-space-16) + env(safe-area-inset-bottom, 0));
+}
+
+.tl-sheet__footer {
+  display: flex;
+  gap: var(--tl-space-8);
+  padding: var(--tl-space-12) var(--tl-space-16)
+    calc(var(--tl-space-12) + env(safe-area-inset-bottom, 0));
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-sheet__footer > * {
+  flex: 1 1 0;
+}
+
+/* 고르는 행: Select(하나) · MultiSelect(여럿) */
+.tl-sheet-options {
+  display: grid;
+}
+
+.tl-sheet-option {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-12);
+  min-height: var(--tl-space-48);
+  padding: 0 var(--tl-space-8);
+  border: 0;
+  border-radius: var(--tl-radius-md);
+  background: transparent;
+  color: var(--tl-color-fg-primary);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.tl-sheet-option:active {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-sheet-option[aria-checked='true'] {
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-sheet-option:disabled {
+  color: var(--tl-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.tl-sheet-option__label {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.tl-sheet-option__check {
+  display: inline-flex;
+  color: var(--tl-color-fg-link);
+}

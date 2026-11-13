@@ -1,0 +1,29 @@
+{
+  "id": "groupware/mail/inbox",
+  "title": "메일",
+  "intent": "메일함별로 안 읽은 메일을 먼저 보고, 읽기 창에서 첨부를 받거나 바로 답장 · 전달한다",
+  "module": "mail",
+  "pattern": "ListDetail",
+  "industries": ["trade", "distribution", "commerce", "manufacturing", "general"],
+  "components": [
+    "PageHeader",
+    "Button",
+    "FolderTree",
+    "Icon",
+    "Progress",
+    "Input",
+    "SegmentedControl",
+    "Avatar",
+    "EmptyState",
+    "Card",
+    "IconButton",
+    "Banner",
+    "Attachment",
+    "Field",
+    "Textarea",
+    "PersonLabel"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["folders", "listItem", "readingPane", "composer"],
+  "order": 10
+}

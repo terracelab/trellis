@@ -1,0 +1,118 @@
+/* 구성원 상세 머리: 큰 아바타 · 굵은 이름 · 회색 소속 줄 · 요약 줄 · 오른쪽 행동 */
+.tl-profile-header {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: start;
+  gap: var(--tl-space-20);
+  min-width: 0;
+}
+
+.tl-profile-header__avatar.tl-avatar {
+  width: calc(var(--tl-size-avatar-32) * 2);
+  height: calc(var(--tl-size-avatar-32) * 2);
+}
+
+.tl-profile-header__avatar .tl-avatar__frame {
+  font-size: var(--tl-type-h2-font-size);
+}
+
+.tl-profile-header__body {
+  display: grid;
+  gap: var(--tl-space-4);
+  min-width: 0;
+}
+
+.tl-profile-header__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tl-space-4) var(--tl-space-12);
+  min-width: 0;
+}
+
+.tl-profile-header__name {
+  margin: 0;
+  color: var(--tl-color-fg-strong);
+  font-size: var(--tl-type-h1-font-size);
+  line-height: var(--tl-type-h1-line-height);
+  font-weight: var(--tl-font-weight-600);
+  letter-spacing: var(--tl-type-h1-letter-spacing);
+}
+
+.tl-profile-header__alt {
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-body-font-size);
+  line-height: var(--tl-type-body-line-height);
+}
+
+.tl-profile-header__meta {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-body-font-size);
+  line-height: var(--tl-type-body-line-height);
+}
+
+/* 요약 줄: 라벨 회색 · 값 진하게, 항목 사이 세로 구분선 */
+/* 항목마다 왼쪽 구분선 + 안쪽 여백을 갖는다. 목록을 그만큼 왼쪽으로 당기고 구분선 폭만 잘라,
+   줄이 바뀌어도 줄 첫 항목이 구분선 없이 왼쪽 끝에서 시작한다(첫 항목만 예외로 두면 둘째 줄부터 구분선 + 들여쓰기가 남는다).
+   위 · 오른쪽 · 아래는 포커스 링이 잘리지 않게 바깥으로 연다 */
+.tl-profile-header__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tl-space-8) 0;
+  margin: var(--tl-space-12) 0 0 calc((var(--tl-space-16) + var(--tl-border-width-1)) * -1);
+  clip-path: inset(
+    calc(var(--tl-space-8) * -1) calc(var(--tl-space-8) * -1) calc(var(--tl-space-8) * -1)
+      var(--tl-border-width-1)
+  );
+}
+
+.tl-profile-header__fact {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--tl-space-8);
+  padding-inline: var(--tl-space-16);
+  border-inline-start: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+}
+
+.tl-profile-header__fact dt {
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-profile-header__fact dd {
+  margin: 0;
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-500);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-profile-header__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tl-space-8);
+  justify-content: flex-end;
+}
+
+@media (max-width: 640px) {
+  .tl-profile-header {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--tl-space-16);
+  }
+
+  .tl-profile-header__avatar.tl-avatar {
+    width: var(--tl-size-avatar-48);
+    height: var(--tl-size-avatar-48);
+  }
+
+  .tl-profile-header__name {
+    font-size: var(--tl-type-h2-font-size);
+    line-height: var(--tl-type-h2-line-height);
+  }
+
+  .tl-profile-header__actions {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+  }
+}

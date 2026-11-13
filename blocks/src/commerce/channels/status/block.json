@@ -1,0 +1,28 @@
+{
+  "id": "commerce/channels/status",
+  "title": "판매 채널",
+  "intent": "판매 채널마다 연동 상태 · 마지막 동기화 · 상품 · 주문 · 재고 수를 보고 동기화 종류를 켜고 끄며 오류를 다시 보내고 API 키를 재발급한다",
+  "module": "channels",
+  "pattern": "Settings",
+  "industries": ["commerce"],
+  "components": [
+    "PageHeader",
+    "StatusDot",
+    "Badge",
+    "Card",
+    "Switch",
+    "Field",
+    "Select",
+    "Input",
+    "Banner",
+    "DescriptionList",
+    "Button",
+    "EmptyState",
+    "Timeline",
+    "Dialog",
+    "SelectableCard"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["channels", "syncTypes", "credentials", "errors"],
+  "order": 10
+}

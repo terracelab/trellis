@@ -1,0 +1,16 @@
+{
+  "name": "@terracelab/trellis-templates",
+  "version": "1.0.0",
+  "private": true,
+  "description": "패턴으로 만든 빈 화면 템플릿과 결정적 mock 데이터(Storybook·플레이그라운드용)",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run --passWithNoTests"
+  },
+  "license": "Apache-2.0"
+}

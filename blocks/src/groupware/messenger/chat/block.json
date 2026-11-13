@@ -1,0 +1,31 @@
+{
+  "id": "groupware/messenger/chat",
+  "title": "메신저",
+  "intent": "채널 · 1:1 대화를 안 읽은 수와 함께 보고, 멘션 · 답글 · 반응 · 고정 공지 · 대화 검색과 업무 카드 · 사진 첨부로 메시지를 주고받는다",
+  "module": "messenger",
+  "pattern": "ConversationalWork",
+  "industries": ["trade", "distribution", "commerce", "manufacturing", "general"],
+  "components": [
+    "PageHeader",
+    "Button",
+    "Input",
+    "SelectableList",
+    "Avatar",
+    "AvatarGroup",
+    "Icon",
+    "Badge",
+    "IconButton",
+    "Attachment",
+    "Card",
+    "DescriptionList",
+    "MessageThread",
+    "Composer",
+    "ContextMenu",
+    "Popover",
+    "Dialog",
+    "TagInput"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["channels", "message", "businessCard", "composer"],
+  "order": 10
+}

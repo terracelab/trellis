@@ -1,0 +1,377 @@
+---
+// 브랜드 페이지 본문: 원칙 · 토큰 · 컴포넌트 · 업종 · 플랫폼 · 에이전트 · 시작
+// lang="en"은 영어 브랜드 페이지(/en/). 원칙 원문은 CLAUDE.md(manifest.principles)이고 영어는 아래 PRINCIPLES_EN(순서 같음)
+import { Code } from '@astrojs/starlight/components';
+import manifest from '@terracelab/trellis-react/docs/manifest.json';
+import LiveExample from './LiveExample.tsx';
+import { LIVE, withBase } from '../lib/site';
+
+interface Props {
+  lang?: 'ko' | 'en';
+}
+const { lang = 'ko' } = Astro.props;
+const isEn = lang === 'en';
+const prefix = isEn ? '/en' : '';
+const n = manifest.components.length;
+// 차트 = manifest category chart(@terracelab/trellis-react/charts)
+const charts = manifest.components.filter((c) => c.category === 'chart').length;
+
+/** 원칙 문장 중 설명이 없는 것(CLAUDE.md 4·5)은 한 줄을 보탠다 */
+const EXTRA: Record<string, string> = {
+  '토큰 밖의 값은 없다': 'raw hex · px · 글꼴 이름 대신 --tl-* 변수와 Trellis 컴포넌트만 쓴다',
+  '플랫폼 간 API는 같고 구현만 다르다': '웹과 네이티브가 같은 contract의 이름 · props · 상태 어휘를 쓴다',
+};
+const PRINCIPLES_EN: [string, string][] = [
+  ['Density first', 'compact is the default, comfortable is an option'],
+  ['Status shows first', 'count badges, status colors and approval steps work the same way in every module'],
+  [
+    'Korean business conventions',
+    'income is red and expense is blue, five approval states, amounts in won with thousands separators and right-aligned',
+  ],
+  ['No values outside tokens', 'use --tl-* variables and Trellis components instead of raw hex, px or font names'],
+  ['Same API on every platform', 'web and native use the names, props and state words of the same contract'],
+  [
+    'Accessible by default',
+    'text contrast of 4.5:1 or more, every action works with the keyboard, the focus ring is always visible, reduced motion is respected',
+  ],
+];
+const principles = isEn
+  ? PRINCIPLES_EN
+  : manifest.principles.map((p) => {
+      const i = p.indexOf(':');
+      return i > 0 ? [p.slice(0, i).trim(), p.slice(i + 1).trim()] : [p, EXTRA[p] ?? ''];
+    });
+const byCss = new Map(manifest.tokens.semantic.map((t) => [t.css, t]));
+const L = (ko: string, en: string) => (isEn ? en : ko);
+const swatchGroups: [string, [string, string][]][] = [
+  [
+    L('바탕 · 글자', 'Background · text'),
+    [
+      ['--tl-color-bg-canvas', 'bg.canvas'],
+      ['--tl-color-bg-surface', 'bg.surface'],
+      ['--tl-color-bg-sunken', 'bg.sunken'],
+      ['--tl-color-fg-primary', 'fg.primary'],
+      ['--tl-color-fg-secondary', 'fg.secondary'],
+      ['--tl-color-fg-tertiary', 'fg.tertiary'],
+    ],
+  ],
+  [
+    L('브랜드 · 상태', 'Brand · status'),
+    [
+      ['--tl-color-brand-default', 'brand'],
+      ['--tl-color-status-info-default', 'info'],
+      ['--tl-color-status-success-default', 'success'],
+      ['--tl-color-status-warning-default', 'warning'],
+      ['--tl-color-status-danger-default', 'danger'],
+    ],
+  ],
+  [
+    L('금융', 'Finance'),
+    [
+      ['--tl-color-finance-income', L('수입', 'Income')],
+      ['--tl-color-finance-expense', L('지출', 'Expense')],
+      ['--tl-color-finance-neutral', L('변동 없음', 'No change')],
+    ],
+  ],
+  [
+    L('결재', 'Approval'),
+    [
+      ['--tl-color-approval-draft-default', L('기안', 'Draft')],
+      ['--tl-color-approval-pending-default', L('진행', 'In progress')],
+      ['--tl-color-approval-approved-default', L('승인', 'Approved')],
+      ['--tl-color-approval-rejected-default', L('반려', 'Rejected')],
+      ['--tl-color-approval-withdrawn-default', L('회수', 'Withdrawn')],
+    ],
+  ],
+  [
+    L('모듈 · 차트', 'Module · chart'),
+    [
+      ['--tl-color-module-erp-default', 'ERP'],
+      ['--tl-color-module-groupware-default', L('그룹웨어', 'Groupware')],
+      ['--tl-color-module-ecm-default', 'ECM'],
+      ['--tl-color-module-crm-default', 'CRM'],
+      ['--tl-color-chart-series-5', L('계열 5', 'Series 5')],
+      ['--tl-color-chart-compare', L('비교', 'Compare')],
+    ],
+  ],
+];
+const typeScale = [
+  ['display', '874,479,500원'],
+  ['h1', L('11월 6일 금요일', 'Friday, November 6')],
+  ['h2', L('결재 대기 12건', '12 awaiting approval')],
+  ['h3', L('시재 추이', 'Cash on hand')],
+  ['body', L('3일 넘게 처리하지 않은 결재가 있습니다', 'Some approvals have waited more than 3 days')],
+  ['caption', L('경영지원팀 · 오늘 09:12', 'Finance team · today 09:12')],
+];
+const gallery: [string, string, string][] = [
+  ['ComboChart', 'Basic', L('양과 흐름을 한 축에', 'Amounts and trend on one axis')],
+  ['WaterfallChart', 'Budget', L('더하고 빼서 잔액까지', 'Additions and subtractions down to the balance')],
+  ['Donut', 'Basic', L('전체에서 각각의 비중', 'Share of each part in the whole')],
+  ['CalendarHeatmap', 'Month', L('날짜별 크기를 한 색 진하기로', 'Daily values as shades of one color')],
+  ['BulletBar', 'List', L('목표 · 한도 대비 진행', 'Progress against a target or limit')],
+  ['HeatCell', 'Aging', L('표 칸에 얹는 조건부 색', 'Conditional color in table cells')],
+];
+const kebab = (s: string) => s.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+const READY = L('사용 가능', 'Available');
+const platforms = [
+  [L('웹 React', 'Web React'), '@terracelab/trellis-react', READY, L(`컴포넌트 ${n}종. 기본 · 입력 · 표 · 오버레이 · 차트`, `${n} components. Core, input, table, overlay and chart`)],
+  [L('CSS 변수 · TS', 'CSS variables · TS'), '@terracelab/trellis-tokens', READY, L('tokens.css · fonts.css · tokens 객체', 'tokens.css · fonts.css · tokens object')],
+  ['Tailwind v4', '@terracelab/trellis-tokens/tailwind', READY, L('semantic 색 · 간격 · 글자 테마', 'Theme with semantic colors, spacing and type')],
+  ['Figma', 'Trellis · Design System', READY, L('변수 231 · 컴포넌트 세트 26', '231 variables · 26 component sets')],
+  ['Expo', '@terracelab/trellis-native', L('예정', 'Planned'), L('같은 contract, react-native-svg', 'Same contract, react-native-svg')],
+  ['Django', 'terracelab-trellis', L('예정', 'Planned'), L('템플릿 태그 · 어드민 테마', 'Template tags · admin theme')],
+];
+const industries = (
+  isEn
+    ? [
+        ['Accounting · approval · documents · customers', 'erp · groupware · ecm · crm', 'Vouchers · daily cash report · payroll · approval inbox · mail · attendance · document box · customers · sales opportunities · support'],
+        ['Tax and accounting offices', 'tax · accounting', 'Tax invoice list · issuing (amount in Korean words) · VAT return · partner ledger · voucher entry'],
+        ['Distribution · logistics · trade', 'warehouse · inventory · trade · delivery', 'Receiving notices (scan · lot · inspection result) · inventory · expiry dates · shipments · customs · dispatch'],
+        ['E-commerce', 'products · orders · claims · settlement', 'Products · order detail · cancellations · returns · exchanges · channel settlement · coupons'],
+        ['Manufacturing', 'shop-floor · equipment · quality · materials', 'Shop floor board · production output · equipment · quality inspection · BOM'],
+      ]
+    : [
+        ['회계 · 결재 · 문서 · 고객', 'erp · groupware · ecm · crm', '전표 · 자금 일보 · 급여 · 결재함 · 메일 · 근태 · 문서함 · 고객 · 영업기회 · 상담'],
+        ['세무 · 회계 사무', 'tax · accounting', '세금계산서 목록 · 발행(한글 금액) · 부가세 신고서 · 거래처 원장 · 전표 입력'],
+        ['유통 · 물류 · 무역', 'warehouse · inventory · trade · delivery', '입고 알림 처리(스캔 · 로트 · 판정) · 재고 · 유통기한 · 선적 · 통관 · 배차'],
+        ['이커머스', 'products · orders · claims · settlement', '상품 · 주문 상세 · 취소 · 반품 · 교환 · 채널 정산 · 쿠폰'],
+        ['제조 · 공장', 'shop-floor · equipment · quality · materials', '현장 보드 · 생산 실적 · 설비 · 품질 검사 · BOM'],
+      ]
+) as [string, string, string][];
+const agentCode = isEn
+  ? `# Docs for the installed version (offline)
+node_modules/@terracelab/trellis-react/dist/docs/llms.txt
+node_modules/@terracelab/trellis-react/dist/docs/manifest.json
+
+# Latest
+${LIVE}/llms.txt
+${LIVE}/api/latest/manifest.json
+
+# Skill (planned)
+npx @terracelab/trellis-skill install
+npx @terracelab/trellis-skill doctor`
+  : `# 설치된 버전의 문서(오프라인)
+node_modules/@terracelab/trellis-react/dist/docs/llms.txt
+node_modules/@terracelab/trellis-react/dist/docs/manifest.json
+
+# 최신판
+${LIVE}/llms.txt
+${LIVE}/api/latest/manifest.json
+
+# 스킬(예정)
+npx @terracelab/trellis-skill install
+npx @terracelab/trellis-skill doctor`;
+---
+
+<div class="tl-site-brand not-content">
+  <section class="tl-site-section" aria-labelledby="sec-principles">
+    <header class="tl-site-section-head">
+      <p class="tl-site-eyebrow">{L('원칙', 'Principles')}</p>
+      <h2 class="tl-site-section-title" id="sec-principles">{L('원칙 여섯 가지', 'Six principles')}</h2>
+      <p class="tl-site-section-lead">
+        {L('둘이 충돌하면 위에 있는 원칙을 따릅니다.', 'When two principles conflict, follow the one listed first.')}
+      </p>
+    </header>
+    <ol class="tl-site-principles">
+      {
+        principles.map(([t, d], i) => (
+          <li class="tl-site-principle">
+            <span class="tl-site-principle-no">{String(i + 1).padStart(2, '0')}</span>
+            <strong class="tl-site-principle-title">{t}</strong>
+            {d && <span class="tl-site-principle-desc">{d}</span>}
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="tl-site-section" aria-labelledby="sec-tokens">
+    <header class="tl-site-section-head">
+      <p class="tl-site-eyebrow">{L('토큰', 'Tokens')}</p>
+      <h2 class="tl-site-section-title" id="sec-tokens">
+        {L('색 · 글자 · 간격은 토큰으로만 씁니다', 'Color, type and spacing come only from tokens')}
+      </h2>
+      <p class="tl-site-section-lead">
+        {
+          L(
+            '라이트 · 다크 두 테마와 compact · comfortable 두 밀도가 같은 이름에서 나옵니다. 아래 견본은 CSS 변수로 칠해져 있어 오른쪽 위에서 테마를 바꾸면 값이 바뀝니다.',
+            'Two themes (light and dark) and two densities (compact and comfortable) come from the same token names. The swatches below are painted with CSS variables, so switching the theme at the top right changes them.',
+          )
+        }{' '}
+        <a href={withBase(`${prefix}/docs/foundations/tokens/`)}>{L('토큰 전체 보기', 'See all tokens')}</a>
+      </p>
+    </header>
+    <div class="tl-site-tokens">
+      <div class="tl-site-swatches">
+        {
+          swatchGroups.map(([group, items]) => (
+            <div class="tl-site-swatch-group">
+              <h3 class="tl-site-swatch-group-title">{group}</h3>
+              <ul class="tl-site-swatch-row">
+                {items.map(([css, label]) => {
+                  const t = byCss.get(css);
+                  return (
+                    <li class="tl-site-swatch">
+                      <span class="tl-site-swatch-chip" style={`background: var(${css})`} />
+                      <span class="tl-site-swatch-name">{label}</span>
+                      <span class="tl-site-swatch-value">L {t?.light}</span>
+                      <span class="tl-site-swatch-value">D {t?.dark}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+      <div class="tl-site-type">
+        <h3 class="tl-site-swatch-group-title">{L('글자', 'Type')} · Pretendard Variable</h3>
+        <ul class="tl-site-type-list">
+          {
+            typeScale.map(([name, sample]) => (
+              <li class="tl-site-type-row">
+                <span class="tl-site-type-name">{name}</span>
+                <span class="tl-site-type-sample" data-type={name}>
+                  {sample}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="tl-site-section" aria-labelledby="sec-components">
+    <header class="tl-site-section-head">
+      <p class="tl-site-eyebrow">{L('컴포넌트', 'Components')}</p>
+      <h2 class="tl-site-section-title" id="sec-components">{L(`차트 ${charts}종`, `${charts} charts`)}</h2>
+      <p class="tl-site-section-lead">
+        {
+          L(
+            '문서의 예시 코드를 그대로 렌더한 실제 컴포넌트입니다. 색은 슬롯 이름으로만 지정하고, 모든 차트에 표 보기가 있습니다. 전체 화면은 테라스원 데모에서 볼 수 있습니다.',
+            'These are real components rendered from the example code in the docs. Colors are set only by slot name, and every chart has a table view. Full screens are in the Terrace One demo.',
+          )
+        }{' '}
+        <a href={withBase(`${prefix}/docs/components/`)}>{L('전체 컴포넌트', 'All components')}</a>
+      </p>
+    </header>
+    <ul class="tl-site-gallery">
+      {
+        gallery.map(([name, example, desc]) => (
+          <li class="tl-site-gallery-item">
+            <a class="tl-site-gallery-head" href={withBase(`${prefix}/docs/components/${kebab(name)}/`)}>
+              <strong>{name}</strong>
+              <span>{desc}</span>
+            </a>
+            <LiveExample component={name} example={example} locale={lang} client:visible />
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="tl-site-section" aria-labelledby="sec-industries">
+    <header class="tl-site-section-head">
+      <p class="tl-site-eyebrow">{L('업종', 'Industries')}</p>
+      <h2 class="tl-site-section-title" id="sec-industries">
+        {L('업종별 화면을 블록으로 제공합니다', 'Industry screens come as screen blocks')}
+      </h2>
+      <p class="tl-site-section-lead">
+        {
+          L(
+            '모듈 35종 · 7묶음입니다. 업종 화면은 미리 디자인한 화면 블록으로 제공하고, 테라스원 데모에서 무역 회사 기준으로 조립해 볼 수 있습니다. 새 업종은 새 색이 아니라 새 어휘와 매핑으로 들어옵니다.',
+            'There are 35 modules in 7 groups. Industry screens are prebuilt screen blocks, and the Terrace One demo assembles them for a sample trading company. A new industry adds vocabulary and mappings, not new colors.',
+          )
+        }{' '}
+        <a href="https://one.terracelab.co.kr/demo/">{L('데모 열기', 'Open the demo')}</a>
+      </p>
+    </header>
+    <ul class="tl-site-platforms">
+      {
+        industries.map(([name, ids, note]) => (
+          <li class="tl-site-platform">
+            <span class="tl-site-platform-head">
+              <strong>{name}</strong>
+              <span class="tl-site-status" data-status="ready">
+                {L('블록', 'Blocks')}
+              </span>
+            </span>
+            <code class="tl-site-platform-pkg">{ids}</code>
+            <span class="tl-site-platform-note">{note}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="tl-site-section" aria-labelledby="sec-platforms">
+    <header class="tl-site-section-head">
+      <p class="tl-site-eyebrow">{L('플랫폼', 'Platforms')}</p>
+      <h2 class="tl-site-section-title" id="sec-platforms">
+        {L('웹 · 네이티브 · Django가 같은 이름을 씁니다', 'Web, native and Django use the same names')}
+      </h2>
+    </header>
+    <ul class="tl-site-platforms">
+      {
+        platforms.map(([name, pkg, status, note]) => (
+          <li class="tl-site-platform">
+            <span class="tl-site-platform-head">
+              <strong>{name}</strong>
+              <span class="tl-site-status" data-status={status === READY ? 'ready' : 'planned'}>
+                {status}
+              </span>
+            </span>
+            <code class="tl-site-platform-pkg">{pkg}</code>
+            <span class="tl-site-platform-note">{note}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="tl-site-section tl-site-agents" aria-labelledby="sec-agents">
+    <div class="tl-site-agents-copy">
+      <p class="tl-site-eyebrow">{L('에이전트', 'Agents')}</p>
+      <h2 class="tl-site-section-title" id="sec-agents">
+        {L('문서는 패키지 안에 들어 있습니다', 'The docs ship inside the package')}
+      </h2>
+      <p class="tl-site-section-lead">
+        {
+          L(
+            '에이전트는 설치된 버전의 llms.txt와 manifest를 읽고, 거기 있는 컴포넌트와 토큰으로만 화면을 만듭니다. 없는 컴포넌트는 만들지 않고 요청합니다. 버튼 이름과 메시지도 동봉된 문구 규칙을 따릅니다.',
+            'Agents read the llms.txt and manifest of the installed version and build screens only from the components and tokens listed there. They request a missing component instead of building it. Button labels and messages follow the bundled copy rules.',
+          )
+        }
+      </p>
+      <a class="tl-site-button" data-variant="secondary" href={withBase(`${prefix}/docs/guide/agents/`)}>
+        {L('에이전트로 개발하기', 'Developing with agents')}
+      </a>
+    </div>
+    <div class="tl-site-agents-code">
+      <Code code={agentCode} lang="bash" title={L('문서가 있는 곳', 'Where the docs are')} />
+    </div>
+  </section>
+
+  <section class="tl-site-cta" aria-labelledby="sec-start">
+    <h2 class="tl-site-section-title" id="sec-start">
+      {L('설치 뒤 CSS 세 줄을 불러옵니다', 'Install, then import three CSS files')}
+    </h2>
+    <p class="tl-site-section-lead">
+      {
+        L(
+          'fonts.css, tokens.css, styles.css 순서입니다. 테마와 밀도는 html 속성 두 개로 정합니다.',
+          'Import fonts.css, tokens.css and styles.css in that order. Two html attributes set the theme and density.',
+        )
+      }
+    </p>
+    <div class="tl-site-actions">
+      <a class="tl-site-button" data-variant="primary" href={withBase(`${prefix}/docs/guide/install/`)}>
+        {L('설치 안내', 'Installation')}
+      </a>
+      <a class="tl-site-button" data-variant="secondary" href={withBase(`${prefix}/docs/guide/setup/`)}>
+        {L('CSS · 테마 · 밀도', 'CSS, themes and density')}
+      </a>
+    </div>
+  </section>
+</div>

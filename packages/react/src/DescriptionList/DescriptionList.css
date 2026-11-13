@@ -1,0 +1,90 @@
+.tl-description-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tl-space-12) var(--tl-density-gutter);
+  min-width: 0;
+  margin: 0;
+}
+
+.tl-description-list[data-columns='1'] {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.tl-description-list[data-columns='3'] {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.tl-description-list__item {
+  display: grid;
+  align-content: start;
+  gap: var(--tl-space-4);
+  min-width: 0;
+}
+
+.tl-description-list__item[data-span='2'] {
+  grid-column: span 2;
+}
+
+.tl-description-list__item[data-span='3'] {
+  grid-column: span 3;
+}
+
+/* 가로 배치: 라벨 열 120(compact) · 140(comfortable), Field와 같은 폭 */
+.tl-description-list[data-layout='horizontal'] .tl-description-list__item {
+  grid-template-columns: calc(var(--tl-space-64) * 1.875) minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--tl-space-12);
+}
+
+[data-density='comfortable']
+  .tl-description-list[data-layout='horizontal']
+  .tl-description-list__item {
+  grid-template-columns: calc(var(--tl-space-64) * 2.1875) minmax(0, 1fr);
+}
+
+.tl-description-list__label {
+  min-width: 0;
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-density-body-line-height);
+  font-weight: var(--tl-type-label-font-weight);
+}
+
+.tl-description-list__value {
+  display: flex;
+  align-items: baseline;
+  gap: var(--tl-space-4);
+  min-width: 0;
+  margin: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-description-list__text {
+  min-width: 0;
+  /* 한국어는 어절 단위로 줄을 바꾼다. 긴 번호만 칸을 넘을 때 끊는다 */
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+/* 복사 버튼은 글자 줄 높이 안에 들어오게 */
+.tl-description-list__copy {
+  align-self: center;
+  margin-block: calc(
+    (var(--tl-density-body-line-height) - var(--tl-density-control-height-sm)) / 2
+  );
+}
+
+@media (max-width: 640px) {
+  .tl-description-list,
+  .tl-description-list[data-columns='3'] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tl-description-list__item[data-span='2'],
+  .tl-description-list__item[data-span='3'] {
+    grid-column: auto;
+  }
+}

@@ -1,0 +1,127 @@
+/* 업무 도우미: 대화 목록 · 대화 · 결과(고른 때만) 세 칸. 대화 칸은 머리 + MessageThread(스크롤) + 아래 Composer */
+.tl-block-agent {
+  display: grid;
+  grid-template-columns: calc(var(--tl-space-64) * 4) minmax(0, 1fr);
+  gap: var(--tl-density-gutter);
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* 결과 칸이 열리면 목록을 줄이고 오른쪽에 옆 칸 폭(space.40 × 10, 토큰 제안 layout.aside.width) */
+.tl-block-agent[data-result] {
+  grid-template-columns:
+    calc(var(--tl-space-64) * 3.5) minmax(0, 1fr)
+    calc(var(--tl-space-40) * 10);
+}
+
+.tl-block-agent-list,
+.tl-block-agent-thread,
+.tl-block-agent-result {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-surface);
+  overflow: hidden;
+}
+
+.tl-block-agent-list {
+  padding: var(--tl-space-8);
+  overflow-y: auto;
+}
+
+/* 대화 */
+.tl-block-agent-thread__head,
+.tl-block-agent-result__head {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-height: calc(var(--tl-space-64) - var(--tl-space-8));
+  padding: var(--tl-space-8) var(--tl-space-16);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-agent-thread__head > :last-child,
+.tl-block-agent-result__head > :first-child {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.tl-block-agent-thread__title,
+.tl-block-agent-result__title {
+  font-size: var(--tl-type-h3-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+/* 빈 대화: 가운데 빈 상태, 추천 질문은 입력 위 칩 */
+.tl-block-agent-empty {
+  display: grid;
+  flex: 1 1 auto;
+  place-items: center;
+  min-height: 0;
+  padding: var(--tl-space-24) var(--tl-space-16);
+  overflow-y: auto;
+}
+
+/* 아래 고정 입력(Composer). 둘레 여백 · 위 선은 블록이 정한다 */
+.tl-block-agent-input {
+  padding: var(--tl-space-12) var(--tl-space-16);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  background: var(--tl-color-bg-surface);
+}
+
+/* 결과(근거): 요약 · 이름 · 값 · 화면 열기 */
+.tl-block-agent-result__body {
+  display: grid;
+  align-content: start;
+  gap: var(--tl-space-16);
+  min-height: 0;
+  padding: var(--tl-density-card-padding);
+  overflow-y: auto;
+}
+
+.tl-block-agent-result__excerpt {
+  margin: 0;
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-block-agent-result__body > .tl-button {
+  justify-self: start;
+}
+
+/* 좁은 화면(1024 미만): 목록 → 대화가 화면 이동. 지금 보이는 한 칸이 남은 높이를 채운다 */
+@media (max-width: 1023px) {
+  .tl-block-agent,
+  .tl-block-agent[data-result] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tl-block-agent[data-view='thread'] .tl-block-agent-list,
+  .tl-block-agent[data-view='list'] .tl-block-agent-thread {
+    display: none;
+  }
+
+  .tl-block-agent-thread {
+    min-height: calc(var(--tl-space-64) * 7);
+  }
+}
+
+/* 휴대폰: 대화 칸은 화면 높이의 70%에서 안쪽 스크롤, 입력(Composer sticky)은 화면 아래에 붙는다 */
+@media (max-width: 639px) {
+  .tl-block-agent-thread {
+    height: max(calc(var(--tl-space-64) * 7), 70dvh);
+    overflow: visible;
+  }
+
+  .tl-block-agent-thread__head {
+    padding-inline: var(--tl-space-8) var(--tl-space-12);
+  }
+
+  .tl-block-agent-input {
+    padding-inline: var(--tl-space-12);
+    border-radius: 0 0 var(--tl-radius-lg) var(--tl-radius-lg);
+  }
+}

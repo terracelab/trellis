@@ -1,0 +1,120 @@
+.tl-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tl-space-4);
+  height: var(--tl-density-control-height-md);
+  padding: 0 var(--tl-space-12);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-primary);
+  font: inherit;
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-font-weight-600);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color var(--tl-duration-fast) var(--tl-easing-standard),
+    border-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+/* 크기별 글자: xs · sm caption 12, md label 13, lg · xl body 14(D-97, 식자재 ERP) */
+.tl-button[data-size='xs'] {
+  height: var(--tl-density-control-height-xs);
+  padding: 0 var(--tl-space-6);
+  border-radius: var(--tl-radius-sm);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-button[data-size='sm'] {
+  height: var(--tl-density-control-height-sm);
+  padding: 0 var(--tl-space-8);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-button[data-size='lg'] {
+  height: var(--tl-density-control-height-lg);
+  padding: 0 var(--tl-space-16);
+  font-size: var(--tl-type-body-font-size);
+  line-height: var(--tl-type-body-line-height);
+}
+
+.tl-button[data-size='xl'] {
+  gap: var(--tl-space-8);
+  height: var(--tl-density-control-height-xl);
+  padding: 0 var(--tl-space-20);
+  font-size: var(--tl-type-body-font-size);
+  line-height: var(--tl-type-body-line-height);
+}
+
+.tl-button[data-full] {
+  width: 100%;
+}
+
+.tl-button:hover {
+  background: var(--tl-color-bg-sunken);
+  border-color: var(--tl-color-border-strong);
+}
+
+.tl-button:active {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-button[data-variant='primary'] {
+  border-color: transparent;
+  background: var(--tl-color-brand-default);
+  color: var(--tl-color-brand-on-brand);
+}
+
+.tl-button[data-variant='primary']:hover {
+  background: var(--tl-color-brand-hover);
+}
+
+.tl-button[data-variant='primary']:active {
+  background: var(--tl-color-brand-active);
+}
+
+.tl-button[data-variant='ghost'] {
+  border-color: transparent;
+  background: transparent;
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-button[data-variant='ghost']:hover {
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-button[data-variant='danger'] {
+  border-color: transparent;
+  background: var(--tl-color-status-danger-default);
+  color: var(--tl-color-status-danger-on);
+}
+
+.tl-button[data-variant='danger']:hover {
+  filter: brightness(0.94);
+}
+
+/* variant의 hover 규칙보다 뒤 · 같은 특정도로 둔다. disabledReason 단추는 aria-disabled라 가리킬 수 있다 */
+.tl-button[data-variant]:disabled,
+.tl-button[data-variant][data-state='disabled'] {
+  border-color: transparent;
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-disabled);
+  cursor: not-allowed;
+  filter: none;
+}
+
+.tl-button[data-state='loading'] {
+  cursor: progress;
+}
+
+.tl-button__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

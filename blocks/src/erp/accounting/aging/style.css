@@ -1,0 +1,41 @@
+/* 채권 연령: 오래된 문서 목록(누르면 거래처 미결 문서). 줄 바탕 칠 · 왼쪽 띠 없음 */
+.tl-block-aging-oldest {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  list-style: none;
+}
+
+.tl-block-aging-oldest > li {
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-aging-oldest > li:last-child {
+  border-bottom: 0;
+}
+
+.tl-block-aging-oldest__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--tl-space-12);
+  width: 100%;
+  min-height: var(--tl-density-row-height);
+  padding: var(--tl-space-4) var(--tl-density-card-padding);
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-block-aging-oldest__row:hover {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-block-aging-oldest > li:last-child .tl-block-aging-oldest__row {
+  border-radius: 0 0 var(--tl-radius-lg) var(--tl-radius-lg);
+}

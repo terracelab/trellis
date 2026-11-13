@@ -1,0 +1,649 @@
+.tl-app-shell {
+  /* 옆 칸 폭. 토큰 제안 layout.aside.width(400)이 들어오기 전까지 space.40 × 10으로 만든다(PG-33) */
+  --tl-app-shell-aside-width: calc(var(--tl-space-40) * 10);
+  /* 바 높이: 바 안 컨트롤(md)이 커지면(글자 크기 모드에서 앱이 컨트롤 높이를 키울 때) 바도 같이 커진다(R-37 · R-36).
+     기본 값에서는 늘 layout.globalBar.height 48이다(compact · comfortable md 36, 휴대폰 touch md 48) */
+  --tl-app-shell-bar-height: max(
+    var(--tl-layout-global-bar-height),
+    var(--tl-density-control-height-md)
+  );
+
+  position: relative;
+  display: grid;
+  /* 사이드바 열은 바 높이까지 세운다(PR-27): nav | 바 · 본문 · 탭바 */
+  grid-template-areas:
+    'nav bar'
+    'nav main'
+    'nav tabs';
+  grid-template-columns: var(--tl-layout-sidebar-width) minmax(0, 1fr);
+  grid-template-rows: var(--tl-app-shell-bar-height) minmax(0, 1fr) auto;
+  height: 100dvh;
+  min-width: 0;
+  overflow: hidden;
+  background: var(--tl-color-bg-canvas);
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+}
+
+.tl-app-shell[data-fill='contained'] {
+  height: 100%;
+}
+
+.tl-app-shell[data-collapsed] {
+  grid-template-columns: var(--tl-layout-sidebar-collapsed-width) minmax(0, 1fr);
+}
+
+.tl-app-shell:not(:has(.tl-app-shell__sidebar)) {
+  grid-template-areas:
+    'bar'
+    'main'
+    'tabs';
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.tl-app-shell__skip {
+  position: absolute;
+  top: var(--tl-space-8);
+  left: var(--tl-space-8);
+  z-index: var(--tl-z-toast);
+  padding: var(--tl-space-8) var(--tl-space-12);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-elevated);
+  color: var(--tl-color-fg-link);
+  box-shadow: var(--tl-shadow-md);
+  transform: translateY(-200%);
+}
+
+.tl-app-shell__skip:focus {
+  transform: none;
+}
+
+.tl-app-shell__bar {
+  position: relative;
+  grid-area: bar;
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-16);
+  min-width: 0;
+  padding: 0 var(--tl-space-16);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  background: var(--tl-color-bg-surface);
+}
+
+.tl-app-shell__bar .tl-app-shell__menu {
+  display: none;
+}
+
+.tl-app-shell__brand,
+.tl-app-shell__nav-brand {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-width: 0;
+  font-size: var(--tl-type-h3-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+/* 사이드바가 있으면 로고는 사이드바 맨 위(넓은 화면). 좁은 화면에서는 바에 다시 보인다 */
+.tl-app-shell:has(.tl-app-shell__sidebar) .tl-app-shell__bar .tl-app-shell__brand {
+  display: none;
+}
+
+.tl-app-shell__nav-brand {
+  height: var(--tl-app-shell-bar-height);
+  padding: 0 var(--tl-space-16);
+  overflow: hidden;
+  color: var(--tl-color-nav-fg-active);
+  white-space: nowrap;
+}
+
+.tl-app-shell[data-collapsed] .tl-app-shell__nav-brand {
+  justify-content: center;
+  padding: 0 var(--tl-space-8);
+}
+
+/* 범위 스위처(법인 · 지사): brand 바로 오른쪽. 본문 열이 시작하는 자리에 온다(PR-26) */
+.tl-app-shell__scope {
+  display: flex;
+  flex: 0 1 auto;
+  align-items: center;
+  min-width: 0;
+}
+
+.tl-app-shell__search {
+  flex: 0 1 calc(var(--tl-space-64) * 6);
+  min-width: 0;
+}
+
+.tl-app-shell__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  margin-left: auto;
+}
+
+/* 사용자: 아이콘 동작과 세로 선으로 나눈 맨 오른쪽 */
+.tl-app-shell__user {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-width: 0;
+  margin-left: var(--tl-space-4);
+  padding-left: var(--tl-space-12);
+  border-left: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+/* userName만 주면 틀이 그리는 사용자: 아바타 + 이름(userMenu가 있으면 메뉴를 여는 단추) */
+.tl-app-shell__user-name {
+  overflow: hidden;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-font-weight-500);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-app-shell__user-trigger,
+.tl-app-shell__user-button {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  margin: 0;
+  border: 0;
+  border-radius: var(--tl-radius-md);
+  background: transparent;
+  color: var(--tl-color-fg-secondary);
+  font: inherit;
+  cursor: pointer;
+  transition: background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-app-shell__user-trigger {
+  gap: var(--tl-space-8);
+  min-width: 0;
+  height: var(--tl-density-control-height-sm);
+  padding: 0 var(--tl-space-8);
+}
+
+/* 휴대폰 폭: 아바타만 있는 단추(접근성 이름 = 사용자 이름, R-T12) */
+.tl-app-shell__user-button {
+  justify-content: center;
+  width: var(--tl-density-control-height-sm);
+  height: var(--tl-density-control-height-sm);
+  padding: 0;
+}
+
+.tl-app-shell__user-trigger:hover,
+.tl-app-shell__user-button:hover,
+.tl-app-shell__user-trigger[aria-expanded='true'],
+.tl-app-shell__user-button[aria-expanded='true'] {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-app-shell__user-chevron {
+  flex: none;
+}
+
+/* 아바타 단추가 여는 시트 안의 user 칸 내용 */
+.tl-app-shell__user-sheet {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tl-space-8);
+  padding: var(--tl-space-8) 0;
+}
+
+/* 화면 불러오는 중: 바 아래 2px 줄이 왼쪽에서 오른쪽으로 지난다. 짧은 로딩(fast 이하)에는 보이지 않는다 */
+.tl-app-shell__progress {
+  position: absolute;
+  right: 0;
+  bottom: calc(var(--tl-border-width-1) * -1);
+  left: 0;
+  z-index: 1;
+  height: var(--tl-border-width-2);
+  overflow: hidden;
+  pointer-events: none;
+  animation: tl-app-shell-progress-in var(--tl-duration-fast) var(--tl-easing-enter)
+    var(--tl-duration-normal) both;
+}
+
+.tl-app-shell__progress::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 40%;
+  background: var(--tl-color-brand-accent);
+  animation: tl-app-shell-progress var(--tl-duration-pulse) var(--tl-easing-standard) infinite;
+}
+
+@keyframes tl-app-shell-progress-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes tl-app-shell-progress {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(250%);
+  }
+}
+
+/* 움직임 줄이기: 지나가는 대신 가만히 선 줄(시간 토큰이 0이라 지나가지 않는다) */
+@media (prefers-reduced-motion: reduce) {
+  .tl-app-shell__progress::before {
+    width: 100%;
+    opacity: 0.6;
+  }
+}
+
+[data-motion='reduce'] .tl-app-shell__progress::before {
+  width: 100%;
+  opacity: 0.6;
+}
+
+.tl-app-shell__sidebar {
+  grid-area: nav;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--tl-color-bg-nav);
+}
+
+.tl-app-shell__nav-body {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.tl-app-shell__scrim {
+  display: none;
+}
+
+.tl-app-shell__main {
+  /* 본문 안 absolute 요소(읽어 주기 전용 글 tl-sr-only 등)의 기준이 본문이 되게 한다. 없으면 기준이 틀(overflow: hidden)이라
+     그 요소가 틀 아래로 나가 틀에 숨은 스크롤 높이를 만들고, 포커스를 옮기는 동작(ErrorSummary)이 틀을 밀어 바를 가린다 */
+  position: relative;
+  grid-area: main;
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+  outline: 0;
+}
+
+/* ── 옆 칸(PG-33): 본문 오른쪽 칸. 모달이 아니라 본문을 계속 쓴다 ── */
+
+/* 자리는 격자에 칸을 만들지 않는다. 안의 옆 칸이 격자 칸이 된다 */
+.tl-app-shell__aside-slot {
+  display: contents;
+}
+
+.tl-app-shell__aside {
+  grid-area: aside;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  border-left: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  background: var(--tl-color-bg-surface);
+  overflow: hidden;
+}
+
+.tl-app-shell__aside[hidden] {
+  display: none;
+}
+
+.tl-app-shell__aside-head {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-height: var(--tl-app-shell-bar-height);
+  padding: 0 var(--tl-space-8) 0 var(--tl-space-16);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-app-shell__aside-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--tl-radius-xs);
+  color: var(--tl-color-fg-strong);
+  font-size: var(--tl-type-h3-font-size);
+  line-height: var(--tl-type-h3-line-height);
+  font-weight: var(--tl-type-h3-font-weight);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  outline: 0;
+}
+
+.tl-app-shell__aside-actions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--tl-space-4);
+}
+
+/* 안은 쓰는 쪽이 채운다. 대화(MessageThread fill + Composer)가 남은 높이를 쓰게 세로 flex */
+.tl-app-shell__aside-body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* 넓은 화면(breakpoint.xl 이상): 본문 폭이 줄고 겹치지 않는다. 바는 위 전체 폭 그대로 */
+@media (min-width: 1280px) {
+  .tl-app-shell:has(> .tl-app-shell__aside-slot > .tl-app-shell__aside:not([hidden])) {
+    grid-template-areas:
+      'nav bar bar'
+      'nav main aside'
+      'nav tabs tabs';
+    grid-template-columns:
+      var(--tl-layout-sidebar-width) minmax(0, 1fr)
+      var(--tl-app-shell-aside-width);
+  }
+
+  .tl-app-shell[data-collapsed]:has(
+      > .tl-app-shell__aside-slot > .tl-app-shell__aside:not([hidden])
+    ) {
+    grid-template-columns:
+      var(--tl-layout-sidebar-collapsed-width) minmax(0, 1fr)
+      var(--tl-app-shell-aside-width);
+  }
+
+  .tl-app-shell:not(:has(.tl-app-shell__sidebar)):has(
+      > .tl-app-shell__aside-slot > .tl-app-shell__aside:not([hidden])
+    ) {
+    grid-template-areas:
+      'bar bar'
+      'main aside'
+      'tabs tabs';
+    grid-template-columns: minmax(0, 1fr) var(--tl-app-shell-aside-width);
+  }
+}
+
+/* breakpoint.lg ~ xl: 칸을 나누면 본문이 너무 좁아 본문 오른쪽 위에 겹친다(모달 아님, 본문 왼쪽은 그대로 쓴다) */
+@media (max-width: 1279px) {
+  .tl-app-shell__aside {
+    position: absolute;
+    top: var(--tl-app-shell-bar-height);
+    right: 0;
+    bottom: 0;
+    z-index: calc(var(--tl-z-sticky) + 1);
+    width: min(var(--tl-app-shell-aside-width), 100%);
+    box-shadow: var(--tl-shadow-lg);
+  }
+}
+
+/* 좁은 화면: 아래 시트(_internal/sheet.tsx). 대화가 들어가므로 시트 높이를 고정하고 안을 세로 flex로 */
+.tl-app-shell__aside-sheet {
+  height: calc(85dvh + var(--tl-sheet-bleed));
+}
+
+.tl-sheet.tl-app-shell__aside-sheet .tl-sheet__body {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+}
+
+@media (max-width: 1023px) {
+  .tl-app-shell__bar .tl-app-shell__menu {
+    display: inline-flex;
+  }
+
+  .tl-app-shell:has(.tl-app-shell__sidebar) .tl-app-shell__bar .tl-app-shell__brand {
+    display: flex;
+  }
+
+  .tl-app-shell__search {
+    display: none;
+  }
+
+  .tl-app-shell,
+  .tl-app-shell[data-collapsed] {
+    grid-template-areas:
+      'bar'
+      'main'
+      'tabs';
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tl-app-shell__sidebar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: var(--tl-z-overlay);
+    width: min(var(--tl-layout-sidebar-width), 85vw);
+    box-shadow: var(--tl-shadow-lg);
+    transform: translateX(-105%);
+    transition: transform var(--tl-duration-slow) var(--tl-easing-enter);
+  }
+
+  .tl-app-shell[data-mobile-open] .tl-app-shell__sidebar {
+    transform: none;
+  }
+
+  .tl-app-shell[data-mobile-open] .tl-app-shell__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: calc(var(--tl-z-overlay) - 1);
+    display: block;
+    background: var(--tl-color-bg-overlay);
+  }
+}
+
+/* 휴대폰 아래 탭바(D-61). 넓은 화면에서는 없다 */
+.tl-app-shell__tabs {
+  grid-area: tabs;
+  display: none;
+}
+
+@media (max-width: 639px) {
+  /* 344에서도 바가 넘치지 않게(R-T12): 간격을 줄이고 brand가 먼저 줄어든다. 동작 · 사용자 단추는 줄지 않는다 */
+  .tl-app-shell__bar {
+    gap: var(--tl-space-8);
+    padding: 0 var(--tl-space-12);
+  }
+
+  .tl-app-shell:has(.tl-app-shell__sidebar) .tl-app-shell__bar .tl-app-shell__brand,
+  .tl-app-shell__brand {
+    flex: 0 1 auto;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .tl-app-shell__actions {
+    flex: none;
+    gap: var(--tl-space-4);
+  }
+
+  .tl-app-shell__user {
+    margin-left: 0;
+    padding-left: var(--tl-space-4);
+  }
+
+  .tl-app-shell__tabs {
+    display: flex;
+    align-items: stretch;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+    border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+    background: var(--tl-color-bg-surface);
+  }
+
+  .tl-app-shell__tab {
+    position: relative;
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--tl-space-4);
+    min-width: 0;
+    /* 56이 최소. 글자 · 아이콘 크기 모드에서 내용이 커지면 탭도 커진다(R-37) */
+    min-height: calc(var(--tl-space-48) + var(--tl-space-8));
+    padding: 0 var(--tl-space-4);
+    border: 0;
+    background: transparent;
+    color: var(--tl-color-fg-secondary);
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .tl-app-shell__tab[aria-current='page'],
+  .tl-app-shell__tab[aria-expanded='true'] {
+    color: var(--tl-color-fg-link);
+  }
+
+  .tl-app-shell__tab-icon {
+    position: relative;
+    display: inline-flex;
+  }
+
+  /* 건수는 알약 없이 작은 숫자(D-56) */
+  .tl-app-shell__tab-count {
+    position: absolute;
+    top: calc(var(--tl-space-4) * -1);
+    left: 100%;
+    color: var(--tl-color-fg-secondary);
+    font-size: var(--tl-type-caption-font-size);
+    line-height: 1;
+    font-weight: var(--tl-font-weight-600);
+    font-variant-numeric: var(--tl-font-numeric);
+  }
+
+  .tl-app-shell__tab-count[data-tone='danger'] {
+    color: var(--tl-color-status-danger-default);
+  }
+
+  .tl-app-shell__tab-label {
+    max-width: 100%;
+    overflow: hidden;
+    font-size: var(--tl-type-caption-font-size);
+    line-height: var(--tl-type-caption-line-height);
+    font-weight: var(--tl-font-weight-500);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* 탭바가 있으면 바의 메뉴 버튼은 숨긴다(전체 탭이 같은 일을 한다) */
+  .tl-app-shell:has(.tl-app-shell__tabs) .tl-app-shell__bar .tl-app-shell__menu {
+    display: none;
+  }
+}
+
+/* ── 사이드바 접기 단추(R-41): 사이드바 맨 아래. 짙은 면 위라 nav 토큰만 쓴다 ── */
+.tl-app-shell__nav-foot {
+  flex: none;
+  padding: var(--tl-space-8);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-nav-border);
+}
+
+.tl-app-shell__nav-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  width: 100%;
+  height: var(--tl-density-control-height-sm);
+  padding: 0 var(--tl-space-8);
+  border: 0;
+  border-radius: var(--tl-radius-md);
+  background: transparent;
+  color: var(--tl-color-nav-fg-muted);
+  font: inherit;
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--tl-duration-fast) var(--tl-easing-standard),
+    color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-app-shell__nav-toggle:hover {
+  background: var(--tl-color-nav-hover);
+  color: var(--tl-color-nav-fg-active);
+}
+
+.tl-app-shell__nav-toggle.tl-focusable:focus-visible {
+  outline-color: var(--tl-color-nav-focus);
+}
+
+.tl-app-shell[data-collapsed] .tl-app-shell__nav-toggle {
+  justify-content: center;
+  padding: 0;
+}
+
+.tl-app-shell__nav-toggle-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── 옆 칸 폭 손잡이(R-41): 옆 칸 왼쪽 가장자리. 가리키거나 끌거나 포커스면 선이 진해진다 ── */
+@media (min-width: 1280px) {
+  /* 본문 옆 열일 때 손잡이의 기준. 1024 ~ 1279의 겹치는 패널은 이미 absolute다 */
+  .tl-app-shell__aside {
+    position: relative;
+  }
+}
+
+.tl-app-shell__aside-resize {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: var(--tl-space-8);
+  cursor: col-resize;
+  touch-action: none;
+}
+
+.tl-app-shell__aside-resize::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: var(--tl-border-width-2);
+  background: transparent;
+  transition: background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-app-shell__aside-resize:hover::before,
+.tl-app-shell__aside-resize:focus-visible::before,
+.tl-app-shell[data-resizing] .tl-app-shell__aside-resize::before {
+  background: var(--tl-color-border-focus);
+}
+
+.tl-app-shell__aside-resize.tl-focusable:focus-visible {
+  outline-offset: calc(var(--tl-border-width-2) * -1);
+}
+
+/* 끄는 동안 글이 골라지지 않고 손잡이 모양이 화면 어디서나 같다 */
+.tl-app-shell[data-resizing] {
+  cursor: col-resize;
+  user-select: none;
+}
+
+@media (max-width: 1023px) {
+  /* 좁은 화면 사이드바는 덮개라 늘 펼친다. 접기 단추는 넓은 화면에서만 */
+  .tl-app-shell__nav-foot {
+    display: none;
+  }
+}

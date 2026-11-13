@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-mail-title">
+  <title id="tl-tile-mail-title">메일</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-mail-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-mail-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B17BFF"/>
+      <stop offset=".5" stop-color="#754CE1"/>
+      <stop offset="1" stop-color="#4726AE"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-mail-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-mail-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <filter id="tl-tile-mail-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-mail-small" x="-45%" y="-45%" width="200%" height="210%">
+      <feDropShadow dx="4" dy="11" stdDeviation="10" flood-color="#193052" flood-opacity=".28"/>
+    </filter>
+    <filter id="tl-tile-mail-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-mail-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-mail-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-mail-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-mail-blur)"/>
+    <g filter="url(#tl-tile-mail-shadow)">
+      <path d="M220 373h584v383c0 43-35 78-78 78H298c-43 0-78-35-78-78V373Z" fill="url(#tl-tile-mail-white)"/>
+      <path d="m236 392 276 221 276-221" fill="none" stroke="#B9C8D7" stroke-width="24" stroke-linejoin="round"/>
+      <path d="m239 798 204-189M785 798 581 609" stroke="#D1DAE4" stroke-width="17"/>
+      <g transform="translate(407 218)" filter="url(#tl-tile-mail-small)">
+        <circle cx="105" cy="105" r="105" fill="#51D9B7"/>
+        <circle cx="105" cy="105" r="76" fill="#E9FFF9"/>
+        <circle cx="105" cy="105" r="31" fill="none" stroke="#28AA9B" stroke-width="17"/>
+        <path d="M136 105v31c0 15 18 20 30 9 13-12 18-32 18-50" fill="none" stroke="#28AA9B" stroke-width="17" stroke-linecap="round"/>
+      </g>
+    </g>
+  </g>
+</svg>

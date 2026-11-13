@@ -1,0 +1,31 @@
+{
+  "id": "home/dashboard/forecast",
+  "title": "수요 예측 · 발주 추천",
+  "intent": "주별 출고 실적 뒤에 예측과 80% 구간을 보고, 품절 위험 품목의 추천 수량 근거를 확인한 뒤 발주 초안을 사람이 승인한다",
+  "module": "home",
+  "pattern": "Dashboard",
+  "industries": ["trade", "distribution", "manufacturing"],
+  "components": [
+    "PageHeader",
+    "DashboardGrid",
+    "KpiCard",
+    "ChartCard",
+    "TrendChart",
+    "PeriodPicker",
+    "Select",
+    "Card",
+    "StatusDot",
+    "AmountBreakdown",
+    "SegmentedControl",
+    "DataGrid",
+    "DataBar",
+    "DueBadge",
+    "ActionBar",
+    "ProposalCard",
+    "RunSteps",
+    "Button"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["rule", "layout", "kpis", "columns", "proposal"],
+  "order": 3
+}

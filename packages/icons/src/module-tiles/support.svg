@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-support-title">
+  <title id="tl-tile-support-title">상담</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-support-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-support-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#55D1CE"/>
+      <stop offset=".5" stop-color="#179E9F"/>
+      <stop offset="1" stop-color="#076D72"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-support-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-support-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <filter id="tl-tile-support-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-support-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-support-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-support-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-support-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-support-blur)"/>
+    <g filter="url(#tl-tile-support-shadow)">
+      <path d="M269 526v-59c0-149 104-257 243-257s243 108 243 257v59" fill="none" stroke="url(#tl-tile-support-white)" stroke-width="75" stroke-linecap="round"/>
+      <rect x="214" y="474" width="142" height="247" rx="66" fill="url(#tl-tile-support-white)"/>
+      <rect x="668" y="474" width="142" height="247" rx="66" fill="url(#tl-tile-support-white)"/>
+      <path d="M738 699c0 85-64 131-166 131h-53" fill="none" stroke="#C9D6E1" stroke-width="37" stroke-linecap="round"/>
+      <rect x="466" y="791" width="125" height="65" rx="32" fill="#F8FBFD"/>
+      <path d="M337 428c26-91 91-143 175-143" fill="none" stroke="#FFFFFF" stroke-width="20" stroke-linecap="round" opacity=".78"/>
+    </g>
+  </g>
+</svg>

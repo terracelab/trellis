@@ -1,0 +1,126 @@
+{
+  "color": {
+    "brand": {
+      "50": {
+        "$value": "#FFF2EE",
+        "$type": "color"
+      },
+      "100": {
+        "$value": "#FFE4DC",
+        "$type": "color"
+      },
+      "200": {
+        "$value": "#FFD0C3",
+        "$type": "color"
+      },
+      "300": {
+        "$value": "#FFB39D",
+        "$type": "color"
+      },
+      "400": {
+        "$value": "#FF8867",
+        "$type": "color"
+      },
+      "500": {
+        "$value": "#FE5C2B",
+        "$type": "color",
+        "$description": "회사 색(기본 #FE5C2B). 생성물 — 테마 엔진 brandScale(D-98)"
+      },
+      "600": {
+        "$value": "#CC3A00",
+        "$type": "color",
+        "$description": "흰 글자 5:1을 넘는 가장 밝은 같은 색상(주 버튼 바탕, D-97 정한 것 1 A)"
+      },
+      "700": {
+        "$value": "#A22C00",
+        "$type": "color"
+      },
+      "800": {
+        "$value": "#7A1F00",
+        "$type": "color"
+      },
+      "900": {
+        "$value": "#541200",
+        "$type": "color"
+      },
+      "950": {
+        "$value": "#2E0600",
+        "$type": "color"
+      },
+      "$description": "생성물: pnpm --filter @terracelab/trellis-tokens gen:theme. 회사 색 기본 테마(createTheme(DEFAULT_BRAND)). 직접 고치지 않는다(D-98)"
+    },
+    "shell": {
+      "100": {
+        "$value": "#EAE1DE",
+        "$type": "color",
+        "$description": "사이드바 톤 L 0.915(D-97 정한 것 2)"
+      },
+      "300": {
+        "$value": "#BDB4B2",
+        "$type": "color",
+        "$description": "사이드바 톤 L 0.778(D-97 정한 것 2)"
+      },
+      "600": {
+        "$value": "#5B5351",
+        "$type": "color",
+        "$description": "사이드바 톤 L 0.45(D-97 정한 것 2)"
+      },
+      "700": {
+        "$value": "#4A4341",
+        "$type": "color",
+        "$description": "사이드바 톤 L 0.389(D-97 정한 것 2)"
+      },
+      "750": {
+        "$value": "#423A38",
+        "$type": "color",
+        "$description": "사이드바 톤 L 0.357(D-97 정한 것 2)"
+      },
+      "800": {
+        "$value": "#3A3331",
+        "$type": "color",
+        "$description": "사이드바 톤 L 0.327(D-97 정한 것 2)"
+      },
+      "850": {
+        "$value": "#352E2C",
+        "$type": "color",
+        "$description": "사이드바 톤 L 0.307(D-97 정한 것 2)"
+      },
+      "900": {
+        "$value": "#332C2A",
+        "$type": "color",
+        "$description": "사이드바 톤 L 0.3(D-97 정한 것 2)"
+      },
+      "925": {
+        "$value": "#2B2422",
+        "$type": "color",
+        "$description": "사이드바 톤 L 0.269(D-97 정한 것 2)"
+      },
+      "950": {
+        "$value": "#251E1D",
+        "$type": "color",
+        "$description": "사이드바 톤 L 0.244(D-97 정한 것 2)"
+      },
+      "$description": "사이드바 톤. 생성물: pnpm --filter @terracelab/trellis-tokens gen:theme. 회사 색 기본 테마(createTheme(DEFAULT_BRAND)). 직접 고치지 않는다(D-98)"
+    },
+    "alpha": {
+      "brand": {
+        "8": {
+          "$value": "#FF886714",
+          "$type": "color",
+          "$description": "회사 색 8% — 라이트 선택 행"
+        },
+        "16": {
+          "$value": "#FF886729",
+          "$type": "color",
+          "$description": "회사 색 16% — 다크 선택 바탕 · 선택 행"
+        },
+        "24": {
+          "$value": "#FF88673D",
+          "$type": "color",
+          "$description": "회사 색 24% — 다크 옅은 강조 면"
+        },
+        "$description": "생성물: pnpm --filter @terracelab/trellis-tokens gen:theme. 회사 색 기본 테마(createTheme(DEFAULT_BRAND)). 직접 고치지 않는다(D-98)"
+      }
+    }
+  }
+}

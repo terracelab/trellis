@@ -1,0 +1,1045 @@
+.tl-data-grid {
+  position: relative;
+  min-width: 0;
+  max-width: 100%;
+  overflow: auto;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-surface);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+}
+
+.tl-data-grid:focus-visible {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: var(--tl-border-width-2);
+}
+
+/* 남은 높이까지만 자란다. 줄이 적으면 카드도 내용에서 끝난다(빈 흰 면을 남기지 않는다, D-56) */
+.tl-data-grid[data-height='fill'] {
+  flex: 0 1 auto;
+  min-height: 0;
+  max-height: 100%;
+}
+
+.tl-data-grid__table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-data-grid__col[data-width='check'] {
+  width: var(--tl-space-40);
+}
+
+.tl-data-grid__col[data-width='xs'] {
+  width: var(--tl-space-64);
+}
+
+.tl-data-grid__col[data-width='sm'] {
+  width: calc(var(--tl-space-64) * 1.75);
+}
+
+.tl-data-grid__col[data-width='md'] {
+  width: calc(var(--tl-space-64) * 2);
+}
+
+.tl-data-grid__col[data-width='lg'] {
+  width: calc(var(--tl-space-64) * 3);
+}
+
+.tl-data-grid__col[data-width='xl'] {
+  width: calc(var(--tl-space-64) * 4);
+}
+
+.tl-data-grid__cell {
+  height: var(--tl-density-row-height);
+  padding: 0 var(--tl-space-12);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+  vertical-align: middle;
+  color: var(--tl-color-fg-primary);
+  transition:
+    background-color var(--tl-duration-fast) var(--tl-easing-standard),
+    box-shadow var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-data-grid__cell[data-align='right'] {
+  text-align: right;
+}
+
+.tl-data-grid__cell[data-align='center'],
+.tl-data-grid__cell[data-kind='check'] {
+  text-align: center;
+}
+
+.tl-data-grid__cell[data-wrap] {
+  white-space: normal;
+  padding-block: var(--tl-space-4);
+}
+
+.tl-data-grid__cell[data-finance='income'] {
+  color: var(--tl-color-finance-income);
+}
+
+.tl-data-grid__cell[data-finance='expense'] {
+  color: var(--tl-color-finance-expense);
+}
+
+/* 고정 열은 면을 직접 칠한다. 행 바탕(알파)을 inherit하면 알파가 두 번 겹친다(D-62).
+   여러 열을 고정하면 앞 고정 열 폭만큼 밀어 앉는다(--tl-data-grid-offset, useGridEdges가 잰다). end는 오른쪽 */
+.tl-data-grid__cell[data-sticky] {
+  position: sticky;
+  left: var(--tl-data-grid-offset, 0);
+  z-index: 1;
+  background: var(--tl-color-bg-surface);
+}
+
+.tl-data-grid__cell[data-sticky='end'] {
+  right: var(--tl-data-grid-offset, 0);
+  left: auto;
+}
+
+/* ── 가로 넘침 단서(R-37 4): 가린 것이 있는 쪽 가장자리(고정 열이 있으면 그 경계)에 안쪽 그림자 ──
+   높이 0인 자리가 스크롤해도 보이는 면 왼쪽 위에 붙어 있고(sticky), 고정 열 사이 보이는 면 전체를 덮는
+   투명한 상자가 안쪽 그림자(shadow.lg)를 드리운다. clip-path로 한쪽 끝 space.32만 보인다.
+   상자 위쪽은 면 밖으로 올려(위 가장자리 그림자를 숨김) 스크롤 넓이를 늘리지 않는다 */
+.tl-data-grid__edges {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  height: 0;
+  pointer-events: none;
+}
+
+.tl-data-grid__edges::before,
+.tl-data-grid__edges::after {
+  content: '';
+  position: absolute;
+  top: calc(var(--tl-space-32) * -1);
+  right: var(--tl-data-grid-end-edge, 0);
+  left: var(--tl-data-grid-start-edge, 0);
+  height: calc(var(--tl-data-grid-view-height, 0) + var(--tl-space-32));
+  box-shadow:
+    inset var(--tl-shadow-lg),
+    inset var(--tl-shadow-md);
+  opacity: 0;
+  transition: opacity var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-data-grid__edges::before {
+  clip-path: inset(0 calc(100% - var(--tl-space-32)) 0 0);
+}
+
+.tl-data-grid__edges::after {
+  clip-path: inset(0 0 0 calc(100% - var(--tl-space-32)));
+}
+
+.tl-data-grid[data-overflow-start] > .tl-data-grid__edges::before,
+.tl-data-grid[data-overflow-end] > .tl-data-grid__edges::after {
+  opacity: 1;
+}
+
+.tl-data-grid__row:hover > .tl-data-grid__cell[data-sticky] {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-data-grid__row[data-selected] > .tl-data-grid__cell[data-sticky],
+.tl-data-grid__row[data-active] > .tl-data-grid__cell[data-sticky],
+.tl-data-grid__row[data-flash] > .tl-data-grid__cell[data-sticky] {
+  background: linear-gradient(var(--tl-color-bg-row-selected), var(--tl-color-bg-row-selected))
+    var(--tl-color-bg-surface);
+}
+
+.tl-data-grid__head .tl-data-grid__cell {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--tl-color-bg-sunken);
+  /* 머리 글자는 본문만큼 진하게(PR-26). 본문보다 흐린 머리는 열 이름을 찾기 어렵다 */
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-data-grid__head .tl-data-grid__cell[data-sticky] {
+  z-index: 3;
+}
+
+/* 열 묶음 머리(PR-30): 두 번째 머리 줄은 첫 줄 높이 아래에 붙는다 */
+.tl-data-grid__head tr + tr .tl-data-grid__cell {
+  top: var(--tl-density-row-height);
+}
+
+/* 묶음 머리는 덮는 열 위 가운데. 묶음 양 끝 세로선(두 머리 줄 모두)으로 어디까지인지 보인다 */
+.tl-data-grid__head .tl-data-grid__cell[data-kind='group-head'] {
+  text-align: center;
+}
+
+.tl-data-grid__head .tl-data-grid__cell[data-group-start] {
+  border-left: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-data-grid__head .tl-data-grid__cell[data-group-end] {
+  border-right: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-data-grid__row {
+  background: var(--tl-color-bg-surface);
+  transition: background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-data-grid__row[data-clickable] {
+  cursor: pointer;
+}
+
+.tl-data-grid__row:hover {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-data-grid__row[data-selected] {
+  background: var(--tl-color-bg-row-selected);
+}
+
+/* 열린 행은 바탕만 바꾼다. 왼쪽 띠는 쓰지 않는다(D-57) */
+.tl-data-grid__row[data-active] {
+  background: var(--tl-color-bg-row-selected);
+}
+
+/* flashKey(PR-30): 방금 저장 · 추가한 행에 1초 동안 선택 행 바탕. 들고 나는 것은 행 transition */
+.tl-data-grid__row[data-flash] {
+  background: var(--tl-color-bg-row-selected);
+}
+
+.tl-data-grid__row:focus-visible {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: calc(var(--tl-border-width-2) * -1);
+}
+
+.tl-data-grid__row:last-child > .tl-data-grid__cell {
+  border-bottom: 0;
+}
+
+.tl-data-grid__foot .tl-data-grid__cell {
+  position: sticky;
+  bottom: 0;
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-bottom: 0;
+  background: var(--tl-color-bg-sunken);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-data-grid__unit {
+  margin-left: var(--tl-space-4);
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+}
+
+/* 합계 행은 canvas 바탕이라 한 단계 진하게(fg.tertiary on canvas 4.47:1) */
+.tl-data-grid__foot .tl-data-grid__unit {
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-data-grid__sort {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  padding: 0;
+  border: 0;
+  border-radius: var(--tl-radius-xs);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.tl-data-grid__sort-icon {
+  color: var(--tl-color-fg-tertiary);
+  transition: opacity var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+/* 정렬 중인 열만 화살표를 보인다. 나머지는 가리키거나 포커스하면 나타난다(터치 화면은 늘 보임) */
+@media (hover: hover) {
+  .tl-data-grid__sort:not([data-sorted]) .tl-data-grid__sort-icon {
+    opacity: 0;
+  }
+
+  .tl-data-grid__sort:not([data-sorted]):hover .tl-data-grid__sort-icon,
+  .tl-data-grid__sort:not([data-sorted]):focus-visible .tl-data-grid__sort-icon {
+    opacity: 1;
+  }
+}
+
+/* 표 안 상태는 점 + 글자. 줄마다 색 알약이 서면 열 전체가 색 띠가 된다(D-56).
+   점이 없는 배지(태그 · 등급)와 solid(기한 지남)는 알약 그대로 */
+.tl-data-grid__cell .tl-badge[data-variant='subtle'][data-dot] {
+  height: auto;
+  padding: 0;
+  gap: var(--tl-space-8);
+  background: transparent;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-data-grid__check {
+  width: var(--tl-size-icon-16);
+  height: var(--tl-size-icon-16);
+  margin: 0;
+  accent-color: var(--tl-color-brand-default);
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.tl-data-grid__empty {
+  height: calc(var(--tl-space-64) * 2.5);
+  color: var(--tl-color-fg-secondary);
+  text-align: center;
+  white-space: normal;
+}
+
+.tl-data-grid__skeleton {
+  display: block;
+  height: var(--tl-space-8);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-bg-sunken);
+  animation: tl-grid-pulse var(--tl-duration-pulse) ease-in-out infinite;
+}
+
+@keyframes tl-grid-pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-data-grid__skeleton {
+    animation: none;
+  }
+
+  .tl-data-grid__sort-icon {
+    transition: none;
+  }
+}
+
+/* 좁은 화면: 행마다 카드(D-61). 표 테두리는 버리고 카드가 각자 면을 가진다 */
+.tl-data-grid[data-mode='cards'] {
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.tl-data-grid[data-mode='cards']:focus-visible {
+  outline: 0;
+}
+
+.tl-data-grid__cards {
+  display: grid;
+  gap: var(--tl-space-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-data-grid__cards-head {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-12);
+  padding: 0 var(--tl-space-16) var(--tl-space-8);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  cursor: pointer;
+}
+
+.tl-data-grid__card {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--tl-space-12);
+  padding: var(--tl-space-12) var(--tl-space-16);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-data-grid__card[data-clickable] {
+  cursor: pointer;
+}
+
+.tl-data-grid__card[data-clickable]:active {
+  background: var(--tl-color-bg-sunken);
+}
+
+/* 선택 · 열림은 1px 테두리 전체(D-57) */
+.tl-data-grid__card[data-selected],
+.tl-data-grid__card[data-active] {
+  border-color: var(--tl-color-border-selected);
+  box-shadow: inset 0 0 0 var(--tl-border-width-1) var(--tl-color-border-selected);
+}
+
+.tl-data-grid__card:focus-visible {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: var(--tl-border-width-2);
+}
+
+.tl-data-grid__card > .tl-data-grid__check {
+  width: var(--tl-size-icon-20);
+  height: var(--tl-size-icon-20);
+  margin-top: var(--tl-border-width-2);
+}
+
+.tl-data-grid__card-body {
+  display: grid;
+  flex: 1 1 auto;
+  gap: var(--tl-space-4);
+  min-width: 0;
+}
+
+.tl-data-grid__card-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--tl-space-12);
+  min-width: 0;
+}
+
+.tl-data-grid__card-title {
+  min-width: 0;
+  font-weight: var(--tl-font-weight-500);
+  overflow-wrap: anywhere;
+}
+
+.tl-data-grid__card-trailing {
+  flex: none;
+  font-size: var(--tl-type-amount-font-size);
+  line-height: var(--tl-type-amount-line-height);
+  font-weight: var(--tl-type-amount-font-weight);
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+.tl-data-grid__card-trailing[data-finance='income'],
+.tl-data-grid__meta-value[data-finance='income'] {
+  color: var(--tl-color-finance-income);
+}
+
+.tl-data-grid__card-trailing[data-finance='expense'],
+.tl-data-grid__meta-value[data-finance='expense'] {
+  color: var(--tl-color-finance-expense);
+}
+
+.tl-data-grid__card-status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tl-space-8);
+}
+
+/* 보조 정보는 두 칸 격자. 블록의 두 줄 칸(이름 + 번호)도 한 칸에 선다 */
+.tl-data-grid__card-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tl-space-4) var(--tl-space-12);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+}
+
+.tl-data-grid__meta {
+  display: flex;
+  align-items: baseline;
+  gap: var(--tl-space-4);
+  min-width: 0;
+}
+
+.tl-data-grid__meta-value {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.tl-data-grid__meta-label {
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-data-grid__meta-value {
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-data-grid__card-chevron {
+  flex: none;
+  align-self: center;
+  color: var(--tl-color-fg-tertiary);
+}
+
+/* 카드 안 상태 배지도 표처럼 점 + 글자(D-56) */
+.tl-data-grid__card .tl-badge[data-variant='subtle'][data-dot] {
+  height: auto;
+  padding: 0;
+  gap: var(--tl-space-8);
+  background: transparent;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-data-grid__cards-foot {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--tl-space-12);
+  padding: var(--tl-space-12) var(--tl-space-16) 0;
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-data-grid__empty[data-mode='cards'] {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  height: calc(var(--tl-space-64) * 2.5);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-surface);
+}
+
+.tl-data-grid__skeleton[data-short] {
+  width: 60%;
+}
+
+/* 보조 정보가 홀수 개면 마지막 항목은 한 줄을 다 쓴다(상품 이름처럼 긴 값이 반 칸에서 접히지 않게) */
+.tl-data-grid__meta:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+/* 카드는 남은 높이에 가두지 않는다. 페이지가 길어지고 화면이 스크롤된다(휴대폰은 안쪽 스크롤이 어색하다) */
+.tl-data-grid[data-mode='cards'][data-height='fill'] {
+  max-height: none;
+}
+
+/* ── 머리 칸: 이름 · 정렬 · 필터 단추 ── */
+.tl-data-grid__head-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+.tl-data-grid__head-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 머리 단위 "(원)": 열 이름 뒤 흐리게(PR-26). 칸마다 원을 붙이지 않고 머리에 한 번 */
+.tl-data-grid__head-unit {
+  margin-left: var(--tl-border-width-2);
+  color: var(--tl-color-fg-secondary);
+  font-weight: var(--tl-font-weight-400);
+}
+
+.tl-data-grid__sort {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.tl-data-grid__filter,
+.tl-data-grid__settings,
+.tl-data-grid__move,
+.tl-data-grid__tree-toggle {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--tl-space-24);
+  height: var(--tl-space-24);
+  padding: 0;
+  border: 0;
+  border-radius: var(--tl-radius-sm);
+  background: transparent;
+  color: var(--tl-color-fg-tertiary);
+  cursor: pointer;
+  transition:
+    background-color var(--tl-duration-fast) var(--tl-easing-standard),
+    color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-data-grid__filter:hover,
+.tl-data-grid__settings:hover,
+.tl-data-grid__move:hover:not(:disabled),
+.tl-data-grid__tree-toggle:hover {
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-primary);
+}
+
+/* 필터가 걸린 열은 단추를 브랜드 색으로. 색만이 아니라 이름("필터 적용됨")도 바뀐다 */
+.tl-data-grid__filter[data-active] {
+  color: var(--tl-color-fg-link);
+}
+
+.tl-data-grid__filter[data-popup-open],
+.tl-data-grid__settings[data-popup-open] {
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-data-grid__move:disabled {
+  color: var(--tl-color-fg-disabled);
+  cursor: default;
+}
+
+/* 열 설정 단추는 가로로 밀어도 오른쪽 끝에 남는다 */
+.tl-data-grid__head .tl-data-grid__cell[data-kind='settings'] {
+  right: 0;
+  z-index: 3;
+  padding: 0;
+  text-align: center;
+}
+
+.tl-data-grid__cell[data-kind='settings'] {
+  padding: 0;
+}
+
+/* ── 세로선(PR-26): 숫자 열이 이어지는 표는 열 경계를 선으로. auto = 오른쪽 정렬 열 4개 이상 ── */
+.tl-data-grid[data-dividers='all']
+  .tl-data-grid__cell
+  + .tl-data-grid__cell:not([data-kind='settings']) {
+  border-left: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-data-grid[data-dividers='all'] .tl-data-grid__cell[data-kind='check'] + .tl-data-grid__cell {
+  border-left: 0;
+}
+
+/* 결과 열(합계 · 받을 금액): 왼쪽 굵은 선 + 굵은 글자. 바탕은 칠하지 않는다 */
+.tl-data-grid[data-dividers] .tl-data-grid__cell[data-emphasis]:not([data-kind]) {
+  border-left: var(--tl-border-width-1) solid var(--tl-color-border-strong);
+  font-weight: var(--tl-font-weight-600);
+}
+
+/* 링크 열: 행을 누르면 상세가 열린다는 단서. 본문 색 500 + 가리키거나 키보드로 오면 밑줄(D-146 제안).
+   링크 색(회사 색)은 위험 빨강과 붙어 이름이 오류처럼 읽혀서 쓰지 않는다 */
+.tl-data-grid__cell[data-link] {
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-data-grid__row[data-clickable]:is(:hover, :focus-visible, :focus-within)
+  > .tl-data-grid__cell[data-link] {
+  text-decoration: underline;
+  text-underline-offset: var(--tl-border-width-2);
+}
+
+/* ── 행 끝 행동 칸: 기본 행동 1개 + 더보기 ── */
+.tl-data-grid__col[data-width='actions'] {
+  width: calc(var(--tl-space-64) * 1.5);
+}
+
+.tl-data-grid__cell[data-kind='actions'] {
+  padding: 0 var(--tl-space-8);
+  text-align: right;
+}
+
+.tl-data-grid__actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--tl-space-4);
+  vertical-align: middle;
+}
+
+.tl-data-grid__card-actions {
+  display: inline-flex;
+  flex: none;
+  align-self: center;
+  align-items: center;
+  gap: var(--tl-space-4);
+}
+
+/* ── 두 줄 칸(DataGridLines): 이 칸이 든 행은 높이를 heightTall로 고정한다(PR-26) ── */
+.tl-data-grid__lines {
+  display: grid;
+  gap: var(--tl-border-width-2);
+  min-width: 0;
+}
+
+.tl-data-grid__line {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-data-grid__line[data-secondary] {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+/* 두 줄 칸(DataGridLines · 두 줄 PersonLabel)이 있는 행은 한 단계 높게(PR-26 · PR-27) */
+.tl-data-grid__row:has(.tl-data-grid__lines, .tl-person-label[data-size='md'])
+  > .tl-data-grid__cell {
+  height: var(--tl-density-row-height-tall);
+}
+
+/* ── 필터 · 열 설정 창 ── */
+.tl-data-grid__popover-positioner {
+  z-index: var(--tl-z-dropdown);
+  outline: 0;
+}
+
+.tl-data-grid__popover {
+  box-sizing: border-box;
+  display: grid;
+  gap: var(--tl-space-8);
+  min-width: calc(var(--tl-space-64) * 3);
+  max-width: min(calc(var(--tl-space-64) * 5), var(--available-width));
+  max-height: var(--available-height);
+  overflow: auto;
+  padding: var(--tl-space-8);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-elevated);
+  color: var(--tl-color-fg-primary);
+  box-shadow: var(--tl-shadow-md);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+  outline: 0;
+}
+
+[data-theme='dark'] .tl-data-grid__popover {
+  box-shadow: none;
+}
+
+.tl-data-grid__popover-title,
+.tl-data-grid__popover-label {
+  margin: 0;
+  padding: 0 var(--tl-space-8);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-data-grid__popover-body {
+  display: grid;
+  gap: var(--tl-space-4);
+}
+
+.tl-data-grid__popover-input {
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--tl-density-control-height-sm);
+  padding: 0 var(--tl-space-8);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-sm);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-primary);
+  font: inherit;
+  font-size: var(--tl-density-input-font-size);
+}
+
+.tl-data-grid__popover-input:focus-visible {
+  border-color: var(--tl-color-border-focus);
+  outline: var(--tl-border-width-1) solid var(--tl-color-border-focus);
+}
+
+.tl-data-grid__choices {
+  display: grid;
+  max-height: calc(var(--tl-space-64) * 4);
+  overflow: auto;
+}
+
+.tl-data-grid__choice {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-height: var(--tl-density-control-height-sm);
+  padding: 0 var(--tl-space-8);
+  border-radius: var(--tl-radius-sm);
+  cursor: pointer;
+  transition: background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-data-grid__choice:hover {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-data-grid__choice[data-all] {
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: 0;
+}
+
+.tl-data-grid__choice-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.tl-data-grid__choice-count {
+  flex: none;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-data-grid__popover-foot {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: var(--tl-space-8);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-data-grid__popover-link {
+  padding: var(--tl-space-4) var(--tl-space-8);
+  border: 0;
+  border-radius: var(--tl-radius-sm);
+  background: transparent;
+  color: var(--tl-color-fg-link);
+  font: inherit;
+  cursor: pointer;
+}
+
+.tl-data-grid__popover-link:hover {
+  text-decoration: underline;
+}
+
+.tl-data-grid__column-list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-data-grid__column-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tl-space-8);
+}
+
+.tl-data-grid__column-item > .tl-data-grid__choice {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.tl-data-grid__column-move {
+  display: inline-flex;
+  flex: none;
+}
+
+/* ── 묶음 머리 · 소계 ── */
+.tl-data-grid__group > .tl-data-grid__cell {
+  background: var(--tl-color-bg-sunken);
+  font-weight: var(--tl-font-weight-600);
+}
+
+/* 누름 높이는 밀도의 가장 작은 컨트롤 높이(compact 26 · touch 44). 휴대폰은 루트 밀도가 touch라 손가락 크기가 된다 */
+.tl-data-grid__group-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  max-width: 100%;
+  min-height: var(--tl-density-control-height-xs);
+  padding: 0;
+  border: 0;
+  border-radius: var(--tl-radius-xs);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.tl-data-grid__group-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tl-data-grid__group-count {
+  flex: none;
+  color: var(--tl-color-fg-secondary);
+  font-weight: var(--tl-font-weight-400);
+}
+
+.tl-data-grid__toggle-icon {
+  flex: none;
+  color: var(--tl-color-fg-tertiary);
+  transition: transform var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+[aria-expanded='true'] > .tl-data-grid__toggle-icon {
+  transform: rotate(90deg);
+}
+
+/* 묶음 안 행은 첫 칸을 펼침 단추만큼 들인다 */
+.tl-data-grid__row[data-grouped] > .tl-data-grid__cell:first-child:not([data-kind]),
+.tl-data-grid__row[data-grouped] > .tl-data-grid__cell[data-kind='check'] + .tl-data-grid__cell {
+  padding-left: calc(var(--tl-space-12) + var(--tl-space-24));
+}
+
+/* ── 트리 행: 단계마다 들이고 펼침 단추 자리를 늘 맞춘다 ── */
+.tl-data-grid__cell[data-tree] {
+  padding-left: calc(var(--tl-space-4) + var(--tl-space-20) * var(--tl-data-grid-depth, 0));
+}
+
+.tl-data-grid__tree-toggle,
+.tl-data-grid__tree-spacer {
+  margin-right: var(--tl-space-4);
+  vertical-align: middle;
+}
+
+.tl-data-grid__tree-spacer {
+  display: inline-block;
+  width: var(--tl-space-24);
+}
+
+/* ── 칸 편집 ── */
+.tl-data-grid__edit {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: var(--tl-radius-xs);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  cursor: text;
+}
+
+.tl-data-grid__edit-value {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 고칠 수 있는 칸은 가리키면 테두리가 보인다 */
+@media (hover: hover) {
+  .tl-data-grid__cell[data-editable]:hover {
+    box-shadow: inset 0 0 0 var(--tl-border-width-1) var(--tl-color-border-default);
+  }
+}
+
+.tl-data-grid__cell:has(> .tl-data-grid__editor) {
+  overflow: visible;
+}
+
+.tl-data-grid__cell:not([data-sticky]):has(> .tl-data-grid__editor) {
+  position: relative;
+}
+
+.tl-data-grid__editor {
+  box-sizing: border-box;
+  width: calc(100% + var(--tl-space-12));
+  height: calc(var(--tl-density-row-height) - var(--tl-space-8));
+  margin: 0 calc(var(--tl-space-4) * -1.5);
+  padding: 0 calc(var(--tl-space-4) * 1.5);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-focus);
+  border-radius: var(--tl-radius-sm);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-primary);
+  font: inherit;
+  font-size: var(--tl-density-input-font-size);
+  text-align: inherit;
+  outline: var(--tl-border-width-1) solid var(--tl-color-border-focus);
+}
+
+.tl-data-grid__editor[aria-invalid] {
+  border-color: var(--tl-color-status-danger-default);
+  outline-color: var(--tl-color-status-danger-default);
+}
+
+.tl-data-grid__edit-error {
+  position: absolute;
+  top: calc(100% - var(--tl-space-4));
+  left: var(--tl-space-4);
+  z-index: 4;
+  max-width: calc(var(--tl-space-64) * 4);
+  padding: var(--tl-space-4) var(--tl-space-8);
+  border: var(--tl-border-width-1) solid var(--tl-color-status-danger-default);
+  border-radius: var(--tl-radius-sm);
+  background: var(--tl-color-bg-elevated);
+  color: var(--tl-color-status-danger-default);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  text-align: left;
+  white-space: normal;
+}
+
+/* ── 가상 스크롤 빈 줄 ── */
+.tl-data-grid__spacer > td {
+  padding: 0;
+  border: 0;
+}
+
+/* ── 카드: 필터 줄 · 묶음 머리 · 트리 ── */
+.tl-data-grid__cards-filters {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tl-space-12);
+  padding: 0 var(--tl-space-4) var(--tl-space-8) var(--tl-space-16);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+}
+
+.tl-data-grid__card-group {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--tl-space-12);
+  padding: var(--tl-space-8) var(--tl-space-16) 0;
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-data-grid__card-group-total {
+  flex: none;
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-data-grid__card[data-depth] {
+  margin-left: calc(var(--tl-space-16) * var(--tl-data-grid-depth, 0));
+}
+
+.tl-data-grid__card > .tl-data-grid__tree-toggle,
+.tl-data-grid__card > .tl-data-grid__tree-spacer {
+  margin: 0;
+  align-self: center;
+}
+
+/* ── 키보드 칸 이동(PR-30): grid의 칸 자신이 포커스를 받는다(단추 · 입력이 없는 칸) ── */
+.tl-data-grid__cell:focus-visible {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: calc(var(--tl-border-width-2) * -1);
+}
+
+/* ── 저장 전 칸(PR-30): 오른쪽 위 작은 점 + 숨은 글자. 왼쪽 띠 · 칸 바탕은 쓰지 않는다(D-57) ── */
+.tl-data-grid__cell[data-dirty]:not([data-sticky]) {
+  position: relative;
+}
+
+.tl-data-grid__cell[data-dirty]::after {
+  position: absolute;
+  top: var(--tl-space-4);
+  right: var(--tl-space-4);
+  width: var(--tl-space-6);
+  height: var(--tl-space-6);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-brand-default);
+  content: '';
+  pointer-events: none;
+}
+
+/* ── 카드: flashKey 카드도 1초 동안 선택 바탕(알파를 면 위에 겹친다, D-62) ── */
+.tl-data-grid__card[data-flash] {
+  background: linear-gradient(var(--tl-color-bg-row-selected), var(--tl-color-bg-row-selected))
+    var(--tl-color-bg-surface);
+}

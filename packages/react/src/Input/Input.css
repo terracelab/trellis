@@ -1,0 +1,137 @@
+.tl-input {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  width: 100%;
+  min-width: 0;
+  height: var(--tl-density-control-height-md);
+  padding: 0 var(--tl-space-8);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-strong);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-primary);
+  transition: border-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-input[data-size='xs'] {
+  gap: var(--tl-space-4);
+  height: var(--tl-density-control-height-xs);
+  padding: 0 var(--tl-space-6);
+  border-radius: var(--tl-radius-sm);
+}
+
+.tl-input[data-size='sm'] {
+  height: var(--tl-density-control-height-sm);
+}
+
+.tl-input[data-size='lg'],
+.tl-input[data-size='xl'] {
+  padding: 0 var(--tl-space-12);
+}
+
+.tl-input[data-size='lg'] {
+  height: var(--tl-density-control-height-lg);
+}
+
+.tl-input[data-size='xl'] {
+  height: var(--tl-density-control-height-xl);
+}
+
+.tl-input:hover {
+  border-color: var(--tl-color-border-hover);
+}
+
+.tl-input:focus-within {
+  border-color: var(--tl-color-border-focus);
+  outline: var(--tl-border-width-1) solid var(--tl-color-border-focus);
+}
+
+.tl-input[data-state='error'] {
+  border-color: var(--tl-color-status-danger-default);
+}
+
+.tl-input[data-state='error']:focus-within {
+  outline-color: var(--tl-color-status-danger-default);
+}
+
+.tl-input[data-state='disabled'],
+.tl-input[data-readonly] {
+  background: var(--tl-color-bg-sunken);
+  border-color: transparent;
+}
+
+/* 폭을 %로 주면 입력의 최소 폭(size=20 글자)이 바깥 칸을 밀지 않는다. 리눅스 글꼴 폭에서 좁은 화면 넘침이 났다 */
+.tl-input__control {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: var(--tl-density-input-font-size);
+}
+
+/* 큰 칸은 본문 크기(14) 이상. touch 밀도의 16(iOS 확대 방지)은 그대로 남는다 */
+.tl-input[data-size='lg'] .tl-input__control,
+.tl-input[data-size='xl'] .tl-input__control {
+  font-size: max(var(--tl-density-input-font-size), var(--tl-type-body-font-size));
+}
+
+/* 고정폭(코드 · 번호 · 시각). 글자 크기는 입력 칸 규칙(touch 16)을 따르고 글꼴 · 굵기 · 자간은 type.mono */
+.tl-input[data-mono] .tl-input__control {
+  font-family: var(--tl-font-family-mono);
+  font-weight: var(--tl-type-mono-font-weight);
+  letter-spacing: var(--tl-type-mono-letter-spacing);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-input[data-align='right'] .tl-input__control {
+  text-align: right;
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-input__control::placeholder {
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-input__control:disabled {
+  color: var(--tl-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.tl-input__icon,
+.tl-input__affix {
+  flex: none;
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-label-font-size);
+}
+
+/*
+ * type="search"의 브라우저 지우기 단추(Chromium · Safari)는 Trellis 지우기 단추(clearable)와 겹쳐
+ * 두 개가 보인다. clearable이면 브라우저 것을 숨긴다. 이름 있는 단추 · Escape 지우기는 Trellis 것이 맡는다
+ */
+.tl-input[data-clearable] .tl-input__control::-webkit-search-cancel-button,
+.tl-input[data-clearable] .tl-input__control::-webkit-search-decoration {
+  display: none;
+  appearance: none;
+}
+
+.tl-input__clear {
+  display: inline-flex;
+  flex: none;
+  padding: 0;
+  border: 0;
+  border-radius: var(--tl-radius-xs);
+  background: transparent;
+  color: var(--tl-color-fg-tertiary);
+  cursor: pointer;
+  transition: color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-input__clear:hover {
+  color: var(--tl-color-fg-primary);
+}

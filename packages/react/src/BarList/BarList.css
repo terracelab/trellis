@@ -1,0 +1,28 @@
+/* extremes: 최고 · 최저 막대에만 값 글자. 최고는 진하게, 최저는 보조 글자색(계열 색을 입히지 않는다) */
+.tl-bar-list__extreme {
+  fill: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-bar-list__extreme[data-extreme='high'] {
+  fill: var(--tl-color-fg-strong);
+  font-weight: var(--tl-font-weight-600);
+}
+
+/* onBarPress: 막대가 단추. 포커스 링은 막대 바깥 사각형(tl-bar-list__ring)으로 그린다 */
+.tl-bar-list__bar {
+  cursor: pointer;
+  outline: 0;
+}
+
+.tl-bar-list__ring {
+  fill: none;
+  stroke: transparent;
+  stroke-width: var(--tl-border-width-2);
+  pointer-events: none;
+}
+
+.tl-bar-list__bar:focus-visible .tl-bar-list__ring {
+  stroke: var(--tl-color-border-focus);
+}

@@ -1,0 +1,335 @@
+.tl-period-picker {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+  height: var(--tl-density-control-height-md);
+  padding: 0 var(--tl-space-8);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-strong);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-primary);
+  font: inherit;
+  font-size: var(--tl-density-input-font-size);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-period-picker[data-size='xs'] {
+  gap: var(--tl-space-4);
+  height: var(--tl-density-control-height-xs);
+  padding: 0 var(--tl-space-6);
+  border-radius: var(--tl-radius-sm);
+}
+
+.tl-period-picker[data-size='sm'] {
+  height: var(--tl-density-control-height-sm);
+}
+
+/* 큰 칸은 본문 크기(14) 이상, touch 16은 그대로 */
+.tl-period-picker[data-size='lg'],
+.tl-period-picker[data-size='xl'] {
+  padding: 0 var(--tl-space-12);
+  font-size: max(var(--tl-density-input-font-size), var(--tl-type-body-font-size));
+}
+
+.tl-period-picker[data-size='lg'] {
+  height: var(--tl-density-control-height-lg);
+}
+
+.tl-period-picker[data-size='xl'] {
+  height: var(--tl-density-control-height-xl);
+}
+
+.tl-period-picker:hover {
+  border-color: var(--tl-color-border-hover);
+}
+
+.tl-period-picker[data-popup-open] {
+  border-color: var(--tl-color-border-focus);
+}
+
+.tl-period-picker[data-state='error'] {
+  border-color: var(--tl-color-status-danger-default);
+}
+
+.tl-period-picker[data-disabled],
+.tl-period-picker:disabled {
+  border-color: transparent;
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.tl-period-picker__icon,
+.tl-period-picker__chevron {
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-period-picker__value {
+  flex: 1 1 auto;
+  overflow: hidden;
+  font-variant-numeric: var(--tl-font-numeric);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-period-picker__value[data-placeholder] {
+  color: var(--tl-color-fg-tertiary);
+}
+
+/* 비교 기간(compare): 트리거 값 뒤 흐린 작은 글자. 좁으면 값과 함께 말줄임 */
+.tl-period-picker__compare-value {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+}
+
+.tl-period-picker__compare {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tl-space-8);
+  padding-top: var(--tl-space-8);
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-period-picker__compare-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--tl-space-8);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-period-picker__compare-label {
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-period-picker__compare-range {
+  color: var(--tl-color-fg-secondary);
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+.tl-period-picker__compare-modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tl-space-4);
+}
+
+/* 프리셋과 같은 선택 모양(고른 것 brand.subtle 바탕 + 링크색 글자) */
+.tl-period-picker__compare-mode {
+  min-height: var(--tl-density-control-height-sm);
+  padding: 0 var(--tl-space-8);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-sm);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-primary);
+  font: inherit;
+  font-size: var(--tl-type-label-font-size);
+  cursor: pointer;
+  transition:
+    background-color var(--tl-duration-fast) var(--tl-easing-standard),
+    border-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-period-picker__compare-mode:hover {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-period-picker__compare-mode[aria-pressed='true'] {
+  border-color: var(--tl-color-border-selected);
+  background: var(--tl-color-brand-subtle);
+  color: var(--tl-color-fg-link);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-period-picker__positioner {
+  z-index: var(--tl-z-dropdown);
+  outline: 0;
+}
+
+.tl-period-picker__popup {
+  display: flex;
+  box-sizing: border-box;
+  max-width: var(--available-width);
+  max-height: var(--available-height);
+  overflow: auto;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-elevated);
+  color: var(--tl-color-fg-primary);
+  box-shadow: var(--tl-shadow-md);
+  font-size: var(--tl-density-body-font-size);
+  outline: 0;
+}
+
+.tl-period-picker__presets {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--tl-space-4) / 2);
+  min-width: calc(var(--tl-space-64) * 3);
+  padding: var(--tl-space-4);
+  border-right: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-period-picker__preset {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tl-space-12);
+  min-height: var(--tl-density-row-height);
+  padding: 0 var(--tl-space-8);
+  border: 0;
+  border-radius: var(--tl-radius-sm);
+  background: transparent;
+  color: var(--tl-color-fg-primary);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-period-picker__preset:hover {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-period-picker__preset[aria-pressed='true'] {
+  background: var(--tl-color-brand-subtle);
+  color: var(--tl-color-fg-link);
+  font-weight: var(--tl-font-weight-600);
+}
+
+/* max 뒤에서 시작하는 프리셋 */
+.tl-period-picker__preset:disabled {
+  background: transparent;
+  color: var(--tl-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.tl-period-picker__preset:disabled .tl-period-picker__preset-range {
+  color: var(--tl-color-fg-disabled);
+}
+
+/* bg.elevated 위: tertiary는 다크에서 3.6:1이라 secondary */
+.tl-period-picker__preset-range {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  font-variant-numeric: var(--tl-font-numeric);
+  font-weight: var(--tl-font-weight-400);
+  white-space: nowrap;
+}
+
+.tl-period-picker__custom {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tl-space-8);
+  padding: var(--tl-space-12);
+}
+
+/* 시작일 ~ 종료일 글자 칸(DateField와 같은 칸 모양) */
+.tl-period-picker__dates {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--tl-space-4);
+}
+
+.tl-period-picker__tilde {
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-period-picker__error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--tl-space-4);
+  margin: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-period-picker__error-icon {
+  color: var(--tl-color-status-danger-default);
+}
+
+.tl-period-picker__warning {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--tl-space-4);
+  margin: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-period-picker__warning-icon {
+  flex: none;
+  color: var(--tl-color-status-warning-default);
+}
+
+.tl-period-picker__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--tl-space-8);
+  margin-top: auto;
+}
+
+/* 고른 기간의 일수(시작일 · 종료일 포함). 적용 단추 왼쪽 */
+.tl-period-picker__days {
+  margin-right: auto;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+/* 시트 아래 줄: 일수는 글자 폭만, 적용 단추가 나머지를 채운다 */
+.tl-period-picker__sheet .tl-period-picker__days {
+  flex: none;
+  align-self: center;
+  margin-right: 0;
+  font-size: var(--tl-type-label-font-size);
+}
+
+/* 좁은 화면 시트: 프리셋은 한 줄로 감싸는 버튼, 그 아래 날짜 칸과 달력 */
+.tl-period-picker__sheet .tl-period-picker__presets {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--tl-space-8);
+  min-width: 0;
+  padding: 0 var(--tl-space-4) var(--tl-space-12);
+  border-right: 0;
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+/* 시트(bg.elevated) 위 버튼은 날짜 칸 · 보조 버튼처럼 bg.surface로 채운다.
+   다크에서 border.default는 bg.elevated와 같은 색이라 테두리만으로는 안 보인다 */
+.tl-period-picker__sheet .tl-period-picker__preset {
+  min-height: var(--tl-density-control-height-md);
+  padding: 0 var(--tl-space-12);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-surface);
+}
+
+.tl-period-picker__sheet .tl-period-picker__preset[aria-pressed='true'] {
+  border-color: var(--tl-color-border-selected);
+}
+
+.tl-period-picker__sheet .tl-period-picker__preset-range {
+  display: none;
+}
+
+.tl-period-picker__sheet .tl-period-picker__custom {
+  padding: var(--tl-space-12) var(--tl-space-4) 0;
+}
+
+.tl-period-picker__sheet .tl-date-field {
+  height: var(--tl-density-control-height-md);
+}

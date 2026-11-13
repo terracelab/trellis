@@ -1,0 +1,232 @@
+{
+  "type": {
+    "display": {
+      "fontSize": {
+        "$value": "28px",
+        "$type": "dimension",
+        "$description": "홈 인사말 · KPI 큰 숫자(식자재 ERP display-28, 여러 줄이 되도록 행간 34)"
+      },
+      "lineHeight": {
+        "$value": "34px",
+        "$type": "dimension"
+      },
+      "fontWeight": {
+        "$value": "{font.weight.600}",
+        "$type": "fontWeight"
+      },
+      "letterSpacing": {
+        "$value": "{font.letterSpacing.tight}",
+        "$type": "dimension"
+      }
+    },
+    "h1": {
+      "fontSize": {
+        "$value": "24px",
+        "$type": "dimension",
+        "$description": "화면 제목(식자재 ERP title-24)"
+      },
+      "lineHeight": {
+        "$value": "31px",
+        "$type": "dimension"
+      },
+      "fontWeight": {
+        "$value": "{font.weight.600}",
+        "$type": "fontWeight"
+      },
+      "letterSpacing": {
+        "$value": "{font.letterSpacing.tight}",
+        "$type": "dimension"
+      }
+    },
+    "h2": {
+      "fontSize": {
+        "$value": "18px",
+        "$type": "dimension",
+        "$description": "대화상자 · 서랍 · 큰 묶음 제목(식자재 ERP heading-18)"
+      },
+      "lineHeight": {
+        "$value": "24px",
+        "$type": "dimension"
+      },
+      "fontWeight": {
+        "$value": "{font.weight.600}",
+        "$type": "fontWeight"
+      },
+      "letterSpacing": {
+        "$value": "{font.letterSpacing.tight}",
+        "$type": "dimension"
+      }
+    },
+    "h3": {
+      "fontSize": {
+        "$value": "16px",
+        "$type": "dimension",
+        "$description": "섹션 · 카드 제목(식자재 ERP heading-16)"
+      },
+      "lineHeight": {
+        "$value": "21px",
+        "$type": "dimension"
+      },
+      "fontWeight": {
+        "$value": "{font.weight.600}",
+        "$type": "fontWeight"
+      },
+      "letterSpacing": {
+        "$value": "{font.letterSpacing.normal}",
+        "$type": "dimension"
+      }
+    },
+    "h4": {
+      "fontSize": {
+        "$value": "15px",
+        "$type": "dimension",
+        "$description": "작은 카드 · 패널 제목(식자재 ERP heading-15, D-97)"
+      },
+      "lineHeight": {
+        "$value": "20px",
+        "$type": "dimension"
+      },
+      "fontWeight": {
+        "$value": "{font.weight.600}",
+        "$type": "fontWeight"
+      },
+      "letterSpacing": {
+        "$value": "{font.letterSpacing.normal}",
+        "$type": "dimension"
+      }
+    },
+    "body": {
+      "fontSize": {
+        "$value": "14px",
+        "$type": "dimension",
+        "$description": "본문(식자재 ERP body-14). compact는 density.body 13/20"
+      },
+      "lineHeight": {
+        "$value": "21px",
+        "$type": "dimension"
+      },
+      "fontWeight": {
+        "$value": "{font.weight.400}",
+        "$type": "fontWeight"
+      },
+      "letterSpacing": {
+        "$value": "{font.letterSpacing.normal}",
+        "$type": "dimension"
+      }
+    },
+    "label": {
+      "fontSize": {
+        "$value": "13px",
+        "$type": "dimension",
+        "$description": "폼 라벨 · 탭(식자재 ERP body-13)"
+      },
+      "lineHeight": {
+        "$value": "20px",
+        "$type": "dimension"
+      },
+      "fontWeight": {
+        "$value": "{font.weight.500}",
+        "$type": "fontWeight"
+      },
+      "letterSpacing": {
+        "$value": "{font.letterSpacing.normal}",
+        "$type": "dimension"
+      }
+    },
+    "caption": {
+      "fontSize": {
+        "$value": "12px",
+        "$type": "dimension",
+        "$description": "보조 설명(식자재 ERP caption-12)"
+      },
+      "lineHeight": {
+        "$value": "18px",
+        "$type": "dimension"
+      },
+      "fontWeight": {
+        "$value": "{font.weight.400}",
+        "$type": "fontWeight"
+      },
+      "letterSpacing": {
+        "$value": "{font.letterSpacing.normal}",
+        "$type": "dimension"
+      }
+    },
+    "micro": {
+      "fontSize": {
+        "$value": "11px",
+        "$type": "dimension",
+        "$description": "배지 숫자 · 축 눈금 · 아주 작은 표시(식자재 ERP micro-11, D-97)"
+      },
+      "lineHeight": {
+        "$value": "16px",
+        "$type": "dimension"
+      },
+      "fontWeight": {
+        "$value": "{font.weight.400}",
+        "$type": "fontWeight"
+      },
+      "letterSpacing": {
+        "$value": "{font.letterSpacing.normal}",
+        "$type": "dimension"
+      }
+    },
+    "mono": {
+      "fontSize": {
+        "$value": "12px",
+        "$type": "dimension",
+        "$description": "코드 · 번호(식자재 ERP mono-12). 글꼴은 font.family.mono(D-97)"
+      },
+      "lineHeight": {
+        "$value": "16px",
+        "$type": "dimension"
+      },
+      "fontWeight": {
+        "$value": "{font.weight.400}",
+        "$type": "fontWeight"
+      },
+      "letterSpacing": {
+        "$value": "{font.letterSpacing.normal}",
+        "$type": "dimension"
+      }
+    },
+    "amount": {
+      "fontSize": {
+        "$value": "16px",
+        "$type": "dimension",
+        "$description": "금액, tabular-nums, 우측 정렬"
+      },
+      "lineHeight": {
+        "$value": "24px",
+        "$type": "dimension"
+      },
+      "fontWeight": {
+        "$value": "{font.weight.600}",
+        "$type": "fontWeight"
+      },
+      "letterSpacing": {
+        "$value": "{font.letterSpacing.normal}",
+        "$type": "dimension"
+      }
+    },
+    "amountLg": {
+      "fontSize": {
+        "$value": "20px",
+        "$type": "dimension",
+        "$description": "KPI 금액(식자재 ERP display-20)"
+      },
+      "lineHeight": {
+        "$value": "24px",
+        "$type": "dimension"
+      },
+      "fontWeight": {
+        "$value": "{font.weight.600}",
+        "$type": "fontWeight"
+      },
+      "letterSpacing": {
+        "$value": "{font.letterSpacing.normal}",
+        "$type": "dimension"
+      }
+    }
+  }
+}

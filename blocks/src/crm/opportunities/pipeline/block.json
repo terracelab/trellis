@@ -1,0 +1,30 @@
+{
+  "id": "crm/opportunities/pipeline",
+  "title": "영업기회",
+  "intent": "영업기회를 단계 전환 깔때기와 발굴 · 제안 · 견적 · 협상 · 수주 · 실주 칸반으로 보고, 담당별로 걸러 파이프라인 합계 · 가중 예상 매출을 확인하며 단계를 옮긴다",
+  "module": "opportunities",
+  "pattern": "Dashboard",
+  "industries": ["trade", "distribution", "general"],
+  "components": [
+    "PageHeader",
+    "Button",
+    "KpiCard",
+    "ChartCard",
+    "FunnelChart",
+    "FilterBar",
+    "Input",
+    "SegmentedControl",
+    "KanbanBoard",
+    "Badge",
+    "Drawer",
+    "Banner",
+    "Stepper",
+    "Timeline",
+    "DescriptionList",
+    "Dialog",
+    "RadioGroup"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["stages", "kpis", "funnel", "card", "detail", "lostReasons"],
+  "order": 10
+}

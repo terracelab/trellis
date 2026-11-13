@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-shop-floor-title">
+  <title id="tl-tile-shop-floor-title">현장 실적</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-shop-floor-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-shop-floor-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9CA3AF"/>
+      <stop offset=".5" stop-color="#646B78"/>
+      <stop offset="1" stop-color="#374151"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-shop-floor-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-shop-floor-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-shop-floor-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-shop-floor-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-shop-floor-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-shop-floor-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-shop-floor-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#374151" opacity=".25" filter="url(#tl-tile-shop-floor-blur)"/>
+    <g transform="rotate(-2 512 512)">
+      <path d="M217 599a295 295 0 1 1 590 0v112H217z" fill="url(#tl-tile-shop-floor-edge)"/>
+      <path d="M217 578a295 295 0 1 1 590 0v112H217z" fill="url(#tl-tile-shop-floor-white)"/>
+      <rect x="502" y="335" width="20" height="43" rx="8" fill="#697787" transform="rotate(-66 512 578)"/>
+      <rect x="502" y="335" width="20" height="43" rx="8" fill="#697787" transform="rotate(-33 512 578)"/>
+      <rect x="502" y="335" width="20" height="43" rx="8" fill="#697787" transform="rotate(0 512 578)"/>
+      <rect x="502" y="335" width="20" height="43" rx="8" fill="#697787" transform="rotate(33 512 578)"/>
+      <rect x="502" y="335" width="20" height="43" rx="8" fill="#697787" transform="rotate(66 512 578)"/>
+      <path d="M668 412a222 222 0 0 1 65 157h-38a184 184 0 0 0-54-130z" fill="#4BB881"/>
+      <path d="m493 565 169-136-132 174z" fill="#475365"/>
+      <circle cx="512" cy="578" r="34" fill="url(#tl-tile-shop-floor-edge)"/>
+      <rect x="427" y="641" width="170" height="13" rx="6.5" fill="#BAC7D4"/>
+    </g>
+  </g>
+</svg>

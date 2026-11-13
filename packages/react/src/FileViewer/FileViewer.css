@@ -1,0 +1,211 @@
+/* 파일 미리 보기(PG-44): 위 도구 줄 · 아래 보기 영역. 보기 영역은 넘치면 안에서 스크롤한다 */
+/* 폭은 늘 부모를 채운다: container-type이 내용 폭을 0으로 보므로 가로 flex 안에서도 0이 되지 않게 */
+.tl-file-viewer {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-surface);
+  container-type: inline-size;
+}
+
+.tl-file-viewer[data-height='fill'] {
+  height: 100%;
+  min-height: 0;
+}
+
+.tl-file-viewer__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-height: calc(var(--tl-density-control-height-sm) + var(--tl-space-8));
+  padding: var(--tl-space-4) var(--tl-space-4) var(--tl-space-4) var(--tl-space-12);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-file-viewer__name {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: var(--tl-space-6);
+  min-width: 0;
+}
+
+.tl-file-viewer__file-icon {
+  flex: none;
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-file-viewer__title {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-font-weight-600);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-file-viewer__meta {
+  flex: none;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+.tl-file-viewer__tools {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--tl-space-2);
+}
+
+.tl-file-viewer__value {
+  min-width: calc(var(--tl-space-40) + var(--tl-space-4));
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.tl-file-viewer__separator {
+  align-self: stretch;
+  width: var(--tl-border-width-1);
+  margin: var(--tl-space-4) var(--tl-space-4);
+  background: var(--tl-color-border-divider);
+}
+
+/* 보기 영역: 높이 단계는 space.64 배수(sm 240 · md 400 · lg 560), fill은 남은 높이 */
+.tl-file-viewer__stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: calc(var(--tl-space-64) * 6.25);
+  min-height: 0;
+  overflow: auto;
+  background: var(--tl-color-bg-sunken);
+  outline: 0;
+  overscroll-behavior: contain;
+}
+
+.tl-file-viewer[data-height='sm'] .tl-file-viewer__stage {
+  height: calc(var(--tl-space-64) * 3.75);
+}
+
+.tl-file-viewer[data-height='lg'] .tl-file-viewer__stage {
+  height: calc(var(--tl-space-64) * 8.75);
+}
+
+.tl-file-viewer[data-height='fill'] .tl-file-viewer__stage {
+  flex: 1 1 auto;
+  height: auto;
+}
+
+/* 키보드 포커스: 영역 안쪽 링(바깥 링은 둥근 모서리와 overflow에 잘린다) */
+.tl-file-viewer__stage:focus-visible,
+.tl-file-viewer[data-force-state='focus'] .tl-file-viewer__stage {
+  box-shadow: inset 0 0 0 var(--tl-border-width-2) var(--tl-color-border-focus);
+}
+
+.tl-file-viewer__stage[data-pannable] {
+  cursor: grab;
+}
+
+.tl-file-viewer__stage[data-pannable]:active {
+  cursor: grabbing;
+}
+
+/* 그림판: 그림이 작으면 가운데, 크면 영역이 스크롤한다(왼쪽 위가 잘리지 않게 내용 폭으로 자란다) */
+.tl-file-viewer__canvas {
+  position: relative;
+  display: grid;
+  flex: 1 0 auto;
+  place-items: center;
+  box-sizing: border-box;
+  width: max-content;
+  min-width: 100%;
+  min-height: 100%;
+  padding: var(--tl-space-16);
+}
+
+.tl-file-viewer__frame {
+  position: relative;
+  width: var(--tl-file-viewer-frame-w, 0);
+  height: var(--tl-file-viewer-frame-h, 0);
+}
+
+.tl-file-viewer__image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: var(--tl-file-viewer-image-w);
+  max-width: none;
+  height: var(--tl-file-viewer-image-h);
+  background: var(--tl-color-bg-surface);
+  box-shadow: var(--tl-shadow-sm);
+  transform: translate(-50%, -50%) rotate(var(--tl-file-viewer-rotate, 0deg));
+  user-select: none;
+}
+
+/* 크기를 알기 전: 보이지 않게 받기만 한다(naturalWidth는 CSS 크기와 관계없다) */
+.tl-file-viewer__frame:not([data-ready]) .tl-file-viewer__image {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.tl-file-viewer__loading {
+  position: absolute;
+  inset: var(--tl-space-16);
+  display: flex;
+}
+
+.tl-file-viewer__pad {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: var(--tl-space-16);
+}
+
+.tl-file-viewer__pdf {
+  display: block;
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 0;
+  border: 0;
+  background: var(--tl-color-bg-sunken);
+}
+
+/* 파일 카드 · 오류 블록은 영역 가운데 */
+.tl-file-viewer__stage > .tl-empty-state,
+.tl-file-viewer__pdf > .tl-empty-state {
+  flex: 1 1 auto;
+}
+
+/* 좁은 칸(목록 옆 미리 보기): 이름이 한 줄을 차지하고 도구는 그 아래 줄 */
+@container (max-width: 400px) {
+  .tl-file-viewer__bar {
+    flex-wrap: wrap;
+    row-gap: 0;
+  }
+
+  .tl-file-viewer__name {
+    flex-basis: 100%;
+    min-height: var(--tl-density-control-height-sm);
+  }
+
+  .tl-file-viewer__tools {
+    flex-wrap: wrap;
+    margin-inline-start: calc(var(--tl-space-8) * -1);
+  }
+}

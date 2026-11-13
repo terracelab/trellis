@@ -1,0 +1,24 @@
+{
+  "id": "erp/sales/analysis",
+  "title": "매출 분석",
+  "intent": "월별 매출과 이익률을 전년 동기와 비교하고, 거래처 · 분류 · 품목별 구성과 증감을 당월 또는 누계로 본다",
+  "module": "sales",
+  "pattern": "Dashboard",
+  "industries": ["trade", "distribution", "commerce", "manufacturing", "general"],
+  "components": [
+    "PageHeader",
+    "SegmentedControl",
+    "Button",
+    "KpiCard",
+    "ChartCard",
+    "ComboChart",
+    "BarList",
+    "Card",
+    "DataGrid",
+    "DataBar",
+    "Donut"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["kpis", "trend", "breakdown", "topItems"],
+  "order": 20
+}

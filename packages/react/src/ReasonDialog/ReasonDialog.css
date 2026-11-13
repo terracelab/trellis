@@ -1,0 +1,13 @@
+/* 사유를 받는 확인 창(PR-30). 겉모양은 Dialog(sm)를 따르고 안쪽만 정한다 */
+.tl-reason-dialog__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tl-space-8);
+}
+
+.tl-reason-dialog__note {
+  margin: 0;
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}

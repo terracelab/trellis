@@ -1,0 +1,59 @@
+.tl-radial-meter {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: var(--tl-space-4);
+  width: max-content;
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-radial-meter__text {
+  position: absolute;
+  inset-inline: 0;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  pointer-events: none;
+}
+
+.tl-radial-meter[data-size='sm'] .tl-radial-meter__text {
+  height: calc(var(--tl-space-40) * 2);
+}
+.tl-radial-meter[data-size='md'] .tl-radial-meter__text {
+  height: calc(var(--tl-space-40) * 3);
+}
+.tl-radial-meter[data-size='lg'] .tl-radial-meter__text {
+  height: calc(var(--tl-space-40) * 4);
+}
+
+.tl-radial-meter__value {
+  font-size: var(--tl-type-amount-lg-font-size);
+  line-height: var(--tl-type-amount-lg-line-height);
+  font-weight: var(--tl-font-weight-600);
+  letter-spacing: var(--tl-type-amount-lg-letter-spacing);
+}
+
+.tl-radial-meter[data-size='sm'] .tl-radial-meter__value {
+  font-size: var(--tl-type-amount-font-size);
+  line-height: var(--tl-type-amount-line-height);
+}
+
+.tl-radial-meter__unit {
+  margin-left: var(--tl-space-4);
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-radial-meter__label {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-radial-meter__caption {
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}

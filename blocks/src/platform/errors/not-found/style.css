@@ -1,0 +1,65 @@
+/* 전체 화면 오류(주소 없음 · 권한 없음 · 로그인 만료, PG-44). 세 블록이 같이 쓴다.
+   AppShell 안에서는 내용 영역을, 밖(로그인 전 · 틀 없는 화면)에서는 화면 높이를 채우고 가운데에 선다 */
+.tl-block-error {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-height: 100%;
+  padding: var(--tl-space-24) var(--tl-layout-gutter-default) var(--tl-space-48);
+  background: var(--tl-color-bg-canvas);
+}
+
+/* 틀 밖: 부모에 높이가 없으므로 화면 높이를 쓴다 */
+:root:not(:has(.tl-app-shell)) .tl-block-error {
+  min-height: 100dvh;
+}
+
+/* 회사 이름은 틀 밖에서만(틀 안에는 바의 브랜드가 있다) */
+.tl-block-error__brand {
+  margin: 0;
+  color: var(--tl-color-fg-link);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-font-weight-700);
+}
+
+.tl-app-shell .tl-block-error__brand {
+  display: none;
+}
+
+/* 눈으로 보는 가운데: 아래 여백을 조금 더 두어 살짝 위에 선다 */
+.tl-block-error__body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tl-space-8);
+  padding-bottom: var(--tl-space-64);
+}
+
+.tl-block-error__note {
+  max-width: calc(var(--tl-space-64) * 7);
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.tl-block-error__code {
+  color: var(--tl-color-fg-primary);
+  font-family: var(--tl-font-family-mono);
+  font-size: var(--tl-type-mono-font-size);
+}
+
+@media (max-width: 639px) {
+  .tl-block-error {
+    padding: var(--tl-space-16) var(--tl-layout-gutter-compact) var(--tl-space-32);
+  }
+
+  .tl-block-error__body {
+    padding-bottom: var(--tl-space-32);
+  }
+}

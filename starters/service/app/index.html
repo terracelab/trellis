@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ko" data-density="compact">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>새 서비스</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script>
+      // 첫 페인트 전에 테마 · 밀도를 정한다(깜빡임 방지)
+      (function () {
+        var d = document.documentElement;
+        var t = null,
+          s = null;
+        try {
+          t = localStorage.getItem('theme');
+          s = localStorage.getItem('density');
+        } catch (e) {}
+        d.dataset.theme =
+          t || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (s) d.dataset.density = s;
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

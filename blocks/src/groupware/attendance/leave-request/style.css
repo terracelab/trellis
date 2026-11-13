@@ -1,0 +1,31 @@
+/* 휴가 신청: 오른쪽 보조 글자 · 같은 기간 팀 일정 목록. 값은 토큰만 */
+.tl-block-leave-note {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+}
+
+.tl-block-leave-team {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-block-leave-team > li {
+  display: grid;
+  gap: var(--tl-space-2);
+  padding-block: var(--tl-space-8);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  font-size: var(--tl-type-body-font-size);
+}
+
+.tl-block-leave-team > li:first-child {
+  padding-top: 0;
+}
+
+.tl-block-leave-team > li:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}

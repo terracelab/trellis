@@ -1,0 +1,32 @@
+{
+  "id": "commerce/products/edit",
+  "title": "상품 등록",
+  "intent": "상품 정보 · 정가와 판매가 · 중량과 포장 옵션 조합의 SKU · 이미지 · 배송 · 판매 채널을 입력하고 등록한다",
+  "module": "products",
+  "pattern": "FormRegister",
+  "industries": ["commerce", "distribution"],
+  "components": [
+    "PageHeader",
+    "Badge",
+    "Card",
+    "FormSection",
+    "Field",
+    "Input",
+    "Select",
+    "CodeSearch",
+    "AmountInput",
+    "QuantityInput",
+    "Switch",
+    "FileUpload",
+    "Textarea",
+    "Banner",
+    "ActionBar",
+    "Button",
+    "Dialog",
+    "CheckboxGroup",
+    "SelectableCard"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["basics", "pricing", "options", "shipping", "channels"],
+  "order": 20
+}

@@ -1,0 +1,31 @@
+/* 임금명세서: 왼쪽 지급 달 목록(고정 폭, SelectableList) · 오른쪽 명세서. 1024 미만은 달 목록이 위 */
+.tl-block-slip {
+  display: grid;
+  grid-template-columns: calc(var(--tl-space-64) * 4) minmax(0, 1fr);
+  align-items: start;
+  gap: var(--tl-space-32);
+}
+
+.tl-block-slip__side {
+  display: grid;
+  gap: var(--tl-space-16);
+  min-width: 0;
+}
+
+@media (max-width: 1023px) {
+  .tl-block-slip {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--tl-space-16);
+  }
+}
+
+/* 인쇄: 명세서만 */
+@media print {
+  .tl-block-slip {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tl-block-slip__side {
+    display: none;
+  }
+}

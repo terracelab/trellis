@@ -1,0 +1,12 @@
+{
+  "id": "platform/auth/login",
+  "title": "로그인",
+  "intent": "회사 코드 · 아이디 · 비밀번호로 로그인하고, 2단계 인증 코드를 확인한 뒤 업무 홈으로 간다",
+  "module": "platform",
+  "pattern": "Auth",
+  "industries": ["general"],
+  "components": ["Card", "Field", "Input", "Checkbox", "Button", "MaskedInput", "Banner"],
+  "sizes": [1440, 1024, 390],
+  "slots": ["brand", "sso", "mfa"],
+  "order": 1
+}

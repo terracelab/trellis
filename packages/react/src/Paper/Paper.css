@@ -1,0 +1,547 @@
+/* Paper. 종이 서식(D-77). 색 · 글자는 paper.* 토큰(테마와 무관), 간격은 고정 토큰 space.
+   앱 밀도(density.*)와 앱 글자 크기 모드(type.* 재정의)는 쓰지 않는다(R-35). 휴대폰 touch 밀도에서도
+   종이는 같은 모양으로 줄어 보이고, 앱이 글자를 키워도 인쇄물 쪽수가 바뀌지 않는다.
+   미리보기 틀(.tl-paper-preview)과 넘침 안내는 앱 화면이라 앱 토큰(color · type)을 쓴다 */
+
+.tl-paper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: var(--tl-paper-size-a4-width);
+  min-height: var(--tl-paper-size-a4-height);
+  padding: var(--tl-paper-margin-md);
+  background: var(--tl-paper-bg);
+  box-shadow: var(--tl-paper-shadow);
+  color: var(--tl-paper-fg);
+  color-scheme: light;
+  font-size: var(--tl-paper-type-body-font-size);
+  font-weight: var(--tl-font-weight-400);
+  line-height: var(--tl-paper-type-body-line-height);
+  letter-spacing: var(--tl-font-letter-spacing-normal);
+  text-align: start;
+  /* 한글은 어절 단위로 줄을 바꾸고, 그래도 넘치는 긴 글자(메일 · 번호)만 아무 데서나 끊는다 */
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+.tl-paper[data-orientation='landscape'] {
+  width: var(--tl-paper-size-a4-height);
+  min-height: var(--tl-paper-size-a4-width);
+}
+
+.tl-paper[data-size='a5'] {
+  width: var(--tl-paper-size-a5-width);
+  min-height: var(--tl-paper-size-a5-height);
+}
+
+.tl-paper[data-size='a5'][data-orientation='landscape'] {
+  width: var(--tl-paper-size-a5-height);
+  min-height: var(--tl-paper-size-a5-width);
+}
+
+.tl-paper[data-margin='sm'] {
+  padding: var(--tl-paper-margin-sm);
+}
+
+/* compact: 칸이 많은 서식(원천징수영수증)을 한 장에 넣는다 */
+.tl-paper[data-density='compact'] {
+  font-size: var(--tl-paper-type-label-font-size);
+  line-height: var(--tl-paper-type-label-line-height);
+}
+
+.tl-paper__header,
+.tl-paper__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--tl-space-4) var(--tl-space-16);
+  color: var(--tl-paper-muted);
+  font-size: var(--tl-paper-type-caption-font-size);
+  line-height: var(--tl-paper-type-caption-line-height);
+}
+
+.tl-paper__header {
+  margin-bottom: var(--tl-space-16);
+}
+
+.tl-paper__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--tl-space-16);
+}
+
+.tl-paper[data-density='compact'] .tl-paper__body {
+  gap: var(--tl-space-12);
+}
+
+.tl-paper__footer {
+  margin-top: var(--tl-space-24);
+  padding-top: var(--tl-space-8);
+  border-top: var(--tl-border-width-1) solid var(--tl-paper-line);
+}
+
+.tl-paper[data-density='compact'] .tl-paper__header {
+  margin-bottom: var(--tl-space-8);
+}
+
+.tl-paper[data-density='compact'] .tl-paper__footer {
+  margin-top: var(--tl-space-12);
+  padding-top: var(--tl-space-4);
+}
+
+/* ─── 제목 · 문단 ─── */
+
+.tl-paper-title {
+  display: grid;
+  justify-items: center;
+  gap: var(--tl-space-4);
+  margin: var(--tl-space-8) 0 var(--tl-space-12);
+  text-align: center;
+}
+
+.tl-paper-title__text {
+  margin: 0;
+  /* 자간이 마지막 글자 뒤에 남기는 빈칸만큼 앞을 띄워 가운데를 맞춘다 */
+  padding-inline-start: var(--tl-space-8);
+  font-size: var(--tl-paper-type-display-font-size);
+  font-weight: var(--tl-font-weight-700);
+  line-height: var(--tl-paper-type-display-line-height);
+  letter-spacing: var(--tl-space-8);
+}
+
+.tl-paper-title__subtitle {
+  margin: 0;
+  color: var(--tl-paper-muted);
+}
+
+.tl-paper[data-density='compact'] .tl-paper-title {
+  margin: 0 0 var(--tl-space-4);
+}
+
+.tl-paper[data-density='compact'] .tl-paper-title__text {
+  padding-inline-start: var(--tl-space-4);
+  font-size: var(--tl-paper-type-h1-font-size);
+  line-height: var(--tl-paper-type-h1-line-height);
+  letter-spacing: var(--tl-space-4);
+}
+
+.tl-paper-text {
+  margin: 0;
+}
+
+.tl-paper-text[data-variant='statement'] {
+  margin: var(--tl-space-16) 0 var(--tl-space-4);
+  font-size: var(--tl-paper-type-h3-font-size);
+  line-height: var(--tl-paper-type-h3-line-height);
+  text-align: center;
+}
+
+.tl-paper-text[data-variant='note'] {
+  color: var(--tl-paper-muted);
+  font-size: var(--tl-paper-type-caption-font-size);
+  line-height: var(--tl-paper-type-caption-line-height);
+}
+
+.tl-paper[data-density='compact'] .tl-paper-text[data-variant='statement'] {
+  margin: var(--tl-space-4) 0 0;
+  font-size: var(--tl-paper-type-body-font-size);
+  line-height: var(--tl-paper-type-body-line-height);
+}
+
+/* ─── 칸 표 · 금액 표 ─── */
+
+.tl-paper-fields,
+.tl-paper-money-table {
+  display: grid;
+  gap: var(--tl-space-8);
+}
+
+.tl-paper[data-density='compact'] .tl-paper-fields,
+.tl-paper[data-density='compact'] .tl-paper-money-table {
+  gap: var(--tl-space-4);
+}
+
+.tl-paper-fields__title,
+.tl-paper-money-table__title {
+  margin: 0;
+  font-size: var(--tl-paper-type-h3-font-size);
+  font-weight: var(--tl-font-weight-600);
+  line-height: var(--tl-paper-type-h3-line-height);
+}
+
+.tl-paper[data-density='compact'] .tl-paper-fields__title,
+.tl-paper[data-density='compact'] .tl-paper-money-table__title {
+  font-size: var(--tl-paper-type-body-font-size);
+  line-height: var(--tl-paper-type-body-line-height);
+}
+
+.tl-paper-fields__note,
+.tl-paper-money-table__note {
+  margin: 0;
+  color: var(--tl-paper-muted);
+  font-size: var(--tl-paper-type-caption-font-size);
+  line-height: var(--tl-paper-type-caption-line-height);
+}
+
+.tl-paper-table {
+  width: 100%;
+  border: var(--tl-border-width-2) solid var(--tl-paper-line-strong);
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-paper-table th,
+.tl-paper-table td {
+  /* 행 33px(8.7mm): 급여명세서 표 17줄이 A4 한 장에 들어간다 */
+  padding: calc(var(--tl-space-4) * 1.5) var(--tl-space-12);
+  border: var(--tl-border-width-1) solid var(--tl-paper-line);
+  text-align: start;
+  vertical-align: middle;
+}
+
+.tl-paper-table th {
+  background: var(--tl-paper-fill);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-paper-table thead th {
+  text-align: center;
+}
+
+.tl-paper-table [data-align='right'] {
+  text-align: right;
+}
+
+.tl-paper-table [data-align='center'] {
+  text-align: center;
+}
+
+.tl-paper-table tfoot th,
+.tl-paper-table tfoot td {
+  border-top: var(--tl-border-width-2) solid var(--tl-paper-line-strong);
+  font-weight: var(--tl-font-weight-700);
+}
+
+/* 앞 쪽 이월: 이 쪽 줄과 굵은 선으로 나눈다. 다음 쪽 이월은 tfoot이라 합계 줄과 같은 모양 */
+.tl-paper-table tbody tr[data-carry='in'] > * {
+  border-bottom: var(--tl-border-width-2) solid var(--tl-paper-line-strong);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-paper[data-density='compact'] .tl-paper-table th,
+.tl-paper[data-density='compact'] .tl-paper-table td {
+  padding: var(--tl-space-4) var(--tl-space-8);
+}
+
+.tl-paper-fields col[data-role='label'] {
+  width: 20%;
+}
+
+.tl-paper-fields[data-columns='2'] col[data-role='label'] {
+  width: 28%;
+}
+
+/* 금액 표 열 폭: DataGrid · LineItemsEditor와 같은 이름 */
+.tl-paper-money-table col[data-width='xs'] {
+  width: var(--tl-space-64);
+}
+
+.tl-paper-money-table col[data-width='sm'] {
+  width: calc(var(--tl-space-64) * 1.75);
+}
+
+.tl-paper-money-table col[data-width='md'] {
+  width: calc(var(--tl-space-64) * 2);
+}
+
+.tl-paper-money-table col[data-width='lg'] {
+  width: calc(var(--tl-space-64) * 3);
+}
+
+.tl-paper-money-table col[data-width='xl'] {
+  width: calc(var(--tl-space-64) * 4);
+}
+
+/* ─── 직인 · 서명 ─── */
+
+/* 직인: 이미지가 없으면 "(인)"이 이름 뒤에 글자처럼 붙고, 이미지가 있으면 정사각 자리에 "(인)" 위로 찍힌다 */
+.tl-paper-seal {
+  position: relative;
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  font-weight: var(--tl-font-weight-400);
+  vertical-align: middle;
+}
+
+.tl-paper-seal[data-stamped] {
+  width: calc(var(--tl-space-40) * 2);
+  height: calc(var(--tl-space-40) * 2);
+}
+
+.tl-paper-seal__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.tl-paper[data-density='compact'] .tl-paper-seal[data-stamped] {
+  width: var(--tl-space-64);
+  height: var(--tl-space-64);
+}
+
+.tl-paper-signature {
+  display: grid;
+  justify-items: center;
+  gap: var(--tl-space-8);
+  margin-top: auto;
+  padding-top: var(--tl-space-24);
+  text-align: center;
+}
+
+.tl-paper-signature__date {
+  margin: 0;
+  font-size: var(--tl-paper-type-h3-font-size);
+  line-height: var(--tl-paper-type-h3-line-height);
+}
+
+.tl-paper-signature__line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tl-space-4) var(--tl-space-16);
+  margin: 0;
+  font-size: var(--tl-paper-type-h2-font-size);
+  font-weight: var(--tl-font-weight-700);
+  line-height: var(--tl-paper-type-h2-line-height);
+}
+
+.tl-paper[data-density='compact'] .tl-paper-signature {
+  gap: var(--tl-space-4);
+  padding-top: var(--tl-space-8);
+}
+
+.tl-paper[data-density='compact'] .tl-paper-signature__date {
+  font-size: var(--tl-paper-type-body-font-size);
+  line-height: var(--tl-paper-type-body-line-height);
+}
+
+.tl-paper[data-density='compact'] .tl-paper-signature__line {
+  font-size: var(--tl-paper-type-h3-font-size);
+  line-height: var(--tl-paper-type-h3-line-height);
+}
+
+.tl-paper-sign-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: var(--tl-space-12) var(--tl-space-24);
+  margin-top: auto;
+  padding-top: var(--tl-space-24);
+}
+
+.tl-paper-sign-pair__date {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: var(--tl-paper-type-h3-font-size);
+  line-height: var(--tl-paper-type-h3-line-height);
+  text-align: center;
+}
+
+.tl-paper[data-density='compact'] .tl-paper-sign-pair {
+  gap: var(--tl-space-8) var(--tl-space-16);
+  padding-top: var(--tl-space-8);
+}
+
+/* ─── 넘침 표시(미리보기에서만) ───
+   종이 내용이 한 장 높이를 넘으면 Paper가 data-overflow를 달고, PaperPreview 안에서는 1장이 끝나는 자리에
+   점선과 "1장 끝"을 그린다. 종이 내용이 아니라 화면 표시라 status 색을 쓰고 인쇄에는 그리지 않는다 */
+
+.tl-paper__overflow {
+  position: absolute;
+  inset-inline: 0;
+  top: var(--tl-paper-size-a4-height);
+  border-top: var(--tl-border-width-1) dashed var(--tl-color-status-danger-default);
+  pointer-events: none;
+}
+
+.tl-paper[data-orientation='landscape'] .tl-paper__overflow {
+  top: var(--tl-paper-size-a4-width);
+}
+
+.tl-paper[data-size='a5'] .tl-paper__overflow {
+  top: var(--tl-paper-size-a5-height);
+}
+
+.tl-paper[data-size='a5'][data-orientation='landscape'] .tl-paper__overflow {
+  top: var(--tl-paper-size-a5-width);
+}
+
+/* 글자는 선 위 오른쪽 여백 자리. 선 아래에 두면 종이 밖으로 나갈 수 있다 */
+.tl-paper__overflow-label {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 0 var(--tl-space-4);
+  background: var(--tl-paper-bg);
+  color: var(--tl-color-status-danger-default);
+  font-size: var(--tl-paper-type-caption-font-size);
+  font-weight: var(--tl-font-weight-600);
+  line-height: var(--tl-paper-type-caption-line-height);
+}
+
+/* ─── 화면 미리보기 ─── */
+
+.tl-paper-preview {
+  overflow: hidden;
+  padding: var(--tl-space-16);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-sunken);
+}
+
+/* 넘친 쪽 안내: 줄이지 않은 앱 글자. 칠한 배너 대신 아이콘 + 글자 한 줄(D-57) */
+.tl-paper-preview__note {
+  display: grid;
+  gap: var(--tl-space-4);
+  margin-bottom: var(--tl-space-12);
+}
+
+.tl-paper-preview__note:empty {
+  display: none;
+}
+
+.tl-paper-preview__note-line {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--tl-space-4);
+  margin: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-paper-preview__note-icon {
+  flex: none;
+  color: var(--tl-color-status-danger-default);
+}
+
+.tl-paper-preview__frame {
+  margin-inline: auto;
+}
+
+.tl-paper-preview__pages {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--tl-space-16);
+  width: max-content;
+  transform-origin: top left;
+}
+
+@media (max-width: 639px) {
+  .tl-paper-preview {
+    padding: var(--tl-space-8);
+  }
+}
+
+/* ─── 인쇄 ───
+   printPapers가 body 끝에 .tl-print-root를 붙였다 뗀다. 그동안만 종이 밖을 숨긴다(:has).
+   이름 붙은 @page는 인쇄 뿌리 안 종이에만 걸린다. 앱 화면을 그냥 인쇄할 때는 아무것도 바꾸지 않는다 */
+
+.tl-print-root {
+  display: none;
+}
+
+@page tl-paper-a4 {
+  size: A4 portrait;
+  margin: 0;
+}
+
+@page tl-paper-a4-landscape {
+  size: A4 landscape;
+  margin: 0;
+}
+
+@page tl-paper-a5 {
+  size: A5 portrait;
+  margin: 0;
+}
+
+@page tl-paper-a5-landscape {
+  size: A5 landscape;
+  margin: 0;
+}
+
+@media print {
+  .tl-paper {
+    box-shadow: none;
+  }
+
+  .tl-paper__overflow,
+  .tl-paper-preview__note {
+    display: none;
+  }
+
+  :root:has(> body > .tl-print-root),
+  body:has(> .tl-print-root) {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: none !important;
+  }
+
+  body:has(> .tl-print-root) > :not(.tl-print-root) {
+    display: none !important;
+  }
+
+  .tl-print-root {
+    display: block !important;
+  }
+
+  .tl-print-root .tl-paper {
+    margin: 0;
+    break-after: page;
+    page: tl-paper-a4;
+  }
+
+  .tl-print-root .tl-paper[data-orientation='landscape'] {
+    page: tl-paper-a4-landscape;
+  }
+
+  .tl-print-root .tl-paper[data-size='a5'] {
+    page: tl-paper-a5;
+  }
+
+  .tl-print-root .tl-paper[data-size='a5'][data-orientation='landscape'] {
+    page: tl-paper-a5-landscape;
+  }
+
+  .tl-print-root .tl-paper:last-child {
+    break-after: auto;
+  }
+
+  /* PaperPreview를 그대로 넘겨도 줄이지 않고 종이만 남긴다 */
+  .tl-print-root .tl-paper-preview {
+    overflow: visible;
+    padding: 0;
+    border-radius: 0;
+    background: none;
+  }
+
+  .tl-print-root .tl-paper-preview__frame {
+    width: auto !important;
+    height: auto !important;
+  }
+
+  .tl-print-root .tl-paper-preview__pages {
+    gap: 0;
+    transform: none !important;
+  }
+}

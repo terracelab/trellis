@@ -1,0 +1,12 @@
+{
+  "id": "erp/hr-payroll/payslip",
+  "title": "임금명세서",
+  "intent": "지급이 끝난 달을 골라 지급 · 공제 항목과 계산 방법, 근로 시간, 실지급액이 적힌 임금명세서를 보고 인쇄한다. 인사 권한이면 다른 사원 것도 연다",
+  "module": "hr-payroll",
+  "pattern": "ListDetail",
+  "industries": ["trade", "distribution", "manufacturing", "commerce", "general"],
+  "components": ["PageHeader", "Button", "Select", "SelectableList", "Payslip"],
+  "sizes": [1440, 1024, 390],
+  "slots": ["siblings", "months", "payee", "note"],
+  "order": 31
+}

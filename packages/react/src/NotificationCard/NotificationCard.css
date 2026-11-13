@@ -1,0 +1,88 @@
+.tl-notification-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: start;
+  gap: var(--tl-space-12);
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: var(--tl-density-card-padding);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-primary);
+  font: inherit;
+  text-align: left;
+}
+
+button.tl-notification-card {
+  cursor: pointer;
+  transition:
+    background-color var(--tl-duration-fast) var(--tl-easing-standard),
+    border-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-notification-card[data-pressable]:hover,
+.tl-notification-card[data-pressable][data-force-state='hover'] {
+  border-color: var(--tl-color-border-strong);
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-notification-card[data-pressable]:active,
+.tl-notification-card[data-pressable][data-force-state='active'] {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-notification-card__body {
+  display: grid;
+  align-self: center;
+  gap: var(--tl-space-4);
+  min-width: 0;
+}
+
+.tl-notification-card__title {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  min-width: 0;
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-notification-card__title-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-notification-card__unread {
+  flex: none;
+  width: calc(var(--tl-space-4) + var(--tl-border-width-2));
+  height: calc(var(--tl-space-4) + var(--tl-border-width-2));
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-brand-default);
+}
+
+.tl-notification-card__description {
+  overflow: hidden;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-notification-card__time {
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+/* 카운트 배지는 우상단 고정(NotificationHome 패턴) */
+.tl-notification-card__count {
+  display: flex;
+  align-self: start;
+}

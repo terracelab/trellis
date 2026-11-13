@@ -1,0 +1,24 @@
+{
+  "name": "@terracelab/trellis-native",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Expo(React Native) 컴포넌트",
+  "type": "module",
+  "license": "Apache-2.0",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run --passWithNoTests"
+  }
+}

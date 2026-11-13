@@ -1,0 +1,4 @@
+/* 범위 지정 Provider(D-98)의 감싸는 요소. 박스를 만들지 않고 CSS 변수 · data-* 속성만 잇는다 */
+.tl-theme-scope {
+  display: contents;
+}

@@ -1,0 +1,31 @@
+{
+  "id": "commerce/orders/detail",
+  "title": "주문 상세",
+  "intent": "주문 한 건의 단계 · 상품 · 결제 금액 · 배송 · 결제 · 취소 요청을 보고 송장을 입력해 발송하거나 주문을 취소한다",
+  "module": "orders",
+  "pattern": "OrderDetail",
+  "industries": ["commerce", "distribution"],
+  "components": [
+    "PageHeader",
+    "Badge",
+    "Banner",
+    "Card",
+    "Stepper",
+    "DataGrid",
+    "Tabs",
+    "DescriptionList",
+    "EmptyState",
+    "Timeline",
+    "Button",
+    "Dialog",
+    "Field",
+    "Select",
+    "Input",
+    "Checkbox",
+    "Textarea",
+    "AddressInput"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["stages", "lines", "amounts", "tabs", "actions"],
+  "order": 20
+}

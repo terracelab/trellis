@@ -1,0 +1,35 @@
+{
+  "name": "@terracelab/trellis-blocks",
+  "version": "1.0.0",
+  "private": true,
+  "description": "화면 블록(복사형 소스, D-51) · 플랫폼 기본 기능 타입 · 샘플 데이터. 앱은 trellis add로 소스를 복사해 소유한다",
+  "type": "module",
+  "license": "Apache-2.0",
+  "exports": {
+    "./platform": "./src/_platform/index.ts",
+    "./data": "./src/_data/index.ts",
+    "./data/*": "./src/_data/*.ts",
+    "./ui": "./src/_ui/index.ts",
+    "./ui.css": "./src/_ui/blocks.css",
+    "./schema": "./scripts/block-schema.mjs",
+    "./*": "./src/*"
+  },
+  "scripts": {
+    "check": "node scripts/check-blocks.mjs",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@terracelab/trellis-contracts": "workspace:*",
+    "@terracelab/trellis-icons": "workspace:*",
+    "@terracelab/trellis-react": "workspace:*",
+    "@terracelab/trellis-tokens": "workspace:*",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "zod": "4.6.7"
+  }
+}

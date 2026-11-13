@@ -1,0 +1,31 @@
+{
+  "id": "crm/support/tickets",
+  "title": "상담",
+  "intent": "클레임 · 문의 · 반품 상담을 우선순위와 SLA 기한 순으로 보고, 대화에 답하거나 내부 메모를 남기고 반품을 입고에 연결해 처리 완료한다",
+  "module": "support",
+  "pattern": "ListDetail",
+  "industries": ["trade", "distribution", "commerce", "general"],
+  "components": [
+    "PageHeader",
+    "Tabs",
+    "Button",
+    "Banner",
+    "FilterBar",
+    "Input",
+    "SegmentedControl",
+    "Select",
+    "DataGrid",
+    "Badge",
+    "DueBadge",
+    "Card",
+    "DescriptionList",
+    "Field",
+    "EmptyState",
+    "ActionBar",
+    "MessageThread",
+    "Composer"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["columns", "slaRules", "thread", "returnLink", "actions"],
+  "order": 10
+}

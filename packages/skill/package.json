@@ -1,0 +1,22 @@
+{
+  "name": "@terracelab/trellis-skill",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Trellis를 쓰는 서비스 저장소용 에이전트 스킬과 점검 도구(install · doctor · docs)",
+  "type": "module",
+  "license": "Apache-2.0",
+  "bin": {
+    "trellis-skill": "./bin/trellis-skill.mjs"
+  },
+  "files": [
+    "bin",
+    "skills"
+  ],
+  "scripts": {
+    "lint": "eslint .",
+    "test": "vitest run --passWithNoTests"
+  },
+  "devDependencies": {
+    "@terracelab/trellis-tokens": "workspace:*"
+  }
+}

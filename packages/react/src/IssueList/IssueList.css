@@ -1,0 +1,146 @@
+/* 저장 전 검증 목록(PR-30). 단계는 아이콘 모양 + 숨은 글자로 나눈다. 색 바탕 · 왼쪽 띠는 쓰지 않는다(D-56 · D-57) */
+.tl-issue-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tl-space-8);
+  min-width: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+}
+
+.tl-issue-list__head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--tl-space-4) var(--tl-space-12);
+}
+
+.tl-issue-list__title {
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-issue-list__summary {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-issue-list__empty {
+  margin: 0;
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-issue-list__list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-issue-list__list[data-scroll] {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.tl-issue-list__item {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-issue-list__main {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: flex-start;
+  gap: var(--tl-space-8);
+  min-width: 0;
+  min-height: var(--tl-density-row-height);
+  margin: 0;
+  padding: var(--tl-space-8);
+  border: 0;
+  border-radius: var(--tl-radius-sm);
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+
+button.tl-issue-list__main {
+  cursor: pointer;
+  transition: background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+/* 스토리 · VRT는 루트에 data-force-state를 붙인다: 첫 항목에 그 상태를 그린다 */
+.tl-issue-list__main[data-pressable]:hover,
+.tl-issue-list[data-force-state='hover']
+  .tl-issue-list__item:first-child
+  .tl-issue-list__main[data-pressable] {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-issue-list[data-force-state='focus']
+  .tl-issue-list__item:first-child
+  .tl-issue-list__main[data-pressable] {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: var(--tl-border-width-2);
+}
+
+.tl-issue-list__icon {
+  flex: none;
+  margin-top: calc((var(--tl-density-body-line-height) - var(--tl-space-16)) / 2);
+}
+
+.tl-issue-list__item[data-level='error'] .tl-issue-list__icon {
+  color: var(--tl-color-status-danger-default);
+}
+
+.tl-issue-list__item[data-level='warning'] .tl-issue-list__icon {
+  color: var(--tl-color-status-warning-default);
+}
+
+.tl-issue-list__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.tl-issue-list__line {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--tl-space-2) var(--tl-space-8);
+}
+
+.tl-issue-list__tag {
+  flex: none;
+  padding: 0 var(--tl-space-4);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-sm);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-issue-list__item-title {
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-issue-list__message {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-issue-list__detail {
+  flex: none;
+  margin-right: var(--tl-space-4);
+}

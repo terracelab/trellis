@@ -1,0 +1,170 @@
+/* 메시지 입력: 붙인 파일 칩 · [첨부] [늘어나는 입력 칸] [보내기]. 둘레(여백 · 위 선)는 놓는 곳이 정한다 */
+.tl-composer {
+  display: grid;
+  gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+.tl-composer__row {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+.tl-composer__attach,
+.tl-composer__send {
+  flex: none;
+}
+
+/* 한 줄일 때 높이 = 컨트롤 md(옆 단추와 같다). 줄은 rows로 늘어난다(Composer.tsx) */
+.tl-composer__input {
+  display: block;
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  padding: calc(
+      (var(--tl-density-control-height-md) - var(--tl-density-body-line-height)) / 2 -
+        var(--tl-border-width-1)
+    )
+    var(--tl-space-8);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-strong);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-primary);
+  font: inherit;
+  font-size: var(--tl-density-input-font-size);
+  line-height: var(--tl-density-body-line-height);
+  resize: none;
+  overflow-y: auto;
+  transition: border-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-composer__input::placeholder {
+  color: var(--tl-color-fg-tertiary);
+}
+
+/* 빈 칸은 한 줄이라 긴 placeholder가 다음 줄로 비치지 않게 한 줄로 자른다 */
+.tl-composer__input:placeholder-shown {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.tl-composer__input:hover,
+.tl-composer[data-force-state='hover'] .tl-composer__input {
+  border-color: var(--tl-color-border-hover);
+}
+
+/* 입력 칸은 테두리 색 + 안쪽 선으로 포커스를 보인다(Textarea와 같다) */
+.tl-composer__input.tl-focusable:focus-visible,
+.tl-composer[data-force-state='focus'] .tl-composer__input {
+  border-color: var(--tl-color-border-focus);
+  outline: var(--tl-border-width-1) solid var(--tl-color-border-focus);
+  outline-offset: 0;
+}
+
+.tl-composer__input:disabled {
+  border-color: transparent;
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+/* 멘션 · 명령이 있으면 입력 칸을 감싸 목록을 그 위에 띄운다(PG-33). 감싼 칸이 입력 칸 자리를 그대로 쓴다 */
+.tl-composer__field {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* 멘션 · 명령 목록: 입력 칸 위에 뜬다(Composer는 화면 아래에 놓이므로). 모양은 Menu 팝업과 같다 */
+.tl-composer__menu {
+  position: absolute;
+  bottom: calc(100% + var(--tl-space-4));
+  left: 0;
+  z-index: var(--tl-z-dropdown);
+  box-sizing: border-box;
+  width: min(calc(var(--tl-space-64) * 5), 100%);
+  max-height: calc(var(--tl-density-row-height) * 6 + var(--tl-space-8));
+  margin: 0;
+  padding: var(--tl-space-4);
+  overflow-y: auto;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-elevated);
+  color: var(--tl-color-fg-primary);
+  box-shadow: var(--tl-shadow-md);
+  list-style: none;
+}
+
+.tl-composer__option {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-height: var(--tl-density-row-height);
+  padding: 0 var(--tl-space-8);
+  border-radius: var(--tl-radius-sm);
+  font-size: var(--tl-density-body-font-size);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-composer__option[data-active] {
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-composer__option-name {
+  flex: none;
+  font-weight: var(--tl-font-weight-500);
+  white-space: nowrap;
+}
+
+.tl-composer__option-meta {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 휴대폰: 줄은 손가락 높이 */
+@media (max-width: 639px) {
+  .tl-composer__menu {
+    width: 100%;
+    max-height: calc(var(--tl-space-48) * 5 + var(--tl-space-8));
+  }
+
+  .tl-composer__option {
+    min-height: var(--tl-space-48);
+  }
+}
+
+.tl-composer__count {
+  flex: none;
+  align-self: center;
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+.tl-composer__count[data-full] {
+  color: var(--tl-color-fg-secondary);
+}
+
+/* 휴대폰: 화면 아래에 붙고 홈 표시줄 높이만큼 아래 여백을 둔다. 글자는 16(입력 글자 토큰, iOS 확대 방지) */
+@media (max-width: 639px) {
+  .tl-composer[data-sticky] {
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+    padding-bottom: calc(var(--tl-space-8) + env(safe-area-inset-bottom, 0));
+    background: var(--tl-color-bg-surface);
+  }
+}

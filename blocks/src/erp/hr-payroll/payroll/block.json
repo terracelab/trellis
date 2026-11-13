@@ -1,0 +1,25 @@
+{
+  "id": "erp/hr-payroll/payroll",
+  "title": "급여 대장",
+  "intent": "한 달 급여를 사원별 기본급 · 수당 · 4대보험 · 소득세 공제 · 실지급액으로 맞춰 보고, 확정한 뒤 지급하고 급여명세서를 연다",
+  "module": "hr-payroll",
+  "pattern": "ListDetail",
+  "industries": ["trade", "distribution", "manufacturing", "commerce", "general"],
+  "components": [
+    "PageHeader",
+    "Badge",
+    "Button",
+    "Card",
+    "Stepper",
+    "FilterBar",
+    "Input",
+    "Select",
+    "DataGrid",
+    "Dialog",
+    "DescriptionList",
+    "Drawer"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["siblings", "payItems", "deductions", "status", "payslip"],
+  "order": 10
+}

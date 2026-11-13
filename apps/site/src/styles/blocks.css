@@ -1,0 +1,335 @@
+/* 화면 블록 목록. 값은 전부 --tl-* 변수에서 나온다(크기는 토큰의 배수). 그림은 scripts/shots.mjs가 만든다 */
+
+/* ── 머리 ─────────────────────────────────────────────────── */
+.tl-site-blocks-head {
+  display: grid;
+  justify-items: center;
+  gap: var(--tl-space-16);
+  padding-block: var(--tl-space-64);
+  text-align: center;
+}
+
+.tl-site-blocks-title {
+  margin: 0;
+  font-size: var(--tl-site-hero-size);
+  line-height: 1.26;
+  font-weight: var(--tl-font-weight-600);
+  letter-spacing: var(--tl-font-letter-spacing-tight);
+}
+
+.tl-site-blocks-head .tl-site-lead {
+  max-width: calc(var(--tl-space-64) * 10);
+}
+
+.tl-site-blocks-head .tl-site-actions {
+  margin-top: var(--tl-space-12);
+}
+
+/* ── 거르기 ───────────────────────────────────────────────── */
+.tl-site-blocks-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tl-space-12) var(--tl-space-24);
+  margin-bottom: var(--tl-space-32);
+}
+
+.tl-site-blocks-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tl-space-4);
+}
+
+/* 고른 묶음은 바탕 한 단계. 개수는 테두리 없이 작은 글자 */
+.tl-site-blocks-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--tl-space-6);
+  padding: var(--tl-space-8) var(--tl-space-12);
+  border: 0;
+  border-radius: var(--tl-radius-md);
+  background: transparent;
+  color: var(--tl-color-fg-secondary);
+  font: inherit;
+  font-size: var(--tl-type-body-font-size);
+  line-height: var(--tl-type-body-line-height);
+  font-weight: var(--tl-font-weight-500);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--tl-duration-fast) var(--tl-easing-standard),
+    color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-site-blocks-chip:hover {
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-site-blocks-chip[aria-pressed='true'] {
+  background: var(--tl-color-bg-canvas);
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-site-blocks-chip-n {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  font-weight: var(--tl-font-weight-400);
+}
+
+.tl-site-blocks-count {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-body-font-size);
+}
+
+/* ── 카드 ─────────────────────────────────────────────────── */
+.tl-site-blocks-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--tl-space-40) var(--tl-space-32);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 링크는 이름(h3 안)이고, 누르는 자리와 포커스 링은 ::after로 카드 전체에 편다 */
+.tl-site-block {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: var(--tl-space-16);
+  min-width: 0;
+}
+
+.tl-site-block[hidden] {
+  display: none;
+}
+
+.tl-site-block-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.tl-site-block-link::after {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--tl-radius-lg);
+  content: '';
+}
+
+.tl-site-block-link:focus-visible {
+  outline: none;
+}
+
+.tl-site-block-link:focus-visible::after {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: var(--tl-space-4);
+}
+
+/* 그림 틀: 16:10(그림이 1440×900을 줄인 것이라 그대로 들어간다) */
+.tl-site-block-frame {
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-surface);
+  transition: border-color var(--tl-duration-normal) var(--tl-easing-standard);
+}
+
+.tl-site-block:hover .tl-site-block-frame {
+  border-color: var(--tl-color-border-strong);
+}
+
+.tl-site-block-shot {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left top;
+}
+
+/* 휴대폰 전용 블록: 같은 틀 안에 세로 그림을 휴대폰 모양으로 세운다 */
+.tl-site-block-frame[data-phone] {
+  display: grid;
+  place-items: center;
+  background: var(--tl-color-bg-canvas);
+}
+
+.tl-site-block-phone {
+  height: 88%;
+  aspect-ratio: 390 / 844;
+  overflow: hidden;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-strong);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-surface);
+}
+
+.tl-site-block-text {
+  display: grid;
+  gap: var(--tl-space-4);
+  min-width: 0;
+}
+
+.tl-site-block-title {
+  margin: 0;
+  font-size: var(--tl-type-h2-font-size);
+  line-height: var(--tl-type-h2-line-height);
+  font-weight: var(--tl-font-weight-600);
+  letter-spacing: var(--tl-font-letter-spacing-tight);
+}
+
+.tl-site-block:hover .tl-site-block-link {
+  text-decoration: underline;
+  text-underline-offset: var(--tl-space-4);
+}
+
+.tl-site-block-meta,
+.tl-site-block-intent,
+.tl-site-block-id {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-site-block-meta {
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+/* 하는 일은 두 줄까지 */
+.tl-site-block-intent {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: var(--tl-type-body-font-size);
+  line-height: var(--tl-type-body-line-height);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+/* id는 링크 자리 위에 올려 글자를 골라 복사할 수 있게 한다 */
+.tl-site-block-id {
+  position: relative;
+  justify-self: start;
+  margin-top: var(--tl-space-4);
+  user-select: all;
+  font-family: var(--tl-font-family-mono);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+/* ── 쓰는 법 ──────────────────────────────────────────────── */
+.tl-site-blocks-use {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  align-items: start;
+  gap: var(--tl-space-32) var(--tl-space-48);
+  padding: var(--tl-space-48);
+  border-radius: var(--tl-site-radius);
+  background: var(--tl-color-bg-canvas);
+}
+
+.tl-site-blocks-use-copy {
+  display: grid;
+  justify-items: start;
+  gap: var(--tl-space-12);
+}
+
+.tl-site-blocks-use-copy .tl-site-arrow {
+  margin-top: var(--tl-space-8);
+}
+
+.tl-site-blocks-use code {
+  font-family: var(--tl-font-family-mono);
+  font-size: 0.92em;
+}
+
+.tl-site-blocks-use-box {
+  display: grid;
+  gap: var(--tl-space-12);
+  min-width: 0;
+}
+
+.tl-site-cmds {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-default);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-color-bg-surface);
+  list-style: none;
+}
+
+.tl-site-cmd {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--tl-space-2) var(--tl-space-12);
+  padding: var(--tl-space-12) var(--tl-space-12) var(--tl-space-12) var(--tl-space-20);
+}
+
+.tl-site-cmd + .tl-site-cmd {
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-site-blocks-use .tl-site-cmd-code {
+  grid-column: 1;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-body-font-size);
+  line-height: var(--tl-type-body-line-height);
+}
+
+.tl-site-cmd-note {
+  grid-column: 1;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-site-cmd-copy {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+  color: var(--tl-color-fg-secondary);
+}
+
+.tl-site-cmd-copy[data-copied] {
+  color: var(--tl-color-status-success-default);
+}
+
+.tl-site-cmd-copy:not([data-copied]) .tl-site-cmd-done,
+.tl-site-cmd-copy[data-copied] .tl-site-cmd-idle {
+  display: none;
+}
+
+.tl-site-blocks-use-note {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+}
+
+/* ── 폭에 따라 ────────────────────────────────────────────── */
+@media (max-width: 1099px) {
+  .tl-site-blocks-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tl-site-blocks-use {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 699px) {
+  .tl-site-blocks-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tl-site-blocks-head {
+    padding-block: var(--tl-space-40);
+  }
+
+  .tl-site-blocks-use {
+    padding: var(--tl-space-24);
+  }
+}

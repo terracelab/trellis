@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-tax-title">
+  <title id="tl-tile-tax-title">세무</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-tax-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-tax-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#62C3FF"/>
+      <stop offset=".5" stop-color="#2D87EA"/>
+      <stop offset="1" stop-color="#1552BD"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-tax-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-tax-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-tax-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-tax-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-tax-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-tax-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-tax-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#1552BD" opacity=".25" filter="url(#tl-tile-tax-blur)"/>
+    <g transform="rotate(-2 512 512)">
+      <path d="M234 718h556v61H234zM253 389h518v48H253z" fill="url(#tl-tile-tax-edge)"/>
+      <path d="m512 232 293 166H219z" fill="url(#tl-tile-tax-white)"/>
+      <path d="m512 285 170 92H342z" fill="#2D87EA" opacity=".22"/>
+      <g>
+        <path d="M294 426h76v284h-76z" fill="url(#tl-tile-tax-white)"/>
+        <path d="M350 426h20v284h-20z" fill="url(#tl-tile-tax-edge)"/>
+      </g>
+      <g>
+        <path d="M414 426h76v284h-76z" fill="url(#tl-tile-tax-white)"/>
+        <path d="M470 426h20v284h-20z" fill="url(#tl-tile-tax-edge)"/>
+      </g>
+      <g>
+        <path d="M534 426h76v284h-76z" fill="url(#tl-tile-tax-white)"/>
+        <path d="M590 426h20v284h-20z" fill="url(#tl-tile-tax-edge)"/>
+      </g>
+      <g>
+        <path d="M654 426h76v284h-76z" fill="url(#tl-tile-tax-white)"/>
+        <path d="M710 426h20v284h-20z" fill="url(#tl-tile-tax-edge)"/>
+      </g>
+      <rect x="230" y="704" width="564" height="48" rx="12" fill="url(#tl-tile-tax-white)"/>
+      <circle cx="731" cy="711" r="62" fill="#2D87EA"/>
+      <path d="m709 736 44-50" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round"/>
+      <circle cx="711" cy="692" r="9" fill="#FFFFFF"/>
+      <circle cx="752" cy="732" r="9" fill="#FFFFFF"/>
+    </g>
+  </g>
+</svg>

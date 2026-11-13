@@ -1,0 +1,165 @@
+{
+  "paper": {
+    "$description": "종이 서식(A4 · A5 인쇄 · PDF). 테마와 무관하게 흰 종이에 검은 글자이고 라이트 · 다크 값이 같다(D-77). 크기 · 여백은 인쇄 규격이라 mm, 글자는 pt",
+    "bg": {
+      "$value": "{color.base.white}",
+      "$type": "color",
+      "$description": "종이 바탕. 가안(승인 대기)"
+    },
+    "fg": {
+      "$value": "{color.base.black}",
+      "$type": "color",
+      "$description": "종이 본문 글자. 인쇄에서 단색 검정으로 찍힌다. 가안(승인 대기)"
+    },
+    "muted": {
+      "$value": "{color.neutral.600}",
+      "$type": "color",
+      "$description": "머리 · 꼬리 · 주석 글자. bg · fill 위 4.5:1 이상. 가안(승인 대기)"
+    },
+    "line": {
+      "$value": "{color.neutral.500}",
+      "$type": "color",
+      "$description": "표 안쪽 칸 선 · 꼬리 위 구분선. 가안(승인 대기) · PR-28: 회색 단계가 식자재 ERP 회색으로 바뀌어 400(2.5:1) 대신 500(5.3:1)"
+    },
+    "lineStrong": {
+      "$value": "{color.neutral.950}",
+      "$type": "color",
+      "$description": "표 바깥 테두리 · 합계 행 위 선. 가안(승인 대기)"
+    },
+    "fill": {
+      "$value": "{color.neutral.200}",
+      "$type": "color",
+      "$description": "표 머리 · 라벨 칸 바탕. 가안(승인 대기) · PR-28: 예전 100(#E5E7EA)과 같은 값인 200(#E5E7EB)"
+    },
+    "shadow": {
+      "$value": "{shadow.md}",
+      "$type": "shadow",
+      "$description": "화면 미리보기의 종이 그림자. 인쇄에는 그리지 않는다. 가안(승인 대기)"
+    },
+    "size": {
+      "a4": {
+        "width": {
+          "$value": "210mm",
+          "$type": "dimension",
+          "$description": "A4 세로 폭(ISO 216). 가안(승인 대기)"
+        },
+        "height": {
+          "$value": "297mm",
+          "$type": "dimension",
+          "$description": "A4 세로 높이(ISO 216). 가안(승인 대기)"
+        }
+      },
+      "a5": {
+        "width": {
+          "$value": "148mm",
+          "$type": "dimension",
+          "$description": "A5 세로 폭(ISO 216). 가안(승인 대기)"
+        },
+        "height": {
+          "$value": "210mm",
+          "$type": "dimension",
+          "$description": "A5 세로 높이(ISO 216). 가안(승인 대기)"
+        }
+      }
+    },
+    "margin": {
+      "sm": {
+        "$value": "12mm",
+        "$type": "dimension",
+        "$description": "좁은 여백. 칸이 많은 국세청 서식 · A5. 가안(승인 대기)"
+      },
+      "md": {
+        "$value": "18mm",
+        "$type": "dimension",
+        "$description": "기본 여백. 증명서 · 명세서 · 계산서. 가안(승인 대기)"
+      }
+    },
+    "type": {
+      "$description": "종이 글자 크기 · 행간. 앱 글자 크기 모드(type.* 재정의)가 닿지 않는 종이 전용 한 벌. 인쇄 단위 pt(1pt = 1/72in = 4/3px)",
+      "display": {
+        "fontSize": {
+          "$value": "21pt",
+          "$type": "dimension",
+          "$description": "문서 제목(PaperTitle). 28px과 같은 크기. 가안(승인 대기)"
+        },
+        "lineHeight": {
+          "$value": "27pt",
+          "$type": "dimension",
+          "$description": "display 행간. 36px과 같다. 가안(승인 대기)"
+        }
+      },
+      "h1": {
+        "fontSize": {
+          "$value": "18pt",
+          "$type": "dimension",
+          "$description": "compact 문서 제목. 24px과 같은 크기. 가안(승인 대기)"
+        },
+        "lineHeight": {
+          "$value": "24pt",
+          "$type": "dimension",
+          "$description": "h1 행간. 32px과 같다. 가안(승인 대기)"
+        }
+      },
+      "h2": {
+        "fontSize": {
+          "$value": "15pt",
+          "$type": "dimension",
+          "$description": "서명 줄(회사 · 직함 · 이름). 20px과 같은 크기. 가안(승인 대기)"
+        },
+        "lineHeight": {
+          "$value": "21pt",
+          "$type": "dimension",
+          "$description": "h2 행간. 28px과 같다. 가안(승인 대기)"
+        }
+      },
+      "h3": {
+        "fontSize": {
+          "$value": "12pt",
+          "$type": "dimension",
+          "$description": "묶음 제목 · 확인 문장 · 서명 날짜. compact에서는 서명 줄. 16px과 같은 크기. 가안(승인 대기)"
+        },
+        "lineHeight": {
+          "$value": "18pt",
+          "$type": "dimension",
+          "$description": "h3 행간. 24px과 같다. 가안(승인 대기)"
+        }
+      },
+      "body": {
+        "fontSize": {
+          "$value": "10.5pt",
+          "$type": "dimension",
+          "$description": "종이 본문 · 표 칸. compact에서는 묶음 제목 · 확인 문장. 14px과 같은 크기. 가안(승인 대기)"
+        },
+        "lineHeight": {
+          "$value": "15pt",
+          "$type": "dimension",
+          "$description": "body 행간. 20px과 같다. 가안(승인 대기)"
+        }
+      },
+      "label": {
+        "fontSize": {
+          "$value": "9.75pt",
+          "$type": "dimension",
+          "$description": "compact 본문 · 표 칸. 13px과 같은 크기. 가안(승인 대기)"
+        },
+        "lineHeight": {
+          "$value": "13.5pt",
+          "$type": "dimension",
+          "$description": "label 행간. 18px과 같다. 가안(승인 대기)"
+        }
+      },
+      "caption": {
+        "fontSize": {
+          "$value": "9pt",
+          "$type": "dimension",
+          "$description": "머리 · 꼬리 · 주석 · 표 위 설명. 12px과 같은 크기. 가안(승인 대기)"
+        },
+        "lineHeight": {
+          "$value": "12pt",
+          "$type": "dimension",
+          "$description": "caption 행간. 16px과 같다. 가안(승인 대기)"
+        }
+      }
+    }
+  }
+}

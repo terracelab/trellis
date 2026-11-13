@@ -1,0 +1,5 @@
+/* inner-override: DataGrid에 표 최소 폭(auto 열 최소 폭) prop이 없다(보강 요청).
+   좁은 화면에서 제목(auto) 칸이 0으로 접히지 않게 하고, 표는 자기 상자 안에서 가로로 넘긴다 */
+.tl-block-inbox-grid .tl-data-grid__table {
+  min-width: calc(var(--tl-space-64) * 17);
+}

@@ -1,0 +1,100 @@
+.tl-bullet-bar {
+  display: grid;
+  /* 열은 칸 폭을 넘지 않는다(비율 열이 붙어도 좁은 칸에서 넘치지 않게) */
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--tl-space-4);
+  min-width: 0;
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-bullet-bar__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--tl-space-8);
+  min-height: var(--tl-type-label-line-height);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+}
+
+.tl-bullet-bar[data-size='sm'] .tl-bullet-bar__head {
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-bullet-bar__label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-bullet-bar__caption {
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+}
+
+.tl-bullet-bar__value {
+  flex: none;
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-bullet-bar__unit,
+.tl-bullet-bar__target {
+  color: var(--tl-color-fg-tertiary);
+  font-weight: var(--tl-font-weight-400);
+  font-size: var(--tl-type-caption-font-size);
+}
+
+.tl-bullet-bar__state {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  flex: none;
+  /* 글자는 중립(상태 색 글자는 4.5:1을 못 넘는다). 상태는 색 + 글리프 + 글자 */
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  font-weight: var(--tl-font-weight-600);
+}
+
+/* 오른쪽 비율(값 ÷ 목표). 여러 행이 세로로 줄을 맞추게 고정 폭 · 오른쪽 정렬 */
+.tl-bullet-bar__ratio {
+  flex: none;
+  min-width: calc(var(--tl-space-40) + var(--tl-space-4));
+  color: var(--tl-color-fg-strong);
+  font-size: var(--tl-type-caption-font-size);
+  font-weight: var(--tl-font-weight-600);
+  text-align: right;
+}
+
+.tl-bullet-bar__track {
+  position: relative;
+  height: var(--tl-space-8);
+  overflow: visible;
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-chart-track);
+}
+
+.tl-bullet-bar[data-size='sm'] .tl-bullet-bar__track {
+  height: var(--tl-space-4);
+}
+
+.tl-bullet-bar__fill {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  border-radius: var(--tl-radius-full);
+  transition: width var(--tl-duration-slower) var(--tl-easing-standard);
+}
+
+.tl-bullet-bar__tick {
+  position: absolute;
+  top: calc(var(--tl-space-4) * -1);
+  bottom: calc(var(--tl-space-4) * -1);
+  width: var(--tl-border-width-2);
+  margin-left: calc(var(--tl-border-width-1) * -1);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-fg-primary);
+}

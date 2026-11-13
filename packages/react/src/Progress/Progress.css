@@ -1,0 +1,80 @@
+.tl-progress {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: var(--tl-space-4) var(--tl-space-8);
+  min-width: 0;
+}
+
+.tl-progress__label {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-progress__value {
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+  font-weight: var(--tl-font-weight-600);
+  font-variant-numeric: var(--tl-font-numeric);
+  text-align: right;
+}
+
+.tl-progress[data-size='sm'] .tl-progress__label,
+.tl-progress[data-size='sm'] .tl-progress__value {
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-progress__track {
+  position: relative;
+  grid-column: 1 / -1;
+  height: var(--tl-space-8);
+  overflow: hidden;
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-chart-track);
+}
+
+.tl-progress[data-size='sm'] .tl-progress__track {
+  height: var(--tl-space-4);
+}
+
+.tl-progress__indicator {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--tl-progress-fill);
+  transition: width var(--tl-duration-slower) var(--tl-easing-standard);
+}
+
+/* 끝을 모르는 진행: 막대 조각이 오간다 */
+.tl-progress[data-indeterminate] .tl-progress__indicator {
+  width: 40%;
+  animation: tl-progress-sweep var(--tl-duration-pulse) var(--tl-easing-standard) infinite;
+}
+
+@keyframes tl-progress-sweep {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(250%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-progress__indicator {
+    transition: none;
+  }
+
+  .tl-progress[data-indeterminate] .tl-progress__indicator {
+    width: 100%;
+    animation: none;
+    opacity: 0.4;
+  }
+}

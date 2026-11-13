@@ -1,0 +1,110 @@
+.tl-amount-input {
+  display: inline-grid;
+  gap: var(--tl-space-4);
+  width: 100%;
+  min-width: 0;
+}
+
+.tl-amount-input__box {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: var(--tl-density-control-height-md);
+  padding: 0 var(--tl-space-8);
+  border: var(--tl-border-width-1) solid var(--tl-color-border-strong);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-surface);
+  color: var(--tl-color-fg-primary);
+  transition: border-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-amount-input[data-size='xs'] .tl-amount-input__box {
+  height: var(--tl-density-control-height-xs);
+  padding: 0 var(--tl-space-6);
+  border-radius: var(--tl-radius-sm);
+}
+
+.tl-amount-input[data-size='sm'] .tl-amount-input__box {
+  height: var(--tl-density-control-height-sm);
+}
+
+.tl-amount-input[data-size='lg'] .tl-amount-input__box,
+.tl-amount-input[data-size='xl'] .tl-amount-input__box {
+  padding: 0 var(--tl-space-12);
+}
+
+.tl-amount-input[data-size='lg'] .tl-amount-input__box {
+  height: var(--tl-density-control-height-lg);
+}
+
+.tl-amount-input[data-size='xl'] .tl-amount-input__box {
+  height: var(--tl-density-control-height-xl);
+}
+
+.tl-amount-input__box:hover {
+  border-color: var(--tl-color-border-hover);
+}
+
+.tl-amount-input__box:focus-within {
+  border-color: var(--tl-color-border-focus);
+  outline: var(--tl-border-width-1) solid var(--tl-color-border-focus);
+}
+
+.tl-amount-input[data-state='error'] .tl-amount-input__box {
+  border-color: var(--tl-color-status-danger-default);
+}
+
+.tl-amount-input[data-state='error'] .tl-amount-input__box:focus-within {
+  outline-color: var(--tl-color-status-danger-default);
+}
+
+.tl-amount-input[data-state='disabled'] .tl-amount-input__box {
+  background: var(--tl-color-bg-sunken);
+  border-color: transparent;
+}
+
+.tl-amount-input__control {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: var(--tl-density-input-font-size);
+  font-variant-numeric: var(--tl-font-numeric);
+  text-align: right;
+}
+
+/* 큰 칸은 본문 크기(14) 이상, touch 16은 그대로 */
+.tl-amount-input[data-size='lg'] .tl-amount-input__control,
+.tl-amount-input[data-size='xl'] .tl-amount-input__control {
+  font-size: max(var(--tl-density-input-font-size), var(--tl-type-body-font-size));
+}
+
+.tl-amount-input__control::placeholder {
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-amount-input__control:disabled {
+  color: var(--tl-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.tl-amount-input__affix {
+  flex: none;
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-label-font-size);
+}
+
+.tl-amount-input__korean {
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  text-align: right;
+}

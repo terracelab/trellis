@@ -1,0 +1,21 @@
+{
+  "id": "scm/inventory/lots",
+  "title": "로트 · 유통기한",
+  "intent": "로트별 수량과 유통기한을 남은 날 순으로 보고, 임박 로트를 먼저 출고하도록 표시한다",
+  "module": "inventory",
+  "pattern": "ListDetail",
+  "industries": ["trade", "distribution", "manufacturing"],
+  "components": [
+    "PageHeader",
+    "Banner",
+    "FilterBar",
+    "Select",
+    "DataGrid",
+    "DueBadge",
+    "Badge",
+    "Button"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["columns", "rules"],
+  "order": 51
+}

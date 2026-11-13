@@ -1,0 +1,12 @@
+{
+  "id": "platform/errors/expired",
+  "title": "로그인 만료",
+  "intent": "비활동 시간이 지나 세션이 끝났을 때 만료 이유와 다시 로그인 단추를 보이고 보던 화면을 로그인에 넘긴다",
+  "module": "platform",
+  "pattern": "Auth",
+  "industries": ["general"],
+  "components": ["EmptyState", "Button"],
+  "sizes": [1440, 1024, 390],
+  "slots": ["session"],
+  "order": 92
+}

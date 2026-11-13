@@ -1,0 +1,15 @@
+# sync-content.mjs 생성물 — 동봉 문서(@terracelab/trellis-react/dist/docs)에서 만든다
+src/content/docs/docs/guide/
+src/content/docs/docs/components/*
+!src/content/docs/docs/components/index.mdx
+src/content/docs/docs/changelog.md
+# 영어판 생성물 — spec.en.md · docs/guides/en에서 만든다
+src/content/docs/en/docs/guide/
+src/content/docs/en/docs/components/*
+!src/content/docs/en/docs/components/index.mdx
+src/content/docs/en/docs/changelog.md
+src/generated/
+public/api/
+public/llms.txt
+public/llms-full.txt
+.astro/

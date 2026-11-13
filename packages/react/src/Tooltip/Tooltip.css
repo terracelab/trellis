@@ -1,0 +1,30 @@
+.tl-tooltip__positioner {
+  z-index: var(--tl-z-dropdown);
+}
+
+.tl-tooltip {
+  box-sizing: border-box;
+  max-width: calc(var(--tl-space-64) * 4);
+  padding: var(--tl-space-4) var(--tl-space-8);
+  border-radius: var(--tl-radius-sm);
+  background: var(--tl-color-fg-primary);
+  color: var(--tl-color-fg-inverse);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+  font-weight: var(--tl-font-weight-500);
+  overflow-wrap: anywhere;
+  transform-origin: var(--transform-origin);
+  transition:
+    opacity var(--tl-duration-fast) var(--tl-easing-standard),
+    transform var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+.tl-tooltip[data-starting-style],
+.tl-tooltip[data-ending-style] {
+  opacity: 0;
+  transform: scale(0.96);
+}
+
+.tl-tooltip[data-instant] {
+  transition: none;
+}

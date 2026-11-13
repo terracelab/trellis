@@ -1,0 +1,11 @@
+/* inner-override: DataGrid에 표 최소 폭(auto 열 최소 폭) prop이 없다(보강 요청).
+   요일 칸(auto)이 접히지 않게 표 최소 폭을 두고, 표는 자기 상자 안에서 가로로 넘긴다 */
+.tl-block-team-grid .tl-data-grid__table {
+  min-width: calc(var(--tl-space-64) * 18);
+}
+
+@media (max-width: 1023px) {
+  .tl-block-team-grid {
+    min-height: calc(var(--tl-space-64) * 7);
+  }
+}

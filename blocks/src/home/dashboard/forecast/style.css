@@ -1,0 +1,103 @@
+/* 수요 예측 · 발주 추천: 카드 머리의 필터 줄 · 추천 근거 카드 */
+.tl-block-fc-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+.tl-block-fc-item {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tl-space-4) var(--tl-space-8);
+  min-width: 0;
+}
+
+.tl-block-fc-basis {
+  display: grid;
+  gap: var(--tl-space-16);
+}
+
+.tl-block-fc-verdict {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tl-space-4) var(--tl-space-12);
+  margin: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-label-font-size);
+  line-height: var(--tl-type-label-line-height);
+}
+
+.tl-block-fc-heading {
+  margin: 0 0 var(--tl-space-4);
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+  line-height: var(--tl-type-label-line-height);
+}
+
+.tl-block-fc-facts {
+  display: grid;
+  margin: 0;
+}
+
+.tl-block-fc-facts > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--tl-space-12);
+  padding: var(--tl-space-6) 0;
+  border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-block-fc-facts > div:last-child {
+  border-bottom: 0;
+}
+
+.tl-block-fc-facts dt {
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-label-font-size);
+}
+
+.tl-block-fc-facts dd {
+  margin: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-label-font-size);
+  font-weight: var(--tl-font-weight-600);
+  font-variant-numeric: var(--tl-font-numeric);
+}
+
+.tl-block-fc-per {
+  color: var(--tl-color-fg-tertiary);
+  font-weight: var(--tl-font-weight-400);
+}
+
+.tl-block-fc-note {
+  margin: 0;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+@media (max-width: 639px) {
+  /* inner-override: Card · ChartCard 머리가 좁은 화면에서 동작(기간 · 품목 · 보기)을 제목 아래로 내리지 않아 제목이 세로로 눌린다(보강 요청: 머리 줄바꿈) */
+  .tl-block-fc-card .tl-chart-card__head,
+  .tl-block-fc-card .tl-card__head {
+    flex-wrap: wrap;
+  }
+
+  /* inner-override: 위와 같은 이유. 내려간 동작 줄이 폭을 다 쓰고 안에서 줄을 바꾼다(보강 요청) */
+  .tl-block-fc-card .tl-chart-card__tools,
+  .tl-block-fc-card .tl-card__action {
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+  }
+
+  .tl-block-fc-filters {
+    justify-content: flex-start;
+  }
+}

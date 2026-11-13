@@ -1,0 +1,45 @@
+{
+  "name": "@terracelab/preview",
+  "version": "0.0.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "description": "미리보기 아티팩트 소스(단일 HTML 빌드, P0-07) + 사이트용 쇼케이스 조각(exports, D-45)",
+  "type": "module",
+  "scripts": {
+    "gen:icons": "node scripts/gen-icons.mjs && node scripts/gen-facts.mjs",
+    "dev": "pnpm run gen:icons && vite",
+    "build": "pnpm run gen:icons && vite build && node scripts/export-showcase.mjs",
+    "check": "node scripts/check.mjs",
+    "test": "node --test \"scripts/*.test.mjs\"",
+    "typecheck": "pnpm run gen:icons && tsc --noEmit",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@terracelab/trellis-contracts": "workspace:*",
+    "@terracelab/trellis-icons": "workspace:*",
+    "@terracelab/trellis-react": "workspace:*",
+    "@terracelab/trellis-tokens": "workspace:*",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "lucide": "1.59.0",
+    "playwright": "1.64.1",
+    "vite": "8.3.6",
+    "vite-plugin-singlefile": "2.3.4"
+  },
+  "exports": {
+    "./showcase": "./src/sections/showcase.ts",
+    "./showcase-screens": "./src/sections/showcase-screens.tsx",
+    "./molecule": "./src/molecule.ts",
+    "./home": "./src/sections/home.ts",
+    "./charts": "./src/sections/charts.tsx",
+    "./data": "./src/data.ts",
+    "./lib": "./src/lib.ts",
+    "./icons": "./src/generated/icons.ts",
+    "./styles.css": "./src/styles.css"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "id": "ecm/doc-editor/editor",
+  "title": "문서 작성",
+  "intent": "품의서 · 보고서를 서식 도구와 함께 문서 한 장으로 작성하고, 공동 작업자 · 버전을 보며 결재선에 결재 요청한다",
+  "module": "doc-editor",
+  "pattern": "FormRegister",
+  "industries": ["general", "trade", "distribution", "manufacturing"],
+  "components": [
+    "PageHeader",
+    "Badge",
+    "Button",
+    "Card",
+    "Toolbar",
+    "Select",
+    "FormSection",
+    "Field",
+    "Input",
+    "Textarea",
+    "ApprovalLine",
+    "Attachment",
+    "Timeline",
+    "Dialog",
+    "PersonLabel"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["toolbar", "docForm", "sheetHeader", "approvalLine", "collaborators"],
+  "order": 10
+}

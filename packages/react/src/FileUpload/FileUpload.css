@@ -1,0 +1,174 @@
+.tl-file-upload {
+  display: grid;
+  gap: var(--tl-space-8);
+  min-width: 0;
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+}
+
+.tl-file-upload__zone {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tl-space-4);
+  padding: var(--tl-space-16);
+  border: var(--tl-border-width-1) dashed var(--tl-color-border-default);
+  border-radius: var(--tl-radius-md);
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-secondary);
+  text-align: center;
+  cursor: pointer;
+  transition:
+    border-color var(--tl-duration-fast) var(--tl-easing-standard),
+    background-color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+[data-density='comfortable'] .tl-file-upload__zone {
+  padding: var(--tl-space-24);
+}
+
+.tl-file-upload__zone:hover {
+  border-color: var(--tl-color-border-strong);
+}
+
+.tl-file-upload__zone:has(.tl-file-upload__input:focus-visible) {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: var(--tl-border-width-2);
+}
+
+.tl-file-upload__zone[data-dragging] {
+  border-color: var(--tl-color-border-focus);
+  background: var(--tl-color-brand-subtle);
+}
+
+.tl-file-upload__zone[data-disabled] {
+  border-color: var(--tl-color-border-default);
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.tl-file-upload__icon {
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-file-upload__zone[data-dragging] .tl-file-upload__icon {
+  color: var(--tl-color-fg-link);
+}
+
+.tl-file-upload__title {
+  color: var(--tl-color-fg-primary);
+  font-weight: var(--tl-font-weight-500);
+}
+
+.tl-file-upload__zone[data-disabled] .tl-file-upload__title {
+  color: var(--tl-color-fg-disabled);
+}
+
+.tl-file-upload__hint {
+  color: var(--tl-color-fg-secondary); /* canvas 바탕(4.47:1 회피) */
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-file-upload__notice {
+  display: grid;
+  gap: var(--tl-space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-file-upload__notice-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--tl-space-4);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}
+
+.tl-file-upload__notice-icon {
+  color: var(--tl-color-status-danger-default);
+}
+
+.tl-file-upload__list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  border: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+  border-radius: var(--tl-radius-md);
+  list-style: none;
+}
+
+.tl-file-upload__file {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-8);
+  min-height: var(--tl-density-row-height);
+  padding: var(--tl-space-4) var(--tl-space-4) var(--tl-space-4) var(--tl-space-12);
+}
+
+.tl-file-upload__file + .tl-file-upload__file {
+  border-top: var(--tl-border-width-1) solid var(--tl-color-border-divider);
+}
+
+.tl-file-upload__file-icon {
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-file-upload__file[data-status='error'] .tl-file-upload__file-icon {
+  color: var(--tl-color-status-danger-default);
+}
+
+.tl-file-upload__file-body {
+  display: grid;
+  flex: 1 1 auto;
+  gap: var(--tl-space-4);
+  min-width: 0;
+}
+
+.tl-file-upload__file-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--tl-space-8);
+  min-width: 0;
+}
+
+.tl-file-upload__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-file-upload__meta {
+  flex: none;
+  color: var(--tl-color-fg-tertiary);
+  font-size: var(--tl-type-caption-font-size);
+  font-variant-numeric: var(--tl-font-numeric);
+  white-space: nowrap;
+}
+
+.tl-file-upload__progress {
+  height: var(--tl-space-4);
+  overflow: hidden;
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-bg-sunken);
+}
+
+.tl-file-upload__progress-bar {
+  display: block;
+  width: var(--tl-file-upload-progress, 0%);
+  height: 100%;
+  border-radius: inherit;
+  background: var(--tl-color-brand-default);
+  transition: width var(--tl-duration-slow) var(--tl-easing-standard);
+}
+
+.tl-file-upload__error {
+  color: var(--tl-color-fg-primary);
+  font-size: var(--tl-type-caption-font-size);
+  line-height: var(--tl-type-caption-line-height);
+}

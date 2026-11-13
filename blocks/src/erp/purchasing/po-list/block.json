@@ -1,0 +1,27 @@
+{
+  "id": "erp/purchasing/po-list",
+  "title": "발주",
+  "intent": "국내 · 해외 발주서를 상태별로 보고, 외화 금액 · 입고 진행 · 결재선을 상세에서 확인한다",
+  "module": "purchasing",
+  "pattern": "ListDetail",
+  "industries": ["trade", "distribution", "manufacturing", "general"],
+  "components": [
+    "PageHeader",
+    "Tabs",
+    "FilterBar",
+    "Input",
+    "Select",
+    "DataGrid",
+    "Badge",
+    "DataBar",
+    "Drawer",
+    "DescriptionList",
+    "ApprovalLine",
+    "Stepper",
+    "Button",
+    "Menu"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["columns", "filters", "detail", "approval"],
+  "order": 20
+}

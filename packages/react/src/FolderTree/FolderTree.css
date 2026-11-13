@@ -1,0 +1,106 @@
+/* 폴더 트리: 평평한 treeitem 행(aria-level). 들여쓰기는 단계마다 space.12, 행 높이는 density.row-height */
+.tl-folder-tree {
+  display: grid;
+  gap: var(--tl-space-0);
+  min-width: 0;
+  font-size: var(--tl-density-body-font-size);
+  line-height: var(--tl-density-body-line-height);
+}
+
+.tl-folder-tree__item {
+  display: flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  min-width: 0;
+  min-height: var(--tl-density-row-height);
+  padding: 0 var(--tl-space-8) 0 calc(var(--tl-folder-tree-level, 0) * var(--tl-space-12));
+  border-radius: var(--tl-radius-md);
+  color: var(--tl-color-fg-secondary);
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color var(--tl-duration-fast) var(--tl-easing-standard),
+    color var(--tl-duration-fast) var(--tl-easing-standard);
+}
+
+/* 한 단계 목록: 펼침 칸 없이 아이콘부터 */
+.tl-folder-tree[data-flat] > .tl-folder-tree__item {
+  padding-left: var(--tl-space-8);
+}
+
+.tl-folder-tree__item:hover,
+.tl-folder-tree[data-force-state='hover'] > .tl-folder-tree__item:nth-child(2) {
+  background: var(--tl-color-bg-sunken);
+  color: var(--tl-color-fg-primary);
+}
+
+.tl-folder-tree[data-force-state='focus'] > .tl-folder-tree__item:nth-child(2) {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: calc(var(--tl-border-width-2) * -1);
+}
+
+/* 행 안쪽으로 그려 이웃 행 · 상자 가장자리에 잘리지 않게 한다 */
+.tl-folder-tree__item:focus-visible {
+  outline-offset: calc(var(--tl-border-width-2) * -1);
+}
+
+.tl-folder-tree__item[aria-selected='true'] {
+  background: var(--tl-color-brand-subtle);
+  color: var(--tl-color-fg-link);
+  font-weight: var(--tl-font-weight-600);
+}
+
+.tl-folder-tree__item[data-state='disabled'] {
+  color: var(--tl-color-fg-disabled);
+  cursor: default;
+}
+
+.tl-folder-tree__item[data-state='disabled']:hover {
+  background: transparent;
+}
+
+/* 펼침 단추 칸: 손가락 밀도(touch)에서 40 */
+.tl-folder-tree__toggle {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: var(--tl-density-control-height-sm);
+  height: var(--tl-density-control-height-sm);
+  border-radius: var(--tl-radius-sm);
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-folder-tree__chevron {
+  transition: transform var(--tl-duration-normal) var(--tl-easing-standard);
+}
+
+.tl-folder-tree__toggle[data-open] .tl-folder-tree__chevron {
+  transform: rotate(90deg);
+}
+
+.tl-folder-tree__icon {
+  flex: none;
+  color: var(--tl-color-fg-tertiary);
+}
+
+.tl-folder-tree__item[aria-selected='true'] .tl-folder-tree__icon {
+  color: var(--tl-color-fg-link);
+}
+
+.tl-folder-tree__label {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-left: var(--tl-space-4);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 건수는 알약 없이 흐린 숫자(D-56) */
+.tl-folder-tree__count {
+  flex: none;
+  color: var(--tl-color-fg-secondary);
+  font-size: var(--tl-type-caption-font-size);
+  font-weight: var(--tl-font-weight-400);
+  font-variant-numeric: var(--tl-font-numeric);
+}
