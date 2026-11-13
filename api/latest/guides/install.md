@@ -15,11 +15,24 @@ pnpm add @terracelab/trellis-contracts
 | 패키지 | npm |
 | --- | --- |
 | `@terracelab/trellis-tokens` · `icons` · `contracts` · `react` | 있음 |
-| `@terracelab/trellis-blocks`(화면 블록) · `@terracelab/trellis-skill`(에이전트 스킬 · 점검 도구) | 없음. git 하위 모듈로 씁니다 |
+| `@terracelab/trellis-skill`(에이전트 스킬 · 점검 도구) | 있음. 설치하지 않고 `npx`로 부릅니다 |
+| `@terracelab/trellis-blocks`(화면 블록) | 없음. git 하위 모듈로 씁니다 |
+
+## 에이전트 스킬과 점검 도구
+
+서비스 저장소 루트에서 돌립니다.
+
+```bash
+npx @terracelab/trellis-skill install        # 에이전트 스킬을 .claude/skills/trellis/ 에 둡니다
+npx @terracelab/trellis-skill doctor         # 설치 · CSS 순서 · 글꼴 · 토큰 밖 값을 점검합니다
+npx @terracelab/trellis-skill add dashboard  # 대시보드 시작 화면을 src/dashboard/ 로 복사합니다
+```
+
+`doctor`는 빠진 패키지와 CSS import를 찾아 넣을 명령과 줄을 알려 줍니다. 명령 설명은 [에이전트로 개발하기](agents.md)에 있습니다.
 
 ## git 하위 모듈로 쓰기
 
-화면 블록을 복사해 쓰거나, 에이전트 스킬과 점검 도구(`ds:doctor`)를 쓰거나, 서비스를 만들면서 Trellis를 그 자리에서 고치려면 서비스 저장소에 Trellis를 하위 모듈로 넣고 같은 pnpm 워크스페이스로 묶습니다. 소스는 GitHub 저장소 `terracelab/trellis`에 있습니다. 절차는 [서비스 시작하기](service.md)에 있습니다.
+화면 블록을 복사해 쓰거나, 서비스를 만들면서 Trellis를 그 자리에서 고치려면 서비스 저장소에 Trellis를 하위 모듈로 넣고 같은 pnpm 워크스페이스로 묶습니다. 소스는 GitHub 저장소 `terracelab/trellis`에 있습니다. 절차는 [서비스 시작하기](service.md)에 있습니다.
 
 ## 요구 사항
 

@@ -11,6 +11,27 @@ import '@terracelab/trellis-react/styles.css'; // 컴포넌트 CSS
 
 폰트는 패키지 안의 woff2를 씁니다. 오프라인 설치형 앱에서도 똑같이 렌더됩니다.
 
+## 앱 기본 CSS에 글꼴을 겁니다
+
+컴포넌트는 글꼴과 글자색을 물려받습니다. 앱 CSS의 `body`에 아래를 둡니다. 없으면 브라우저 기본 글꼴로 보입니다.
+
+```css
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--tl-color-bg-canvas);
+  color: var(--tl-color-fg-primary);
+  font-family: var(--tl-font-family-sans);
+}
+```
+
+새로 만든 앱이면 틀이 넣어 둔 기본 CSS(글꼴 · 색 · 가운데 정렬)를 지웁니다. `npx @terracelab/trellis-skill doctor`가 CSS import 순서와 글꼴을 확인합니다.
+
 ## 테마와 밀도는 html 속성 두 개
 
 ```html

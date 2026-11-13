@@ -15,11 +15,11 @@ Trellis는 덩굴을 받치는 격자 틀입니다. 제품은 각자 자라고 �
 | `@terracelab/trellis-contracts` | 컴포넌트 props 타입 · 상태 어휘 · 숫자 서식(`formatAmount` 등) | 사용 가능 |
 | `@terracelab/trellis-react` | 웹 React 컴포넌트 121종: 기본 106종과 차트 15종(`/charts`). 컴포넌트마다 문서와 예시가 있고 전체 목록은 동봉 문서의 `manifest.json`에 있습니다 | 사용 가능 |
 | `@terracelab/trellis-blocks` | 화면 블록(복사형 소스, `pnpm ds:add`)과 플랫폼 기본 기능 타입 · 화면 배치 도우미. 데모 앱이 이것으로 조립된다 | 사용 가능(git 하위 모듈) |
-| `@terracelab/trellis-skill` | 서비스 저장소용 에이전트 스킬과 점검 도구(install · doctor · docs) | 사용 가능(git 하위 모듈) |
+| `@terracelab/trellis-skill` | 서비스 저장소용 에이전트 스킬과 점검 도구(install · doctor · docs · add). `npx @terracelab/trellis-skill`로 부릅니다 | 사용 가능 |
 | `@terracelab/trellis-native` | Expo 컴포넌트(같은 props) | 1.0 뒤 |
 | `terracelab-trellis` (PyPI) | Django 정적 파일 · 템플릿 태그 · 어드민 테마 | 1.0 뒤 |
 
-Trellis는 오픈소스입니다. 라이선스는 Apache-2.0이고 소스는 GitHub 저장소 `terracelab/trellis`에 있습니다. tokens · icons · contracts · react는 npm에서 설치합니다([설치](install.md)).
+Trellis는 오픈소스입니다. 라이선스는 Apache-2.0이고 소스는 GitHub 저장소 `terracelab/trellis`에 있습니다. tokens · icons · contracts · react · skill은 npm에 있습니다([설치](install.md)).
 
 모든 패키지는 **같은 버전 번호**로 함께 올라갑니다. 1.0부터 토큰 이름과 컴포넌트 props의 변경 · 삭제는 major 버전에서만 합니다([버전 정책](versions.md)).
 
