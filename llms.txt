@@ -1,0 +1,41 @@
+# Trellis 1.0.0 — 테라스랩 디자인 시스템
+
+> 테라스랩의 디자인 시스템. 테라스랩의 업무 제품과 테라스원 맞춤 구축이 함께 쓴다. 토큰(--tl-*) · React 컴포넌트 · 차트 · 모듈 타일. 이 문서는 설치된 패키지 버전과 같다. 최신판: https://trellis.terracelab.co.kr/llms.txt
+
+## 규칙
+- 값은 --tl-* CSS 변수 또는 @terracelab/trellis-tokens의 TS 객체로만 쓴다. raw hex · px(0 제외) · font-family 리터럴 금지
+- semantic 토큰만 쓴다(--tl-color-bg-surface). primitive(--tl-color-brand-500) 직접 참조 금지
+- manifest.components에 있는 컴포넌트만 쓴다. 없으면 앱에서 새로 만들지 말고 서비스 저장소의 .trellis/requests.md에 요청을 한 줄 적는다
+- props · 이벤트 이름은 문서 그대로(onPress · onChange · onOpenChange). 컴포넌트 내부 클래스를 className으로 덮어쓰지 않는다
+- 상태 7(default · hover · active · focus · disabled · loading · error) · 결재 5(기안 · 진행 · 승인 · 반려 · 회수) 고정
+- 수입 = finance.income(빨강), 지출 = finance.expense(파랑). 서양식 반전 금지. 금액은 원 단위 · 천 단위 구분 · 우측 정렬
+- 차트 색은 슬롯 이름(series-1~5 · compare)만, 축은 하나, ChartCard table로 표 대체 제공
+- 밀도 기본 compact. 키보드로 모든 조작, 포커스 링 유지, 텍스트 대비 4.5:1 이상
+
+## 설치
+- 패키지: @terracelab/trellis-tokens, @terracelab/trellis-icons, @terracelab/trellis-contracts, @terracelab/trellis-react, @terracelab/trellis-native, @terracelab/trellis-tailwind — 전부 같은 버전
+- CSS 순서: @terracelab/trellis-tokens/fonts.css → @terracelab/trellis-tokens/tokens.css → @terracelab/trellis-react/styles.css
+- <html data-theme="light|dark" data-density="compact|comfortable">
+
+## 문서
+- [manifest.json](https://trellis.terracelab.co.kr/api/latest/manifest.json): 컴포넌트 · props · 상태 · 토큰 · 모듈(기계 읽기)
+- [소개](https://trellis.terracelab.co.kr/api/latest/guides/overview.md)
+- [설치](https://trellis.terracelab.co.kr/api/latest/guides/install.md)
+- [CSS · 테마 · 밀도](https://trellis.terracelab.co.kr/api/latest/guides/setup.md)
+- [서비스 시작하기](https://trellis.terracelab.co.kr/api/latest/guides/service.md)
+- [회사별 테마](https://trellis.terracelab.co.kr/api/latest/guides/theme.md)
+- [원칙과 규칙](https://trellis.terracelab.co.kr/api/latest/guides/principles.md)
+- [문구](https://trellis.terracelab.co.kr/api/latest/guides/content.md)
+- [차트 고르기](https://trellis.terracelab.co.kr/api/latest/guides/charts.md)
+- [폼 만들기](https://trellis.terracelab.co.kr/api/latest/guides/forms.md)
+- [패턴](https://trellis.terracelab.co.kr/api/latest/guides/patterns.md)
+- [대시보드 만들기](https://trellis.terracelab.co.kr/api/latest/guides/dashboards.md)
+- [에이전트 대화 화면 만들기](https://trellis.terracelab.co.kr/api/latest/guides/conversation.md)
+- [에이전트로 개발하기](https://trellis.terracelab.co.kr/api/latest/guides/agents.md)
+- [버전 정책](https://trellis.terracelab.co.kr/api/latest/guides/versions.md)
+- [Figma 라이브러리](https://trellis.terracelab.co.kr/api/latest/guides/figma.md)
+- [토큰 표](https://trellis.terracelab.co.kr/api/latest/tokens.md) · [변경 이력](https://trellis.terracelab.co.kr/api/latest/CHANGELOG.md) · [전부 한 파일](https://trellis.terracelab.co.kr/api/latest/llms-full.txt)
+- [자주 묻는 질문](https://trellis.terracelab.co.kr/faq/): 무엇이고 어떻게 쓰는지 짧은 답
+- 컴포넌트 문서는 components/<이름>.md(예: [Button](https://trellis.terracelab.co.kr/api/latest/components/Button.md))
+- 기본: ActionBar · AddressInput · AgentReplay · AmountBreakdown · AmountInput · ApprovalLine · ApprovalLineEditor · AppShell · Attachment · Avatar · AvatarGroup · Badge · Banner · Button · Card · ChangeDiff · Checkbox · CheckboxGroup · Checklist · Citation · CodeSearch · CommandPalette · Composer · ContextMenu · DashboardGrid · DataGrid · DateField · DeadlineStrip · Delta · DescriptionList · Dialog · Divider · Drawer · DueBadge · EmptyState · ErrorSummary · Field · FileUpload · FileViewer · FilterBar · FolderTree · FormSection · HrRecord · Icon · IconButton · Input · IssueList · KanbanBoard · KpiCard · LeaveBalance · LineItemsEditor · Link · MaskedInput · MaskedValue · Menu · MessageThread · ModuleIcon · MonthCalendar · MultiSelect · NotificationCard · NotificationItem · NotificationList · OrgChart · PageHeader · Pagination · Paper · Payslip · PeriodPicker · PermissionMatrix · PersonLabel · Popover · ProfileHeader · Progress · ProposalCard · QuantityInput · RadioGroup · ReasonDialog · RichText · RunSteps · ScanField · SectionHeader · SegmentedControl · Select · SelectableCard · SelectableList · SideNav · Skeleton · Spinner · StatusDot · Stepper · SuggestionChips · Switch · Tabs · Tag · TagInput · TeamSchedule · Textarea · TimeClock · TimeField · Timeline · Toast · Toolbar · Tooltip · TrellisProvider · WorkHoursMeter · WorkTimeline
+- 차트: BarList · BulletBar · CalendarHeatmap · ChartCard · ComboChart · DataBar · Donut · FunnelChart · HeatCell · Legend · RadialMeter · SegmentedBar · Sparkline · TrendChart · WaterfallChart

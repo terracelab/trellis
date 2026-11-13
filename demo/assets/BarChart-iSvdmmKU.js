@@ -1,0 +1,1 @@
+import{r as e}from"./rolldown-runtime-XKyaHtl9.js";import{Vi as t}from"./Button-B0uoqFma.js";import{r as n,tt as r}from"./Tooltip-0yyCSbJH.js";var i=e(t()),a=[`axis`,`item`],o=(0,i.forwardRef)((e,t)=>i.createElement(n,{chartName:`BarChart`,defaultTooltipEventType:`axis`,validateTooltipEventTypes:a,tooltipPayloadSearcher:r,categoricalChartProps:e,ref:t}));export{o as t};

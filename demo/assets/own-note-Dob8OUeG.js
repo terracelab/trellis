@@ -1,0 +1,1 @@
+import{Wr as e,xr as t}from"./Button-B0uoqFma.js";var n=e();function r({id:e,message:r}){return(0,n.jsxs)(`span`,{className:`tl-field__note`,id:e,"data-kind":`error`,role:`alert`,children:[(0,n.jsx)(t,{name:`circle-alert`,className:`tl-field__note-icon`}),r]})}export{r as t};

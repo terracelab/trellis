@@ -1,0 +1,1 @@
+function e(e){let t=e.replace(/[\s)\]}>"'’”.,·]+$/u,``).at(-1);if(!t)return 0;let n=t.charCodeAt(0);return n>=44032&&n<=55203?(n-44032)%28:/[0-9]/.test(t)?[21,8,0,16,0,0,1,8,8,0][Number(t)]:/[lr]/i.test(t)?8:/[mnk]/i.test(t)?4:0}function t(t,n){let[r,i]=n.split(`/`),a=e(t);return n===`으로/로`?t+(a===0||a===8?i:r):t+(a===0?i:r)}export{t};

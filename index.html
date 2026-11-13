@@ -1,0 +1,1841 @@
+<!DOCTYPE html><html lang="ko" data-theme="light" data-density="compact"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Trellis · 테라스랩의 디자인 시스템</title><meta name="description" content="Trellis는 한국 업무 화면에 쓰는 테라스랩의 디자인 시스템입니다. 토큰 433개 · 컴포넌트 121종 · 화면 블록 76개가 들어 있고 컬러 하나로 테마를 만듭니다."><meta property="og:title" content="Trellis · 테라스랩의 디자인 시스템"><meta property="og:description" content="Trellis는 한국 업무 화면에 쓰는 테라스랩의 디자인 시스템입니다. 토큰 433개 · 컴포넌트 121종 · 화면 블록 76개가 들어 있고 컬러 하나로 테마를 만듭니다."><meta property="og:url" content="https://trellis.terracelab.co.kr/"><meta property="og:type" content="website"><meta property="og:site_name" content="Trellis"><meta property="og:locale" content="ko_KR"><meta property="og:image" content="https://trellis.terracelab.co.kr/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Trellis, 테라스랩의 디자인 시스템"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Trellis · 테라스랩의 디자인 시스템"><meta name="twitter:description" content="Trellis는 한국 업무 화면에 쓰는 테라스랩의 디자인 시스템입니다. 토큰 433개 · 컴포넌트 121종 · 화면 블록 76개가 들어 있고 컬러 하나로 테마를 만듭니다."><meta name="twitter:image" content="https://trellis.terracelab.co.kr/og.png"><link rel="icon" href="/favicon.ico" sizes="32x32"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://trellis.terracelab.co.kr/"><link rel="alternate" hreflang="ko" href="https://trellis.terracelab.co.kr/"><link rel="alternate" hreflang="en" href="https://trellis.terracelab.co.kr/en/"><link rel="alternate" hreflang="x-default" href="https://trellis.terracelab.co.kr/"><link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt"><link rel="sitemap" href="/sitemap-index.xml"><link rel="stylesheet" href="/presets.css"><meta name="robots" content="noindex, nofollow"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://trellis.terracelab.co.kr/#organization","name":"테라스랩","alternateName":["TerraceLab"]},{"@type":"WebSite","@id":"https://trellis.terracelab.co.kr/#website","url":"https://trellis.terracelab.co.kr/","name":"Trellis","alternateName":["트렐리스"],"description":"Trellis(트렐리스)는 테라스랩의 디자인 시스템입니다. 한국 업무 화면에 쓰는 토큰 · 컴포넌트 · 화면 블록 · 에이전트용 문서를 한 곳에서 관리합니다.","inLanguage":["ko","en"],"publisher":{"@id":"https://trellis.terracelab.co.kr/#organization"}},{"@type":"SoftwareSourceCode","@id":"https://trellis.terracelab.co.kr/#software","url":"https://trellis.terracelab.co.kr/","name":"Trellis","alternateName":["트렐리스"],"description":"Trellis(트렐리스)는 테라스랩의 디자인 시스템입니다. 한국 업무 화면에 쓰는 토큰 · 컴포넌트 · 화면 블록 · 에이전트용 문서를 한 곳에서 관리합니다. 토큰 433개 · 컴포넌트 121종 · 화면 블록 76개가 들어 있습니다.","version":"1.0.0","programmingLanguage":["TypeScript","CSS"],"runtimePlatform":"React","inLanguage":["ko","en"],"publisher":{"@id":"https://trellis.terracelab.co.kr/#organization"}},{"@type":"WebPage","@id":"https://trellis.terracelab.co.kr/#webpage","url":"https://trellis.terracelab.co.kr/","name":"Trellis · 테라스랩의 디자인 시스템","description":"Trellis는 한국 업무 화면에 쓰는 테라스랩의 디자인 시스템입니다. 토큰 433개 · 컴포넌트 121종 · 화면 블록 76개가 들어 있고 컬러 하나로 테마를 만듭니다.","inLanguage":"ko","isPartOf":{"@id":"https://trellis.terracelab.co.kr/#website"},"primaryImageOfPage":"https://trellis.terracelab.co.kr/og.png","about":{"@id":"https://trellis.terracelab.co.kr/#software"}}]}</script><script>
+      // 첫 페인트 전에 테마 · 회사 색을 정한다(깜빡임 방지). 직접 고른 색은 만들어 둔 CSS를 그대로 넣는다.
+      (function () {
+        var d = document.documentElement;
+        var theme = null, brand = null, css = null;
+        try {
+          theme = localStorage.getItem('trellis-site-theme');
+          brand = localStorage.getItem('trellis-site-brand');
+          css = localStorage.getItem('trellis-site-brand-css');
+        } catch (e) {}
+        d.dataset.theme = theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (brand) d.dataset.brand = brand;
+        if (brand === 'custom' && css) {
+          var s = document.createElement('style');
+          s.id = 'tl-theme-preview';
+          s.textContent = css;
+          document.head.appendChild(s);
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/home.B3Rc6zGV.css"><link rel="stylesheet" href="/_astro/Base.DMNy5Ii4.css"></head><body class="tl-site"><a class="tl-site-skip" href="#main">본문으로 건너뛰기</a><header class="tl-site-bar" data-site-bar><a class="tl-site-brand" href="/" aria-label="Trellis 홈" aria-current="page"><svg class="tl-site-mark" viewBox="0 0 500 395" width="500" height="395" aria-hidden="true" focusable="false"><path d="M60 0H172A60 60 0 0 1 232 60V114A60 60 0 0 1 172 174H60A60 60 0 0 1 0 114V60A60 60 0 0 1 60 0ZM332 0H440A60 60 0 0 1 500 60V114A60 60 0 0 1 440 174H361A42 42 0 0 0 319 216V335A60 60 0 0 1 259 395H207A60 60 0 0 1 147 335V249.5C147 216 180.4 194.2 206.9 182.5C235.3 169.9 268 145.6 268 110.5V64A64 64 0 0 1 332 0Z"></path></svg><span class="tl-site-brand-name">Trellis</span></a><nav class="tl-site-nav" aria-label="주 메뉴"><a href="/docs/guide/overview/">문서</a><a href="/components/">컴포넌트</a><a href="/blocks/">블록</a><a href="/themes/">테마</a><a href="/demo/">데모</a></nav><div class="tl-site-bar-side"><button type="button" class="tl-site-icon-button tl-focusable" data-theme-toggle aria-pressed="false" aria-label="다크 테마"><span class="tl-site-when-light"><svg class="tl-icon" width="20" height="20" data-size="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></span><span class="tl-site-when-dark"><svg class="tl-icon" width="20" height="20" data-size="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg></span></button><a class="tl-button tl-focusable" data-variant="primary" data-size="md" href="/docs/guide/install/">시작하기</a></div></header><main id="main" class="tl-site-main"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+<symbol id="tl-tile-accounting" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-accounting-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-accounting-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#62C3FF"/>
+      <stop offset=".5" stop-color="#2D87EA"/>
+      <stop offset="1" stop-color="#1552BD"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-accounting-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-accounting-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-accounting-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-accounting-gold" x1="610" y1="600" x2="850" y2="850" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF5B2"/>
+      <stop offset=".35" stop-color="#FFD24F"/>
+      <stop offset=".75" stop-color="#E69510"/>
+      <stop offset="1" stop-color="#AF5703"/>
+    </linearGradient>
+    <filter id="tl-tile-accounting-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-accounting-small" x="-45%" y="-45%" width="200%" height="210%">
+      <feDropShadow dx="4" dy="11" stdDeviation="10" flood-color="#193052" flood-opacity=".28"/>
+    </filter>
+    <filter id="tl-tile-accounting-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-accounting-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-accounting-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-accounting-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-accounting-blur)"/>
+    <g transform="translate(243 175) rotate(-4 250 320)" filter="url(#tl-tile-accounting-shadow)">
+      <path d="M452 47c37 10 60 43 60 81v457l-55 42V101l-5-54Z" fill="url(#tl-tile-accounting-edge)"/>
+      <rect width="468" height="626" rx="76" fill="url(#tl-tile-accounting-white)"/>
+      <rect x="60" y="62" width="348" height="145" rx="34" fill="#D7E2EC"/>
+      <rect x="79" y="81" width="310" height="107" rx="22" fill="#104A75"/>
+      <path d="M108 121h207" stroke="#9CE8FF" stroke-width="13" stroke-linecap="round"/>
+      <g fill="#D9E3EC">
+        <rect x="60" y="255" width="88" height="70" rx="22"/>
+        <rect x="190" y="255" width="88" height="70" rx="22"/>
+        <rect x="60" y="355" width="88" height="70" rx="22"/>
+        <rect x="190" y="355" width="88" height="70" rx="22"/>
+        <rect x="60" y="455" width="88" height="70" rx="22"/>
+        <rect x="190" y="455" width="88" height="70" rx="22"/>
+      </g>
+      <g fill="#2486EA">
+        <rect x="320" y="255" width="88" height="70" rx="22"/>
+        <rect x="320" y="355" width="88" height="70" rx="22"/>
+        <rect x="320" y="455" width="88" height="70" rx="22"/>
+      </g>
+    </g>
+    <g transform="translate(640 696) scale(0.94)" filter="url(#tl-tile-accounting-small)">
+      <path d="M0 80v71c0 38 52 68 116 68s116-30 116-68V80H0Z" fill="#D48108"/>
+      <ellipse cx="116" cy="80" rx="116" ry="68" fill="url(#tl-tile-accounting-gold)"/>
+      <ellipse cx="116" cy="80" rx="88" ry="49" fill="none" stroke="#DF9615" stroke-width="10"/>
+      <path d="M24 131c22 24 56 36 92 36 39 0 72-13 92-36" fill="none" stroke="#FFD75B" stroke-width="7" opacity=".65"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-approval" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-approval-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-approval-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#82F0D9"/>
+      <stop offset=".5" stop-color="#34BEAD"/>
+      <stop offset="1" stop-color="#138C92"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-approval-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-approval-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-approval-gold" x1="610" y1="600" x2="850" y2="850" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF5B2"/>
+      <stop offset=".35" stop-color="#FFD24F"/>
+      <stop offset=".75" stop-color="#E69510"/>
+      <stop offset="1" stop-color="#AF5703"/>
+    </linearGradient>
+    <filter id="tl-tile-approval-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-approval-small" x="-45%" y="-45%" width="200%" height="210%">
+      <feDropShadow dx="4" dy="11" stdDeviation="10" flood-color="#193052" flood-opacity=".28"/>
+    </filter>
+    <filter id="tl-tile-approval-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-approval-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-approval-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-approval-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-approval-blur)"/>
+    <g transform="rotate(-8 500 515)" filter="url(#tl-tile-approval-shadow)">
+      <path d="M313 263h392v529l-35-25-35 25-35-25-35 25-35-25-35 25-35-25-35 25-35-25-37 25V263Z" fill="url(#tl-tile-approval-white)"/>
+      <g fill="#B8C7D6">
+        <rect x="390" y="376" width="236" height="18" rx="9"/>
+        <rect x="390" y="438" width="180" height="16" rx="8"/>
+        <rect x="390" y="500" width="215" height="16" rx="8"/>
+      </g>
+      <circle cx="605" cy="642" r="67" fill="#51D7B9"/>
+      <path d="m570 643 25 25 48-55" fill="none" stroke="#FFFFFF" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <g transform="translate(252 498) rotate(24 100 180)" filter="url(#tl-tile-approval-small)">
+      <path d="M67 0h66v318l-33 65-33-65V0Z" fill="#FFFFFF"/>
+      <path d="M67 54h66v264H67Z" fill="#187EA5"/>
+      <path d="m67 318 33 65 33-65Z" fill="url(#tl-tile-approval-gold)"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-attendance" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-attendance-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-attendance-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5FC8FF"/>
+      <stop offset=".5" stop-color="#277FEA"/>
+      <stop offset="1" stop-color="#1552C8"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-attendance-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-attendance-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <filter id="tl-tile-attendance-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-attendance-small" x="-45%" y="-45%" width="200%" height="210%">
+      <feDropShadow dx="4" dy="11" stdDeviation="10" flood-color="#193052" flood-opacity=".28"/>
+    </filter>
+    <filter id="tl-tile-attendance-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-attendance-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-attendance-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-attendance-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-attendance-blur)"/>
+    <g filter="url(#tl-tile-attendance-shadow)">
+      <path d="M298 733c10-149 94-229 214-229s204 80 214 229c3 44-33 80-77 80H375c-44 0-80-36-77-80Z" fill="url(#tl-tile-attendance-white)"/>
+      <circle cx="512" cy="349" r="133" fill="url(#tl-tile-attendance-white)"/>
+      <path d="M409 326c25-82 94-122 163-95" fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round" opacity=".8"/>
+    </g>
+    <g transform="translate(622 602)" filter="url(#tl-tile-attendance-small)">
+      <circle cx="104" cy="104" r="104" fill="#52D7C6"/>
+      <circle cx="104" cy="104" r="77" fill="#E9FFFC"/>
+      <path d="M104 60v51l38 25" fill="none" stroke="#179DA9" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-board" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-board-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-board-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5FD383"/>
+      <stop offset=".5" stop-color="#27A553"/>
+      <stop offset="1" stop-color="#087633"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-board-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-board-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <filter id="tl-tile-board-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-board-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-board-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-board-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-board-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-board-blur)"/>
+    <g filter="url(#tl-tile-board-shadow)">
+      <path d="M364 256h296l-45 68v147c0 31 14 61 38 81l67 57v54H548v171l-36 61-36-61V663H304v-54l67-57c24-20 38-50 38-81V324l-45-68Z" fill="url(#tl-tile-board-white)"/>
+      <path d="M396 308h232" stroke="#D0DAE5" stroke-width="18" stroke-linecap="round"/>
+      <path d="M420 603h184" stroke="#AEBECC" stroke-width="16" stroke-linecap="round"/>
+      <path d="M512 664v169" stroke="#D8E2EC" stroke-width="14"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-calendar" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-calendar-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-calendar-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#62D68A"/>
+      <stop offset=".5" stop-color="#29A959"/>
+      <stop offset="1" stop-color="#087A35"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-calendar-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-calendar-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <filter id="tl-tile-calendar-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-calendar-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-calendar-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-calendar-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-calendar-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-calendar-blur)"/>
+    <g transform="rotate(-3 512 510)" filter="url(#tl-tile-calendar-shadow)">
+      <rect x="232" y="251" width="560" height="568" rx="83" fill="url(#tl-tile-calendar-white)"/>
+      <path d="M232 347c0-53 43-96 96-96h368c53 0 96 43 96 96v83H232v-83Z" fill="#27A75B"/>
+      <path d="M357 207v105M667 207v105" stroke="#F5FFF8" stroke-width="31" stroke-linecap="round"/>
+      <g fill="#A9B8C7">
+        <circle cx="354" cy="529" r="25"/>
+        <circle cx="460" cy="529" r="25"/>
+        <circle cx="566" cy="529" r="25"/>
+        <circle cx="672" cy="529" r="25"/>
+        <circle cx="354" cy="635" r="25"/>
+        <circle cx="460" cy="635" r="25"/>
+        <circle cx="566" cy="635" r="25"/>
+        <circle cx="672" cy="635" r="25"/>
+        <circle cx="354" cy="741" r="25"/>
+        <circle cx="460" cy="741" r="25"/>
+        <circle cx="566" cy="741" r="25"/>
+      </g>
+      <circle cx="566" cy="635" r="36" fill="#35C473"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-channels" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-channels-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-channels-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFA29D"/>
+      <stop offset=".5" stop-color="#E5484D"/>
+      <stop offset="1" stop-color="#A31A27"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-channels-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-channels-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-channels-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-channels-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-channels-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-channels-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-channels-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#A31A27" opacity=".25" filter="url(#tl-tile-channels-blur)"/>
+    <g>
+      <rect x="261" y="396" width="502" height="355" rx="22" fill="url(#tl-tile-channels-edge)"/>
+      <rect x="261" y="396" width="480" height="334" rx="20" fill="url(#tl-tile-channels-white)"/>
+      <path d="M257 291h510l47 172H210z" fill="url(#tl-tile-channels-white)"/>
+      <path d="M257 291h85l17 172h-119z" fill="#E5484D"/>
+      <path d="M427 291h85l17 172h-119z" fill="#E5484D"/>
+      <path d="M597 291h85l17 172h-119z" fill="#E5484D"/>
+      <path d="M210 463h604v25c0 18-15 33-33 33H243c-18 0-33-15-33-33z" fill="url(#tl-tile-channels-white)"/>
+      <rect x="309" y="554" width="167" height="176" rx="9" fill="#E5484D" opacity=".8"/>
+      <rect x="522" y="554" width="170" height="117" rx="9" fill="#E5484D" opacity=".45"/>
+      <circle cx="449" cy="650" r="9" fill="#FFFFFF"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-claims" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-claims-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-claims-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFA29D"/>
+      <stop offset=".5" stop-color="#E5484D"/>
+      <stop offset="1" stop-color="#A31A27"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-claims-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-claims-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-claims-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-claims-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-claims-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-claims-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-claims-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#A31A27" opacity=".25" filter="url(#tl-tile-claims-blur)"/>
+    <g transform="rotate(-3 512 512)">
+      <path d="m279 358 298-65 169 93v330l-298 67-169-100z" fill="url(#tl-tile-claims-edge)"/>
+      <path d="m279 358 298-65 169 93-298 66z" fill="#FFFFFF"/>
+      <path d="M448 452v331l-169-100V358z" fill="#E2EAF2"/>
+      <path d="m448 452 298-66v330l-298 67z" fill="url(#tl-tile-claims-white)"/>
+      <path d="M705 557c48 72 10 155-82 175-78 18-169-8-229-55l21-35c56 38 128 61 191 46 57-13 76-53 53-95z" fill="#E5484D"/>
+      <path d="m367 598 103 35-82 70z" fill="#E5484D"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-company-docs" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-company-docs-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-company-docs-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B18BFF"/>
+      <stop offset=".5" stop-color="#7957EA"/>
+      <stop offset="1" stop-color="#4E2DB9"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-company-docs-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-company-docs-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <filter id="tl-tile-company-docs-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-company-docs-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-company-docs-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-company-docs-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-company-docs-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-company-docs-blur)"/>
+    <g transform="rotate(-4 510 505)" filter="url(#tl-tile-company-docs-shadow)">
+      <path d="M321 186h309l137 137v467c0 40-32 72-72 72H321c-40 0-72-32-72-72V258c0-40 32-72 72-72Z" fill="url(#tl-tile-company-docs-white)"/>
+      <path d="M630 186v112c0 39 31 70 70 70h67" fill="#D0DBE6"/>
+      <path d="m630 186 137 137h-92c-25 0-45-20-45-45v-92Z" fill="#F7FAFD"/>
+      <g fill="#AABACB">
+        <rect x="345" y="435" width="317" height="19" rx="9.5"/>
+        <rect x="345" y="499" width="254" height="19" rx="9.5"/>
+        <rect x="345" y="563" width="290" height="19" rx="9.5"/>
+        <rect x="345" y="627" width="218" height="19" rx="9.5"/>
+      </g>
+      <circle cx="655" cy="694" r="72" fill="#7652E7"/>
+      <path d="M618 694h74M655 657v74" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-customers" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-customers-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-customers-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#63D4F5"/>
+      <stop offset=".5" stop-color="#2089DB"/>
+      <stop offset="1" stop-color="#1453BD"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-customers-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-customers-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <filter id="tl-tile-customers-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-customers-small" x="-45%" y="-45%" width="200%" height="210%">
+      <feDropShadow dx="4" dy="11" stdDeviation="10" flood-color="#193052" flood-opacity=".28"/>
+    </filter>
+    <filter id="tl-tile-customers-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-customers-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-customers-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-customers-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-customers-blur)"/>
+    <g filter="url(#tl-tile-customers-shadow)">
+      <path d="M286.5 417.9A240 240 0 0 1 719.8 380" fill="none" stroke="url(#tl-tile-customers-white)" stroke-width="72"/>
+      <circle cx="286.5" cy="417.9" r="36" fill="url(#tl-tile-customers-white)"/>
+      <path d="M789.1 340 650.5 420 769.8 466.6Z" fill="url(#tl-tile-customers-white)" stroke="url(#tl-tile-customers-white)" stroke-width="18" stroke-linejoin="round"/>
+      <path d="M737.5 582.1A240 240 0 0 1 304.2 620" fill="none" stroke="url(#tl-tile-customers-white)" stroke-width="72"/>
+      <circle cx="737.5" cy="582.1" r="36" fill="url(#tl-tile-customers-white)"/>
+      <path d="M234.9 660 373.5 580 254.2 533.4Z" fill="url(#tl-tile-customers-white)" stroke="url(#tl-tile-customers-white)" stroke-width="18" stroke-linejoin="round"/>
+      <circle cx="512" cy="440" r="60" fill="url(#tl-tile-customers-white)"/>
+      <path d="M392 672c10-98 56-150 120-150s110 52 120 150Z" fill="url(#tl-tile-customers-white)"/>
+    </g>
+    <g filter="url(#tl-tile-customers-small)">
+      <circle cx="628" cy="658" r="56" fill="#51D9B7"/>
+      <circle cx="628" cy="658" r="40" fill="#E9FFF9"/>
+      <path d="M628 636v44M606 658h44" fill="none" stroke="#28AA9B" stroke-width="14" stroke-linecap="round"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-delivery" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-delivery-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-delivery-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFCE91"/>
+      <stop offset=".5" stop-color="#F5A524"/>
+      <stop offset="1" stop-color="#CD8600"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-delivery-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-delivery-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-delivery-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-delivery-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-delivery-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-delivery-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-delivery-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#CD8600" opacity=".25" filter="url(#tl-tile-delivery-blur)"/>
+    <g transform="rotate(-2 512 512)">
+      <rect x="214" y="328" width="366" height="345" rx="31" fill="url(#tl-tile-delivery-edge)"/>
+      <rect x="214" y="328" width="345" height="317" rx="30" fill="url(#tl-tile-delivery-white)"/>
+      <path d="M580 415h115l114 135v123H580z" fill="url(#tl-tile-delivery-white)"/>
+      <path d="M612 449h67l76 95H612z" fill="#F5A524"/>
+      <rect x="201" y="637" width="621" height="45" rx="14" fill="url(#tl-tile-delivery-edge)"/>
+      <rect x="741" y="584" width="45" height="20" rx="7" fill="#F5A524"/>
+      <g>
+        <circle cx="339" cy="683" r="69" fill="#25364B"/>
+        <circle cx="339" cy="683" r="32" fill="url(#tl-tile-delivery-edge)"/>
+      </g>
+      <g>
+        <circle cx="689" cy="683" r="69" fill="#25364B"/>
+        <circle cx="689" cy="683" r="32" fill="url(#tl-tile-delivery-edge)"/>
+      </g>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-dept-docs" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-dept-docs-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-dept-docs-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A58AFF"/>
+      <stop offset=".5" stop-color="#7457E6"/>
+      <stop offset="1" stop-color="#4530B0"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-dept-docs-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-dept-docs-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-dept-docs-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-dept-docs-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-dept-docs-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-dept-docs-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-dept-docs-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-dept-docs-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-dept-docs-blur)"/>
+    <g transform="rotate(-3 512 520)" filter="url(#tl-tile-dept-docs-shadow)">
+      <path d="M247 501c0-26 21-47 47-47h133l48 82h74l48-82h133c26 0 47 21 47 47l59 197c13 44-20 88-66 88H254c-46 0-79-44-66-88l59-197Z" fill="url(#tl-tile-dept-docs-edge)"/>
+      <path d="M265 472h147l48 82c10 17 28 27 48 27h8c20 0 38-10 48-27l48-82h147l58 218c9 33-16 65-50 65H257c-34 0-59-32-50-65l58-218Z" fill="url(#tl-tile-dept-docs-white)"/>
+      <path d="M246 658h532" stroke="#C1CEDB" stroke-width="13"/>
+      <rect x="361" y="287" width="302" height="211" rx="38" fill="#F9FBFD"/>
+      <path d="M417 358h190M417 416h145" stroke="#A9B9C9" stroke-width="17" stroke-linecap="round"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-doc-editor" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-doc-editor-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-doc-editor-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6ADFF2"/>
+      <stop offset=".5" stop-color="#2BAFCF"/>
+      <stop offset="1" stop-color="#1473A6"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-doc-editor-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-doc-editor-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <filter id="tl-tile-doc-editor-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-doc-editor-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-doc-editor-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-doc-editor-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-doc-editor-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-doc-editor-blur)"/>
+    <g filter="url(#tl-tile-doc-editor-shadow)">
+      <path d="M344 314c-135 0-225 89-225 207s90 207 225 207 225-89 225-207-90-207-225-207Zm0 99c67 0 112 45 112 108s-45 108-112 108-112-45-112-108 45-108 112-108Z" fill="url(#tl-tile-doc-editor-white)"/>
+      <rect x="614" y="340" width="282" height="88" rx="44" fill="url(#tl-tile-doc-editor-white)"/>
+      <rect x="614" y="477" width="282" height="88" rx="44" fill="url(#tl-tile-doc-editor-white)"/>
+      <rect x="614" y="614" width="282" height="88" rx="44" fill="url(#tl-tile-doc-editor-white)"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-equipment" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-equipment-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-equipment-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9CA3AF"/>
+      <stop offset=".5" stop-color="#646B78"/>
+      <stop offset="1" stop-color="#374151"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-equipment-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-equipment-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-equipment-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-equipment-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-equipment-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-equipment-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-equipment-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#374151" opacity=".25" filter="url(#tl-tile-equipment-blur)"/>
+    <g transform="rotate(-3 512 512)">
+      <g transform="translate(477 477)">
+        <rect x="-47" y="-258" width="94" height="114" rx="17" transform="rotate(0)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-47" y="-258" width="94" height="114" rx="17" transform="rotate(36)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-47" y="-258" width="94" height="114" rx="17" transform="rotate(72)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-47" y="-258" width="94" height="114" rx="17" transform="rotate(108)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-47" y="-258" width="94" height="114" rx="17" transform="rotate(144)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-47" y="-258" width="94" height="114" rx="17" transform="rotate(180)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-47" y="-258" width="94" height="114" rx="17" transform="rotate(216)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-47" y="-258" width="94" height="114" rx="17" transform="rotate(252)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-47" y="-258" width="94" height="114" rx="17" transform="rotate(288)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-47" y="-258" width="94" height="114" rx="17" transform="rotate(324)" fill="url(#tl-tile-equipment-white)"/>
+        <circle r="207" fill="url(#tl-tile-equipment-edge)"/>
+        <circle cy="-11" r="207" fill="url(#tl-tile-equipment-white)"/>
+        <circle cy="-11" r="98" fill="#7D8C9E"/>
+        <circle cy="-4" r="78" fill="#374151"/>
+      </g>
+      <g transform="translate(697 676) rotate(14)">
+        <rect x="-27" y="-126" width="54" height="68" rx="10" transform="rotate(0)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-27" y="-126" width="54" height="68" rx="10" transform="rotate(45)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-27" y="-126" width="54" height="68" rx="10" transform="rotate(90)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-27" y="-126" width="54" height="68" rx="10" transform="rotate(135)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-27" y="-126" width="54" height="68" rx="10" transform="rotate(180)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-27" y="-126" width="54" height="68" rx="10" transform="rotate(225)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-27" y="-126" width="54" height="68" rx="10" transform="rotate(270)" fill="url(#tl-tile-equipment-white)"/>
+        <rect x="-27" y="-126" width="54" height="68" rx="10" transform="rotate(315)" fill="url(#tl-tile-equipment-white)"/>
+        <circle r="99" fill="url(#tl-tile-equipment-edge)"/>
+        <circle cy="-7" r="99" fill="url(#tl-tile-equipment-white)"/>
+        <circle cy="-7" r="43" fill="#374151"/>
+      </g>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-expense" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-expense-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-expense-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF8FA7"/>
+      <stop offset=".5" stop-color="#ED5477"/>
+      <stop offset="1" stop-color="#B82E5C"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-expense-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-expense-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-expense-gold" x1="610" y1="600" x2="850" y2="850" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF5B2"/>
+      <stop offset=".35" stop-color="#FFD24F"/>
+      <stop offset=".75" stop-color="#E69510"/>
+      <stop offset="1" stop-color="#AF5703"/>
+    </linearGradient>
+    <filter id="tl-tile-expense-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-expense-small" x="-45%" y="-45%" width="200%" height="210%">
+      <feDropShadow dx="4" dy="11" stdDeviation="10" flood-color="#193052" flood-opacity=".28"/>
+    </filter>
+    <filter id="tl-tile-expense-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-expense-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-expense-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-expense-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-expense-blur)"/>
+    <g transform="rotate(-3 500 515)" filter="url(#tl-tile-expense-shadow)">
+      <rect x="273" y="248" width="480" height="586" rx="62" fill="url(#tl-tile-expense-white)"/>
+      <rect x="388" y="197" width="250" height="104" rx="40" fill="#DCE5EE"/>
+      <rect x="458" y="172" width="110" height="70" rx="35" fill="#F7FAFD"/>
+      <g>
+        <rect x="365" y="555" width="55" height="142" rx="16" fill="#6EC4F4"/>
+        <rect x="455" y="469" width="55" height="228" rx="16" fill="#A477EB"/>
+        <rect x="545" y="398" width="55" height="299" rx="16" fill="#F2B637"/>
+        <rect x="635" y="511" width="55" height="186" rx="16" fill="#ED6681"/>
+      </g>
+      <path d="M355 745h342" stroke="#BAC8D6" stroke-width="14" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(555 647) rotate(-24 100 90)" filter="url(#tl-tile-expense-small)">
+      <rect x="0" y="47" width="217" height="67" rx="33" fill="#263E71"/>
+      <path d="m217 47 60 33-60 34Z" fill="url(#tl-tile-expense-gold)"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-hr-payroll" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-hr-payroll-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-hr-payroll-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#56BAFF"/>
+      <stop offset=".5" stop-color="#2077EC"/>
+      <stop offset="1" stop-color="#0A4BBF"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-hr-payroll-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-hr-payroll-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <filter id="tl-tile-hr-payroll-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-hr-payroll-small" x="-45%" y="-45%" width="200%" height="210%">
+      <feDropShadow dx="4" dy="11" stdDeviation="10" flood-color="#193052" flood-opacity=".28"/>
+    </filter>
+    <filter id="tl-tile-hr-payroll-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-hr-payroll-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-hr-payroll-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-hr-payroll-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-hr-payroll-blur)"/>
+    <g filter="url(#tl-tile-hr-payroll-shadow)">
+      <path d="M298 733c10-149 94-229 214-229s204 80 214 229c3 44-33 80-77 80H375c-44 0-80-36-77-80Z" fill="url(#tl-tile-hr-payroll-white)"/>
+      <circle cx="512" cy="349" r="133" fill="url(#tl-tile-hr-payroll-white)"/>
+      <path d="M409 326c25-82 94-122 163-95" fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round" opacity=".8"/>
+    </g>
+    <g transform="translate(316 660)" filter="url(#tl-tile-hr-payroll-small)">
+      <rect width="392" height="160" rx="42" fill="#55D5B3"/>
+      <path d="M70 82h252" stroke="#E9FFF8" stroke-width="20" stroke-linecap="round"/>
+      <path d="M99 120h194" stroke="#E9FFF8" stroke-width="13" stroke-linecap="round" opacity=".7"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-inventory" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-inventory-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-inventory-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFCE91"/>
+      <stop offset=".5" stop-color="#F5A524"/>
+      <stop offset="1" stop-color="#CD8600"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-inventory-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-inventory-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-inventory-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-inventory-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-inventory-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-inventory-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-inventory-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#CD8600" opacity=".25" filter="url(#tl-tile-inventory-blur)"/>
+    <g transform="rotate(-3 512 512)">
+      <g>
+        <rect x="237" y="521" width="258" height="237" rx="24" fill="url(#tl-tile-inventory-edge)"/>
+        <rect x="237" y="521" width="237" height="214" rx="22" fill="url(#tl-tile-inventory-white)"/>
+        <path d="M333 521h46v83l-23-12-23 12z" fill="#F5A524"/>
+        <rect x="267" y="680" width="61" height="12" rx="6" fill="#F5A524" opacity=".5"/>
+      </g>
+      <g>
+        <rect x="521" y="521" width="258" height="237" rx="24" fill="url(#tl-tile-inventory-edge)"/>
+        <rect x="521" y="521" width="237" height="214" rx="22" fill="url(#tl-tile-inventory-white)"/>
+        <path d="M617 521h46v83l-23-12-23 12z" fill="#F5A524"/>
+        <rect x="551" y="680" width="61" height="12" rx="6" fill="#F5A524" opacity=".5"/>
+      </g>
+      <g>
+        <rect x="380" y="272" width="258" height="237" rx="24" fill="url(#tl-tile-inventory-edge)"/>
+        <rect x="380" y="272" width="237" height="214" rx="22" fill="url(#tl-tile-inventory-white)"/>
+        <path d="M476 272h46v83l-23-12-23 12z" fill="#F5A524"/>
+        <rect x="410" y="431" width="61" height="12" rx="6" fill="#F5A524" opacity=".5"/>
+      </g>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-mail" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-mail-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-mail-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B17BFF"/>
+      <stop offset=".5" stop-color="#754CE1"/>
+      <stop offset="1" stop-color="#4726AE"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-mail-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-mail-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <filter id="tl-tile-mail-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-mail-small" x="-45%" y="-45%" width="200%" height="210%">
+      <feDropShadow dx="4" dy="11" stdDeviation="10" flood-color="#193052" flood-opacity=".28"/>
+    </filter>
+    <filter id="tl-tile-mail-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-mail-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-mail-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-mail-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-mail-blur)"/>
+    <g filter="url(#tl-tile-mail-shadow)">
+      <path d="M220 373h584v383c0 43-35 78-78 78H298c-43 0-78-35-78-78V373Z" fill="url(#tl-tile-mail-white)"/>
+      <path d="m236 392 276 221 276-221" fill="none" stroke="#B9C8D7" stroke-width="24" stroke-linejoin="round"/>
+      <path d="m239 798 204-189M785 798 581 609" stroke="#D1DAE4" stroke-width="17"/>
+      <g transform="translate(407 218)" filter="url(#tl-tile-mail-small)">
+        <circle cx="105" cy="105" r="105" fill="#51D9B7"/>
+        <circle cx="105" cy="105" r="76" fill="#E9FFF9"/>
+        <circle cx="105" cy="105" r="31" fill="none" stroke="#28AA9B" stroke-width="17"/>
+        <path d="M136 105v31c0 15 18 20 30 9 13-12 18-32 18-50" fill="none" stroke="#28AA9B" stroke-width="17" stroke-linecap="round"/>
+      </g>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-materials" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-materials-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-materials-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9CA3AF"/>
+      <stop offset=".5" stop-color="#646B78"/>
+      <stop offset="1" stop-color="#374151"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-materials-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-materials-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-materials-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-materials-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-materials-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-materials-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-materials-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#374151" opacity=".25" filter="url(#tl-tile-materials-blur)"/>
+    <g transform="rotate(-4 512 512)">
+      <g>
+        <path d="M246 578h474v149H246z" fill="url(#tl-tile-materials-edge)"/>
+        <path d="M246 578h449v123H246z" fill="url(#tl-tile-materials-white)"/>
+        <path d="M695 578h25v149h-25z" fill="#8FA1B5"/>
+      </g>
+      <g>
+        <path d="M271 442h474v149H271z" fill="url(#tl-tile-materials-edge)"/>
+        <path d="M271 442h449v123H271z" fill="url(#tl-tile-materials-white)"/>
+        <path d="M720 442h25v149h-25z" fill="#8FA1B5"/>
+      </g>
+      <g>
+        <path d="M296 306h474v149H296z" fill="url(#tl-tile-materials-edge)"/>
+        <path d="M296 306h449v123H296z" fill="url(#tl-tile-materials-white)"/>
+        <path d="M745 306h25v149h-25z" fill="#8FA1B5"/>
+      </g>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-messenger" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-messenger-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-messenger-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#55CE80"/>
+      <stop offset=".5" stop-color="#21A451"/>
+      <stop offset="1" stop-color="#077235"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-messenger-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-messenger-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <filter id="tl-tile-messenger-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-messenger-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-messenger-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-messenger-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-messenger-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-messenger-blur)"/>
+    <g filter="url(#tl-tile-messenger-shadow)">
+      <path d="M512 220c-185 0-318 119-318 277 0 91 45 171 120 221l-31 115 127-65c32 8 66 12 102 12 185 0 318-119 318-283S697 220 512 220Z" fill="url(#tl-tile-messenger-white)"/>
+      <path d="M315 478c23-104 112-172 220-172" fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round" opacity=".85"/>
+      <g fill="#36AB62">
+        <circle cx="399" cy="511" r="27"/>
+        <circle cx="512" cy="511" r="27"/>
+        <circle cx="625" cy="511" r="27"/>
+      </g>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-my-docs" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-my-docs-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-my-docs-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A98AFF"/>
+      <stop offset=".5" stop-color="#7557E8"/>
+      <stop offset="1" stop-color="#4630B3"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-my-docs-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-my-docs-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-my-docs-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-my-docs-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-my-docs-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-my-docs-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-my-docs-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-my-docs-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-my-docs-blur)"/>
+    <g transform="rotate(-3 510 520)" filter="url(#tl-tile-my-docs-shadow)">
+      <path d="M235 346c0-51 41-92 92-92h134l62 72h210c51 0 92 41 92 92v309c0 51-41 92-92 92H327c-51 0-92-41-92-92V346Z" fill="url(#tl-tile-my-docs-edge)"/>
+      <path d="M221 389c0-43 35-78 78-78h171l57 67h212c43 0 78 35 78 78v257c0 43-35 78-78 78H299c-43 0-78-35-78-78V389Z" fill="url(#tl-tile-my-docs-white)"/>
+      <path d="M268 483c0-27 22-49 49-49h404c27 0 49 22 49 49v195c0 27-22 49-49 49H317c-27 0-49-22-49-49V483Z" fill="#F8FAFD" stroke="#C6D2DF" stroke-width="9"/>
+      <path d="M339 531h358M339 590h284" stroke="#AABACB" stroke-width="18" stroke-linecap="round"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-opportunities" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-opportunities-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-opportunities-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5ED7D5"/>
+      <stop offset=".5" stop-color="#1CA7A8"/>
+      <stop offset="1" stop-color="#087678"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-opportunities-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-opportunities-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-opportunities-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-opportunities-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-opportunities-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-opportunities-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-opportunities-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-opportunities-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-opportunities-blur)"/>
+    <g transform="rotate(-3 510 500)" filter="url(#tl-tile-opportunities-shadow)">
+      <path d="M223 244h578L596 496v226l-168 115V496L223 244Z" fill="url(#tl-tile-opportunities-white)" stroke="#D4DEE8" stroke-width="8" stroke-linejoin="round"/>
+      <path d="m300 297 212 249 212-249" fill="#DDE6EF"/>
+      <path d="M512 546v180l84-56V496l205-252" fill="url(#tl-tile-opportunities-edge)"/>
+      <path d="M331 304h353" stroke="#FFFFFF" stroke-width="18" stroke-linecap="round" opacity=".8"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-orders" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-orders-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-orders-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFA29D"/>
+      <stop offset=".5" stop-color="#E5484D"/>
+      <stop offset="1" stop-color="#A31A27"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-orders-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-orders-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-orders-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-orders-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-orders-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-orders-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-orders-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#A31A27" opacity=".25" filter="url(#tl-tile-orders-blur)"/>
+    <g transform="rotate(-3 512 512)">
+      <path d="M389 395v-70c0-68 55-123 123-123s123 55 123 123v70h-40v-70a83 83 0 0 0-166 0v70z" fill="#E5484D"/>
+      <path d="M294 367h436l37 373c3 30-20 55-50 55H307c-30 0-53-25-50-55z" fill="url(#tl-tile-orders-edge)"/>
+      <path d="M294 367h410l32 356c3 26-18 48-44 48H307c-30 0-53-25-50-55z" fill="url(#tl-tile-orders-white)"/>
+      <circle cx="409" cy="407" r="12" fill="#E5484D"/>
+      <circle cx="615" cy="407" r="12" fill="#E5484D"/>
+      <circle cx="718" cy="719" r="68" fill="#38AD73"/>
+      <path d="m687 720 22 23 42-48" fill="none" stroke="#FFFFFF" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-production" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-production-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-production-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B578FF"/>
+      <stop offset=".5" stop-color="#724AE4"/>
+      <stop offset="1" stop-color="#3E28A6"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-production-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-production-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <filter id="tl-tile-production-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-production-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-production-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-production-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-production-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-production-blur)"/>
+    <g transform="rotate(-3 520 530)" filter="url(#tl-tile-production-shadow)">
+      <path d="M253 505 448 400v105l175-105v105l139-75v355H253V505Z" fill="url(#tl-tile-production-white)"/>
+      <path d="M253 505v280h509v48H295c-39 0-70-31-70-70V520l28-15Z" fill="#BBC9D7"/>
+      <g fill="#7E5BE8">
+        <rect x="325" y="592" width="85" height="75" rx="16"/>
+        <rect x="463" y="592" width="85" height="75" rx="16"/>
+        <rect x="601" y="592" width="85" height="75" rx="16"/>
+      </g>
+      <path d="M318 438V222h95v165" fill="#E9EEF5"/>
+      <path d="M335 255h61" stroke="#FFFFFF" stroke-width="13" stroke-linecap="round"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-products" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-products-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-products-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFA29D"/>
+      <stop offset=".5" stop-color="#E5484D"/>
+      <stop offset="1" stop-color="#A31A27"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-products-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-products-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-products-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-products-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-products-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-products-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-products-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#A31A27" opacity=".25" filter="url(#tl-tile-products-blur)"/>
+    <g transform="rotate(-4 512 512)">
+      <path d="m265 352 333-63 161 99v333l-334 68-160-103z" fill="url(#tl-tile-products-edge)"/>
+      <path d="m265 352 333-63 161 99-334 67z" fill="#FFFFFF"/>
+      <path d="m265 352 160 103v334L265 686z" fill="#E4ECF4"/>
+      <path d="m425 455 334-67v333l-334 68z" fill="url(#tl-tile-products-white)"/>
+      <path d="m585 426 67 47" stroke="#C4CEDA" stroke-width="9" stroke-linecap="round"/>
+      <path d="m644 449 96 30 14 107-88 30-42-100z" fill="#E5484D"/>
+      <circle cx="659" cy="480" r="10" fill="#FFFFFF"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-promotions" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-promotions-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-promotions-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFA29D"/>
+      <stop offset=".5" stop-color="#E5484D"/>
+      <stop offset="1" stop-color="#A31A27"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-promotions-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-promotions-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-promotions-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-promotions-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-promotions-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-promotions-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-promotions-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#A31A27" opacity=".25" filter="url(#tl-tile-promotions-blur)"/>
+    <g transform="rotate(-5 512 512)">
+      <path d="M255 329h514v115a66 66 0 0 0 0 132v117H255V576a66 66 0 0 0 0-132z" fill="url(#tl-tile-promotions-edge)"/>
+      <path d="M240 313h514v115a66 66 0 0 0 0 132v117H240V560a66 66 0 0 0 0-132z" fill="url(#tl-tile-promotions-white)"/>
+      <rect x="570" y="350" width="12" height="25" rx="6" fill="#E5484D" opacity=".45"/>
+      <rect x="570" y="406" width="12" height="25" rx="6" fill="#E5484D" opacity=".45"/>
+      <rect x="570" y="462" width="12" height="25" rx="6" fill="#E5484D" opacity=".45"/>
+      <rect x="570" y="518" width="12" height="25" rx="6" fill="#E5484D" opacity=".45"/>
+      <rect x="570" y="574" width="12" height="25" rx="6" fill="#E5484D" opacity=".45"/>
+      <rect x="570" y="630" width="12" height="25" rx="6" fill="#E5484D" opacity=".45"/>
+      <circle cx="374" cy="435" r="31" fill="#E5484D"/>
+      <circle cx="469" cy="554" r="31" fill="#E5484D"/>
+      <path d="m370 572 111-155" stroke="#E5484D" stroke-width="24" stroke-linecap="round"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-purchasing" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-purchasing-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-purchasing-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#AE7BFF"/>
+      <stop offset=".5" stop-color="#7043DC"/>
+      <stop offset="1" stop-color="#41249E"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-purchasing-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-purchasing-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <filter id="tl-tile-purchasing-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-purchasing-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-purchasing-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-purchasing-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-purchasing-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-purchasing-blur)"/>
+    <g transform="rotate(5 500 510)" filter="url(#tl-tile-purchasing-shadow)">
+      <path d="M298 274h66v388c0 45 36 81 81 81h304v67H430c-73 0-132-59-132-132V274Z" fill="url(#tl-tile-purchasing-white)"/>
+      <rect x="383" y="318" width="244" height="213" rx="28" fill="#FFFFFF"/>
+      <path d="M383 370h244" stroke="#C8D3DE" stroke-width="10"/>
+      <path d="M505 318v213" stroke="#C8D3DE" stroke-width="10"/>
+      <rect x="534" y="535" width="210" height="178" rx="27" fill="#E6ECF3"/>
+      <path d="M534 580h210M639 535v178" stroke="#B9C7D6" stroke-width="10"/>
+      <circle cx="447" cy="803" r="48" fill="#213760"/>
+      <circle cx="694" cy="803" r="48" fill="#213760"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-quality" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-quality-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-quality-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9CA3AF"/>
+      <stop offset=".5" stop-color="#646B78"/>
+      <stop offset="1" stop-color="#374151"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-quality-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-quality-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-quality-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-quality-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-quality-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-quality-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-quality-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#374151" opacity=".25" filter="url(#tl-tile-quality-blur)"/>
+    <g transform="rotate(-3 512 512)">
+      <path d="m367 616-40 182 106-40 66 66 40-196zM504 628l47 196 66-66 106 40-51-182z" fill="url(#tl-tile-quality-edge)"/>
+      <path d="M512 217 L549.5442716096554 244.95479825716694 L593.889503509361 229.9700231817843 L620.9577199374912 268.15843419479177 L667.7630918575054 267.6104964906389 L681.7056274847714 312.2943725152286 L726.389503509361 326.2369081424946 L725.8415658052083 373.0422800625088 L764.0299768182157 400.1104964906389 L749.0452017428331 444.4557283903446 L777 482 L749.045201742833 519.5442716096554 L764.0299768182157 563.889503509361 L725.8415658052083 590.9577199374912 L726.389503509361 637.7630918575054 L681.7056274847714 651.7056274847714 L667.7630918575054 696.389503509361 L620.9577199374912 695.8415658052082 L593.889503509361 734.0299768182157 L549.5442716096554 719.0452017428331 L512 747 L474.4557283903446 719.0452017428331 L430.11049649063887 734.0299768182157 L403.0422800625089 695.8415658052083 L356.23690814249466 696.389503509361 L342.2943725152286 651.7056274847714 L297.610496490639 637.7630918575054 L298.15843419479177 590.9577199374912 L259.9700231817843 563.8895035093611 L274.954798257167 519.5442716096554 L247 482.00000000000006 L274.95479825716694 444.45572839034463 L259.9700231817843 400.110496490639 L298.1584341947917 373.0422800625088 L297.61049649063887 326.23690814249466 L342.2943725152286 312.2943725152286 L356.2369081424946 267.610496490639 L403.0422800625087 268.15843419479177 L430.11049649063887 229.9700231817843 L474.4557283903446 244.95479825716697Z" fill="url(#tl-tile-quality-white)"/>
+      <circle cx="512" cy="482" r="185" fill="#E7EDF4"/>
+      <path d="m411 481 70 72 140-156" fill="none" stroke="#39AF77" stroke-width="42" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-quotes" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-quotes-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-quotes-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#57D4CF"/>
+      <stop offset=".5" stop-color="#1AA4A3"/>
+      <stop offset="1" stop-color="#087477"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-quotes-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-quotes-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <filter id="tl-tile-quotes-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-quotes-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-quotes-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-quotes-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-quotes-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-quotes-blur)"/>
+    <g transform="rotate(-4 512 510)" filter="url(#tl-tile-quotes-shadow)">
+      <path d="M301 188h422v645l-42-29-42 29-42-29-42 29-42-29-42 29-42-29-42 29-43-29-43 29V188Z" fill="url(#tl-tile-quotes-white)"/>
+      <g fill="#A9BAC9">
+        <rect x="379" y="318" width="266" height="18" rx="9"/>
+        <rect x="379" y="375" width="194" height="16" rx="8"/>
+        <rect x="379" y="614" width="266" height="17" rx="8.5"/>
+        <rect x="379" y="670" width="211" height="17" rx="8.5"/>
+      </g>
+      <rect x="385" y="446" width="250" height="107" rx="32" fill="#26AAA5"/>
+      <path d="M435 480v40M585 480v40M435 500h150" stroke="#EFFFFD" stroke-width="15" stroke-linecap="round"/>
+      <path d="m478 463 32 74 34-74" fill="none" stroke="#EFFFFD" stroke-width="15" stroke-linejoin="round"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-sales" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-sales-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-sales-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#68C6FF"/>
+      <stop offset=".5" stop-color="#2585E7"/>
+      <stop offset="1" stop-color="#1555BD"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-sales-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-sales-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-sales-gold" x1="610" y1="600" x2="850" y2="850" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF5B2"/>
+      <stop offset=".35" stop-color="#FFD24F"/>
+      <stop offset=".75" stop-color="#E69510"/>
+      <stop offset="1" stop-color="#AF5703"/>
+    </linearGradient>
+    <filter id="tl-tile-sales-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-sales-small" x="-45%" y="-45%" width="200%" height="210%">
+      <feDropShadow dx="4" dy="11" stdDeviation="10" flood-color="#193052" flood-opacity=".28"/>
+    </filter>
+    <filter id="tl-tile-sales-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-sales-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-sales-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-sales-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-sales-blur)"/>
+    <g transform="rotate(-4 500 500)" filter="url(#tl-tile-sales-shadow)">
+      <path d="M261 265h473v548H261V265Z" fill="url(#tl-tile-sales-white)"/>
+      <path d="M290 292h418v493H290V292Z" fill="#F9FBFE"/>
+      <path d="M349 678V425M349 678h292" stroke="#C6D2DE" stroke-width="13" stroke-linecap="round"/>
+      <path d="m381 588 74-80 69 40 94-126" fill="none" stroke="#2B8CEB" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="381" cy="588" r="18" fill="#2B8CEB"/>
+      <circle cx="455" cy="508" r="18" fill="#2B8CEB"/>
+      <circle cx="524" cy="548" r="18" fill="#2B8CEB"/>
+      <circle cx="618" cy="422" r="18" fill="#2B8CEB"/>
+    </g>
+    <g transform="translate(638 692) scale(0.98)" filter="url(#tl-tile-sales-small)">
+      <path d="M0 80v71c0 38 52 68 116 68s116-30 116-68V80H0Z" fill="#D48108"/>
+      <ellipse cx="116" cy="80" rx="116" ry="68" fill="url(#tl-tile-sales-gold)"/>
+      <ellipse cx="116" cy="80" rx="88" ry="49" fill="none" stroke="#DF9615" stroke-width="10"/>
+      <path d="M24 131c22 24 56 36 92 36 39 0 72-13 92-36" fill="none" stroke="#FFD75B" stroke-width="7" opacity=".65"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-settlement" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-settlement-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-settlement-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFA29D"/>
+      <stop offset=".5" stop-color="#E5484D"/>
+      <stop offset="1" stop-color="#A31A27"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-settlement-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-settlement-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-settlement-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-settlement-gold" x1="610" y1="600" x2="850" y2="850" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF5B2"/>
+      <stop offset=".35" stop-color="#FFD24F"/>
+      <stop offset=".75" stop-color="#E69510"/>
+      <stop offset="1" stop-color="#AF5703"/>
+    </linearGradient>
+    <filter id="tl-tile-settlement-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-settlement-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-settlement-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-settlement-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#A31A27" opacity=".25" filter="url(#tl-tile-settlement-blur)"/>
+    <g transform="rotate(-5 512 512)">
+      <g transform="translate(0 38)">
+        <rect x="226" y="347" width="569" height="290" rx="27" fill="url(#tl-tile-settlement-edge)"/>
+        <rect x="226" y="337" width="569" height="265" rx="27" fill="url(#tl-tile-settlement-white)"/>
+      </g>
+      <g transform="translate(0 19)">
+        <rect x="226" y="347" width="569" height="290" rx="27" fill="url(#tl-tile-settlement-edge)"/>
+        <rect x="226" y="337" width="569" height="265" rx="27" fill="url(#tl-tile-settlement-white)"/>
+      </g>
+      <g transform="translate(0 0)">
+        <rect x="226" y="347" width="569" height="290" rx="27" fill="url(#tl-tile-settlement-edge)"/>
+        <rect x="226" y="337" width="569" height="265" rx="27" fill="url(#tl-tile-settlement-white)"/>
+      </g>
+      <path d="M430 337h124v303H430z" fill="#E5484D"/>
+      <path d="M270 379h119v14H270zM591 379h158v14H591zM270 548h119v14H270z" fill="#E5484D" opacity=".35"/>
+      <path d="M659 654v63c0 25 32 45 72 45s72-20 72-45v-63z" fill="#D69118"/>
+      <ellipse cx="731" cy="654" rx="72" ry="43" fill="url(#tl-tile-settlement-gold)"/>
+      <ellipse cx="731" cy="654" rx="48" ry="26" fill="#F5C24A"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-shop-floor" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-shop-floor-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-shop-floor-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9CA3AF"/>
+      <stop offset=".5" stop-color="#646B78"/>
+      <stop offset="1" stop-color="#374151"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-shop-floor-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-shop-floor-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-shop-floor-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-shop-floor-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-shop-floor-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-shop-floor-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-shop-floor-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#374151" opacity=".25" filter="url(#tl-tile-shop-floor-blur)"/>
+    <g transform="rotate(-2 512 512)">
+      <path d="M217 599a295 295 0 1 1 590 0v112H217z" fill="url(#tl-tile-shop-floor-edge)"/>
+      <path d="M217 578a295 295 0 1 1 590 0v112H217z" fill="url(#tl-tile-shop-floor-white)"/>
+      <rect x="502" y="335" width="20" height="43" rx="8" fill="#697787" transform="rotate(-66 512 578)"/>
+      <rect x="502" y="335" width="20" height="43" rx="8" fill="#697787" transform="rotate(-33 512 578)"/>
+      <rect x="502" y="335" width="20" height="43" rx="8" fill="#697787" transform="rotate(0 512 578)"/>
+      <rect x="502" y="335" width="20" height="43" rx="8" fill="#697787" transform="rotate(33 512 578)"/>
+      <rect x="502" y="335" width="20" height="43" rx="8" fill="#697787" transform="rotate(66 512 578)"/>
+      <path d="M668 412a222 222 0 0 1 65 157h-38a184 184 0 0 0-54-130z" fill="#4BB881"/>
+      <path d="m493 565 169-136-132 174z" fill="#475365"/>
+      <circle cx="512" cy="578" r="34" fill="url(#tl-tile-shop-floor-edge)"/>
+      <rect x="427" y="641" width="170" height="13" rx="6.5" fill="#BAC7D4"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-support" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-support-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-support-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#55D1CE"/>
+      <stop offset=".5" stop-color="#179E9F"/>
+      <stop offset="1" stop-color="#076D72"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-support-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-support-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <filter id="tl-tile-support-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-support-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-support-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-support-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-support-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-support-blur)"/>
+    <g filter="url(#tl-tile-support-shadow)">
+      <path d="M269 526v-59c0-149 104-257 243-257s243 108 243 257v59" fill="none" stroke="url(#tl-tile-support-white)" stroke-width="75" stroke-linecap="round"/>
+      <rect x="214" y="474" width="142" height="247" rx="66" fill="url(#tl-tile-support-white)"/>
+      <rect x="668" y="474" width="142" height="247" rx="66" fill="url(#tl-tile-support-white)"/>
+      <path d="M738 699c0 85-64 131-166 131h-53" fill="none" stroke="#C9D6E1" stroke-width="37" stroke-linecap="round"/>
+      <rect x="466" y="791" width="125" height="65" rx="32" fill="#F8FBFD"/>
+      <path d="M337 428c26-91 91-143 175-143" fill="none" stroke="#FFFFFF" stroke-width="20" stroke-linecap="round" opacity=".78"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-tax" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-tax-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-tax-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#62C3FF"/>
+      <stop offset=".5" stop-color="#2D87EA"/>
+      <stop offset="1" stop-color="#1552BD"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-tax-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-tax-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-tax-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-tax-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-tax-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-tax-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-tax-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#1552BD" opacity=".25" filter="url(#tl-tile-tax-blur)"/>
+    <g transform="rotate(-2 512 512)">
+      <path d="M234 718h556v61H234zM253 389h518v48H253z" fill="url(#tl-tile-tax-edge)"/>
+      <path d="m512 232 293 166H219z" fill="url(#tl-tile-tax-white)"/>
+      <path d="m512 285 170 92H342z" fill="#2D87EA" opacity=".22"/>
+      <g>
+        <path d="M294 426h76v284h-76z" fill="url(#tl-tile-tax-white)"/>
+        <path d="M350 426h20v284h-20z" fill="url(#tl-tile-tax-edge)"/>
+      </g>
+      <g>
+        <path d="M414 426h76v284h-76z" fill="url(#tl-tile-tax-white)"/>
+        <path d="M470 426h20v284h-20z" fill="url(#tl-tile-tax-edge)"/>
+      </g>
+      <g>
+        <path d="M534 426h76v284h-76z" fill="url(#tl-tile-tax-white)"/>
+        <path d="M590 426h20v284h-20z" fill="url(#tl-tile-tax-edge)"/>
+      </g>
+      <g>
+        <path d="M654 426h76v284h-76z" fill="url(#tl-tile-tax-white)"/>
+        <path d="M710 426h20v284h-20z" fill="url(#tl-tile-tax-edge)"/>
+      </g>
+      <rect x="230" y="704" width="564" height="48" rx="12" fill="url(#tl-tile-tax-white)"/>
+      <circle cx="731" cy="711" r="62" fill="#2D87EA"/>
+      <path d="m709 736 44-50" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round"/>
+      <circle cx="711" cy="692" r="9" fill="#FFFFFF"/>
+      <circle cx="752" cy="732" r="9" fill="#FFFFFF"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-trade" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-trade-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-trade-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFCE91"/>
+      <stop offset=".5" stop-color="#F5A524"/>
+      <stop offset="1" stop-color="#CD8600"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-trade-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-trade-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-trade-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-trade-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-trade-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-trade-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-trade-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#CD8600" opacity=".25" filter="url(#tl-tile-trade-blur)"/>
+    <g transform="rotate(-2 512 512)">
+      <path d="M249 414h127v190H249z" fill="url(#tl-tile-trade-white)"/>
+      <path d="M270 372h87v43h-87zM285 319h22v53h-22z" fill="url(#tl-tile-trade-edge)"/>
+      <path d="M271 455h35v29h-35zM323 455h35v29h-35z" fill="#F5A524"/>
+      <rect x="390" y="354" width="194" height="122" rx="9" fill="url(#tl-tile-trade-white)"/>
+      <rect x="390" y="486" width="194" height="122" rx="9" fill="url(#tl-tile-trade-white)"/>
+      <rect x="595" y="486" width="194" height="122" rx="9" fill="#F5A524"/>
+      <path d="M211 600h607l-72 158H323z" fill="url(#tl-tile-trade-white)"/>
+      <path d="M237 638h563l-17 37H263z" fill="#25364B"/>
+      <path d="m283 698 40 60h423l28-60z" fill="url(#tl-tile-trade-edge)"/>
+      <path d="M419 370h10v91h-10zM419 502h10v91h-10z" fill="#CBD7E4"/>
+      <path d="M462 370h10v91h-10zM462 502h10v91h-10z" fill="#CBD7E4"/>
+      <path d="M505 370h10v91h-10zM505 502h10v91h-10z" fill="#CBD7E4"/>
+      <path d="M548 370h10v91h-10zM548 502h10v91h-10z" fill="#CBD7E4"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-treasury" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-treasury-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-treasury-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE071"/>
+      <stop offset=".5" stop-color="#F2B733"/>
+      <stop offset="1" stop-color="#C87C08"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-treasury-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-treasury-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-treasury-gold" x1="610" y1="600" x2="850" y2="850" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF5B2"/>
+      <stop offset=".35" stop-color="#FFD24F"/>
+      <stop offset=".75" stop-color="#E69510"/>
+      <stop offset="1" stop-color="#AF5703"/>
+    </linearGradient>
+    <filter id="tl-tile-treasury-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-treasury-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-treasury-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-treasury-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-treasury-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-treasury-blur)"/>
+    <g filter="url(#tl-tile-treasury-shadow)">
+      <path d="M421 255h182l-36 99c108 46 176 157 176 288 0 125-88 190-231 190s-231-65-231-190c0-131 68-242 176-288l-36-99Z" fill="url(#tl-tile-treasury-white)"/>
+      <path d="M418 343h188" stroke="#E0A31D" stroke-width="23" stroke-linecap="round"/>
+      <path d="M450 239c36-33 88-33 124 0" fill="none" stroke="#FFF4C6" stroke-width="20" stroke-linecap="round"/>
+      <circle cx="512" cy="570" r="102" fill="url(#tl-tile-treasury-gold)"/>
+      <path d="m455 535 24 103 33-83 33 83 24-103" fill="none" stroke="#FFFFFF" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="tl-tile-warehouse" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="220" fill="url(#tl-tile-warehouse-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-warehouse-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFCE91"/>
+      <stop offset=".5" stop-color="#F5A524"/>
+      <stop offset="1" stop-color="#CD8600"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-warehouse-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-warehouse-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-warehouse-edge" x1="600" y1="250" x2="750" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".55" stop-color="#BCC9D8"/>
+      <stop offset="1" stop-color="#8FA1B5"/>
+    </linearGradient>
+    <filter id="tl-tile-warehouse-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-warehouse-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-warehouse-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-warehouse-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#CD8600" opacity=".25" filter="url(#tl-tile-warehouse-blur)"/>
+    <g>
+      <path d="m226 410 286-177 286 177v357H226z" fill="url(#tl-tile-warehouse-edge)"/>
+      <path d="m226 410 286-177 253 177v332H226z" fill="url(#tl-tile-warehouse-white)"/>
+      <path d="m209 401 303-190 303 190-25 35-278-173-278 173z" fill="url(#tl-tile-warehouse-white)"/>
+      <rect x="337" y="426" width="313" height="316" rx="9" fill="#8FA1B5"/>
+      <path d="M350 441h287v83H350z" fill="url(#tl-tile-warehouse-edge)"/>
+      <path d="M364 463h258v12H364zM364 491h258v12H364z" fill="#A7B7C9"/>
+      <rect x="422" y="602" width="188" height="140" rx="14" fill="url(#tl-tile-warehouse-white)"/>
+      <path d="M495 602h41v57h-41z" fill="#F5A524"/>
+      <rect x="399" y="742" width="238" height="28" rx="7" fill="#F5A524"/>
+    </g>
+  </g>
+</symbol>
+</svg>
+<section class="tl-site-hero" aria-labelledby="hero-title"><div class="tl-site-hero-lattice" aria-hidden="true"></div><div class="tl-site-hero-copy"><p class="tl-site-wordmark" aria-hidden="true"><svg class="tl-site-mark" viewBox="0 0 500 395" width="500" height="395" aria-hidden="true" focusable="false"><path d="M60 0H172A60 60 0 0 1 232 60V114A60 60 0 0 1 172 174H60A60 60 0 0 1 0 114V60A60 60 0 0 1 60 0ZM332 0H440A60 60 0 0 1 500 60V114A60 60 0 0 1 440 174H361A42 42 0 0 0 319 216V335A60 60 0 0 1 259 395H207A60 60 0 0 1 147 335V249.5C147 216 180.4 194.2 206.9 182.5C235.3 169.9 268 145.6 268 110.5V64A64 64 0 0 1 332 0Z"></path></svg>Trellis</p><h1 class="tl-site-hero-title" id="hero-title"><span class="tl-site-sr">Trellis</span><span>테라스랩의 디자인 시스템</span><strong>업무 화면을 <span class="tl-site-nowrap">컬러 하나로</span> 만듭니다</strong></h1><div class="tl-site-actions"><a class="tl-button tl-focusable" data-variant="primary" data-size="lg" href="/docs/guide/install/">시작하기</a><a class="tl-button tl-focusable" data-variant="secondary" data-size="lg" href="/components/">컴포넌트 보기</a></div><p class="tl-site-hero-note">v1.0 · 에이전트용 문서 동봉 · 오픈소스</p></div><div class="tl-site-hero-side" data-side="left" inert><div class="tl-site-float" data-slot="clock"><div class="tl-card tl-time-clock" data-padding="default"><div class="tl-card__head"><div class="tl-card__titles"><h2 class="tl-card__title" id="_r36R_1_">오늘 근무</h2><p class="tl-card__subtitle">11월 6일(금)</p></div><div class="tl-card__action"><span class="tl-status-dot" data-tone="success" data-size="md" data-pulse="true" style="--tl-status-dot-color:var(--tl-color-status-success-default)"><span class="tl-status-dot__dot" aria-hidden="true"></span><span class="tl-status-dot__label">근무 중</span></span></div></div><div class="tl-card__body"><div class="tl-time-clock__body" data-status="working"><div class="tl-time-clock__now"><span class="tl-sr-only">지금 시각</span><time class="tl-time-clock__time" dateTime="2026-11-06T14:32">14:32</time><p class="tl-time-clock__meta">사무실 · 고정 근무 · 09:00~18:00 · 휴게 1시간</p></div><dl class="tl-time-clock__figures"><div class="tl-time-clock__figure"><dt>출근</dt><dd><span class="tl-time-clock__value">09:04</span><span class="tl-status-dot" data-tone="warning" data-size="sm" style="--tl-status-dot-color:var(--tl-color-status-warning-default)"><span class="tl-status-dot__dot" aria-hidden="true"></span><span class="tl-status-dot__label">지각</span></span></dd></div><div class="tl-time-clock__figure"><dt>퇴근</dt><dd><span class="tl-time-clock__value">–</span></dd></div><div class="tl-time-clock__figure"><dt>근무</dt><dd><span class="tl-time-clock__value">4시간 28분</span></dd></div></dl><div class="tl-time-clock__progress"><div class="tl-time-clock__track" role="progressbar" aria-label="근무" aria-valuemin="0" aria-valuemax="480" aria-valuenow="268" aria-valuetext="소정 근무 8시간 중 4시간 28분" style="--tl-time-clock-ratio:0.5583333333333333"><span class="tl-time-clock__fill"></span></div><div class="tl-time-clock__progress-text"><span>소정 근무 8시간 중 4시간 28분</span><span class="tl-time-clock__remark">퇴근까지 3시간 32분</span></div></div><div class="tl-time-clock__actions"><button type="button" class="tl-button tl-focusable" data-variant="secondary" data-size="md" data-full="true"><svg class="tl-icon" width="16" height="16" data-size="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="14" y="3" width="5" height="18" rx="1"></rect><rect x="5" y="3" width="5" height="18" rx="1"></rect></svg><span class="tl-button__label">휴게 시작</span></button><button type="button" class="tl-button tl-focusable" data-variant="primary" data-size="md" data-full="true"><svg class="tl-icon" width="16" height="16" data-size="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 17 5-5-5-5"></path><path d="M21 12H9"></path><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path></svg><span class="tl-button__label">퇴근하기</span></button></div></div></div></div></div><div class="tl-site-float" data-slot="ask"><div class="tl-composer"><div class="tl-composer__row"><textarea class="tl-composer__input tl-focusable" id="_r36R_2_" rows="1" placeholder="전표 · 재고 · 규정을 묻습니다" aria-label="업무 도우미에게 질문" enterKeyHint="send"></textarea><button type="button" class="tl-button tl-focusable tl-composer__send" data-variant="primary" data-size="md" data-state="disabled" disabled=""><svg class="tl-icon" width="16" height="16" data-size="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path><path d="m21.854 2.147-10.94 10.939"></path></svg><span class="tl-button__label">질문</span></button></div></div></div><div class="tl-site-float" data-slot="badges"><span class="tl-badge" data-variant="subtle" data-size="md" data-dot="true" data-approval="pending" style="--tl-badge-solid:var(--tl-color-approval-pending-default);--tl-badge-subtle:var(--tl-color-approval-pending-subtle)"><span class="tl-badge__dot" aria-hidden="true"></span>진행</span><span class="tl-badge" data-variant="subtle" data-size="md" data-dot="true" data-approval="approved" style="--tl-badge-solid:var(--tl-color-approval-approved-default);--tl-badge-subtle:var(--tl-color-approval-approved-subtle)"><span class="tl-badge__dot" aria-hidden="true"></span>승인</span></div></div><div class="tl-site-hero-side" data-side="right" inert><div class="tl-site-float" data-slot="leave"><div class="tl-card tl-leave-balance" data-padding="default"><div class="tl-card__head"><div class="tl-card__titles"><h2 class="tl-card__title" id="_r37R_1_">연차 현황</h2><p class="tl-card__subtitle">2026-01-01~12-31 · 회계연도 기준</p></div></div><div class="tl-card__body"><div class="tl-leave-balance__body"><div class="tl-leave-balance__summary"><span class="tl-leave-balance__label">남은 연차</span><span class="tl-leave-balance__value"><span class="tl-leave-balance__number">11.5</span><span class="tl-leave-balance__unit">일</span></span></div><div class="tl-leave-balance__bar" role="img" aria-label="발생 15일 · 사용 2.5일 · 예정 1일 · 남음 11.5일"><span class="tl-leave-balance__seg" data-kind="used" style="--tl-leave-balance-size:16.666666666666664%"></span><span class="tl-leave-balance__seg" data-kind="planned" style="--tl-leave-balance-size:6.666666666666667%"></span></div><dl class="tl-leave-balance__figures"><div data-kind="granted"><dt>발생</dt><dd>15일</dd></div><div data-kind="used"><dt>사용</dt><dd>2.5일</dd></div><div data-kind="planned"><dt>사용 예정</dt><dd>1일</dd></div></dl><p class="tl-leave-balance__line"><svg class="tl-icon tl-leave-balance__line-icon" width="16" height="16" data-size="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v3"></path><path d="M16 2v3"></path><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18"></path></svg>12월 31일(목)에 소멸</p></div></div></div></div><div class="tl-site-float" data-slot="cash"><div data-size="md" class="tl-kpi-card" role="group" aria-labelledby="_r37R_2_"><span class="tl-kpi-card__head"><svg class="tl-icon tl-kpi-card__icon" width="16" height="16" data-size="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"></path><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"></path></svg><span class="tl-kpi-card__label" id="_r37R_2_">당일 시재</span></span><span class="tl-kpi-card__value"><span class="tl-kpi-card__number">874,479,500</span><span class="tl-kpi-card__unit">원</span></span><span class="tl-delta tl-kpi-card__delta" data-direction="up" data-polarity="finance" data-format="amount" data-size="sm" style="--tl-delta-icon:var(--tl-color-finance-income);--tl-delta-text:var(--tl-color-finance-income)"><span class="tl-delta__label">전일 대비</span><span class="tl-delta__value"><svg class="tl-icon tl-delta__icon" width="16" height="16" data-size="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 7h6v6"></path><path d="m22 7-8.5 8.5-5-5L2 17"></path></svg>+12,400,000원</span></span><span class="tl-kpi-card__caption">오늘 09:00 기준</span></div></div><div class="tl-site-float" data-slot="notice"><button data-tone="danger" type="button" class="tl-notification-card tl-focusable" data-pressable=""><span data-size="40" data-module="approval" role="img" aria-label="전자결재" class="tl-module-icon tl-notification-card__icon" data-kind="tile"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" aria-hidden="true" focusable="false">
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-approval-_r37R_7_-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-approval-_r37R_7_-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#82F0D9"/>
+      <stop offset=".5" stop-color="#34BEAD"/>
+      <stop offset="1" stop-color="#138C92"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-approval-_r37R_7_-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tl-tile-approval-_r37R_7_-white" x1="310" y1="190" x2="695" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#F5F8FC"/>
+      <stop offset="1" stop-color="#CBD7E4"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-approval-_r37R_7_-gold" x1="610" y1="600" x2="850" y2="850" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF5B2"/>
+      <stop offset=".35" stop-color="#FFD24F"/>
+      <stop offset=".75" stop-color="#E69510"/>
+      <stop offset="1" stop-color="#AF5703"/>
+    </linearGradient>
+    <filter id="tl-tile-approval-_r37R_7_-shadow" x="-35%" y="-35%" width="180%" height="190%">
+      <feDropShadow dx="8" dy="22" stdDeviation="22" flood-color="#12305A" flood-opacity=".3"/>
+    </filter>
+    <filter id="tl-tile-approval-_r37R_7_-small" x="-45%" y="-45%" width="200%" height="210%">
+      <feDropShadow dx="4" dy="11" stdDeviation="10" flood-color="#193052" flood-opacity=".28"/>
+    </filter>
+    <filter id="tl-tile-approval-_r37R_7_-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-approval-_r37R_7_-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tl-tile-approval-_r37R_7_-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-approval-_r37R_7_-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#102D60" opacity=".25" filter="url(#tl-tile-approval-_r37R_7_-blur)"/>
+    <g transform="rotate(-8 500 515)" filter="url(#tl-tile-approval-_r37R_7_-shadow)">
+      <path d="M313 263h392v529l-35-25-35 25-35-25-35 25-35-25-35 25-35-25-35 25-35-25-37 25V263Z" fill="url(#tl-tile-approval-_r37R_7_-white)"/>
+      <g fill="#B8C7D6">
+        <rect x="390" y="376" width="236" height="18" rx="9"/>
+        <rect x="390" y="438" width="180" height="16" rx="8"/>
+        <rect x="390" y="500" width="215" height="16" rx="8"/>
+      </g>
+      <circle cx="605" cy="642" r="67" fill="#51D7B9"/>
+      <path d="m570 643 25 25 48-55" fill="none" stroke="#FFFFFF" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <g transform="translate(252 498) rotate(24 100 180)" filter="url(#tl-tile-approval-_r37R_7_-small)">
+      <path d="M67 0h66v318l-33 65-33-65V0Z" fill="#FFFFFF"/>
+      <path d="M67 54h66v264H67Z" fill="#187EA5"/>
+      <path d="m67 318 33 65 33-65Z" fill="url(#tl-tile-approval-_r37R_7_-gold)"/>
+    </g>
+  </g>
+</svg>
+</span><span class="tl-notification-card__body"><span class="tl-notification-card__title"><span class="tl-notification-card__title-text">3일 넘은 결재</span></span><span class="tl-notification-card__description">지출결의 2건 · 구매품의 2건</span><span class="tl-notification-card__time">어제</span></span><span class="tl-notification-card__count"><span class="tl-badge" data-variant="solid" data-size="md" data-tone="danger" style="--tl-badge-solid:var(--tl-color-status-danger-default);--tl-badge-subtle:var(--tl-color-status-danger-subtle)"><span aria-hidden="true">4</span><span class="tl-sr-only">4건</span></span></span></button></div></div><p class="tl-site-sr">양옆 카드는 Trellis 컴포넌트로 그린 근태 · 연차 · 시재 · 알림 샘플입니다.</p><div class="tl-site-pager"><div class="tl-site-swatches" role="radiogroup" aria-label="회사 색"><button type="button" role="radio" aria-checked="false" class="tl-site-swatch" data-brand="orange" data-brand-pick="orange" aria-label="주황" title="주황"></button><button type="button" role="radio" aria-checked="false" class="tl-site-swatch" data-brand="blue" data-brand-pick="blue" aria-label="파랑" title="파랑"></button><button type="button" role="radio" aria-checked="false" class="tl-site-swatch" data-brand="teal" data-brand-pick="teal" aria-label="청록" title="청록"></button><button type="button" role="radio" aria-checked="false" class="tl-site-swatch" data-brand="forest" data-brand-pick="forest" aria-label="숲" title="숲"></button><button type="button" role="radio" aria-checked="false" class="tl-site-swatch" data-brand="violet" data-brand-pick="violet" aria-label="보라" title="보라"></button></div><button type="button" class="tl-site-icon-button tl-site-auto tl-focusable" data-brand-auto aria-pressed="false" aria-label="회사 색 자동 전환"><span class="tl-site-auto-on"><svg class="tl-icon" width="16" height="16" data-size="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="14" y="3" width="5" height="18" rx="1"></rect><rect x="5" y="3" width="5" height="18" rx="1"></rect></svg></span><span class="tl-site-auto-off"><svg class="tl-icon" width="16" height="16" data-size="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"></path></svg></span></button></div></section><div class="tl-site-sheet"><section class="tl-site-section tl-site-wrap tl-site-bento" aria-labelledby="bento-h"><div class="tl-site-bento-col"><div class="tl-site-bento-intro"><p class="tl-site-eyebrow">구성</p><h2 class="tl-site-title" id="bento-h">토큰 JSON이 유일한 원본입니다</h2><p class="tl-site-lead">토큰 433개가 CSS 변수 · TypeScript · Figma 변수로 빌드됩니다. 컴포넌트 121종과 화면 블록 76개는 그 값만 씁니다.</p></div><article class="tl-site-tile" data-tile="theme"><div class="tl-site-tile-head"><h3 class="tl-site-tile-title">컬러 하나로 테마를 만듭니다</h3><p class="tl-site-text">색을 넣으면 버튼 · 링크 · 사이드바 색 단계를 계산하고 대비 검사 156건을 함께 돌립니다.</p><a class="tl-site-arrow" href="/themes/">테마 보기<svg class="tl-icon" width="16" height="16" data-size="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></div><div class="tl-site-tile-figure" data-figure="theme"><div class="tl-site-win" inert><div class="tl-site-win-nav"><span class="tl-site-win-brand">테라트레이딩</span><span class="tl-site-win-item" data-current><svg class="tl-icon" width="16" height="16" data-size="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg><span class="tl-site-win-label">대시보드</span></span><span class="tl-site-win-item"><svg class="tl-icon" width="16" height="16" data-size="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 13V8.5C14 7 15 7 15 5a3 3 0 0 0-6 0c0 2 1 2 1 3.5V13"></path><path d="M20 15.5a2.5 2.5 0 0 0-2.5-2.5h-11A2.5 2.5 0 0 0 4 15.5V17a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1z"></path><path d="M5 22h14"></path></svg><span class="tl-site-win-label">전자결재</span></span><span class="tl-site-win-item"><svg class="tl-icon" width="16" height="16" data-size="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg><span class="tl-site-win-label">근태</span></span><span class="tl-site-win-item"><svg class="tl-icon" width="16" height="16" data-size="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 17V7"></path><path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8"></path><path d="M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z"></path></svg><span class="tl-site-win-label">세금계산서</span></span></div><div class="tl-site-win-body"><div class="tl-site-win-head"><strong>11월 6일(금)</strong><button type="button" class="tl-button tl-focusable" data-variant="primary" data-size="sm"><span class="tl-button__label">결재 요청</span></button></div><div data-size="sm" class="tl-kpi-card" role="group" aria-labelledby="_r45R_0_"><span class="tl-kpi-card__head"><span class="tl-kpi-card__label" id="_r45R_0_">결재 대기</span></span><span class="tl-kpi-card__value"><span class="tl-kpi-card__number">12</span><span class="tl-kpi-card__unit">건</span></span><span class="tl-kpi-card__caption">3일 넘은 결재 4건</span></div><div data-size="sm" class="tl-kpi-card" role="group" aria-labelledby="_r46R_0_"><span class="tl-kpi-card__head"><span class="tl-kpi-card__label" id="_r46R_0_">당월 매출</span></span><span class="tl-kpi-card__value"><span class="tl-kpi-card__number">13억</span><span class="tl-kpi-card__unit">원</span></span><span class="tl-delta tl-kpi-card__delta" data-direction="up" data-polarity="finance" data-format="percent" data-size="sm" style="--tl-delta-icon:var(--tl-color-finance-income);--tl-delta-text:var(--tl-color-finance-income)"><span class="tl-delta__label">전월 대비</span><span class="tl-delta__value"><svg class="tl-icon tl-delta__icon" width="16" height="16" data-size="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 7h6v6"></path><path d="m22 7-8.5 8.5-5-5L2 17"></path></svg>+12.4%</span></span></div><ul class="tl-site-win-list"><li>지출결의서 · 김지훈<span class="tl-badge" data-variant="subtle" data-size="md" data-dot="true" data-approval="pending" style="--tl-badge-solid:var(--tl-color-approval-pending-default);--tl-badge-subtle:var(--tl-color-approval-pending-subtle)"><span class="tl-badge__dot" aria-hidden="true"></span>진행</span></li><li>구매품의서 · 이수민<span class="tl-badge" data-variant="subtle" data-size="md" data-dot="true" data-approval="approved" style="--tl-badge-solid:var(--tl-color-approval-approved-default);--tl-badge-subtle:var(--tl-color-approval-approved-subtle)"><span class="tl-badge__dot" aria-hidden="true"></span>승인</span></li><li>휴가 신청 · 박서연<span class="tl-badge" data-variant="subtle" data-size="md" data-dot="true" data-approval="draft" style="--tl-badge-solid:var(--tl-color-approval-draft-default);--tl-badge-subtle:var(--tl-color-approval-draft-subtle)"><span class="tl-badge__dot" aria-hidden="true"></span>기안</span></li></ul><span class="tl-site-win-link">결재함 열기</span></div></div><div class="tl-site-swatches" data-vertical role="radiogroup" aria-label="회사 색 미리 보기"><button type="button" role="radio" aria-checked="false" class="tl-site-swatch" data-round data-brand="orange" data-brand-pick="orange" aria-label="주황" title="주황"></button><button type="button" role="radio" aria-checked="false" class="tl-site-swatch" data-round data-brand="blue" data-brand-pick="blue" aria-label="파랑" title="파랑"></button><button type="button" role="radio" aria-checked="false" class="tl-site-swatch" data-round data-brand="teal" data-brand-pick="teal" aria-label="청록" title="청록"></button><button type="button" role="radio" aria-checked="false" class="tl-site-swatch" data-round data-brand="forest" data-brand-pick="forest" aria-label="숲" title="숲"></button><button type="button" role="radio" aria-checked="false" class="tl-site-swatch" data-round data-brand="violet" data-brand-pick="violet" aria-label="보라" title="보라"></button></div></div></article></div><div class="tl-site-bento-col"><article class="tl-site-tile" data-tile="components"><div class="tl-site-tile-head"><h3 class="tl-site-tile-title">컴포넌트 121종</h3><p class="tl-site-text">결재선 · 금액 입력 · 차트 15종까지 업무 화면에 쓰는 React 컴포넌트입니다. 라이트 · 다크 · 고대비와 밀도 세 단계가 있습니다.</p><a class="tl-site-arrow" href="/components/">컴포넌트 보기<svg class="tl-icon" width="16" height="16" data-size="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></div><div class="tl-site-tile-figure" data-figure="components"><style>astro-island,astro-slot,astro-static-slot{display:contents}</style><script>(function(){let e=(e,t,n)=>{let r=async()=>{await(await e())()},i=typeof t.value==`object`?t.value:void 0,a={rootMargin:i==null?void 0:i.rootMargin},o=new IntersectionObserver(e=>{for(let t of e)if(t.isIntersecting){o.disconnect(),r();break}},a);for(let e of n.children)o.observe(e)};(self.Astro||(self.Astro={})).visible=e,window.dispatchEvent(new Event(`astro:visible`))})();</script><script>(function(){function e(t){"@babel/helpers - typeof";return e=typeof Symbol==`function`&&typeof Symbol.iterator==`symbol`?function(e){return typeof e}:function(e){return e&&typeof Symbol==`function`&&e.constructor===Symbol&&e!==Symbol.prototype?`symbol`:typeof e},e(t)}function t(t,n){if(e(t)!=`object`||!t)return t;var r=t[Symbol.toPrimitive];if(r!==void 0){var i=r.call(t,n||`default`);if(e(i)!=`object`)return i;throw TypeError(`@@toPrimitive must return a primitive value.`)}return(n===`string`?String:Number)(t)}function n(n){var r=t(n,`string`);return e(r)==`symbol`?r:r+``}function r(e,t,r){return(t=n(t))in e?Object.defineProperty(e,t,{value:r,enumerable:!0,configurable:!0,writable:!0}):e[t]=r,e}let i=/* @__PURE__ */ new Set([`__proto__`,`constructor`,`prototype`]);{let e={0:e=>a(e),1:e=>n(e),2:e=>new RegExp(e),3:e=>new Date(e),4:e=>new Map(n(e)),5:e=>new Set(n(e)),6:e=>BigInt(e),7:e=>new URL(e),8:e=>new Uint8Array(e),9:e=>new Uint16Array(e),10:e=>new Uint32Array(e),11:e=>1/0*e},t=t=>{let[n,r]=t;return n in e?e[n](r):void 0},n=e=>e.map(t),a=e=>typeof e!=`object`||!e?e:Object.fromEntries(Object.entries(e).map(([e,n])=>[e,t(n)]));class o extends HTMLElement{constructor(...e){super(...e),r(this,`Component`,void 0),r(this,`hydrator`,void 0),r(this,`hydrate`,async()=>{var e;if(!this.hydrator||!this.isConnected)return;let t=(e=this.parentElement)==null?void 0:e.closest(`astro-island[ssr]`);if(t){t.addEventListener(`astro:hydrate`,this.hydrate,{once:!0});return}let n=this.querySelectorAll(`astro-slot`),r={},i=this.querySelectorAll(`template[data-astro-template]`);for(let e of i){let t=e.closest(this.tagName);t!=null&&t.isSameNode(this)&&(r[e.getAttribute(`data-astro-template`)||`default`]=e.innerHTML,e.remove())}for(let e of n){let t=e.closest(this.tagName);t!=null&&t.isSameNode(this)&&(r[e.getAttribute(`name`)||`default`]=e.innerHTML)}let o;try{o=this.hasAttribute(`props`)?a(JSON.parse(this.getAttribute(`props`))):{}}catch(e){let t=this.getAttribute(`component-url`)||`<unknown>`,n=this.getAttribute(`component-export`);throw n&&(t+=` (export ${n})`),console.error(`[hydrate] Error parsing props for component ${t}`,this.getAttribute(`props`),e),e}await this.hydrator(this)(this.Component,o,r,{client:this.getAttribute(`client`)}),this.removeAttribute(`ssr`),this.dispatchEvent(new CustomEvent(`astro:hydrate`))}),r(this,`unmount`,()=>{this.isConnected||this.dispatchEvent(new CustomEvent(`astro:unmount`))})}disconnectedCallback(){document.removeEventListener(`astro:after-swap`,this.unmount),document.addEventListener(`astro:after-swap`,this.unmount,{once:!0})}connectedCallback(){if(!this.hasAttribute(`await-children`)||document.readyState===`interactive`||document.readyState===`complete`)this.childrenConnectedCallback();else{let e=()=>{document.removeEventListener(`DOMContentLoaded`,e),t.disconnect(),this.childrenConnectedCallback()},t=new MutationObserver(()=>{var t;((t=this.lastChild)==null?void 0:t.nodeType)===Node.COMMENT_NODE&&this.lastChild.nodeValue===`astro:end`&&(this.lastChild.remove(),e())});t.observe(this,{childList:!0}),document.addEventListener(`DOMContentLoaded`,e)}}async childrenConnectedCallback(){let e=this.getAttribute(`before-hydration-url`);e&&await import(e),this.start()}getRetryImportUrl(e){let t=new URL(e,document.baseURI);return t.searchParams.set(`astro-retry`,Date.now().toString()),t.toString()}async importWithRetry(e){try{return await import(e)}catch(t){return await new Promise(e=>setTimeout(e,1e3)),import(this.getRetryImportUrl(e))}}handleHydrationError(e){let t=this.getAttribute(`component-url`),n=new CustomEvent(`astro:hydration-error`,{cancelable:!0,bubbles:!0,composed:!0,detail:{error:e,componentUrl:t}});this.dispatchEvent(n)&&console.error(`[astro-island] Error hydrating ${t}`,e)}async start(){let e=JSON.parse(this.getAttribute(`opts`)),t=this.getAttribute(`client`);if(Astro[t]===void 0)window.addEventListener(`astro:${t}`,()=>this.start(),{once:!0});else try{await Astro[t](async()=>{let e=this.getAttribute(`renderer-url`);try{let[t,{default:n}]=await Promise.all([this.importWithRetry(this.getAttribute(`component-url`)),e?this.importWithRetry(e):Promise.resolve({default:()=>()=>{}})]),r=this.getAttribute(`component-export`)||`default`;if(r.includes(`.`)){this.Component=t;for(let e of r.split(`.`)){if(i.has(e)||!this.Component||typeof this.Component!=`object`&&typeof this.Component!=`function`||!Object.hasOwn(this.Component,e))throw Error(`Invalid component export path: ${r}`);this.Component=this.Component[e]}}else{if(i.has(r))throw Error(`Invalid component export path: ${r}`);this.Component=t[r]}return this.hydrator=n,this.hydrate}catch(e){return this.handleHydrationError(e),()=>{}}},e,this)}catch(e){this.handleHydrationError(e)}}attributeChangedCallback(){this.hydrate()}}r(o,`observedAttributes`,[`props`]),customElements.get(`astro-island`)||customElements.define(`astro-island`,o)}})();</script><astro-island uid="1rKsjV" prefix="r51" component-url="/_astro/Samples.CH2f0pkU.js" component-export="ComponentSamples" renderer-url="/_astro/client.FasGtEyh.js" props="{}" ssr client="visible" opts="{&quot;name&quot;:&quot;ComponentSamples&quot;,&quot;value&quot;:true}" await-children><div class="tl-site-samples"><div class="tl-site-samples-row"><span class="tl-badge" data-variant="subtle" data-size="md" data-dot="true" data-approval="pending" style="--tl-badge-solid:var(--tl-color-approval-pending-default);--tl-badge-subtle:var(--tl-color-approval-pending-subtle)"><span class="tl-badge__dot" aria-hidden="true"></span>진행</span><span class="tl-badge" data-variant="subtle" data-size="md" data-dot="true" data-approval="approved" style="--tl-badge-solid:var(--tl-color-approval-approved-default);--tl-badge-subtle:var(--tl-color-approval-approved-subtle)"><span class="tl-badge__dot" aria-hidden="true"></span>승인</span><span class="tl-checkbox"><label class="tl-checkbox__row"><span data-checked="" role="checkbox" tabindex="0" id="base-ui-_r51R_bd_" aria-checked="true" class="tl-checkbox__box tl-focusable"><span data-checked="" class="tl-checkbox__indicator"><svg class="tl-icon" width="16" height="16" data-size="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></span></span><input id="_r51R_d_" style="clip-path:inset(50%);overflow:hidden;white-space:nowrap;border:0;padding:0;width:1px;height:1px;margin:0;position:fixed;top:0;left:0" tabindex="-1" type="checkbox" aria-hidden="true" checked=""/><span class="tl-checkbox__label">메일 발송</span></label></span><span class="tl-switch" data-size="md" data-size-auto="true"><label class="tl-switch__row"><span data-checked="" role="switch" tabindex="0" id="base-ui-_r51R_bh_" aria-checked="true" class="tl-switch__track tl-focusable"><span data-checked="" class="tl-switch__thumb"></span></span><input id="_r51R_h_" style="clip-path:inset(50%);overflow:hidden;white-space:nowrap;border:0;padding:0;width:1px;height:1px;margin:0;position:fixed;top:0;left:0" tabindex="-1" type="checkbox" aria-hidden="true" checked=""/><span class="tl-switch__label">자동 발행</span></label></span></div><div class="tl-site-samples-row" data-fill="true"><button type="button" class="tl-button tl-focusable" data-variant="secondary" data-size="lg"><span class="tl-button__label">임시 저장</span></button><button type="button" class="tl-button tl-focusable" data-variant="primary" data-size="lg"><span class="tl-button__label">결재 요청</span></button></div><span class="tl-input" data-size="md" data-align="left"><svg class="tl-icon tl-input__icon" width="16" height="16" data-size="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg><input class="tl-input__control" id="_r51R_3_" type="search" placeholder="거래처 · 품목 · 문서 번호" aria-label="검색" value=""/></span></div><!--astro:end--></astro-island></div></article><article class="tl-site-tile" data-tile="agent"><div class="tl-site-tile-head"><h3 class="tl-site-tile-title">에이전트용 문서가 패키지에 들어 있습니다</h3><p class="tl-site-text"><code>llms.txt</code> · <code>manifest.json</code> · 스킬이 패키지와 같은 버전으로 설치됩니다. 컴포넌트 121종의 props와 예시가 적혀 있습니다.</p><a class="tl-site-arrow" href="/docs/guide/agents/">에이전트로 개발하기<svg class="tl-icon" width="16" height="16" data-size="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></div><div class="tl-site-tile-figure" data-figure="agent"><div class="tl-site-agent"><p class="tl-site-agent-ask">세금계산서 목록 화면 만들어 줘</p><div class="tl-run-steps" data-run-state="running"><ol class="tl-run-steps__list" id="_r53R_2_-list" aria-label="에이전트 실행 단계"><li class="tl-run-steps__step" data-run-state="succeeded"><div class="tl-run-steps__row"><span class="tl-status-dot tl-run-steps__dot" data-tone="success" data-size="md" style="--tl-status-dot-color:var(--tl-color-status-success-default)"><span class="tl-status-dot__dot" aria-hidden="true"></span></span><span class="tl-run-steps__text"><span class="tl-run-steps__name">동봉 문서 읽기</span><span class="tl-run-steps__description">llms.txt · manifest.json</span></span><span class="tl-run-steps__state">완료</span><span class="tl-run-steps__duration">0.8초</span></div></li><li class="tl-run-steps__step" data-run-state="succeeded"><div class="tl-run-steps__row"><span class="tl-status-dot tl-run-steps__dot" data-tone="success" data-size="md" style="--tl-status-dot-color:var(--tl-color-status-success-default)"><span class="tl-status-dot__dot" aria-hidden="true"></span></span><span class="tl-run-steps__text"><span class="tl-run-steps__name">블록 고르기</span><span class="tl-run-steps__description">erp/tax/invoice-list</span></span><span class="tl-run-steps__state">완료</span><span class="tl-run-steps__duration">0.4초</span></div></li><li class="tl-run-steps__step" data-run-state="succeeded"><div class="tl-run-steps__row"><span class="tl-status-dot tl-run-steps__dot" data-tone="success" data-size="md" style="--tl-status-dot-color:var(--tl-color-status-success-default)"><span class="tl-status-dot__dot" aria-hidden="true"></span></span><span class="tl-run-steps__text"><span class="tl-run-steps__name">블록 복사</span><span class="tl-run-steps__description">pnpm ds:add</span></span><span class="tl-run-steps__state">완료</span><span class="tl-run-steps__duration">1.9초</span></div></li><li class="tl-run-steps__step" data-run-state="running"><div class="tl-run-steps__row"><span class="tl-status-dot tl-run-steps__dot" data-tone="info" data-size="md" data-pulse="true" style="--tl-status-dot-color:var(--tl-color-status-info-default)"><span class="tl-status-dot__dot" aria-hidden="true"></span></span><span class="tl-run-steps__text"><span class="tl-run-steps__name">칸 채우기</span><span class="tl-run-steps__description">columns · filters</span></span><span class="tl-run-steps__state">실행 중</span><span class="tl-run-steps__duration">2.6초</span></div></li></ol></div></div></div></article></div><div class="tl-site-bento-col"><article class="tl-site-tile" data-tile="blocks"><div class="tl-site-tile-head"><h3 class="tl-site-tile-title">화면 블록 76개</h3><p class="tl-site-text">목록 · 대시보드 · 결재 화면을 소스로 복사해 회사 규칙에 맞게 고칩니다.</p><a class="tl-site-arrow" href="/blocks/">블록 보기<svg class="tl-icon" width="16" height="16" data-size="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></div><div class="tl-site-tile-figure" data-figure="blocks" aria-hidden="true"><div class="tl-site-mosaic-col"><div class="tl-site-frame"><img class="tl-site-shot tl-site-when-light" src="/blocks/home--dashboard--trade.jpg" width="720" height="450" alt loading="lazy" decoding="async"><img class="tl-site-shot tl-site-when-dark" src="/blocks/home--dashboard--trade--dark.jpg" width="720" height="450" alt loading="lazy" decoding="async"></div><div class="tl-site-frame"><img class="tl-site-shot tl-site-when-light" src="/blocks/erp--tax--invoice-list.jpg" width="720" height="450" alt loading="lazy" decoding="async"><img class="tl-site-shot tl-site-when-dark" src="/blocks/erp--tax--invoice-list--dark.jpg" width="720" height="450" alt loading="lazy" decoding="async"></div><div class="tl-site-frame"><img class="tl-site-shot tl-site-when-light" src="/blocks/groupware--approval--document.jpg" width="720" height="450" alt loading="lazy" decoding="async"><img class="tl-site-shot tl-site-when-dark" src="/blocks/groupware--approval--document--dark.jpg" width="720" height="450" alt loading="lazy" decoding="async"></div><div class="tl-site-frame"><img class="tl-site-shot tl-site-when-light" src="/blocks/scm--inventory--stock.jpg" width="720" height="450" alt loading="lazy" decoding="async"><img class="tl-site-shot tl-site-when-dark" src="/blocks/scm--inventory--stock--dark.jpg" width="720" height="450" alt loading="lazy" decoding="async"></div></div><div class="tl-site-mosaic-col"><div class="tl-site-frame"><img class="tl-site-shot tl-site-when-light" src="/blocks/erp--hr-payroll--employees.jpg" width="720" height="450" alt loading="lazy" decoding="async"><img class="tl-site-shot tl-site-when-dark" src="/blocks/erp--hr-payroll--employees--dark.jpg" width="720" height="450" alt loading="lazy" decoding="async"></div><div class="tl-site-frame"><img class="tl-site-shot tl-site-when-light" src="/blocks/home--dashboard--people.jpg" width="720" height="450" alt loading="lazy" decoding="async"><img class="tl-site-shot tl-site-when-dark" src="/blocks/home--dashboard--people--dark.jpg" width="720" height="450" alt loading="lazy" decoding="async"></div><div class="tl-site-frame"><img class="tl-site-shot tl-site-when-light" src="/blocks/commerce--orders--list.jpg" width="720" height="450" alt loading="lazy" decoding="async"><img class="tl-site-shot tl-site-when-dark" src="/blocks/commerce--orders--list--dark.jpg" width="720" height="450" alt loading="lazy" decoding="async"></div><div class="tl-site-frame"><img class="tl-site-shot tl-site-when-light" src="/blocks/erp--accounting--journal.jpg" width="720" height="450" alt loading="lazy" decoding="async"><img class="tl-site-shot tl-site-when-dark" src="/blocks/erp--accounting--journal--dark.jpg" width="720" height="450" alt loading="lazy" decoding="async"></div></div></div></article></div></section><section class="tl-site-section tl-site-wrap tl-site-proof" aria-labelledby="proof-h"><div class="tl-site-proof-intro"><div class="tl-site-head"><p class="tl-site-eyebrow">원칙</p><h2 class="tl-site-title" id="proof-h">한국 업무 관습이 기본값입니다</h2></div><p class="tl-site-lead">금액 색 · 결재 어휘 · 밀도를 화면마다 다시 정하지 않습니다. 규칙을 어기면 린트와 테스트가 실패합니다.</p></div><ul class="tl-site-proof-list"><li class="tl-site-proof-item"><div class="tl-site-specimen"><table class="tl-site-mini-table"><caption>단위: 원</caption><thead><tr><th scope="col">일자</th><th scope="col">적요</th><th scope="col" data-align="right">수입</th><th scope="col" data-align="right">지출</th></tr></thead><tbody><tr><td>11-03</td><td>한빛무역 입금</td><td data-align="right" data-finance="income">12,400,000</td><td data-align="right" data-finance="expense"></td></tr><tr><td>11-04</td><td>포장재 발주</td><td data-align="right" data-finance="income"></td><td data-align="right" data-finance="expense">3,150,000</td></tr><tr><td>11-05</td><td>대양상사 입금</td><td data-align="right" data-finance="income">4,820,000</td><td data-align="right" data-finance="expense"></td></tr></tbody></table></div><h3 class="tl-site-tile-title">수입 빨강 · 지출 파랑</h3><p class="tl-site-text">금액은 원 단위 · 천 단위 구분 · 우측 정렬로 적습니다. 회사 색을 바꿔도 금액 색은 바뀌지 않습니다.</p><a class="tl-site-arrow" href="/docs/guide/principles/">원칙과 규칙<svg class="tl-icon" width="16" height="16" data-size="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></li><li class="tl-site-proof-item"><div class="tl-site-specimen" data-center><div class="tl-site-badges"><span class="tl-badge" data-variant="subtle" data-size="md" data-dot="true" data-approval="draft" style="--tl-badge-solid:var(--tl-color-approval-draft-default);--tl-badge-subtle:var(--tl-color-approval-draft-subtle)"><span class="tl-badge__dot" aria-hidden="true"></span>기안</span><span class="tl-badge" data-variant="subtle" data-size="md" data-dot="true" data-approval="pending" style="--tl-badge-solid:var(--tl-color-approval-pending-default);--tl-badge-subtle:var(--tl-color-approval-pending-subtle)"><span class="tl-badge__dot" aria-hidden="true"></span>진행</span><span class="tl-badge" data-variant="subtle" data-size="md" data-dot="true" data-approval="approved" style="--tl-badge-solid:var(--tl-color-approval-approved-default);--tl-badge-subtle:var(--tl-color-approval-approved-subtle)"><span class="tl-badge__dot" aria-hidden="true"></span>승인</span><span class="tl-badge" data-variant="subtle" data-size="md" data-dot="true" data-approval="rejected" style="--tl-badge-solid:var(--tl-color-approval-rejected-default);--tl-badge-subtle:var(--tl-color-approval-rejected-subtle)"><span class="tl-badge__dot" aria-hidden="true"></span>반려</span><span class="tl-badge" data-variant="subtle" data-size="md" data-dot="true" data-approval="withdrawn" style="--tl-badge-solid:var(--tl-color-approval-withdrawn-default);--tl-badge-subtle:var(--tl-color-approval-withdrawn-subtle)"><span class="tl-badge__dot" aria-hidden="true"></span>회수</span></div></div><h3 class="tl-site-tile-title">결재 상태는 다섯 개</h3><p class="tl-site-text">기안 · 진행 · 승인 · 반려 · 회수를 모든 모듈에서 같은 배지로 씁니다.</p><a class="tl-site-arrow" href="/docs/guide/content/">문구 규칙<svg class="tl-icon" width="16" height="16" data-size="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></li><li class="tl-site-proof-item"><div class="tl-site-specimen"><astro-island uid="ZWp8CQ" prefix="r62" component-url="/_astro/Samples.CH2f0pkU.js" component-export="DensitySample" renderer-url="/_astro/client.FasGtEyh.js" props="{}" ssr client="visible" opts="{&quot;name&quot;:&quot;DensitySample&quot;,&quot;value&quot;:true}" await-children><div class="tl-site-density"><div id="_r62R_1_" role="radiogroup" data-size="sm" aria-label="밀도" aria-orientation="horizontal" class="tl-segmented-control"><span data-checked="" role="radio" tabindex="-1" aria-checked="true" data-composite-item-active="" id="base-ui-_r62R_t_" class="tl-segmented-control__segment tl-focusable"><span class="tl-segmented-control__label">compact</span></span><input type="radio" id="base-ui-_r62R_tH1_" tabindex="-1" style="clip-path:inset(50%);overflow:hidden;white-space:nowrap;border:0;padding:0;width:1px;height:1px;margin:0;position:fixed;top:0;left:0" aria-hidden="true" checked="" value="compact"/><span data-unchecked="" role="radio" tabindex="-1" aria-checked="false" id="base-ui-_r62R_1d_" class="tl-segmented-control__segment tl-focusable"><span class="tl-segmented-control__label">comfortable</span></span><input type="radio" id="base-ui-_r62R_1dH1_" tabindex="-1" style="clip-path:inset(50%);overflow:hidden;white-space:nowrap;border:0;padding:0;width:1px;height:1px;margin:0;position:fixed;top:0;left:0" aria-hidden="true" value="comfortable"/><span data-unchecked="" role="radio" tabindex="-1" aria-checked="false" id="base-ui-_r62R_1t_" class="tl-segmented-control__segment tl-focusable"><span class="tl-segmented-control__label">touch</span></span><input type="radio" id="base-ui-_r62R_1tH1_" tabindex="-1" style="clip-path:inset(50%);overflow:hidden;white-space:nowrap;border:0;padding:0;width:1px;height:1px;margin:0;position:fixed;top:0;left:0" aria-hidden="true" value="touch"/></div><table class="tl-site-mini-table" data-density="compact"><caption class="tl-site-sr">밀도에 따라 줄 높이가 바뀌는 세금계산서 표(단위: 원)</caption><thead><tr><th scope="col">문서 번호</th><th scope="col">거래처</th><th scope="col" data-align="right">공급가액</th></tr></thead><tbody><tr><td>TI-2611-0012</td><td>(주)한빛무역</td><td data-align="right">12,400,000</td></tr><tr><td>TI-2611-0013</td><td>대양상사</td><td data-align="right">3,150,000</td></tr><tr><td>TI-2611-0014</td><td>누리식품</td><td data-align="right">874,500</td></tr></tbody></table></div><!--astro:end--></astro-island></div><h3 class="tl-site-tile-title">밀도는 <code>compact</code>가 기본</h3><p class="tl-site-text">한 화면에 더 많은 행을 보입니다. 휴대폰 폭에서는 <code>touch</code> 밀도로 자동 전환됩니다.</p><a class="tl-site-arrow" href="/docs/foundations/tokens/">토큰<svg class="tl-icon" width="16" height="16" data-size="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></li></ul></section><section class="tl-site-section tl-site-wrap" aria-labelledby="industry-h"><header class="tl-site-row-head"><div class="tl-site-head"><p class="tl-site-eyebrow">업종</p><h2 class="tl-site-title" id="industry-h">업종별 화면은 데모에서 엽니다</h2></div><a class="tl-site-arrow" href="/blocks/">블록 전체 보기<svg class="tl-icon" width="16" height="16" data-size="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></header><ul class="tl-site-industries"><li class="tl-site-industry"><a class="tl-site-industry-link" href="/demo/#/erp/tax/invoice-list"><span class="tl-site-frame"><img class="tl-site-shot tl-site-when-light" src="/blocks/erp--tax--invoice-list.jpg" srcset="/blocks/erp--tax--invoice-list.jpg 720w, /blocks/erp--tax--invoice-list@2x.jpg 1440w" sizes="(max-width: 767px) 100vw, 600px" width="720" height="450" alt loading="lazy" decoding="async"><img class="tl-site-shot tl-site-when-dark" src="/blocks/erp--tax--invoice-list--dark.jpg" srcset="/blocks/erp--tax--invoice-list--dark.jpg 720w, /blocks/erp--tax--invoice-list@2x--dark.jpg 1440w" sizes="(max-width: 767px) 100vw, 600px" width="720" height="450" alt loading="lazy" decoding="async"></span><span class="tl-site-industry-text"><strong class="tl-site-tile-title">세무 · 회계</strong><span class="tl-site-text">세금계산서 발행 · 부가세 신고 · 전표 입력 · 거래처 원장</span><span class="tl-site-industry-meta">데모에서 열기<svg class="tl-icon" width="16" height="16" data-size="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span></span></a></li><li class="tl-site-industry"><a class="tl-site-industry-link" href="/demo/#/scm/warehouse/receiving"><span class="tl-site-frame"><img class="tl-site-shot tl-site-when-light" src="/blocks/scm--warehouse--receiving.jpg" srcset="/blocks/scm--warehouse--receiving.jpg 720w, /blocks/scm--warehouse--receiving@2x.jpg 1440w" sizes="(max-width: 767px) 100vw, 600px" width="720" height="450" alt loading="lazy" decoding="async"><img class="tl-site-shot tl-site-when-dark" src="/blocks/scm--warehouse--receiving--dark.jpg" srcset="/blocks/scm--warehouse--receiving--dark.jpg 720w, /blocks/scm--warehouse--receiving@2x--dark.jpg 1440w" sizes="(max-width: 767px) 100vw, 600px" width="720" height="450" alt loading="lazy" decoding="async"></span><span class="tl-site-industry-text"><strong class="tl-site-tile-title">유통 · 물류</strong><span class="tl-site-text">발주 · 입고 검수 · 재고와 유통기한 · 선적과 통관 · 배차</span><span class="tl-site-industry-meta">데모에서 열기<svg class="tl-icon" width="16" height="16" data-size="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span></span></a></li><li class="tl-site-industry"><a class="tl-site-industry-link" href="/demo/#/commerce/orders/list"><span class="tl-site-frame"><img class="tl-site-shot tl-site-when-light" src="/blocks/commerce--orders--list.jpg" srcset="/blocks/commerce--orders--list.jpg 720w, /blocks/commerce--orders--list@2x.jpg 1440w" sizes="(max-width: 767px) 100vw, 600px" width="720" height="450" alt loading="lazy" decoding="async"><img class="tl-site-shot tl-site-when-dark" src="/blocks/commerce--orders--list--dark.jpg" srcset="/blocks/commerce--orders--list--dark.jpg 720w, /blocks/commerce--orders--list@2x--dark.jpg 1440w" sizes="(max-width: 767px) 100vw, 600px" width="720" height="450" alt loading="lazy" decoding="async"></span><span class="tl-site-industry-text"><strong class="tl-site-tile-title">이커머스</strong><span class="tl-site-text">상품 · 주문 상세 · 취소와 반품 · 채널 정산</span><span class="tl-site-industry-meta">데모에서 열기<svg class="tl-icon" width="16" height="16" data-size="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span></span></a></li><li class="tl-site-industry"><a class="tl-site-industry-link" href="/demo/#/mes/shop-floor/board"><span class="tl-site-frame"><img class="tl-site-shot tl-site-when-light" src="/blocks/mes--shop-floor--board.jpg" srcset="/blocks/mes--shop-floor--board.jpg 720w, /blocks/mes--shop-floor--board@2x.jpg 1440w" sizes="(max-width: 767px) 100vw, 600px" width="720" height="450" alt loading="lazy" decoding="async"><img class="tl-site-shot tl-site-when-dark" src="/blocks/mes--shop-floor--board--dark.jpg" srcset="/blocks/mes--shop-floor--board--dark.jpg 720w, /blocks/mes--shop-floor--board@2x--dark.jpg 1440w" sizes="(max-width: 767px) 100vw, 600px" width="720" height="450" alt loading="lazy" decoding="async"></span><span class="tl-site-industry-text"><strong class="tl-site-tile-title">제조</strong><span class="tl-site-text">현장 보드 · 생산 실적 · 설비 · 품질 검사</span><span class="tl-site-industry-meta">데모에서 열기<svg class="tl-icon" width="16" height="16" data-size="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span></span></a></li></ul></section><section class="tl-site-section tl-site-wrap" aria-labelledby="cta-h"><div class="tl-site-cta"><div class="tl-site-cta-corners" aria-hidden="true"><div class="tl-site-frame" data-corner="1"><img class="tl-site-shot tl-site-when-light" src="/blocks/home--dashboard--people.jpg" width="720" height="450" alt loading="lazy" decoding="async"><img class="tl-site-shot tl-site-when-dark" src="/blocks/home--dashboard--people--dark.jpg" width="720" height="450" alt loading="lazy" decoding="async"></div><div class="tl-site-frame" data-corner="2"><img class="tl-site-shot tl-site-when-light" src="/blocks/groupware--approval--document.jpg" width="720" height="450" alt loading="lazy" decoding="async"><img class="tl-site-shot tl-site-when-dark" src="/blocks/groupware--approval--document--dark.jpg" width="720" height="450" alt loading="lazy" decoding="async"></div><div class="tl-site-frame" data-corner="3"><img class="tl-site-shot tl-site-when-light" src="/blocks/erp--hr-payroll--payslip.jpg" width="720" height="450" alt loading="lazy" decoding="async"><img class="tl-site-shot tl-site-when-dark" src="/blocks/erp--hr-payroll--payslip--dark.jpg" width="720" height="450" alt loading="lazy" decoding="async"></div><div class="tl-site-frame" data-corner="4"><img class="tl-site-shot tl-site-when-light" src="/blocks/home--dashboard--trade.jpg" width="720" height="450" alt loading="lazy" decoding="async"><img class="tl-site-shot tl-site-when-dark" src="/blocks/home--dashboard--trade--dark.jpg" width="720" height="450" alt loading="lazy" decoding="async"></div></div><div class="tl-site-cta-copy"><h2 class="tl-site-cta-title" id="cta-h"><span class="tl-site-cta-word"><svg class="tl-site-mark" viewBox="0 0 500 395" width="500" height="395" aria-hidden="true" focusable="false"><path d="M60 0H172A60 60 0 0 1 232 60V114A60 60 0 0 1 172 174H60A60 60 0 0 1 0 114V60A60 60 0 0 1 60 0ZM332 0H440A60 60 0 0 1 500 60V114A60 60 0 0 1 440 174H361A42 42 0 0 0 319 216V335A60 60 0 0 1 259 395H207A60 60 0 0 1 147 335V249.5C147 216 180.4 194.2 206.9 182.5C235.3 169.9 268 145.6 268 110.5V64A64 64 0 0 1 332 0Z"></path></svg>Trellis</span> 전체는<br>문서와 데모에 있습니다</h2><p class="tl-site-lead">설치와 회사 테마 안내는 문서에 있습니다. 무역 회사 샘플 화면 76개는 데모에서 엽니다.</p><div class="tl-site-actions"><a class="tl-button tl-focusable" data-variant="primary" data-size="lg" href="/docs/guide/install/">시작하기</a><a class="tl-button tl-focusable" data-variant="secondary" data-size="lg" href="/demo/">데모 열기</a></div></div></div></section></div><script type="module" src="/_astro/index.astro_astro_type_script_index_0_lang.D5Mk_SvJ.js"></script></main><footer class="tl-site-foot"><div class="tl-site-foot-row"><a class="tl-site-brand" href="/" aria-label="Trellis 홈"><svg class="tl-site-mark" viewBox="0 0 500 395" width="500" height="395" aria-hidden="true" focusable="false"><path d="M60 0H172A60 60 0 0 1 232 60V114A60 60 0 0 1 172 174H60A60 60 0 0 1 0 114V60A60 60 0 0 1 60 0ZM332 0H440A60 60 0 0 1 500 60V114A60 60 0 0 1 440 174H361A42 42 0 0 0 319 216V335A60 60 0 0 1 259 395H207A60 60 0 0 1 147 335V249.5C147 216 180.4 194.2 206.9 182.5C235.3 169.9 268 145.6 268 110.5V64A64 64 0 0 1 332 0Z"></path></svg><span class="tl-site-brand-name">Trellis</span></a><nav class="tl-site-foot-nav" aria-label="바닥 메뉴"><a href="/docs/guide/overview/">문서</a><a href="/components/">컴포넌트</a><a href="/blocks/">블록</a><a href="/themes/">테마</a><a href="/demo/">데모</a><a href="/docs/changelog/">변경 기록</a><a href="/faq/">자주 묻는 질문</a><a href="/llms.txt">llms.txt</a><a href="/en/">English</a><a href="https://github.com/terracelab/trellis">GitHub</a></nav></div><div class="tl-site-foot-row tl-site-foot-note"><span>Trellis는 테라스랩의 디자인 시스템입니다. 지금 버전은 v1.0이고 화면의 회사 이름과 숫자는 샘플입니다.</span><span>글꼴 Pretendard · 아이콘 Lucide</span><span>© 2026 테라스랩</span></div></footer><script type="module" src="/_astro/Base.astro_astro_type_script_index_0_lang.rGruCsnD.js"></script></body></html>
