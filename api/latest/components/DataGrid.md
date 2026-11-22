@@ -12,7 +12,7 @@ import { DataGrid } from '@terracelab/trellis-react';
 
 ## 해부(Anatomy)
 
-wrapper(`bg.surface`, `border.divider`, `radius.lg`, 가로 스크롤) · head(고정, `bg.canvas`, `type.label` fg.secondary) · row(높이 `density.row-height`, 아래 `border.divider`, hover `bg.canvas`, 열린 행 `brand.subtle` 바탕만) · cell(숫자는 오른쪽 · tabular, 단위는 fg.tertiary) · tone(`data-tone`만 단다. 왼쪽 띠 · 행 바탕은 그리지 않고 상태는 상태 열의 점 · 배지가 보인다) · foot(합계, 아래 고정, 600) · 정렬 아이콘(정렬 중인 열만 보이고, 나머지 열은 가리키거나 포커스할 때 나타난다. 터치 화면은 늘 보임) · 셀 안 상태 배지(점이 있는 subtle Badge는 바탕 없이 점 + 글자 500으로 줄인다. 점 없는 태그 · solid는 그대로). 좁은 화면(`breakpoint.sm` 미만): cards(행마다 카드 `bg.surface` · `border.divider` · `radius.lg`, 안쪽 `space.12` `space.16`) · card-top(title 500 + 오른쪽 trailing `type.amount`) · card-status(배지 줄) · card-meta(`type.label` fg.secondary, 항목 사이 `·`, 숫자는 열 이름을 앞에) · chevron(onRowPress가 있을 때) · cards-head(전체 선택) · cards-foot(합계 = trailing 열의 합). 업무 기능: head-cell(이름 + 정렬 + 필터 단추 24, 걸린 필터는 `fg.link` 색 + 이름 "<열> 필터 적용됨") · settings(머리 끝 열, 오른쪽에 고정) · popover(`bg.elevated` · `border.default` · `radius.md` · `shadow.md`, 다크는 그림자 없음) · group(묶음 머리 행 `bg.canvas` 600, 펼침 화살표 + 이름 + 건수 `fg.secondary`, 소계는 total: 'sum' 열 자리) · tree(첫 칸을 단계마다 `space.20` 들이고, 펼침 단추 24 자리를 잎 행도 비워 맞춘다) · edit(값이 보이는 단추, 가리키면 `border.default` 안쪽 테두리 · 편집 중엔 `border.focus` 입력 칸 · 틀리면 `status.danger.default` 테두리와 칸 아래 이유) · card-group(카드 사이 묶음 머리, 소계는 trailing 열). PR-26: head 글자는 fg.primary 600(본문보다 흐리지 않게) · head-unit(amount 열 머리 뒤 "(원)", currency는 통화 코드, fg.secondary 400. 칸에는 원을 붙이지 않는다) · dividers(all이면 칸 사이 세로 `border.divider`, auto = 오른쪽 정렬 열 4개 이상) · emphasis 열(왼쪽 `border.strong` + 600, 바탕 없음) · link 열(`fg.primary` 500, 누를 수 있는 행에서 가리키거나 키보드로 오면 밑줄. 링크 색 `fg.link`는 회사 색이라 위험 빨강 배지 옆에서 이름이 오류처럼 읽혀 쓰지 않는다. 칸 전체가 링크이고 행이 상세를 연다는 것은 행 단서 · 밑줄 · 이름으로도 알 수 있어 색이 없어도 된다(WCAG 1.4.1), D-146 제안) · actions(행 끝 칸, 기본 행동 단추 sm 1개 + 더보기 IconButton, 오른쪽 정렬) · lines(DataGridLines: 이름 + 보조 줄 `type.caption` fg.secondary. 이 칸이 든 행은 `density.row-height-tall`). PR-30: group-head(열 묶음 머리, 덮는 열 위 가운데 600, 묶음 양 끝 `border.divider` 세로선, 두 번째 머리 줄은 `density.row-height` 아래에 고정) · dirty(저장 전 칸 오른쪽 위 점 `space.6` 원 `brand.default` + 숨은 글자 "저장 전". 왼쪽 띠 · 칸 바탕은 쓰지 않는다) · flash(flashKey 행 `bg.row-selected` 1초, 들고 나는 것은 행 transition `duration.fast`) · block(오류 · 빈 상태 · 검색 결과 없음은 EmptyState sm 한 칸, 카드 모양은 카드 상자 안) · cell focus(grid의 단추 없는 칸은 칸 자신에 `border.focus` 안쪽 링).
+wrapper(`bg.surface`, `border.divider`, `radius.lg`, 가로 스크롤) · head(고정, `bg.canvas`, `type.label` fg.secondary) · row(높이 `density.row-height`, 아래 `border.divider`, hover `bg.canvas`, 열린 행 `brand.subtle` 바탕만) · cell(숫자는 오른쪽 · tabular, 단위는 fg.tertiary) · tone(`data-tone`만 단다. 왼쪽 띠 · 행 바탕은 그리지 않고 상태는 상태 열의 점 · 배지가 보인다) · foot(합계, 아래 고정, 600) · 정렬 아이콘(정렬 중인 열만 보이고, 나머지 열은 가리키거나 포커스할 때 나타난다. 터치 화면은 늘 보임) · 셀 안 상태 배지(점이 있는 subtle Badge는 바탕 없이 점 + 글자 500으로 줄인다. 점 없는 태그 · solid는 그대로). 좁은 화면(`breakpoint.sm` 미만): cards(행마다 카드 `bg.surface` · `border.divider` · `radius.lg`, 안쪽 `space.12` `space.16`) · card-top(title 500 + 오른쪽 trailing `type.amount`) · card-status(배지 줄) · card-meta(`type.label` fg.secondary, 항목 사이 `·`, 숫자는 열 이름을 앞에) · chevron(onRowPress가 있을 때) · cards-head(전체 선택) · cards-foot(합계 = trailing 열의 합). 업무 기능: head-cell(이름 + 정렬 + 필터 단추 24, 걸린 필터는 `fg.link` 색 + 이름 "<열> 필터 적용됨") · settings(머리 끝 열, 오른쪽에 고정) · popover(`bg.elevated` · `border.default` · `radius.md` · `shadow.md`, 다크는 그림자 없음) · group(묶음 머리 행 `bg.canvas` 600, 펼침 화살표 + 이름 + 건수 `fg.secondary`, 소계는 total: 'sum' 열 자리) · tree(첫 칸을 단계마다 `space.20` 들이고, 펼침 단추 24 자리를 잎 행도 비워 맞춘다) · edit(값이 보이는 단추, 가리키면 `border.default` 안쪽 테두리 · 편집 중엔 `border.focus` 입력 칸 · 틀리면 `status.danger.default` 테두리와 칸 아래 이유) · card-group(카드 사이 묶음 머리, 소계는 trailing 열). PR-26: head 글자는 fg.primary 600(본문보다 흐리지 않게) · head-unit(amount 열 머리 뒤 "(원)", currency는 통화 코드, fg.secondary 400. 칸에는 원을 붙이지 않는다) · dividers(all이면 칸 사이 세로 `border.divider`, auto = 오른쪽 정렬 열 4개 이상) · emphasis 열(왼쪽 `border.strong` + 600, 바탕 없음) · link 열(`fg.primary` 500, 누를 수 있는 행에서 가리키거나 키보드로 오면 밑줄. 링크 색 `fg.link`는 회사 색이라 위험 빨강 배지 옆에서 이름이 오류처럼 읽혀 쓰지 않는다. 칸 전체가 링크이고 행이 상세를 연다는 것은 행 단서 · 밑줄 · 이름으로도 알 수 있어 색이 없어도 된다(WCAG 1.4.1), D-146 제안) · actions(행 끝 칸, 기본 행동 단추 sm 1개 + 더보기 IconButton, 오른쪽 정렬) · lines(DataGridLines: 이름 + 보조 줄 `type.caption` fg.secondary. 이 칸이 든 행은 `density.row-height-tall`). PR-30: group-head(열 묶음 머리, 덮는 열 위 가운데 600, 묶음 양 끝 `border.divider` 세로선, 두 번째 머리 줄은 `density.row-height` 아래에 고정) · dirty(저장 전 칸 오른쪽 위 점 `space.6` 원 `brand.default` + 숨은 글자 "저장 전". 왼쪽 띠 · 칸 바탕은 쓰지 않는다) · flash(flashKey 행 `bg.row-selected` 1초, 들고 나는 것은 행 transition `duration.fast`) · block(오류 · 빈 상태 · 검색 결과 없음은 EmptyState sm 한 칸, 카드 모양은 카드 상자 안) · cell focus(grid의 단추 없는 칸은 칸 자신에 `border.focus` 안쪽 링). R-08: copy(copyable 열 칸 = 값 + IconButton sm `copy`, 누르면 2초 `check`. 빈 칸은 단추 폭만큼 비우고 머리 · 합계 칸도 그만큼 안쪽을 더 둬 오른쪽 정렬 숫자 끝이 맞는다. 알림 글자 "복사했습니다"는 표에 라이브 영역 하나).
 
 ## Props
 
@@ -60,7 +60,7 @@ wrapper(`bg.surface`, `border.divider`, `radius.lg`, 가로 스크롤) · head(�
 
 ## Variants
 
-selectable · summary · height auto · fill(남은 높이까지만 자라고 줄이 적으면 내용에서 끝난다) · 열 폭 xs ~ xl · mobile cards(기본) · scroll · 칸 편집(column.editable + onCellChange) · 열 필터(column.filter text · values) · 열 설정(columnSettings, storageKey) · 묶음(groupBy) · 트리(childrenKey) · 가상 스크롤(virtualize). dividers rows · all · auto · rowActions · column.link · column.emphasis · column.headerUnit · DataGridLines(두 줄 칸). PR-30: error(오류 블록) · filtered(검색 결과 없음 모양) · groups + column.group(열 묶음 머리) · isDirty · dirtyHint(저장 전 칸) · scrollToKey · flashKey(행 찾아가기) · column.priority low(폭 1024~1279에서 숨김).
+selectable · summary · height auto · fill(남은 높이까지만 자라고 줄이 적으면 내용에서 끝난다) · 열 폭 xs ~ xl · mobile cards(기본) · scroll · 칸 편집(column.editable + onCellChange) · 열 필터(column.filter text · values) · 열 설정(columnSettings, storageKey) · 묶음(groupBy) · 트리(childrenKey) · 가상 스크롤(virtualize). dividers rows · all · auto · rowActions · column.link · column.emphasis · column.headerUnit · DataGridLines(두 줄 칸). PR-30: error(오류 블록) · filtered(검색 결과 없음 모양) · groups + column.group(열 묶음 머리) · isDirty · dirtyHint(저장 전 칸) · scrollToKey · flashKey(행 찾아가기) · column.priority low(폭 1024~1279에서 숨김). R-08: column.copyable · copyText(칸 복사. 숫자 서식은 구분 기호 없이 숫자만, 글자 열은 보이는 글자. 빈 칸 · 편집 칸 · 좁은 화면 카드에는 단추가 없다. 신고서 값을 국세청 사이트에 옮겨 적는 표에 쓴다).
 
 ## States
 
@@ -832,6 +832,45 @@ function WidePayroll() {
         money('local', '지방소득세'),
         money('deduct', '공제 합계'),
         { ...money('net', '실지급'), emphasis: true, sticky: 'end' },
+      ]}
+    />
+  );
+}
+```
+
+### 칸 복사
+
+신고서 값을 국세청 사이트에 옮겨 적는 표. 금액 칸의 단추는 구분 기호 없이 숫자만 복사한다(R-08)
+
+```tsx
+import { DataGrid } from '@terracelab/trellis-react';
+
+const RETURN_LINES = [
+  { no: '1', item: '과세 · 세금계산서 발급분', supply: 128_400_000, tax: 12_840_000 },
+  { no: '2', item: '과세 · 매입자발행 세금계산서', supply: 0, tax: 0 },
+  { no: '3', item: '과세 · 신용카드 · 현금영수증 발행분', supply: 6_210_000, tax: 621_000 },
+  { no: '5', item: '영세율 · 세금계산서 발급분', supply: 42_000_000, tax: 0 },
+];
+
+function CopyValues() {
+  return (
+    <DataGrid
+      caption="부가세 신고서 매출 칸"
+      rows={RETURN_LINES}
+      rowKey="no"
+      summary
+      columns={[
+        { key: 'no', header: '칸', width: 'xs', align: 'center' },
+        { key: 'item', header: '항목' },
+        {
+          key: 'supply',
+          header: '금액',
+          width: 'lg',
+          format: 'amount',
+          total: 'sum',
+          copyable: true,
+        },
+        { key: 'tax', header: '세액', width: 'lg', format: 'amount', total: 'sum', copyable: true },
       ]}
     />
   );

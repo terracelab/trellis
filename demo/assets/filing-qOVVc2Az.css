@@ -1,0 +1,1 @@
+.tl-block-tax-inset{padding-inline:var(--tl-density-card-padding)}.tl-block-tax-filing{gap:var(--tl-space-16);align-items:start;display:grid}@media (width>=64rem){.tl-block-tax-filing[data-split]{gap:var(--tl-space-24);grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}

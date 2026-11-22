@@ -1,1 +1,0 @@
-import{An as e,Fn as t,Nn as n}from"./Button-B0uoqFma.js";function r(r){return r==null?n:r.type.startsWith(`key`)?e:r.type.startsWith(`mouse`)||r.type.startsWith(`pointer`)?t:n}export{r as t};

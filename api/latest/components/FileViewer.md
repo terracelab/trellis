@@ -12,7 +12,7 @@ import { FileViewer } from '@terracelab/trellis-react';
 
 ## 해부(Anatomy)
 
-root(`tl-file-viewer`, `role="group"`, 테두리 `border.divider` · `radius.lg` · 바탕 `bg.surface`) · bar(도구 줄, 아래 선 `border.divider`, 안쪽 여백 `space.4` `space.8`) · name(파일 아이콘 16 `fg.tertiary` + 이름 `type.label` 600 `fg.primary` 말줄임 + 형식 · 크기 `type.caption` `fg.secondary` tabular) · tools(`role="toolbar"`, IconButton ghost sm, 묶음 사이 세로 선 `border.divider`) · value(배율 125% · 쪽 3 / 12, `type.caption` tabular `fg.secondary`) · stage(보기 영역, 바탕 `bg.sunken`, 넘치면 안에서 스크롤, 포커스 링 `border.focus` 안쪽) · image(그림, 그림자 `shadow.sm`) · pdf(`object`, 영역 전체) · card(EmptyState: 형식 아이콘 · 안내 · 다운로드 단추) · status(숨은 알림 줄, 배율 · 쪽 · 회전이 바뀌면 읽는다).
+root(`tl-file-viewer`, `role="group"`, 테두리 `border.divider` · `radius.lg` · 바탕 `bg.surface`) · bar(도구 줄, 아래 선 `border.divider`, 안쪽 여백 `space.4` `space.8`) · name(파일 아이콘 16 `fg.tertiary` + 이름 `type.label` 600 `fg.primary` 말줄임 + 형식 · 크기 `type.caption` `fg.secondary` tabular) · tools(`role="toolbar"`, IconButton ghost sm, 묶음 사이 세로 선 `border.divider`) · value(배율 125% · 쪽 3 / 12, `type.caption` tabular `fg.secondary`) · stage(보기 영역, 바탕 `bg.sunken`, 넘치면 안에서 스크롤, 포커스 링 `border.focus` 안쪽) · image(그림, 그림자 `shadow.sm`) · pdf(`object`, 영역 전체) · card(EmptyState: 형식 아이콘 · 안내 · 다운로드 단추) · status(숨은 알림 줄, 배율 · 쪽 · 회전이 바뀌면 읽는다) · pin(R-02, 그림 위 위치 코멘트: 원 `size.icon-24` · 바탕 `brand.default` · 글자 `brand.on-brand` caption 600 tabular · 테두리 2 `bg.surface` · `shadow.sm`. 해결됨 = 바탕 `fg.tertiary` 글자 `fg.inverse`, 고른 핀 = 바깥 고리 2 `border.focus`, 고르는 중인 자리 = 점선 고리 `brand.default` + `brand.subtle`).
 
 ## Props
 
@@ -34,6 +34,10 @@ root(`tl-file-viewer`, `role="group"`, 테두리 `border.divider` · `radius.lg`
 | `onRetry` | `() => void` |  |  | 오류 블록의 다시 시도 |
 | `onDownload` | `() => void` |  |  | 다운로드(없으면 src를 받는다) |
 | `downloadable` | `boolean` | `true` |  | 다운로드 단추 |
+| `pins` | `FileViewerPin[]` |  |  | 그림 위 위치 코멘트 핀(x · y는 원본 그림 0~1, label · title · resolved) |
+| `activePin` | `string \| null` |  |  | 강조할 핀 id |
+| `onPinPress` | `(id: string) => void` |  |  | 핀을 누를 때 |
+| `onPinAdd` | `(point: { x: number; y: number }) => void` |  |  | 있으면 "위치 코멘트" 도구. 그림에서 고른 자리(0~1)를 받는다 |
 
 ## Variants
 
@@ -63,6 +67,8 @@ PDF: 브라우저 내장 PDF 보기를 `object`로 넣고 쪽 · 배율을 주�
 
 다운로드: `onDownload`가 있으면 그것, 없으면 `src`를 파일 이름으로 받는다(`a[download]`). `downloadable={false}`면 단추가 없다.
 
+위치 코멘트(R-02, 그림만): `pins`의 x · y는 회전 전 원본 그림 기준 0~1 비율이라 확대 · 회전해도 같은 자리에 선다(`rotatePinPoint`). 핀 가운데가 그 자리이고 번호는 `label`, 없으면 목록 순서다. `onPinPress`가 있으면 핀은 단추이고(이름 "코멘트 2: 첫 줄", 해결됨이면 ", 해결됨"), 없으면 이름 있는 그림이다. 고른 코멘트는 `activePin`(aria-current). `onPinAdd`가 있으면 도구 줄 배율 묶음 끝에 "위치 코멘트" 토글(`map-pin`)이 선다. 켜면 보기 영역에 포커스가 가고 가운데에 고르는 자리 표시가 선다. 그림을 누르거나 방향 키(2%, Shift 10%)로 옮기고 Enter · Space를 누르면 그 자리를 원본 그림 비율(`unrotatePinPoint`, 소수 넷째 자리)로 넘기고 꺼진다. Esc는 그만둔다. 켜져 있는 동안 끌어서 옮기기 · 두 번 눌러 맞춤은 쉬고 핀은 누를 수 없다. 코멘트 글과 목록은 화면이 그린다(옆 칸의 Timeline · 목록). PDF 쪽 위 핀은 없다(브라우저 내장 보기 위에 그릴 자리를 알 수 없다).
+
 쪽은 `page` · `onPageChange`로 제어하거나 `defaultPage`로 둔다. 배율 · 회전은 안에서 관리한다.
 
 | 키 | 동작 |
@@ -73,6 +79,7 @@ PDF: 브라우저 내장 PDF 보기를 `object`로 넣고 쪽 · 배율을 주�
 | Enter · Space | 단추 누르기 |
 | + · = / − / 0 | 그림 영역에서 확대 · 축소 · 화면에 맞춤 |
 | R | 그림 영역에서 오른쪽으로 회전 |
+| 방향 키 · Enter · Esc | 위치 코멘트를 켰을 때 고르는 자리 옮기기(Shift = 10%) · 고르기 · 그만두기 |
 | 방향 키 | 확대한 그림 옮기기(영역 스크롤) |
 | PageUp · PageDown | 도구 줄에서 이전 · 다음 쪽(PDF) |
 
@@ -268,6 +275,58 @@ function Expand() {
         <FileViewer name="거래명세서 스캔 2026-11-05.png" size={184320} src={SCAN} height="lg" />
       </Dialog>
     </div>
+  );
+}
+```
+
+### 위치 코멘트
+
+시안 검수. 핀을 누르면 그 코멘트를 고르고, "위치 코멘트"를 켠 뒤 그림을 누르면(방향 키로 옮기고 Enter) 새 핀이 선다. 확대 · 회전해도 핀은 같은 자리다(R-02)
+
+```tsx
+import type { FileViewerPin } from '@terracelab/trellis-contracts';
+import { useState } from 'react';
+import { FileViewer } from '@terracelab/trellis-react';
+
+const PROOF = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
+  [
+    '<svg xmlns="http://www.w3.org/2000/svg" width="720" height="405" viewBox="0 0 720 405">',
+    '<rect width="720" height="405" fill-opacity="0.06"/>',
+    '<g fill-opacity="0.78"><rect x="48" y="96" width="300" height="30" rx="4"/></g>',
+    '<g fill-opacity="0.32"><rect x="48" y="146" width="260" height="12" rx="3"/>',
+    '<rect x="48" y="168" width="220" height="12" rx="3"/></g>',
+    '<rect x="400" y="64" width="272" height="236" rx="8" fill-opacity="0.18"/>',
+    '<path d="M424 268L500 180L556 236L596 200L648 268Z" fill-opacity="0.3"/>',
+    '<circle cx="612" cy="116" r="22" fill-opacity="0.3"/>',
+    '<rect x="48" y="292" width="148" height="44" rx="22" fill-opacity="0.62"/>',
+    '</svg>',
+  ].join(''),
+)}`;
+
+const PROOF_PINS: FileViewerPin[] = [
+  { id: 'c1', x: 0.27, y: 0.27, title: '제목 글자를 한 단계 키워 주세요' },
+  { id: 'c2', x: 0.74, y: 0.45, title: '사진을 오른쪽 끝에 붙여 주세요' },
+  { id: 'c3', x: 0.17, y: 0.77, title: '단추 색은 회사 색으로', resolved: true },
+];
+
+function Pins() {
+  const [pins, setPins] = useState<FileViewerPin[]>(PROOF_PINS);
+  const [active, setActive] = useState<string | null>('c1');
+  return (
+    <FileViewer
+      name="11월 배너 시안 v3.png"
+      size={248_320}
+      src={PROOF}
+      height="lg"
+      pins={pins}
+      activePin={active}
+      onPinPress={setActive}
+      onPinAdd={(at) => {
+        const id = `c${pins.length + 1}`;
+        setPins((list) => [...list, { id, ...at, title: '새 코멘트' }]);
+        setActive(id);
+      }}
+    />
   );
 }
 ```

@@ -1,0 +1,1 @@
+import{r as e}from"./rolldown-runtime-XKyaHtl9.js";import{Vi as t,Zn as n,qn as r}from"./Button-D7XcNatn.js";import{s as i}from"./PopoverPopup-D8wMm4p4.js";var a=e(t(),1).forwardRef(function(e,t){let{render:a,className:o,style:s,...c}=e,l=i(),u=r(c.id);return l.useSyncedValueWithCleanup(`titleElementId`,u),n(`h2`,e,{ref:t,props:[{id:u},c]})});export{a as t};
