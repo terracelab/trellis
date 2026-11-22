@@ -13,7 +13,7 @@ examples:
   Status: Work status — The dot at the bottom right and the accessible name, as used in messenger and org chart screens.
   WithName: Next to a name — Hidden as decorative when the name text is already there.
   ShapesAndTones: Shapes and colors — People default to a rounded square, and the color comes from the name (the same person gets the same color) (PR-27).
-  Vacant: Vacant — A seat with no owner. A dashed border and a person icon, read as "담당자 없음" (unassigned). Size and shape match a person avatar.
+  Vacant: Vacant — A seat with no owner. A dashed border and a person icon, read as `담당자 없음` (unassigned). Size and shape match a person avatar.
 ---
 # Avatar
 ## Purpose
@@ -31,7 +31,7 @@ For a Korean name the initials are the two given-name characters without the fam
 
 `status` is the messenger status (`AvatarStatus`: online, away, busy, offline). It is a different vocabulary from today's work status (`PresenceState`: working, remote, field work, vacation, off, used by PersonLabel `presence`), and the two are not merged (R-T26). A screen that only knows the work status makes the dot with the contracts helper `presenceToStatus` (working and remote become online, field work becomes away, vacation and off become offline). Dot tones come from `AVATAR_STATUS_TONES`, labels from `avatarStatusLabel`. To overlap several people, use AvatarGroup.
 ## Accessibility
-Uses `role="img"`, with the name in `aria-label` (name plus work status, for example `김테라, 자리 비움` (Kim Tera, away)). If the name text is already next to it, set `decorative` to hide it so the name is not read twice. The status dot is conveyed by the accessible name and `title`, not by color alone. A vacant avatar is read as "담당자 없음" (unassigned); the dashed line is never the only cue. The decorative rule is the same.
+Uses `role="img"`, with the name in `aria-label` (name plus work status, for example `김테라, 자리 비움` (Kim Tera, away)). If the name text is already next to it, set `decorative` to hide it so the name is not read twice. The status dot is conveyed by the accessible name and `title`, not by color alone. A vacant avatar is read as `담당자 없음` (unassigned); the dashed line is never the only cue. The decorative rule is the same.
 ## Density
 Size does not depend on density. Table rows use 24, lists and approval lines use 32, and profile cards use 48.
 ## Platform differences

@@ -459,7 +459,8 @@ export default function Withholding() {
                     {
                       key: 'paid',
                       header: '총지급액',
-                      width: 'lg',
+                      // 화면 폭 1280에서도 표가 카드 안에 들게 md(열 폭 합 9.25단위, lg면 카드보다 넓다)
+                      width: 'md',
                       format: 'amount',
                       total: 'sum',
                       mobile: 'trailing',
@@ -567,6 +568,8 @@ export default function Withholding() {
 
           {/* slot: filing — 제출 안내 · 접수증 · 완료 표시 */}
           <FilingBox
+            // 완료 표시 뒤 신고 서류를 모아 두는 화면. 앱에 없으면 단추가 없다
+            archive="ecm/my-docs/browser?folder=tax"
             title={simple ? '간이지급명세서 제출' : '원천세 신고 · 납부'}
             guide={
               simple

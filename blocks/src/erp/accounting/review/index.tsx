@@ -230,6 +230,8 @@ export default function AccountingReview() {
     <>
       {proposal ? (
         <ProposalCard
+          // 비제어 카드라 승인 · 반려 상태를 안에 든다. 거래가 바뀌면 새 카드로 그린다
+          key={t.id}
           headingLevel={3}
           title={proposal.kind === 'asset' ? '비품 자산 등록' : '계정 분류'}
           summary={`${ASSISTANT_NAME} · 확신 ${percent(proposal.confidence)} · ${proposal.basis}`}

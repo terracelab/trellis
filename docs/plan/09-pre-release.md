@@ -296,3 +296,56 @@ CheckboxGroup(R-27)은 PR-08에서 만들었다(서비스 API 그대로 + select
 의존: PR-43(임무 목록이 기록의 출처)
 목표: 연속 일수 같은 개인 기록의 자리를 정하고, 서비스 저장소에 앱이 둘이거나 샘플 회사가 둘일 때의 기준을 문서에 둔다.
 완료 조건: 문서 · 블록 검사.
+
+## 테라스원 보강 요청 29줄(2026-11-22 밤)
+
+`node scripts/collect-requests.mjs /Users/kyong/dev/Projects/terracelab/one`가 낸 29줄(모두 "요청")을 backlog에 붙였다. 같은 요청 하나(모바일 홈 "오늘 할 일" 제목 말줄임)는 데모 390 전수조사 줄에 합쳤다. 1.1.0에서 생긴 블록 버그 넷과 TeamSchedule 여백을 먼저 고쳤고(PR-46), 나머지는 backlog에 처음 나온 순서대로 작업 번호를 매겼다(Patrick: "나머지는 backlog 순서대로 정한다"). 토큰 값이 드는 범주 색(PR-49)은 PR-33 승인 뒤다.
+
+### PR-46 1.1.0 블록 버그 넷 · TeamSchedule 여백
+상태: ☑ 완료 2026-11-22 — TeamSchedule 칸 기본값 `:where(th, td)`(서비스 하위 모듈 cf602ac를 cherry-pick 5085f83, react patch changeset) · VRT 4장 다시 찍음(8cdfd93). 블록(1286014): ds:add가 블록 사이 TS import를 `.js` 그대로 패키지 경로로(데모 앱에 복사해 tsc · vite build 확인), 검토함 ProposalCard `key`, 원천세 소득별 · 부가세 칸 표 금액 열 md(1280 · 1365에서 표 = 카드 폭), FilingBox `archive` · `archiveLabel` + 문서함 `?folder=`
+의존: PR-43 · PR-44
+목표: 서비스가 1.1.0 블록을 받으며 막힌 넷과 TeamSchedule 여백.
+완료 조건: check-blocks · blocks typecheck · eslint, 데모에서 표 폭 · 카드 단추 · 보관함 이동 확인, TeamSchedule VRT.
+
+### PR-47 컴포넌트 버그 다섯
+상태: 대기
+의존: 없음
+목표: AppShell 휴대폰 사용자 단추 접근성 이름(보이는 이니셜과 이름이 어긋나 axe label-content-name-mismatch), PersonLabel 공석 ↔ 사람 훅 순서, DeadlineStrip 넓은 칸 월 경계 날짜 겹침, ComboChart lower 음수 눈금 오류, AmountBreakdown activeKey의 +/− 줄 hint 다크 대비.
+완료 조건: 컴포넌트 작업 공통 DoD. 버그마다 재현 시험 하나.
+
+### PR-48 블록 고침 여섯
+상태: 대기
+의존: 없음
+목표: platform/notifications/center 알림 카드 격자 최소 폭(344에서 넘침), home/dashboard/mobile 할 일 제목 말줄임, erp/hr-payroll/payroll 요약 5단계, groupware/approval/document 결재선 key 중복, platform/jobs/batch 휴대폰 카드 "사용" Switch, erp/treasury/reconcile 일자 열 폭.
+완료 조건: check-blocks, 데모 check(344 · 390 포함).
+
+### PR-49 범주 식별색 7~8개
+상태: 대기 — PR-33(color.category 6슬롯, D-145) 값 승인 뒤
+의존: PR-33
+목표: 일정 캘린더 7종을 색으로 가를 수 있게 범주 식별색을 늘린다. 값은 제안까지.
+완료 조건: 대비 · 색차 시험(PR-33과 같은 기준), Patrick 승인.
+
+### PR-50 DeadlineStrip 90 · 180일
+상태: 대기
+의존: 없음(PR-47 월 경계 겹침과 같이 보면 좋다)
+목표: days 7~60 제한을 넓혀 세무 현황 90일 · 법인 서류 180일 띠를 그린다. 긴 기간의 날짜 축 표기(주 · 월 눈금).
+완료 조건: 컴포넌트 작업 공통 DoD.
+
+### PR-51 근거 표시 셋
+상태: 대기
+의존: 없음
+목표: Citation에 인용문(quote) 칸 또는 근거 문장 컴포넌트, ProposalCard의 ChangeDiff 줄과 칸별 Citation 잇기, 표 칸에 놓는 근거 링크 모양.
+완료 조건: 컴포넌트 작업 공통 DoD.
+
+### PR-52 props 다섯
+상태: 대기
+의존: 없음
+목표: BulletBar 표 칸 모양(이름 숨김), Dialog lg보다 넓은 크기, ExportButton `onExport`(감사 기록), AppShell 바 단추가 옆 칸 id를 아는 길, LineItemsEditor 칸 아래 정보 글자.
+완료 조건: 컴포넌트 작업 공통 DoD.
+
+### PR-53 DataGrid 셋
+상태: 대기
+의존: 없음
+목표: 가린 금액 칸(칸 가림 + 가린 동안 합계 줄 막기), 쪽 나눔과 함께 쓰는 전체 합계, 트리 첫 칸의 DataGridLines와 펼침 단추 한 줄.
+완료 조건: 컴포넌트 작업 공통 DoD.
+

@@ -7,7 +7,7 @@ props:
   unread: Unread
   module: Module icon
   tone: A badge when danger or warning
-  toneLabel: Badge text (default "확인 필요", needs attention)
+  toneLabel: Badge text (default `확인 필요`, needs attention)
   href: Link address
   onPress: Called when pressed (mark as read and open)
 examples:
@@ -28,7 +28,7 @@ default · hover (`bg.sunken`) · focus (`border.focus` 2px ring, inset). active
 ## Behavior
 The time comes in as ISO and shows as relative time (`formatRelativeTime`, content.md §4: just now · N minutes ago · N hours ago · N days ago, a date after 7 days). On hover the full time (2026-11-09 14:04) shows as a tooltip (title). The time is never printed as raw ISO text. Pressing calls onPress (the caller marks it read and navigates). With href it opens through the router (TrellisProvider navigate).
 ## Accessibility
-Unread is read through the dot (decorative) and hidden text "읽지 않음" (unread) before the title, never by color or dot alone. The link or button name is unread + title + badge + time + body. The badge has text ("확인 필요", needs attention) next to its color. On phones a row is at least `size.touch.min` tall.
+Unread is read through the dot (decorative) and hidden text `읽지 않음` (unread) before the title, never by color or dot alone. The link or button name is unread + title + badge + time + body. The badge has text (`확인 필요`, needs attention) next to its color. On phones a row is at least `size.touch.min` tall.
 ## Density
 The title uses `density.body-font-size`. Padding is `space.12` in every density.
 ## Platform differences

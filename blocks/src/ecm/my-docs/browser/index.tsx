@@ -53,7 +53,7 @@ import {
 import { TODAY } from '../../../_data/index.js';
 import { docPreview, SCANNED_FILES, type DocPreview } from '../../../_data/previews.js';
 import { NOW_AT, PROFILE } from '../../../_data/profile.js';
-import { useCan, usePlatform } from '../../../_platform/index.js';
+import { useCan, usePlatform, useScreenParams } from '../../../_platform/index.js';
 import { addDays, monthEnd, monthLabel, Page } from '../../../_ui/index.js';
 import './style.css';
 
@@ -79,11 +79,31 @@ export default function DocBrowser() {
   const canUpdate = useCan('my-docs', 'update');
   const [folders, setFolders] = useState<DocFolder[]>(() => [...MY_FOLDERS]);
   const [files, setFiles] = useState<DocFile[]>(() => [...MY_FILES, ...SCANNED_FILES]);
-  const [folderId, setFolderId] = useState('root');
+  // ?folder=<폴더 id>로 들어오면 그 폴더를 연다(세무 신고 블록의 "신고 보관함" 단추)
+  const params = useScreenParams();
+  const linked = MY_FOLDERS.some((f) => f.id === params['folder']) ? params['folder']! : null;
+  const firstIn = (id: string) => {
+    const ids = new Set<string>();
+    const walk = (x: string) => {
+      ids.add(x);
+      for (const c of MY_FOLDERS) if (c.parentId === x) walk(c.id);
+    };
+    walk(id);
+    return [...MY_FILES, ...SCANNED_FILES].find((f) => ids.has(f.folderId))?.id ?? null;
+  };
+  const [folderId, setFolderId] = useState(linked ?? 'root');
+  const [seenLink, setSeenLink] = useState(linked);
   const [expanded, setExpanded] = useState<string[]>(['root', 'close', 'tax']);
   const [q, setQ] = useState('');
   const [scope, setScope] = useState('all');
-  const [activeId, setActiveId] = useState<string | null>('d04');
+  const [activeId, setActiveId] = useState<string | null>(() => (linked ? firstIn(linked) : 'd04'));
+  if (linked !== seenLink) {
+    setSeenLink(linked);
+    if (linked) {
+      setFolderId(linked);
+      setActiveId(firstIn(linked));
+    }
+  }
   const [upload, setUpload] = useState(false);
   const [queue, setQueue] = useState<{ name: string; size: number }[]>([]);
   const [retention, setRetention] = useState<string | null>('5');

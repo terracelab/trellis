@@ -721,7 +721,8 @@
 
 .tl-site-module-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(calc(var(--tl-space-64) * 2.5), 1fr));
+  /* 영어 이름(Subscriptions 같은 긴 한 낱말)이 칸을 넘지 않는 폭 */
+  grid-template-columns: repeat(auto-fill, minmax(calc(var(--tl-space-64) * 2.75), 1fr));
   gap: var(--tl-space-12);
   margin: 0;
   padding: 0;
@@ -748,8 +749,10 @@
 }
 
 .tl-site-module strong {
+  min-width: 0;
   color: var(--tl-color-fg-primary);
   font-size: var(--tl-type-body-font-size);
+  overflow-wrap: break-word;
 }
 
 .tl-site-module code {

@@ -1,5 +1,15 @@
 # @terracelab/trellis-react
 
+## 1.1.1
+
+### Patch Changes
+
+- TeamSchedule: 칸 기본값(`th` · `td` 여백 0 · 정렬 상속)이 모서리 · 이름 · 날짜 · 일정 칸의 안쪽 여백과 날짜 가운데 정렬을 덮던 것을 고쳤다. 기본값을 `:where()`로 낮췄다(VRT 4장 다시 찍기 필요).
+- 함께 올라간 패키지
+  - @terracelab/trellis-contracts@1.1.1
+  - @terracelab/trellis-icons@1.1.1
+  - @terracelab/trellis-tokens@1.1.1
+
 ## 1.1.0
 
 ### Minor Changes

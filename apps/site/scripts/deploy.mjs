@@ -109,11 +109,22 @@ try {
   }
 
   const target = dir ? join(clone, dir) : clone;
+  // 지난 릴리즈의 문서(api/v<major.minor>/)는 남긴다. 새 묶음에는 지금 버전만 들어 있다(버전 정책 "문서의 버전")
+  const kept = join(work, 'kept-api');
+  const oldApi = join(target, 'api');
+  const newApi = join(DIST, 'api');
+  const keptVersions = existsSync(oldApi)
+    ? readdirSync(oldApi).filter((v) => /^v\d+\.\d+$/.test(v) && !existsSync(join(newApi, v)))
+    : [];
+  for (const v of keptVersions) cpSync(join(oldApi, v), join(kept, v), { recursive: true });
   if (dir) rmSync(target, { recursive: true, force: true });
   else
     for (const entry of readdirSync(clone))
       if (entry !== '.git') rmSync(join(clone, entry), { recursive: true, force: true });
   cpSync(DIST, target, { recursive: true });
+  for (const v of keptVersions) cpSync(join(kept, v), join(target, 'api', v), { recursive: true });
+  if (keptVersions.length)
+    console.log(`지난 릴리즈 문서를 남겼다: api/${keptVersions.join(' · api/')}`);
   // 밑줄로 시작하는 폴더(_astro)를 내주게 하는 표시는 저장소 맨 위에 있어야 한다
   writeFileSync(join(clone, '.nojekyll'), '');
   if (cname) writeFileSync(join(clone, 'CNAME'), `${cname}\n`);

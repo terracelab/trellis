@@ -104,8 +104,9 @@
   width: var(--tl-team-schedule-name);
 }
 
-.tl-team-schedule th,
-.tl-team-schedule td {
+/* 칸 기본값은 :where로 우선순위를 낮춘다. `.tl-team-schedule th`(0,1,1)로 두면 아래
+   모서리 · 이름 · 날짜 · 일정 칸(0,1,0)의 안쪽 여백과 가운데 정렬을 덮어 0이 된다 */
+.tl-team-schedule :where(th, td) {
   padding: 0;
   border-bottom: var(--tl-border-width-1) solid var(--tl-color-border-divider);
   font-weight: inherit;

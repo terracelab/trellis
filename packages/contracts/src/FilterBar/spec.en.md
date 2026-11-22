@@ -12,6 +12,7 @@ props:
   searching: Grid search in progress (search button loading)
   collapsible: Grid collapse (collapsed, the applied conditions show as chips)
   onClearFilter: Chip clear button (without it, the control onChange gets its default)
+  label: Name of the search area (defaults to `검색 조건`, search conditions; give each its own name when a screen has more than one)
 examples:
   LookupGrid: Lookup screen — A label column with fields in a grid; pick conditions, then search (`layout="grid"`). It collapses to a chip summary.
   AppliedFilters: Clearing chips — A chip on a non-default value gets a clear button that sends the default back to the control.

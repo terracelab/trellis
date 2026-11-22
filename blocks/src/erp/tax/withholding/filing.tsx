@@ -161,6 +161,8 @@ export function FilingBox({
   confirmBody,
   hint = '접수증 · 납부확인서(PDF · 사진)',
   split = false,
+  archive,
+  archiveLabel = '신고 보관함',
 }: {
   title: string;
   guide: readonly { id: string; title: string; description?: string }[];
@@ -177,8 +179,12 @@ export function FilingBox({
   hint?: string;
   /** 넓은 화면에서 할 일과 접수증 칸을 나란히(카드가 화면 폭 전체일 때) */
   split?: boolean;
+  /** 완료 표시 뒤 보관함으로 가는 단추(블록 id, `?id=` 를 붙여도 된다). 앱에 없는 화면이면 그리지 않는다 */
+  archive?: string | undefined;
+  archiveLabel?: string;
 }) {
   const canMark = useCan('tax', 'approve');
+  const openArchive = useOpenLink()(filed ? archive : undefined);
   const items: ChecklistItem[] = guide.map((g) => ({
     ...g,
     state: filed ? 'done' : 'pending',
@@ -204,7 +210,16 @@ export function FilingBox({
       <div className="tl-block-tax-filing" data-split={split || undefined}>
         <Checklist label={`${title} · 할 일`} items={items} showProgress={false} />
         {filed ? (
-          <Attachment files={filed.files.map((name) => ({ name, size: 184_320 }))} />
+          <Stack>
+            <Attachment files={filed.files.map((name) => ({ name, size: 184_320 }))} />
+            {openArchive && (
+              <div>
+                <Button size="sm" iconEnd="arrow-right" onPress={openArchive}>
+                  {archiveLabel}
+                </Button>
+              </div>
+            )}
+          </Stack>
         ) : (
           <Stack>
             <FileUpload

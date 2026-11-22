@@ -100,7 +100,7 @@
 | 2026-11-13 | 데모 390 전수조사 | 버그 | `<button>` 안 글자 일부가 글꼴을 물려받지 않는다. IconButton `__count`, AvatarGroup의 더 보기 `+`, 버튼 안 Avatar 이니셜의 계산된 font-family가 Arial이다(크롬 기본 단추 글꼴). 숫자 · 이니셜이 Pretendard가 아니다 | 없음 | 요청 |
 | 2026-11-13 | 데모 390 전수조사 | 버그 | KpiCard를 휴대폰 2칸으로 놓으면 값이 긴 카드에서 설명 글 칸이 한 글자 폭으로 줄어 글이 세로로 선다(commerce/promotions/coupons의 "11월 쿠폰 할인" · "곧 끝나는 쿠폰". 이름 칸 폭 11px · 0px, 카드 높이 334px) | 없음 | 요청 |
 | 2026-11-13 | 데모 390 전수조사 | 버그 | 휴대폰 카드 목록(DataGrid cards)의 메타 값과 HrRecord 표 · DescriptionList 값이 금액 · 날짜 · 메일 · 번호 중간에서 끊긴다. erp/accounting/trial-balance 금액 13곳("15,824,232,00" / "0"), erp/hr-payroll/hr-master 날짜 191곳, erp/accounting/vendor-ledger 메일, scm/trade/shipments B/L 번호 | 없음 | 요청 |
-| 2026-11-13 | 데모 390 전수조사 | 블록 | home/dashboard/mobile "오늘 할 일"의 제목(`tl-block-mobile-tasks__title`)에 말줄임이 걸리지 않아 긴 제목이 DueBadge 밑으로 들어간다(인라인 요소라 overflow가 듣지 않는다). 3줄이 13~47px 겹친다 | 없음 | 요청 |
+| 2026-11-13 | 데모 390 전수조사 · 테라스원 | 블록 | home/dashboard/mobile "오늘 할 일"의 제목(`tl-block-mobile-tasks__title`)에 말줄임이 걸리지 않아 긴 제목이 DueBadge 밑으로 들어간다(인라인 요소라 overflow가 듣지 않는다). 3줄이 13~47px 겹친다. 테라스원 요청(같은 것): 블록 home/dashboard/mobile의 할 일 제목(.tl-block-mobile-tasks__title)이 span이고, Lines 안 줄이 grid 항목이라 min-width auto여서 말줄임이 걸리지 않는다. 긴 제목이 오른쪽 기한 배지 밑으로 들어간다 | 테라스원: 복사한 style.css에서 제목에 display: block, 줄(.tl-block-lines > *)에 min-width: 0 | PR-48 |
 | 2026-11-13 | 데모 390 전수조사 | 컴포넌트 | Stepper가 390에서 단계 이름을 한 글자만 남긴다(scm/warehouse/receiving "입… 도… 검…", erp/hr-payroll/payroll, scm/trade/shipments). 좁은 폭 표시 방법이 필요하다 | 없음 | 요청 |
 | 2026-11-13 | 데모 390 전수조사 | 버그 | home/dashboard/franchise "지역 × 주차 매출" 표에서 HeatCell 숫자가 칸보다 10px 길어 잘리고("2,76") 머리글이 말줄임된다("09-…"). 28칸 | 없음 | 요청 |
 | 2026-11-22 | 테라스원(초안) | 토큰 | 모듈 id 9개(mission · expense · subscription · design · asset · contract · grant · general · agent)가 모듈 목록에 없어 이름 · 아이콘 · 타일 색을 받을 수 없다(R-01) | nav.ts에 아이콘 이름을 직접, 타일은 가장 가까운 모듈 것 | 완료(PR-40, D-158) |
@@ -116,3 +116,31 @@
 | 2026-11-22 | 블록 이식(PR-43) | 컴포넌트 | 라이트 테마에서 Progress 값 0일 때 바탕(canvas) 위 트랙이 보이지 않는다(검토함 "검토 진행 0 / 14"). 다크는 보인다 | 그대로 | 요청 |
 | 2026-11-22 | 블록 이식(PR-43) | 컴포넌트 | Stepper가 390에서 지금 단계가 아니라 마지막 단계 이름("확인")을 보인다(처음 설정). 위 "한 글자만 남긴다" 줄과 같이 본다 | 그대로 | 요청 |
 | 2026-11-22 | 블록 이식(PR-44) | 컴포넌트 | DataGrid 트리 펼침 단추(`tl-data-grid__tree-toggle`)가 휴대폰에서 40px보다 작다(데모 check 경고, erp/tax/withholding 소득별 표). 터치 밀도에서 누르는 자리를 넓히는 안 | 그대로 | 요청 |
+| 2026-11-22 | 테라스원 | 버그 | AppShell 휴대폰 폭 사용자 단추(userName · userMenu)의 aria-label은 이름 전체(한서준)인데 보이는 글자는 아바타 이니셜(서준)이라 axe label-content-name-mismatch(serious)에 걸린다. 344 폭 모든 화면에서 막혔다. 보이는 글자를 이름에 넣거나 aria-label 대신 숨긴 글자로 이름을 주면 풀린다 | userName · userMenu를 넘기지 않고 useBreakpoint()가 base일 때 user 칸을 IconButton(user) + Menu로 그린다(apps/web/src/Shell.tsx) | PR-47 |
+| 2026-11-22 | 테라스원 | 버그 | 블록 platform/notifications/center의 알림 카드 격자(.tl-block-notes, platform/admin/roles/style.css)가 칸 최소 폭 space-64 × 5.5(352)라 344 폭에서 본문이 24 넘친다 | 복사한 roles/style.css에서 minmax(min(100%, …), 1fr)로 고치고 center가 그 복사본을 읽게 했다 | PR-48 |
+| 2026-11-22 | 테라스원 | 토큰 | 범주 색(chart.series)이 다섯뿐이라 일정(groupware/calendar/month)의 캘린더 7종(내 일정 · 팀 · 회사 · 휴가 · 세무 · 인사 · 운영 기한)을 색으로 다 가를 수 없다. 범주 식별색이 6~8개 필요하다 | 기한 캘린더 셋이 series-5를 함께 쓰고 이름으로 가른다 | PR-49(PR-33 범주 식별색 값 승인 뒤, D-145) |
+| 2026-11-22 | 테라스원 | 버그 | PersonLabel이 공석(vacant) ↔ 사람으로 바뀌면 훅 순서가 달라진다(useLinkClick이 early return 뒤). React 경고가 남는다(O-01 장비 · 자산) | 표 칸에 key를 줘서 다시 그린다 | PR-47 |
+| 2026-11-22 | 테라스원 | props | DeadlineStrip days가 7~60이라 법인 서류(O-05) 180일 · 세무 현황(T-01) 90일 띠를 못 그린다 | 60일 띠 + 그 뒤 기한은 표 · 한 줄 글자 | PR-50 |
+| 2026-11-22 | 테라스원 | 버그 | DeadlineStrip 60일 넓은 칸에서 월 경계 날짜 글자가 겹친다("30 12/1") | 그대로 둔다 | PR-47 |
+| 2026-11-22 | 테라스원 | 컴포넌트 | 근거 문장(인용문 + 위치)을 보이는 컴포넌트 또는 Citation의 quote 칸이 없다(O-06 지원사업 공고 판정 근거) | 블록 CSS 인용 목록 + inline Citation | PR-51 |
+| 2026-11-22 | 테라스원 | props | ProposalCard에서 ChangeDiff 줄과 칸별 근거(Citation)를 잇는 자리가 없다(O-02 계약서 읽기) | 변경 표 아래 Citation을 "칸 · 파일 · 쪽"으로 둔다 | PR-51 |
+| 2026-11-22 | 테라스원 | 컴포넌트 | BulletBar에 표 칸용(이름 숨김) 모양이 없다(P-12 평가 · 성과급) | 블록 style.css에서 .tl-bullet-bar__label을 숨김 | PR-52 |
+| 2026-11-22 | 테라스원 | 컴포넌트 | DataGrid에 가린 금액 칸 모양이 없다(칸 가림 + 가린 동안 합계 줄 막기, P-06 급여 대장) | render로 ●●● 글자, 가린 동안 summary 끔 | PR-53 |
+| 2026-11-22 | 테라스원 | props | Dialog가 lg(800)까지라 넓은 화면 전체 폼(P-04 근로계약 작성)을 못 만든다 | size="lg" | PR-52 |
+| 2026-11-22 | 테라스원 | 블록 | erp/hr-payroll/payroll 요약이 3단계 기준 2:3 격자라 5단계면 단계 이름이 잘린다 | 복사 style.css에서 한 열로 | PR-48 |
+| 2026-11-22 | 테라스원 | 블록 | ExportButton에 다운로드를 감사 기록에 남길 자리(onExport)가 없다(인사 · 재무 화면 다운로드) | 인사는 Button + downloadCsv + logAudit(data/hr.ts exportCsv), 재무 · 세무는 AuditedExport(span onClickCapture로 logAudit) | PR-52 |
+| 2026-11-22 | 테라스원 | 버그 | groupware/approval/document 결재선 key가 empId라 같은 사람이 두 칸이면 키 중복 경고가 난다 | 대표가 직접 올리면 승인 한 칸만 둔다(P-06 · P-11 · P-12) | PR-48 |
+| 2026-11-22 | 테라스원 | 컴포넌트 | AppShell 바(actions)의 단추가 옆 칸 id를 알 길이 없다. useAppShellAsideId는 본문 안에서만 된다(업무 도우미 여닫기) | AppShell id="app"을 주고 aria-controls="app-aside"를 직접 적었다 | PR-52 |
+| 2026-11-22 | 테라스원 | 블록 | platform/jobs/batch의 휴대폰 카드에 "사용" Switch 열이 보이지 않아 344 폭에서 작업을 켜고 끌 수 없다 | 넓은 화면에서 켜고 끈다 | PR-48 |
+| 2026-11-22 | 테라스원 | 버그 | ComboChart lower에 음수가 섞이면(이익률 −38 ~ +31) 차트 눈금 계산이 LN10 precision limit exceeded로 화면을 깬다(F-11 재무 리포트) | lower를 빼고 손익을 lines로 그린다 | PR-47 |
+| 2026-11-22 | 테라스원 | 블록 | erp/treasury/reconcile 맞춘 거래 일자 열이 xs(64)라 MM-DD가 잘린다 | 복사본에서 sm으로 넓힘 | PR-48 |
+| 2026-11-22 | 테라스원 | props | DataGrid summary를 쪽 나눔과 함께 쓰면 그 쪽 합계만 낸다(전체 합계 지정 불가, F-02 거래 내역) | 한 쪽일 때만 합계 줄, 위에 전체 합계 글자 | PR-53 |
+| 2026-11-22 | 테라스원 | props | LineItemsEditor 칸 아래에 정보 글자 자리가 없다(lineError는 오류 모양, F-07 "증빙에서 읽음") | 읽기 칸 열로 표시 | PR-52 |
+| 2026-11-22 | 테라스원 | 버그 | AmountBreakdown에서 activeKey를 + · − 줄에 주면 hint 글자가 다크 테마 대비 미달(axe)이다(T-05 · T-09) | activeKey는 = 줄에만 준다 | PR-47 |
+| 2026-11-22 | 테라스원 | props | DataGrid 트리의 첫 칸에 DataGridLines를 넣으면 펼침 단추가 따로 줄을 차지한다(T-07 재무제표) | 글자 + 별도 상태 열 | PR-53 |
+| 2026-11-22 | 테라스원 | 컴포넌트 | 표 칸에 놓는 "근거" 링크 모양이 없다(T-04 · T-05 신고서 값 줄) | 글자 + inline Citation | PR-51 |
+| 2026-11-22 | 테라스원 | 버그 | TeamSchedule.css의 칸 기본값 `.tl-team-schedule th, td { padding: 0; text-align: inherit }`(우선순위 0,1,1)가 `__corner` · `__name` · `__day` · `__cell`(0,1,0)의 안쪽 여백과 날짜 가운데 정렬을 덮는다. 이름 칸 아바타가 표 왼쪽 선에 붙고 요일 · 날짜가 칸 왼쪽에 붙는다(PR-27부터, VRT 기준 그림도 이 모양) | 하위 모듈에서 기본값을 `:where(th, td)`로 낮춰 커밋했다(trellis cf602ac, changeset 포함). 원본 저장소에는 아직 없다. VRT TeamSchedule 4장 다시 찍기 필요 | 완료(PR-46, 5085f83 · VRT 8cdfd93) |
+| 2026-11-22 | 테라스원 | 버그 | `ds:add erp/tax/corporate`가 블록 사이 상대 import `../withholding/filing.js`를 `@terracelab/trellis-blocks/erp/tax/withholding/filing.tsx`로 바꿔 typecheck가 TS5097로 막힌다. 두 블록을 같은 자리에 복사하면 상대 경로가 그대로 맞는다 | 복사본에서 `../withholding/filing.js`로 되돌렸다 | 완료(PR-46, 1286014) |
+| 2026-11-22 | 테라스원 | 버그 | 블록 erp/accounting/review: ProposalCard가 제어되지 않는 카드인데 거래마다 key가 없어, 카드 단추로 승인한 뒤 다음 거래로 넘어가도 같은 카드가 "승인" 상태를 들고 있어 승인 · 반려 단추가 사라진다 | 복사본 ProposalCard에 `key={t.id}` | 완료(PR-46, 1286014) |
+| 2026-11-22 | 테라스원 | 블록 | 블록 erp/tax/withholding 소득별 표가 1280 ~ 1365 폭에서 카드 안 가로 스크롤이 생긴다(받은 그대로 656 / 654px, 지방소득세 열을 더하면 688 / 654px). 화면 넘침은 아니다. erp/tax/vat-return 칸 표도 1280에서 736 / 654로 같다 | 금액 열 폭을 한 단계씩 줄였다 | 완료(PR-46, 1286014 · vat-return 칸 표도) |
+| 2026-11-22 | 테라스원 | 블록 | erp/tax/withholding의 공유 부품 FilingBox에 완료 표시 뒤 보관함으로 가는 링크 자리가 없다 | 복사본 filing.tsx에 `archive` prop을 더했다 | 완료(PR-46, 1286014 · archive prop, 문서함 ?folder=) |

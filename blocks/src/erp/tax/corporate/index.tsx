@@ -573,6 +573,8 @@ export default function Corporate() {
         {/* slot: filing — 접수증 · 납부확인서 → 완료 표시 */}
         <Col span={6}>
           <FilingBox
+            // 완료 표시 뒤 신고 서류를 모아 두는 화면. 앱에 없으면 단추가 없다
+            archive="ecm/my-docs/browser?folder=tax"
             title="제출"
             guide={[
               {

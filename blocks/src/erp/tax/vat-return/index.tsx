@@ -127,11 +127,11 @@ export default function VatReturn() {
                   {
                     key: 'supply',
                     header: '공급가액',
-                    width: 'lg',
+                    width: 'md',
                     format: 'amount',
                     total: 'sum',
                   },
-                  { key: 'tax', header: '세액', width: 'lg', format: 'amount', total: 'sum' },
+                  { key: 'tax', header: '세액', width: 'md', format: 'amount', total: 'sum' },
                 ]}
               />
             </Card>
@@ -148,11 +148,11 @@ export default function VatReturn() {
                   {
                     key: 'supply',
                     header: '공급가액',
-                    width: 'lg',
+                    width: 'md',
                     format: 'amount',
                     total: 'sum',
                   },
-                  { key: 'tax', header: '세액', width: 'lg', format: 'amount', total: 'sum' },
+                  { key: 'tax', header: '세액', width: 'md', format: 'amount', total: 'sum' },
                 ]}
               />
             </Card>

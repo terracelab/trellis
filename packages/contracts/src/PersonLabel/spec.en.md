@@ -9,14 +9,14 @@ props:
   href: Link URL, such as the member detail page
   onPress: Press handler, such as opening a detail drawer
   vacant: Vacant seat (dashed avatar and "unassigned")
-  vacantLabel: Vacant text (default "담당자 없음")
+  vacantLabel: Vacant text (default `담당자 없음`)
   action: Action at the end of a vacant row (assign)
 examples:
   Team: Member list — Role and department under the name, with today's work status as a dot and words.
   InTable: In a table cell — `sm` stays on one line, so the row height does not change. Work status is a dot only, so the name keeps its width.
   Link: Link — Opens the member detail. Hovering underlines the name.
   Status: Messenger status — Messenger presence is the avatar dot (`status`), and today's work is a dot and words (`presence`). With only the work status, `presenceToStatus` makes the dot.
-  Vacant: Vacant — With no owner, a dashed avatar and "담당자 없음" (unassigned). The row keeps the height of a filled row and an assign button goes in action.
+  Vacant: Vacant — With no owner, a dashed avatar and `담당자 없음` (unassigned). The row keeps the height of a filled row and an assign button goes in action.
 ---
 # PersonLabel
 ## Purpose
@@ -26,7 +26,7 @@ root (`span`, `a` for a link, `button` for a press) · Avatar (decorative, 24 in
 ## Props
 Generated from the contract.
 ## Variants
-size sm (one line, secondary text beside the name, work status as a dot only, keeps the table row height) · md (two lines, secondary text under the name, work status as a dot and words). `href` makes a link, `onPress` a button, neither plain text. Vacant (PR-34): a dashed avatar (Avatar vacant) and vacantLabel in the name slot (default "담당자 없음", `fg.secondary` regular weight). Avatar size, text and line count match a filled row, so the height is the same (pass meta to match two-line md rows). The row itself is not pressable (href and onPress are ignored); the assign action goes after the text through action (Button xs in a table cell sm, Button sm in a list md).
+size sm (one line, secondary text beside the name, work status as a dot only, keeps the table row height) · md (two lines, secondary text under the name, work status as a dot and words). `href` makes a link, `onPress` a button, neither plain text. Vacant (PR-34): a dashed avatar (Avatar vacant) and vacantLabel in the name slot (default `담당자 없음`, `fg.secondary` regular weight). Avatar size, text and line count match a filled row, so the height is the same (pass meta to match two-line md rows). The row itself is not pressable (href and onPress are ignored); the assign action goes after the text through action (Button xs in a table cell sm, Button sm in a list md).
 ## States
 default · hover (name underline when pressable, `duration.fast`) · focus (focus ring).
 ## Behavior
@@ -36,7 +36,7 @@ There are two people-status vocabularies, and they stay separate (R-T26). `prese
 
 `href` renders an `a` element. When TrellisProvider has `navigate`, in-app addresses open through that function without a page reload (R-T34). Ctrl, Cmd or middle clicks (new tab), outside addresses and `#id` links are left to the browser. `onPress` runs before navigation.
 ## Accessibility
-The avatar is decorative (aria-hidden), so the name is not read twice. The messenger status is read as hidden text after the name. A link or button is named by the name, messenger status, secondary text and work status. Status comes through as words, not color alone. In md the words are visible, and in sm they are hidden text (`tl-sr-only`), so the status is still read in sm. A vacant row is read as the text "담당자 없음" (unassigned). The avatar is decorative.
+The avatar is decorative (aria-hidden), so the name is not read twice. The messenger status is read as hidden text after the name. A link or button is named by the name, messenger status, secondary text and work status. Status comes through as words, not color alone. In md the words are visible, and in sm they are hidden text (`tl-sr-only`), so the status is still read in sm. A vacant row is read as the text `담당자 없음` (unassigned). The avatar is decorative.
 ## Density
 sm fits a compact row (36). md is for lists and cards (two-line rows use `row.heightTall`).
 ## Platform differences

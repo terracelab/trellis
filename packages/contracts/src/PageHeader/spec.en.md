@@ -22,7 +22,7 @@ breadcrumbs (`type.caption` `fg.tertiary`, `/` separator) · back (IconButton) �
 ## Props
 Generated from the contract.
 ## Variants
-With or without breadcrumbs · back · tabs. siblings (PR-27): 2 to 4 screens of the same group sit side by side. Only the current screen is an h1 (`type.h1`, `fg.primary`); the others are one step smaller, `type.h3` (`fg.tertiary`), on the h1's baseline. On hover they turn `fg.secondary` with a `border.width.2` underline, so it is clear which titles can be pressed (D-141, approved). Siblings sit `space.32` apart with a vertical divider (`border.strong`, half the line height) in the middle of the gap, so a name with middle dots (법인 · 임원 · 주주) and the gaps between siblings don't read as one long title. When the row wraps, the divider at the start of a new line is hidden. With Tabs below the title this makes two levels: the big group on the title row and the small group in the tabs.
+With or without breadcrumbs · back · tabs. siblings (PR-27): 2 to 4 screens of the same group sit side by side. Only the current screen is an h1 (`type.h1`, `fg.primary`); the others are one step smaller, `type.h3` (`fg.tertiary`), on the h1's baseline. On hover they turn `fg.secondary` with a `border.width.2` underline, so it is clear which titles can be pressed (D-141, approved). Siblings sit `space.32` apart with a vertical divider (`border.strong`, half the line height) in the middle of the gap, so a name with middle dots (`법인 · 임원 · 주주`) and the gaps between siblings don't read as one long title. When the row wraps, the divider at the start of a new line is hidden. With Tabs below the title this makes two levels: the big group on the title row and the small group in the tabs.
 ## States
 default.
 ## Behavior

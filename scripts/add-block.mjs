@@ -122,6 +122,9 @@ const PKG = '@terracelab/trellis-blocks';
 //   ../../../_data/trade.js        → @terracelab/trellis-blocks/data/trade
 //   ../../../_ui/index.js          → @terracelab/trellis-blocks/ui
 //   ../../tax/invoice-issue/style.css → @terracelab/trellis-blocks/erp/tax/invoice-issue/style.css
+//   ../withholding/filing.js       → @terracelab/trellis-blocks/erp/tax/withholding/filing.js
+// 다른 블록의 TS 파일은 .js 그대로 둔다. TypeScript(bundler)와 Vite가 패키지 exports 뒤에서 .tsx를 찾는다.
+// .tsx로 적으면 allowImportingTsExtensions가 없는 서비스에서 TS5097이 난다
 const SHARED = { _data: 'data', _platform: 'platform', _ui: 'ui' };
 const toPackage = (fromDir, spec) => {
   const target = join(fromDir, spec);
@@ -134,8 +137,8 @@ const toPackage = (fromDir, spec) => {
   }
   if (rel.endsWith('.js')) {
     const base = rel.slice(0, -3);
-    const ext = ['.tsx', '.ts'].find((e) => existsSync(join(BLOCKS, base + e)));
-    return ext ? `${PKG}/${base}${ext}` : null;
+    const found = ['.tsx', '.ts'].some((e) => existsSync(join(BLOCKS, base + e)));
+    return found ? `${PKG}/${rel}` : null;
   }
   return existsSync(target) ? `${PKG}/${rel}` : null;
 };

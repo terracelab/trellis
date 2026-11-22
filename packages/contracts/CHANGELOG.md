@@ -1,5 +1,13 @@
 # @terracelab/trellis-contracts
 
+## 1.1.1
+
+### Patch Changes
+
+- 함께 올라간 패키지
+  - @terracelab/trellis-icons@1.1.1
+  - @terracelab/trellis-tokens@1.1.1
+
 ## 1.1.0
 
 ### Minor Changes

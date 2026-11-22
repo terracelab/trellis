@@ -50,6 +50,7 @@ examples:
   ThousandRows: 1,000 rows — With height="fill" and more than 200 rows, only visible rows are drawn. The header, sort and filters work as usual.
   ErrorAndNoResult: Load error and no results — An error block with the request ID and retry, and the no-results shape when outside filters are applied.
   ColumnGroups: Column group headers — Supply value and tax under "Amount". The memo column hides between 1024 and 1279.
+  WidePayroll: Wide table pinned on both sides — A 14-column payroll table. The name stays on the left and net pay on the right (sticky "end"), with a shadow at the edge that hides columns. Point at a cut-off cell to see its full text.
   CopyValues: Copy cells — A table of return values to type into the tax office site. The button in each amount cell copies digits only, without separators (R-08).
 ---
 # DataGrid
