@@ -1,5 +1,11 @@
 # @terracelab/trellis-icons
 
+## 1.1.0
+
+### Minor Changes
+
+- 모듈 타일 일러스트 9종을 더했다: 임무(`tasks`) · 경비(`expenses`) · 구독(`subscriptions`) · 외주 디자인(`outsourced-design`) · 장비·자산(`assets`) · 계약(`contracts`) · 지원사업(`business-support`) · 총무(`general-affairs`) · 에이전트(`agent`). 같은 릴리스에서 모듈 목록에 더한 테라스원 모듈에 묶여 `ModuleIcon`이 그린다. 타일 id(원본 파일 이름)와 모듈 id가 다르다: tasks → mission, expenses → expense, subscriptions → subscription, outsourced-design → design, assets → asset, contracts → contract, business-support → grant, general-affairs → general, agent → agent. 타일은 45개이고 미배정은 지출결의(`expense` 타일) 하나다.
+
 ## 1.0.0
 
 ### Major Changes

@@ -1,6 +1,6 @@
 {
   "name": "@terracelab/trellis-icons",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "UI 아이콘 어댑터와 모듈 앱 아이콘(svg·react·rn·png), 모듈 타일 일러스트",
   "type": "module",
   "license": "Apache-2.0",

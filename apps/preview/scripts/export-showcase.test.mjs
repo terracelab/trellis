@@ -1,4 +1,4 @@
-// molecule.json = modules.json(묶음 7 · 모듈 35). 격자에 맞지 않는 간선은 던진다.
+// molecule.json = modules.json의 묶음 7 · MOLECULE_LAYOUT이 그리는 업종 모듈 35. 격자에 맞지 않는 간선은 던진다.
 import assert from 'node:assert/strict';
 import { mkdtempSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -8,21 +8,27 @@ import modules from '@terracelab/trellis-tokens/modules' with { type: 'json' };
 import { MOLECULE_LAYOUT, layoutMolecule } from '../src/molecule.ts';
 import { writeMoleculeJson } from './export-showcase.mjs';
 
-test('묶음 · 모듈 수가 modules.json과 같다', () => {
+test('묶음은 modules.json과 같고 모듈은 MOLECULE_LAYOUT이 고른 것이다', () => {
   const file = join(mkdtempSync(join(tmpdir(), 'molecule-')), 'molecule.json');
   writeMoleculeJson(file);
   const json = JSON.parse(readFileSync(file, 'utf8'));
   const groupIds = Object.keys(modules.groups);
   assert.equal(json.groups.length, groupIds.length);
   assert.equal(json.groups.length, 7);
-  assert.equal(json.counts.modules, modules.modules.length);
+  const drawn = MOLECULE_LAYOUT.flatMap((r) => r.modules);
+  assert.equal(json.counts.modules, drawn.length);
   assert.equal(json.counts.modules, 35);
+  for (const id of drawn)
+    assert.ok(
+      modules.modules.some((m) => m.id === id),
+      `${id}가 modules.json에 있다`,
+    );
   assert.deepEqual(
     json.groups.map((g) => g.id),
     groupIds,
   );
   for (const g of json.groups) {
-    const expected = modules.modules.filter((m) => m.group === g.id).map((m) => m.id);
+    const expected = MOLECULE_LAYOUT.find((r) => r.group === g.id).modules;
     assert.deepEqual(
       g.modules.map((m) => m.id),
       expected,

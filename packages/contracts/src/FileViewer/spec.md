@@ -2,7 +2,7 @@
 ## 용도
 파일 하나를 내려받지 않고 화면 안에서 볼 때 쓴다. 그림(PNG · JPG · SVG)은 확대 · 축소 · 맞춤 · 회전, PDF는 브라우저 내장 PDF 보기로 쪽을 넘기고, 다른 형식은 파일 카드와 다운로드 단추를 보인다. 파일 목록 · 첨부 칩은 Attachment, 파일을 고르는 칸은 FileUpload, 인쇄할 서식은 Paper · PaperPreview다.
 ## 해부(Anatomy)
-root(`tl-file-viewer`, `role="group"`, 테두리 `border.divider` · `radius.lg` · 바탕 `bg.surface`) · bar(도구 줄, 아래 선 `border.divider`, 안쪽 여백 `space.4` `space.8`) · name(파일 아이콘 16 `fg.tertiary` + 이름 `type.label` 600 `fg.primary` 말줄임 + 형식 · 크기 `type.caption` `fg.secondary` tabular) · tools(`role="toolbar"`, IconButton ghost sm, 묶음 사이 세로 선 `border.divider`) · value(배율 125% · 쪽 3 / 12, `type.caption` tabular `fg.secondary`) · stage(보기 영역, 바탕 `bg.sunken`, 넘치면 안에서 스크롤, 포커스 링 `border.focus` 안쪽) · image(그림, 그림자 `shadow.sm`) · pdf(`object`, 영역 전체) · card(EmptyState: 형식 아이콘 · 안내 · 다운로드 단추) · status(숨은 알림 줄, 배율 · 쪽 · 회전이 바뀌면 읽는다).
+root(`tl-file-viewer`, `role="group"`, 테두리 `border.divider` · `radius.lg` · 바탕 `bg.surface`) · bar(도구 줄, 아래 선 `border.divider`, 안쪽 여백 `space.4` `space.8`) · name(파일 아이콘 16 `fg.tertiary` + 이름 `type.label` 600 `fg.primary` 말줄임 + 형식 · 크기 `type.caption` `fg.secondary` tabular) · tools(`role="toolbar"`, IconButton ghost sm, 묶음 사이 세로 선 `border.divider`) · value(배율 125% · 쪽 3 / 12, `type.caption` tabular `fg.secondary`) · stage(보기 영역, 바탕 `bg.sunken`, 넘치면 안에서 스크롤, 포커스 링 `border.focus` 안쪽) · image(그림, 그림자 `shadow.sm`) · pdf(`object`, 영역 전체) · card(EmptyState: 형식 아이콘 · 안내 · 다운로드 단추) · status(숨은 알림 줄, 배율 · 쪽 · 회전이 바뀌면 읽는다) · pin(R-02, 그림 위 위치 코멘트: 원 `size.icon-24` · 바탕 `brand.default` · 글자 `brand.on-brand` caption 600 tabular · 테두리 2 `bg.surface` · `shadow.sm`. 해결됨 = 바탕 `fg.tertiary` 글자 `fg.inverse`, 고른 핀 = 바깥 고리 2 `border.focus`, 고르는 중인 자리 = 점선 고리 `brand.default` + `brand.subtle`).
 ## Props
 contract 표.
 ## Variants
@@ -26,6 +26,8 @@ PDF: 브라우저 내장 PDF 보기를 `object`로 넣고 쪽 · 배율을 주�
 
 다운로드: `onDownload`가 있으면 그것, 없으면 `src`를 파일 이름으로 받는다(`a[download]`). `downloadable={false}`면 단추가 없다.
 
+위치 코멘트(R-02, 그림만): `pins`의 x · y는 회전 전 원본 그림 기준 0~1 비율이라 확대 · 회전해도 같은 자리에 선다(`rotatePinPoint`). 핀 가운데가 그 자리이고 번호는 `label`, 없으면 목록 순서다. `onPinPress`가 있으면 핀은 단추이고(이름 "코멘트 2: 첫 줄", 해결됨이면 ", 해결됨"), 없으면 이름 있는 그림이다. 고른 코멘트는 `activePin`(aria-current). `onPinAdd`가 있으면 도구 줄 배율 묶음 끝에 "위치 코멘트" 토글(`map-pin`)이 선다. 켜면 보기 영역에 포커스가 가고 가운데에 고르는 자리 표시가 선다. 그림을 누르거나 방향 키(2%, Shift 10%)로 옮기고 Enter · Space를 누르면 그 자리를 원본 그림 비율(`unrotatePinPoint`, 소수 넷째 자리)로 넘기고 꺼진다. Esc는 그만둔다. 켜져 있는 동안 끌어서 옮기기 · 두 번 눌러 맞춤은 쉬고 핀은 누를 수 없다. 코멘트 글과 목록은 화면이 그린다(옆 칸의 Timeline · 목록). PDF 쪽 위 핀은 없다(브라우저 내장 보기 위에 그릴 자리를 알 수 없다).
+
 쪽은 `page` · `onPageChange`로 제어하거나 `defaultPage`로 둔다. 배율 · 회전은 안에서 관리한다.
 
 | 키 | 동작 |
@@ -36,6 +38,7 @@ PDF: 브라우저 내장 PDF 보기를 `object`로 넣고 쪽 · 배율을 주�
 | Enter · Space | 단추 누르기 |
 | + · = / − / 0 | 그림 영역에서 확대 · 축소 · 화면에 맞춤 |
 | R | 그림 영역에서 오른쪽으로 회전 |
+| 방향 키 · Enter · Esc | 위치 코멘트를 켰을 때 고르는 자리 옮기기(Shift = 10%) · 고르기 · 그만두기 |
 | 방향 키 | 확대한 그림 옮기기(영역 스크롤) |
 | PageUp · PageDown | 도구 줄에서 이전 · 다음 쪽(PDF) |
 ## 접근성
@@ -47,6 +50,6 @@ root는 `role="group"`이고 이름은 "{파일 이름} 미리 보기"다. 도�
 ## 금지 사항
 PDF를 그리려고 PDF 라이브러리 · 외부 보기 서비스(외부 요청)를 넣기 → 리뷰. 보기 영역 바탕을 상태색으로 칠하기 · 오류에 붉은 바탕(D-56) → 리뷰. 미리 보기를 위해 파일을 서버 밖 주소로 보내기 → 리뷰. 도구 단추에 글자 없는 아이콘만 두고 `label`을 빼기 → IconButton이 막는다.
 ## 스토리
-Image · Pdf · Other · LoadingError · Expand.
+Image · Pdf · Other · LoadingError · Expand · Pins(위치 코멘트).
 ## 참고
 SY-16 · PG-44. 문서함(`ecm/my-docs/browser`)의 미리 보기. Attachment(파일 종류 · 크기 서식 `inferAttachmentType` · `formatAttachmentSize`), EmptyState(파일 카드 · 오류), IconButton. 벤치마크는 구조만.

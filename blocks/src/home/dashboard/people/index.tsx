@@ -17,6 +17,7 @@ import {
   Badge,
   BarList,
   Button,
+  CalendarHeatmap,
   Card,
   DataGrid,
   DataGridLines,
@@ -78,6 +79,7 @@ import {
   TERM_ENDS,
 } from '../../../_data/hr.js';
 import { TODAY } from '../../../_data/index.js';
+import { MISSIONS, monthRate, streakCount, streakDays } from '../../../_data/mission.js';
 import { PROFILE } from '../../../_data/profile.js';
 import {
   scopeAtLeast,
@@ -91,10 +93,12 @@ import {
 import {
   addDays,
   Col,
+  Figure,
   Grid,
   Lines,
   monthEnd,
   monthLabel,
+  monthStart,
   Page,
   weekStart,
 } from '../../../_ui/index.js';
@@ -795,6 +799,70 @@ const presenceWord = (p: PresenceState) =>
 const DAY_MINUTES = 8 * 60;
 const WEEK_END = addDays(WEEK[0].date, 6);
 
+/** 임무 화면(정시 완수 기록의 출처). 앱에 없으면 개인 기록 자리를 그리지 않는다 */
+const MISSION_SCREEN = 'groupware/mission/list';
+
+/**
+ * 개인 기록(patterns.md "홈의 개인 기록"): 한 사람의 꾸준함을 숫자 셋과 최근 3개월 달력으로.
+ * 팀 · 회사 숫자와 섞지 않고, 기록의 출처 화면이 앱에 없으면 그리지 않는다
+ */
+function PersonalRecord({ me }: { me: Employee }) {
+  const screens = useScreens();
+  const days = streakDays(MISSIONS, me.id);
+  const streak = streakCount(days);
+  const thisMonth = monthRate(days, 0);
+  const lastMonth = monthRate(days, -1);
+  const heat = days
+    .filter((d) => d.date >= monthStart(TODAY, -2))
+    .map((d) => ({ date: d.date, value: d.onTime }));
+  return (
+    <Card
+      title="내 기록"
+      subtitle="임무 정시 완수 · 휴일과 보류는 빠집니다"
+      action={
+        <Button
+          size="sm"
+          variant="ghost"
+          iconEnd="chevron-right"
+          onPress={() => screens.go(MISSION_SCREEN)}
+        >
+          내 임무
+        </Button>
+      }
+    >
+      <div className="tl-block-people-record">
+        <div className="tl-block-people-record__figures">
+          <Figure label="연속 일수" value={streak} unit="일" />
+          <Figure label="당월 정시 완수율" value={thisMonth.rate} unit="%" />
+          <Figure
+            label={`${monthLabel(TODAY, -1)} 정시 완수`}
+            value={`${lastMonth.onTime}/${lastMonth.total}`}
+            unit="건"
+          />
+        </div>
+        <div className="tl-block-people-record__heat">
+          <CalendarHeatmap
+            data={heat}
+            layout="year"
+            unit="건"
+            ariaLabel="최근 3개월 날짜별 정시 완수 건수"
+          />
+        </div>
+      </div>
+    </Card>
+  );
+}
+
+function PersonalRecordCol({ me }: { me: Employee }) {
+  const screens = useScreens();
+  if (!screens.has(MISSION_SCREEN)) return null;
+  return (
+    <Col span={12}>
+      <PersonalRecord me={me} />
+    </Col>
+  );
+}
+
 function MemberView({ me }: { me: Employee }) {
   const toast = useToast();
   const screens = useScreens();
@@ -846,6 +914,9 @@ function MemberView({ me }: { me: Employee }) {
       <Col span={8}>
         <WorkHoursMeter days={days} period={{ from: WEEK[0].date, to: WEEK_END }} today={TODAY} />
       </Col>
+      {/* slot: record — 개인 기록(연속 일수 · 정시 완수율 · 달력). 출처 화면이 없으면 빈다 */}
+      <PersonalRecordCol me={me} />
+      {/* slot: record end */}
       <Col span={4}>
         <LeaveBalance
           granted={LEAVE_BALANCE.granted}

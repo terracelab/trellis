@@ -1,5 +1,29 @@
 # @terracelab/trellis-react
 
+## 1.1.0
+
+### Minor Changes
+
+- DataGrid `column.copyable` · `copyText`: 칸마다 복사 단추. 숫자 서식은 구분 기호 없이 숫자만 복사한다(신고서 값을 국세청 사이트에 옮겨 적을 때, R-08).
+- FileViewer `pins` · `activePin` · `onPinPress` · `onPinAdd`: 그림 위 위치 코멘트 핀. 자리는 원본 그림 0~1 비율이라 확대 · 회전해도 같은 자리이고, "위치 코멘트"를 켜고 그림을 누르거나 방향 키로 옮겨 Enter로 고른다(R-02). 도우미 `rotatePinPoint` · `unrotatePinPoint`.
+- 동봉 가이드: 패턴 가이드 "홈의 개인 기록", 서비스 가이드 "앱이 둘일 때" · "샘플 회사가 둘일 때"(R-07 · R-09 · R-10).
+
+### Patch Changes
+
+- `@terracelab/trellis-skill`이 Trellis를 npm으로 설치한 서비스에서 돈다(PD-02). `npx @terracelab/trellis-skill install · doctor · docs · add`.
+
+  - 설치 방식(npm · git 하위 모듈)을 CLI가 가린다. 패키지는 앱 폴더에서 위로 올라가며 찾는다. 하위 모듈 방식의 동작과 `pnpm ds:*` 명령은 그대로다
+  - `install`은 방식에 맞는 SKILL.md와 참고 문서를 복사한다. npm 방식은 `references/dashboard.md`(요청 → 부품 표) · `setup.md`가 들어간다. `.trellis/skill.lock`에 스킬 버전 · Trellis 버전 · 방식 · 파일 목록을 적는다
+  - `doctor`(npm): 패키지 설치와 버전 일치 · React 19 · CSS import 순서(진입 파일 후보와 CSS `@import`) · 글꼴(`--tl-font-family-sans`)을 본다. 빠진 것은 넣을 명령과 줄을 알려 준다. Trellis를 쓰는 파일의 토큰 밖 값만 실패로 세고 나머지는 경고(`--strict`면 실패)
+  - `doctor`가 hex · px에 대신 쓸 토큰 후보를 붙인다(`#fff → 후보 --tl-color-bg-surface`). 색은 semantic 토큰만 낸다
+  - 새 명령 `add dashboard`: 대시보드 시작 화면(KpiCard · TrendChart · BarList · DataGrid · 엑셀 다운로드)을 서비스 소스로 복사한다. npm에 있는 패키지만 쓴다
+  - `docs component <이름>` · `docs path`, 컴포넌트 이름은 대소문자를 가리지 않는다
+  - 동봉 가이드: 설치 · 에이전트 가이드에 `npx` 명령, CSS 가이드에 앱 기본 CSS(body 글꼴) 절
+- 함께 올라간 패키지
+  - @terracelab/trellis-icons@1.1.0
+  - @terracelab/trellis-contracts@1.1.0
+  - @terracelab/trellis-tokens@1.1.0
+
 ## 1.0.0
 
 ### Major Changes

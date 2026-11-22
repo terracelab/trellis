@@ -15,11 +15,24 @@ pnpm add @terracelab/trellis-contracts
 | Package | npm |
 | --- | --- |
 | `@terracelab/trellis-tokens` · `icons` · `contracts` · `react` | Published |
-| `@terracelab/trellis-blocks` (screen blocks) · `@terracelab/trellis-skill` (agent skill and check tool) | Not published. Use the git submodule |
+| `@terracelab/trellis-skill` (agent skill and check tool) | Published. Run it with `npx`, no install needed |
+| `@terracelab/trellis-blocks` (screen blocks) | Not published. Use the git submodule |
+
+## Agent skill and check tool
+
+Run these from the root of your service repository.
+
+```bash
+npx @terracelab/trellis-skill install        # puts the agent skill in .claude/skills/trellis/
+npx @terracelab/trellis-skill doctor         # checks the install, CSS order, font and values outside tokens
+npx @terracelab/trellis-skill add dashboard  # copies the dashboard starter screen to src/dashboard/
+```
+
+`doctor` finds missing packages and CSS imports and prints the command and lines to add. The commands are described in [Developing with agents](agents.md).
 
 ## Use the git submodule
 
-To copy screen blocks, to use the agent skill and the check tool (`ds:doctor`), or to fix Trellis in place while you build a service, add Trellis to your service repository as a submodule and join it to the same pnpm workspace. The source is in the GitHub repository `terracelab/trellis`. The steps are in [Starting a service](service.md).
+To copy screen blocks or to fix Trellis in place while you build a service, add Trellis to your service repository as a submodule and join it to the same pnpm workspace. The source is in the GitHub repository `terracelab/trellis`. The steps are in [Starting a service](service.md).
 
 ## Requirements
 

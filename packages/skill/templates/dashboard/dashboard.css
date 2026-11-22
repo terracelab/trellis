@@ -1,0 +1,17 @@
+/* 대시보드 화면의 바깥 여백과 구역 사이 간격. 값은 전부 Trellis 토큰이다 */
+.dashboard-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tl-density-gutter);
+  min-width: 0;
+  min-height: 100%;
+  padding: var(--tl-density-gutter) var(--tl-layout-gutter-default) var(--tl-space-40);
+  background: var(--tl-color-bg-canvas);
+  color: var(--tl-color-fg-primary);
+}
+
+@media (max-width: 1023px) {
+  .dashboard-page {
+    padding-inline: var(--tl-layout-gutter-compact);
+  }
+}

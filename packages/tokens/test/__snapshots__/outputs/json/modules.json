@@ -80,6 +80,41 @@
       "badge": "count"
     },
     {
+      "id": "expense",
+      "group": "erp",
+      "label": "경비",
+      "icon": "credit-card",
+      "badge": "count"
+    },
+    {
+      "id": "subscription",
+      "group": "erp",
+      "label": "구독",
+      "icon": "refresh-cw",
+      "badge": "count"
+    },
+    {
+      "id": "asset",
+      "group": "erp",
+      "label": "장비·자산",
+      "icon": "monitor",
+      "badge": "count"
+    },
+    {
+      "id": "grant",
+      "group": "erp",
+      "label": "지원사업",
+      "icon": "megaphone",
+      "badge": "count"
+    },
+    {
+      "id": "design",
+      "group": "erp",
+      "label": "외주 디자인",
+      "icon": "palette",
+      "badge": "count"
+    },
+    {
       "id": "mail",
       "group": "groupware",
       "label": "메일",
@@ -122,6 +157,27 @@
       "badge": "count"
     },
     {
+      "id": "mission",
+      "group": "groupware",
+      "label": "임무",
+      "icon": "list-checks",
+      "badge": "count"
+    },
+    {
+      "id": "general",
+      "group": "groupware",
+      "label": "총무",
+      "icon": "clipboard-list",
+      "badge": "count"
+    },
+    {
+      "id": "agent",
+      "group": "groupware",
+      "label": "에이전트",
+      "icon": "bot",
+      "badge": "count"
+    },
+    {
       "id": "my-docs",
       "group": "ecm",
       "label": "문서함",
@@ -148,6 +204,13 @@
       "label": "문서작성",
       "icon": "file-pen",
       "badge": "none"
+    },
+    {
+      "id": "contract",
+      "group": "ecm",
+      "label": "계약",
+      "icon": "file-check",
+      "badge": "count"
     },
     {
       "id": "customers",

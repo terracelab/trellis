@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-contracts-title">
+  <title id="tl-tile-contracts-title">계약</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-contracts-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-contracts-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A7B9FC"/>
+      <stop offset=".5" stop-color="#7688DF"/>
+      <stop offset="1" stop-color="#4C58AE"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-contracts-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="tl-tile-contracts-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-contracts-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+    <linearGradient id="tl-tile-contracts-white" x1="509" y1="21" x2="747" y2="489" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F4F7FB"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-contracts-edge" x1="586" y1="249" x2="379" y2="737" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF7"/>
+      <stop offset="1" stop-color="#9BADC0"/>
+    </linearGradient>
+  </defs>
+  <g clip-path="url(#tl-tile-contracts-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-contracts-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#4C58AE" opacity=".25" filter="url(#tl-tile-contracts-blur)"/>
+    <g transform="rotate(41 512 512)">
+      <path d="M439 236.5A51.5 51.5 0 0 1 490.5 185H527A51.5 51.5 0 0 1 578.5 236.5V625.5L509 806.5L439 625.5Z" transform="translate(15.5 12.2)" fill="url(#tl-tile-contracts-edge)"/>
+      <path d="M439 236.5A51.5 51.5 0 0 1 490.5 185H527A51.5 51.5 0 0 1 578.5 236.5V625.5L509 806.5L439 625.5Z" fill="url(#tl-tile-contracts-white)"/>
+      <path d="M439 594H578.5V625.5L535.8 736.8H482L439 625.5Z" fill="#D8E2EC"/>
+      <path d="M482 736.8H535.8L509 806.5Z" fill="#8797AA"/>
+      <rect x="439" y="300" width="139.5" height="27.8" fill="#C2CDDC"/>
+      <rect x="551" y="270.2" width="23" height="184.8" rx="11.5" fill="#B4C1D2"/>
+    </g>
+  </g>
+</svg>

@@ -21,7 +21,7 @@ In code, you can also read it with `import manifest from '@terracelab/trellis-re
 1. Check the installed `@terracelab/trellis-react` version and read `llms.txt`.
 2. Translate the request into Trellis vocabulary. Screen types follow [Screen patterns](patterns.md), numbers follow [Choosing a chart](charts.md), parts come only from `manifest.components`, and words follow [Content](content.md).
 3. Build only with tokens and components ([Principles and rules](principles.md)).
-4. Run the checks (`pnpm ds:doctor`), types and tests. For screens, run `pnpm check` (every screen × 4 widths × light · dark) and take screenshots at 1440 and 390.
+4. Run the checks (`npx @terracelab/trellis-skill doctor`), types and tests. For screens, look at screenshots at 1440 and 390 in light and dark. A service that uses the submodule runs `pnpm ds:doctor` and `pnpm check` (every screen × 4 widths × light · dark).
 5. Report the patterns and components used, new needs that came up (missing components or tokens) with the requests you left, and the verification results.
 
 ## If you need a component that does not exist
@@ -30,7 +30,25 @@ Do not build it in the app. Add one row to the table in `.trellis/requests.md` i
 
 ## Skill
 
-`@terracelab/trellis-skill`, the skill package for service repositories, is in `packages/skill` of the Trellis repository. The service starter in [Starting a service](service.md) puts these commands in the root package.json.
+`@terracelab/trellis-skill` puts the agent skill in a service repository and checks the service. It runs in services that install Trellis from npm and in services that add it as a git submodule. Run it from the root of the service repository.
+
+```bash
+npx @terracelab/trellis-skill install        # installs .claude/skills/trellis/ and records the version in .trellis/skill.lock
+npx @terracelab/trellis-skill doctor         # checks the install · CSS order · font · values outside tokens · skill version
+npx @terracelab/trellis-skill docs TrendChart   # prints the docs of the installed Trellis (offline)
+npx @terracelab/trellis-skill add dashboard  # copies the dashboard starter screen to src/dashboard/
+```
+
+| Command | What it does |
+| --- | --- |
+| `install` | Copies the SKILL.md and references that match how Trellis is installed. If the app is not at the repository root, pass `--app <app folder>` once |
+| `doctor` | Exits with code 1 when a check fails. For missing packages and CSS imports it prints the command and lines to add, and for hex and px values it prints token candidates. Values in files that do not use Trellis count as warnings, or as failures with `--strict` |
+| `docs` | `docs list` prints names, `docs guide <name>` a guide, `docs tokens` the token table and `docs path` the docs folder |
+| `add` | Starter screens use only the packages on npm. After copying, the files are service code |
+
+Ask the agent for the screen in plain words. The skill fixes the order: check, read the docs, copy the starter screen, map the request to parts, verify.
+
+In a service that uses the submodule, the service starter in [Starting a service](service.md) puts the same tool in the root package.json as these commands.
 
 ```bash
 pnpm ds:skill              # installs .claude/skills/trellis/ and records the Trellis commit in .trellis/skill.lock

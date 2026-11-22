@@ -127,7 +127,7 @@
 | 기능 | 모듈 | 블록 | 배치 | 알림 이벤트 |
 |---|---|---|---|---|
 | 대시보드 | home | `home/dashboard/trade` | — | 아래 이벤트가 "오늘 처리할 일"로 |
-| 계산서 발행 | tax | `erp/tax/invoice-list` · `erp/tax/invoice-issue` · `erp/tax/vat-return` | 세금계산서 일괄 발행(평일 18:00) · 국세청 전송 결과 수신(매시) | `invoice.ready` · `invoice.failed` |
+| 계산서 발행 | tax | `erp/tax/invoice-list` · `erp/tax/invoice-issue` · `erp/tax/vat-return` · `erp/tax/withholding` · `erp/tax/corporate` | 세금계산서 일괄 발행(평일 18:00) · 국세청 전송 결과 수신(매시) | `invoice.ready` · `invoice.failed` |
 | 발주서 | purchasing · approval | `erp/purchasing/po-list` · `erp/purchasing/po-form` | — | `po.approval` |
 | 입고 알림 처리 | warehouse · trade | `scm/warehouse/receiving` · `scm/trade/shipments` | — | `receiving.arrived` · `receiving.discrepancy` · `shipment.customs` |
 | 거래처 세무 회계 | accounting · treasury | `erp/accounting/vendor-ledger` · `erp/accounting/journal` · `erp/accounting/trial-balance` · `erp/treasury/daily-cash` | 거래처 사업자 상태 조회(매일 07:00) · 미수금 기한 알림(매주 월) · 환율 갱신(평일 09:00) | `receivable.overdue` · `fx.updated` |

@@ -7,7 +7,7 @@ Trellis is TerraceLab's design system. TerraceLab's B2B products and the custom 
 The token JSON in `packages/tokens` is the single source. Web (React), desktop (Tauri), mobile (Expo), Django and Figma all use what is generated from it.
 
 - Docs: `trellis.terracelab.co.kr` (English pages under `/en/`). Run it locally with `pnpm --filter @terracelab/docs dev`.
-- Status: version 1.0.0. `@terracelab/trellis-tokens`, `-icons`, `-contracts` and `-react` are on npm. Screen blocks, the agent skill and the check tool come with the git submodule (see below).
+- Status: version 1.0.0. `@terracelab/trellis-tokens`, `-icons`, `-contracts`, `-react` and `-skill` are on npm. Screen blocks come with the git submodule (see below).
 - Open source: Apache-2.0 ([LICENSE](LICENSE), [NOTICE](NOTICE)). The source is at `terracelab/trellis` on GitHub.
 
 ## Korean business conventions
@@ -31,8 +31,20 @@ All packages share one version (fixed group).
 | `@terracelab/trellis-react` | React components for the web and the bundled docs (`dist/docs`: manifest.json, llms.txt, component docs) |
 | `@terracelab/trellis-native` | Expo (React Native) components with the same contracts. Planned, not published |
 | `@terracelab/trellis-tailwind` | Placeholder. The Tailwind v4 theme is in `@terracelab/trellis-tokens/tailwind`. Not published |
-| `@terracelab/trellis-skill` | Agent skill and checks for service repositories (`install`, `doctor`, `docs`). Runs from the git submodule, not published |
+| `@terracelab/trellis-skill` | Agent skill and checks for service repositories (`install`, `doctor`, `docs`, `add`) and a dashboard starter screen. Run it with `npx @terracelab/trellis-skill` |
 | `@terracelab/trellis-blocks` | Copy-in screen blocks, platform base types and sample data |
+
+## Agent skill and check tool
+
+Run these from the root of an app that installs Trellis from npm.
+
+```bash
+npx @terracelab/trellis-skill install        # puts the agent skill in .claude/skills/trellis/
+npx @terracelab/trellis-skill doctor         # checks the install, CSS order, font and values outside tokens
+npx @terracelab/trellis-skill add dashboard  # copies the dashboard starter screen to src/dashboard/
+```
+
+Then ask your agent for the screen in plain words. `doctor` prints the command and lines to add for anything missing.
 
 ## Requirements
 
@@ -200,7 +212,7 @@ pnpm --filter @terracelab/docs dev      # docs site
 | [packages/icons](packages/icons) | UI icons and module tiles |
 | [packages/contracts](packages/contracts) | Component contracts (props, state words), `spec.md` and `spec.en.md`, amount and date formatting |
 | [packages/react](packages/react) | React components for the web and the bundled docs (`dist/docs`) |
-| [packages/skill](packages/skill) | Agent skill and checks for services (install, doctor, docs) |
+| [packages/skill](packages/skill) | Agent skill and checks for services (install, doctor, docs, add) and a dashboard starter screen |
 | [blocks](blocks) | Copy-in screen blocks, platform base types, sample data |
 | [starters/service](starters/service) | Service starter template |
 | [scripts](scripts) | `create-service`, `add-block`, bundled docs generator |

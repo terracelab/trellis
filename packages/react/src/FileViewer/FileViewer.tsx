@@ -6,7 +6,10 @@ import {
   formatAttachmentSize,
   inferAttachmentType,
   nextZoom,
+  rotatePinPoint,
+  unrotatePinPoint,
   type AttachmentFileType,
+  type FileViewerPin,
   type FileViewerProps,
 } from '@terracelab/trellis-contracts';
 import type { IconName } from '@terracelab/trellis-icons';
@@ -17,6 +20,7 @@ import {
   useState,
   type CSSProperties,
   type KeyboardEvent,
+  type MouseEvent,
   type PointerEvent,
 } from 'react';
 import { cx } from '../_internal/cx.js';
@@ -89,6 +93,10 @@ export function FileViewer({
   onRetry,
   onDownload,
   downloadable = true,
+  pins,
+  activePin,
+  onPinPress,
+  onPinAdd,
   id,
   testID,
   className,
@@ -120,6 +128,9 @@ export function FileViewer({
   const canvasRef = useRef<HTMLDivElement>(null);
   const toolRefs = useRef(new Map<string, HTMLButtonElement>());
   const drag = useRef<{ x: number; y: number; left: number; top: number } | null>(null);
+  // 위치 코멘트(R-02): 켜면 그림을 눌러 자리를 고른다. draft는 회전한 그림 위 0~1 자리(방향 키로 옮긴다)
+  const [placing, setPlacing] = useState(false);
+  const [draft, setDraft] = useState({ x: 0.5, y: 0.5 });
 
   // 다른 파일이면 맞춤 · 회전 0, 이름이 바뀌면 처음 쪽(렌더 중에 이전 값과 비교해 바로 맞춘다)
   const fileKey = `${name}\n${src ?? ''}`;
@@ -129,6 +140,7 @@ export function FileViewer({
     setSeenKey(fileKey);
     setZoom('fit');
     setRotation(0);
+    setPlacing(false);
   }
   if (seenName !== name) {
     setSeenName(name);
@@ -196,6 +208,41 @@ export function FileViewer({
   const download = () => {
     if (onDownload) onDownload();
     else if (src) saveFile(src, name);
+  };
+  const canPin = isImage && onPinAdd != null;
+  const togglePlacing = () => {
+    if (placing) {
+      setPlacing(false);
+      say(t('fileViewer.pinCancelled'));
+      return;
+    }
+    setPlacing(true);
+    setDraft({ x: 0.5, y: 0.5 });
+    say(t('fileViewer.pinMode'));
+    stageRef.current?.focus();
+  };
+  /** 회전한 그림 위 자리를 원본 그림 비율로 바꿔 넘긴다 */
+  const placePin = (at: { x: number; y: number }) => {
+    const p = unrotatePinPoint(at, rotation);
+    const round = (n: number) => Math.round(Math.min(1, Math.max(0, n)) * 10000) / 10000;
+    onPinAdd?.({ x: round(p.x), y: round(p.y) });
+    setPlacing(false);
+    say(t('fileViewer.pinPlaced'));
+  };
+  const onFrameClick = (e: MouseEvent<HTMLDivElement>) => {
+    if (!placing) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    if (rect.width <= 0 || rect.height <= 0) return;
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    if (x < 0 || x > 1 || y < 0 || y > 1) return;
+    placePin({ x, y });
+  };
+  const pinName = (pin: FileViewerPin, label: string) => {
+    const base = pin.title
+      ? t('fileViewer.pinTitled', { label, title: pin.title })
+      : t('fileViewer.pin', { label });
+    return pin.resolved ? t('fileViewer.pinResolved', { name: base }) : base;
   };
   const retry = () => {
     if (onRetry) onRetry();
@@ -276,6 +323,16 @@ export function FileViewer({
       onPress: rotate,
       disabled: !natural,
     });
+  if (canPin)
+    view.push({
+      type: 'button',
+      key: 'pin',
+      icon: 'map-pin',
+      label: t('fileViewer.pinAdd'),
+      onPress: togglePlacing,
+      pressed: placing,
+      disabled: !natural,
+    });
   if (isPdf && src)
     file.push({
       type: 'button',
@@ -323,6 +380,23 @@ export function FileViewer({
   };
   const onStageKey = (e: KeyboardEvent<HTMLDivElement>) => {
     if (!isImage || !natural) return;
+    if (placing && e.target === e.currentTarget) {
+      const step = e.shiftKey ? 0.1 : 0.02;
+      const clamp = (n: number) => Math.min(1, Math.max(0, n));
+      const move: Record<string, [number, number]> = {
+        ArrowLeft: [-step, 0],
+        ArrowRight: [step, 0],
+        ArrowUp: [0, -step],
+        ArrowDown: [0, step],
+      };
+      const d = move[e.key];
+      if (d) setDraft((p) => ({ x: clamp(p.x + d[0]), y: clamp(p.y + d[1]) }));
+      else if (e.key === 'Enter' || e.key === ' ') placePin(draft);
+      else if (e.key === 'Escape') togglePlacing();
+      else return;
+      e.preventDefault();
+      return;
+    }
     if (e.key === '+' || e.key === '=') zoomBy(1);
     else if (e.key === '-' || e.key === '_') zoomBy(-1);
     else if (e.key === '0') setZoomTo('fit');
@@ -333,7 +407,7 @@ export function FileViewer({
   // 확대한 그림은 끌어서 옮긴다(영역 스크롤)
   const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
     const stage = stageRef.current;
-    if (!isImage || e.button !== 0 || !stage) return;
+    if (!isImage || placing || e.button !== 0 || !stage) return;
     if (stage.scrollWidth <= stage.clientWidth && stage.scrollHeight <= stage.clientHeight) return;
     drag.current = { x: e.clientX, y: e.clientY, left: stage.scrollLeft, top: stage.scrollTop };
     stage.setPointerCapture?.(e.pointerId);
@@ -405,6 +479,8 @@ export function FileViewer({
               : undefined
           }
           data-ready={natural ? '' : undefined}
+          data-placing={placing || undefined}
+          onClick={onFrameClick}
         >
           <img
             key={reload}
@@ -422,6 +498,51 @@ export function FileViewer({
             }}
             onError={() => setBrokenSrc(src ?? '')}
           />
+          {natural && (pins?.length || placing) ? (
+            <div className="tl-file-viewer__pins">
+              {pins?.map((pin, i) => {
+                const at = rotatePinPoint(pin, rotation);
+                const label = pin.label ?? String(i + 1);
+                const style = { left: `${at.x * 100}%`, top: `${at.y * 100}%` };
+                const attrs = {
+                  className: 'tl-file-viewer__pin',
+                  style,
+                  'data-active': activePin === pin.id || undefined,
+                  'data-resolved': pin.resolved || undefined,
+                };
+                return onPinPress ? (
+                  <button
+                    key={pin.id}
+                    type="button"
+                    {...attrs}
+                    className={cx(attrs.className, 'tl-focusable')}
+                    aria-label={pinName(pin, label)}
+                    aria-current={activePin === pin.id || undefined}
+                    onPointerDown={(e) => e.stopPropagation()}
+                    onDoubleClick={(e) => e.stopPropagation()}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (!placing) onPinPress(pin.id);
+                    }}
+                  >
+                    {label}
+                  </button>
+                ) : (
+                  <span key={pin.id} {...attrs} role="img" aria-label={pinName(pin, label)}>
+                    {label}
+                  </span>
+                );
+              })}
+              {placing && (
+                <span
+                  className="tl-file-viewer__pin"
+                  data-draft=""
+                  style={{ left: `${draft.x * 100}%`, top: `${draft.y * 100}%` }}
+                  aria-hidden
+                />
+              )}
+            </div>
+          ) : null}
         </div>
         {!natural && (
           <div className="tl-file-viewer__loading">
@@ -525,8 +646,8 @@ export function FileViewer({
               onPointerMove,
               onPointerUp: endDrag,
               onPointerCancel: endDrag,
-              onDoubleClick: () => natural && setZoomTo(zoom === 'fit' ? 1 : 'fit'),
-              'data-pannable': pannable || undefined,
+              onDoubleClick: () => !placing && natural && setZoomTo(zoom === 'fit' ? 1 : 'fit'),
+              'data-pannable': (pannable && !placing) || undefined,
             }
           : {})}
       >

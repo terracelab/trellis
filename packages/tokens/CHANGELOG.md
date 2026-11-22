@@ -1,5 +1,11 @@
 # @terracelab/trellis-tokens
 
+## 1.1.0
+
+### Minor Changes
+
+- 모듈 목록에 테라스원 모듈 9개를 더했다(D-158): 임무(`mission`) · 총무(`general`) · 에이전트(`agent`) · 경비(`expense`) · 구독(`subscription`) · 장비·자산(`asset`) · 지원사업(`grant`) · 외주 디자인(`design`) · 계약(`contract`). 모듈은 44개이고 묶음 7개는 그대로라 색 토큰은 늘지 않는다.
+
 ## 1.0.0
 
 ### Major Changes

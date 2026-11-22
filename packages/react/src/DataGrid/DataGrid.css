@@ -246,6 +246,42 @@
   color: var(--tl-color-fg-secondary);
 }
 
+/* 칸 복사(R-08): 값 + 단추. 빈 칸은 단추 폭만큼 비워 숫자 끝을 맞춘다 */
+.tl-data-grid__copy-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tl-space-4);
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+.tl-data-grid__copy-value {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tl-data-grid__copy,
+.tl-data-grid__copy-gap {
+  flex: none;
+  width: var(--tl-density-control-height-sm);
+}
+
+.tl-data-grid__copy {
+  /* 행 높이를 늘리지 않는다 */
+  margin-block: calc(
+    (var(--tl-density-body-line-height) - var(--tl-density-control-height-sm)) / 2
+  );
+}
+
+/* 머리 · 합계 칸은 단추가 없으니 그 폭만큼 안쪽을 더 둔다(오른쪽 정렬 숫자 끝이 같은 줄) */
+th.tl-data-grid__cell[data-copyable][data-align='right'],
+.tl-data-grid__foot .tl-data-grid__cell[data-copyable][data-align='right'] {
+  padding-inline-end: calc(
+    var(--tl-space-12) + var(--tl-density-control-height-sm) + var(--tl-space-4)
+  );
+}
+
 .tl-data-grid__sort {
   display: inline-flex;
   align-items: center;

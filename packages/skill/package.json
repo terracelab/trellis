@@ -1,8 +1,7 @@
 {
   "name": "@terracelab/trellis-skill",
-  "version": "1.0.0",
-  "private": true,
-  "description": "Trellis를 쓰는 서비스 저장소용 에이전트 스킬과 점검 도구(install · doctor · docs)",
+  "version": "1.1.0",
+  "description": "Trellis를 쓰는 서비스 저장소용 에이전트 스킬과 점검 도구(install · doctor · docs · add)",
   "type": "module",
   "license": "Apache-2.0",
   "bin": {
@@ -10,13 +9,45 @@
   },
   "files": [
     "bin",
-    "skills"
+    "src",
+    "skills",
+    "templates",
+    "NOTICE"
   ],
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "trellis",
+    "terracelab",
+    "design-system",
+    "agent-skill",
+    "claude-code"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/terracelab/trellis.git",
+    "directory": "packages/skill"
+  },
+  "homepage": "https://trellis.terracelab.co.kr",
+  "bugs": {
+    "url": "https://github.com/terracelab/trellis/issues"
+  },
   "scripts": {
     "lint": "eslint .",
-    "test": "vitest run --passWithNoTests"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "test:e2e": "node scripts/e2e.mjs"
   },
   "devDependencies": {
-    "@terracelab/trellis-tokens": "workspace:*"
+    "@terracelab/trellis-contracts": "workspace:*",
+    "@terracelab/trellis-react": "workspace:*",
+    "@terracelab/trellis-tokens": "workspace:*",
+    "@types/react": "19.3.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
   }
 }

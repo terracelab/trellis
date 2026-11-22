@@ -43,6 +43,35 @@ export function fileViewerPdfSrc(src: string, { page, zoom }: { page: number; zo
   return `${base}#page=${clampPage(page)}&${view}&toolbar=0&navpanes=0`;
 }
 
+/** 그림 위 위치 코멘트 핀(R-02). x · y는 회전 전 원본 그림 기준 0~1 비율이라 확대 · 회전해도 같은 자리에 선다 */
+export interface FileViewerPin {
+  id: string;
+  /** 그림 왼쪽에서 0~1 */
+  x: number;
+  /** 그림 위에서 0~1 */
+  y: number;
+  /** 핀 글자(번호). 없으면 목록 순서 1부터 */
+  label?: string;
+  /** 코멘트 첫 줄. 핀 단추의 접근성 이름에 붙는다 */
+  title?: string;
+  /** 해결된 코멘트: 회색 핀 */
+  resolved?: boolean;
+}
+
+/** 0~1 비율 점을 회전한 그림(오른쪽으로 90도 단위) 위 자리로. 핀을 그릴 때 쓴다 */
+export function rotatePinPoint(point: { x: number; y: number }, rotation: number) {
+  const r = ((Math.round(rotation / 90) % 4) + 4) % 4;
+  if (r === 1) return { x: 1 - point.y, y: point.x };
+  if (r === 2) return { x: 1 - point.x, y: 1 - point.y };
+  if (r === 3) return { x: point.y, y: 1 - point.x };
+  return { x: point.x, y: point.y };
+}
+
+/** rotatePinPoint의 반대: 회전한 그림 위에서 누른 자리를 원본 그림 비율로 */
+export function unrotatePinPoint(point: { x: number; y: number }, rotation: number) {
+  return rotatePinPoint(point, 360 - (((rotation % 360) + 360) % 360));
+}
+
 export interface FileViewerProps extends ContractBase {
   /** 파일 이름(확장자 포함). 보는 방법 · 아이콘 · 다운로드 이름 · 접근성 이름 */
   name: string;
@@ -75,6 +104,14 @@ export interface FileViewerProps extends ContractBase {
   onDownload?: () => void;
   /** 다운로드 단추(기본 true) */
   downloadable?: boolean;
+  /** 그림 위 위치 코멘트 핀(그림만). 시안 검수에서 버전마다 받은 코멘트 */
+  pins?: readonly FileViewerPin[];
+  /** 강조할 핀(옆 목록에서 고른 코멘트) */
+  activePin?: string | null;
+  /** 핀을 누를 때(옆 목록의 그 코멘트로 간다) */
+  onPinPress?: (id: string) => void;
+  /** 있으면 도구 줄에 "위치 코멘트" 단추. 켜고 그림을 누르면(방향 키로 옮기고 Enter) 그 자리를 0~1 비율로 받는다 */
+  onPinAdd?: (point: { x: number; y: number }) => void;
 }
 
 export const FileViewerContract = defineContract<FileViewerProps>({
@@ -107,6 +144,16 @@ export const FileViewerContract = defineContract<FileViewerProps>({
     onRetry: { type: '() => void', description: '오류 블록의 다시 시도' },
     onDownload: { type: '() => void', description: '다운로드(없으면 src를 받는다)' },
     downloadable: { type: 'boolean', default: true, description: '다운로드 단추' },
+    pins: {
+      type: 'FileViewerPin[]',
+      description: '그림 위 위치 코멘트 핀(x · y는 원본 그림 0~1, label · title · resolved)',
+    },
+    activePin: { type: 'string | null', description: '강조할 핀 id' },
+    onPinPress: { type: '(id: string) => void', description: '핀을 누를 때' },
+    onPinAdd: {
+      type: '(point: { x: number; y: number }) => void',
+      description: '있으면 "위치 코멘트" 도구. 그림에서 고른 자리(0~1)를 받는다',
+    },
   },
   states: ['default', 'focus', 'loading', 'error'],
   a11y: {
@@ -116,6 +163,7 @@ export const FileViewerContract = defineContract<FileViewerProps>({
       '←/→ · Home/End(도구 사이)',
       'Enter/Space',
       '+ · − · 0 · R(그림 영역)',
+      '방향 키 · Enter · Esc(위치 코멘트를 켰을 때 자리 옮기기 · 고르기 · 그만두기)',
       'PageUp/PageDown(쪽)',
     ],
     labelling: 'label-prop',

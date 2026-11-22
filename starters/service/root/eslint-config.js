@@ -18,7 +18,8 @@ export default defineConfig([
     },
   },
   {
-    // 앱 소스(복사한 블록 포함). theme.css 같은 생성물은 CSS라 여기 들지 않는다
+    // 앱 소스(복사한 블록 포함). theme.css 같은 생성물은 CSS라 여기 들지 않는다.
+    // Trellis를 쓰지 않는 앱을 함께 두면 Trellis 앱으로 좁힌다: ['apps/web/src/**/*.{ts,tsx,js,jsx}'](서비스 가이드 "앱이 둘일 때")
     files: ['apps/*/src/**/*.{ts,tsx,js,jsx}'],
     plugins: { trellis },
     rules: tokenRules,

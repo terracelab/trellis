@@ -172,9 +172,9 @@ describe('schema: modules.json', () => {
     expect(ok).toBe(true);
   });
 
-  it('35모듈 · 7그룹, id 중복 없음, group은 정의된 그룹', () => {
-    // 기본 4그룹 20종 + 업종 확장(D-53: 세무 · 유통·물류 · 이커머스 · 제조) 15종
-    expect(modules.modules).toHaveLength(35);
+  it('44모듈 · 7그룹, id 중복 없음, group은 정의된 그룹', () => {
+    // 기본 4그룹 20종 + 업종 확장(D-53: 세무 · 유통·물류 · 이커머스 · 제조) 15종 + 테라스원 모듈(D-158) 9종
+    expect(modules.modules).toHaveLength(44);
     expect(Object.keys(modules.groups)).toEqual([
       'erp',
       'groupware',

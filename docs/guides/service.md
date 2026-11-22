@@ -54,6 +54,16 @@ return (
 
 블록이 `?id=` · `?tab=`을 이것으로 읽는다. 고쳐도 되는 자리는 블록 코드의 `slot: <이름>` … `slot: <이름> end` 사이다.
 
+### 샘플 회사가 둘일 때
+
+복사한 블록은 샘플 자료를 `@terracelab/trellis-blocks/data`에서 읽는다. 회사 이름 · 오늘 날짜 · 사람 · 창고는 그 안의 `profile`이 정한 Trellis 샘플 회사다. 서비스에 자기 샘플 회사가 있으면 한 앱에 두 회사가 섞인다. 기준은 셋이다.
+
+1. 블록을 받아 화면을 맞추는 동안은 import를 그대로 둔다. 구조와 동작을 먼저 맞춘다.
+2. 그 화면 작업을 끝낼 때 블록의 샘플 import를 서비스 샘플 모듈로 바꾼다. 서비스 쪽 파일이 같은 이름 · 같은 모양(타입)으로 내보내면 import 줄만 바뀐다. 서비스 샘플에 없는 값(창고 · 업종 말)이 블록에 있으면 그 칸을 서비스 말로 고친다.
+3. 한 화면에는 한 회사만 보인다. 메뉴 · 알림 · 사용자 칸이 서비스 회사이면 본문도 서비스 회사다.
+
+끝났는지는 `grep -rn "@terracelab/trellis-blocks/data" apps/web/src`로 본다. 타입 import만 남아 있으면 끝이다.
+
 ## 명령
 
 | 명령 | 하는 일 |
@@ -65,6 +75,25 @@ return (
 | `pnpm ds:docs <컴포넌트>` | 설치된 Trellis 문서 |
 | `pnpm ds:update` | Trellis를 최신 main으로 올리고 다시 빌드, theme.css를 지금 생성기로 다시 만들고(`ds:theme --refresh`) 바뀐 블록 알림 |
 | `pnpm ds:add --outdated` | 복사한 뒤 Trellis에서 바뀐 블록 목록. 내용은 `--diff <블록 id>` |
+
+### 앱이 둘일 때
+
+서비스 저장소에 Trellis를 쓰지 않는 앱(예: `apps/studio`)을 함께 두면 검사 범위를 Trellis 앱으로 좁힌다.
+
+| 검사 | 보는 범위 | 할 일 |
+|---|---|---|
+| `pnpm ds:doctor` | 앱 폴더 하나. 기본은 `apps/web`(없으면 저장소 루트) | 그대로 둔다. Trellis 앱이 더 있으면 `pnpm ds:doctor --app apps/<이름>`을 따로 돌린다. Trellis를 쓰지 않는 앱에는 돌리지 않는다 |
+| `pnpm lint`의 Trellis 규칙 | 시작 템플릿은 `apps/*/src/**` 전부 | `eslint.config.js`의 Trellis 블록 `files`를 Trellis 앱으로 바꾼다. 기본 JS · TS 규칙은 모든 앱에 그대로 둔다 |
+| `pnpm check` | `apps/web/src/nav.ts`의 화면 | 그대로 둔다. 다른 앱은 그 앱의 검사를 따로 둔다 |
+
+```js
+// eslint.config.js: Trellis 규칙은 Trellis 앱에만
+{
+  files: ['apps/web/src/**/*.{ts,tsx,js,jsx}'],
+  plugins: { trellis },
+  rules: tokenRules,
+},
+```
 
 ## 최신 Trellis로 올리기
 

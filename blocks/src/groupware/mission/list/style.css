@@ -1,0 +1,24 @@
+/* 내 임무: 정시 완수 기록 카드. 달마다 정시 완수율 | 주 열 띠 달력(폭을 정해 칸이 커지지 않게). 값은 토큰만 */
+.tl-block-mission-record {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--tl-space-16);
+  align-items: center;
+}
+
+.tl-block-mission-record__months {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--tl-space-12);
+}
+
+@media (min-width: 768px) {
+  .tl-block-mission-record {
+    grid-template-columns: minmax(0, 1fr) calc(var(--tl-space-64) * 3 + var(--tl-space-32));
+    gap: var(--tl-space-32);
+  }
+}
+
+.tl-block-mission-record__heat {
+  max-width: calc(var(--tl-space-64) * 3 + var(--tl-space-32));
+}

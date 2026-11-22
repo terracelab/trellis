@@ -167,6 +167,8 @@ export function iconsSection(): string {
   const missing = moduleTileManifest.modulesWithoutTile
     .map((id) => modules.modules.find((m) => m.id === id)!.label)
     .join(' · ');
+  const unassigned = moduleTileManifest.tiles.filter((t) => !t.module);
+  const unassignedNote = `미배정 ${unassigned.length}(${unassigned.map((t) => t.label).join(' · ')})`;
   const sizes = (['accounting', 'approval', 'my-docs', 'customers'] as const)
     .map((id) => ([32, 40, 48] as const).map((s) => moduleIcon(id, s)).join(''))
     .join('');
@@ -175,7 +177,7 @@ export function iconsSection(): string {
     '아이콘',
     `Lucide 라인 아이콘 16·20·24, stroke 1.5. 모듈 앱 아이콘은 일러스트 타일 ${TILED_MODULES}종(모듈 ${modules.modules.length}종 전부). 생성형 폴백(모듈 색 세로 그라데이션 위 흰 라인, radius 22%)은 타일 없는 새 모듈에만 쓴다`,
     `${card('', `${cardHead('Lucide', '샘플 12종 × 3크기')}<div class="tl-preview-icon-grid">${samples}</div>`)}
-${card('', `${cardHead('모듈 타일 일러스트', `${moduleTileManifest.tiles.length}종 · 64 · packages/icons/src/module-tiles`)}<div class="tl-preview-tile-grid">${tiles}</div><p class="tl-preview-meta tl-preview-tile-missing">${moduleTileManifest.modulesWithoutTile.length ? `타일 없는 모듈 ${moduleTileManifest.modulesWithoutTile.length}: ${missing}` : '타일 없는 모듈 0 · 미배정 1(지출결의)'}</p>`)}
+${card('', `${cardHead('모듈 타일 일러스트', `${moduleTileManifest.tiles.length}종 · 64 · packages/icons/src/module-tiles`)}<div class="tl-preview-tile-grid">${tiles}</div><p class="tl-preview-meta tl-preview-tile-missing">${moduleTileManifest.modulesWithoutTile.length ? `타일 없는 모듈 ${moduleTileManifest.modulesWithoutTile.length}: ${missing} · ${unassignedNote}` : `타일 없는 모듈 0 · ${unassignedNote}`}</p>`)}
 ${card('', `${cardHead('모듈 앱 아이콘', '20종 · 32')}<div class="tl-preview-sheet">${sheet}</div>${cardHead('크기', '32 · 40 · 48')}<div class="tl-preview-row">${sizes}</div>`)}`,
   );
 }

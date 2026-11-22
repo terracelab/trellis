@@ -1,5 +1,18 @@
 # @terracelab/trellis-contracts
 
+## 1.1.0
+
+### Minor Changes
+
+- DataGrid `column.copyable` · `copyText`: 칸마다 복사 단추. 숫자 서식은 구분 기호 없이 숫자만 복사한다(신고서 값을 국세청 사이트에 옮겨 적을 때, R-08).
+- FileViewer `pins` · `activePin` · `onPinPress` · `onPinAdd`: 그림 위 위치 코멘트 핀. 자리는 원본 그림 0~1 비율이라 확대 · 회전해도 같은 자리이고, "위치 코멘트"를 켜고 그림을 누르거나 방향 키로 옮겨 Enter로 고른다(R-02). 도우미 `rotatePinPoint` · `unrotatePinPoint`.
+
+### Patch Changes
+
+- 함께 올라간 패키지
+  - @terracelab/trellis-icons@1.1.0
+  - @terracelab/trellis-tokens@1.1.0
+
 ## 1.0.0
 
 ### Major Changes

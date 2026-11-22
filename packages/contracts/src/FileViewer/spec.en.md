@@ -16,18 +16,23 @@ props:
   onRetry: Try again in the error block. Without it the image reloads
   onDownload: Download handler. Without it the browser downloads `src` with the file name
   downloadable: Show the download button
+  pins: Spot comment pins on the image (x and y are 0 to 1 of the original image, plus label, title and resolved)
+  activePin: ID of the pin to highlight
+  onPinPress: Called when a pin is pressed
+  onPinAdd: Adds the "Comment on a spot" tool. Receives the picked spot (0 to 1)
 examples:
   Image: Image — Zoom out, zoom in, fit and rotate. In the image area the + − 0 R keys do the same.
   Pdf: PDF — Page and zoom go to the browser's built-in PDF viewer. Browsers without one show a file card.
   Other: Other formats — Formats that cannot be previewed show a file card with a download button.
   LoadingError: Loading and error — A Skeleton while the address loads. On failure the reason, try again and download.
   Expand: Larger view — Opens the small viewer next to a list in a large Dialog.
+  Pins: Spot comments — Design review. Press a pin to choose its comment. Turn on "Comment on a spot" and click the image (or move with the arrow keys and press Enter) to add a pin. Pins stay on the same spot through zoom and rotation (R-02).
 ---
 # FileViewer
 ## Purpose
 Use it to view one file on the screen without downloading it. Images (PNG, JPG, SVG) zoom, fit and rotate, PDFs turn pages in the browser's built-in PDF viewer, and other formats show a file card with a download button. For a file list or attachment chips use Attachment, for picking files use FileUpload, and for printable forms use Paper and PaperPreview.
 ## Anatomy
-root (`tl-file-viewer`, `role="group"`, border `border.divider`, `radius.lg`, background `bg.surface`) · bar (toolbar row, bottom line `border.divider`, padding `space.4` `space.8`) · name (file icon 16 `fg.tertiary`, name `type.label` 600 `fg.primary` truncated, format and size `type.caption` `fg.secondary` tabular) · tools (`role="toolbar"`, IconButton ghost sm, vertical line `border.divider` between groups) · value (zoom 125%, page 3 / 12, `type.caption` tabular `fg.secondary`) · stage (viewing area, background `bg.sunken`, scrolls inside when content overflows, focus ring `border.focus` inside) · image (shadow `shadow.sm`) · pdf (`object`, fills the area) · card (EmptyState with a format icon, a message and a download button) · status (hidden announcement line for zoom, page and rotation changes).
+root (`tl-file-viewer`, `role="group"`, border `border.divider`, `radius.lg`, background `bg.surface`) · bar (toolbar row, bottom line `border.divider`, padding `space.4` `space.8`) · name (file icon 16 `fg.tertiary`, name `type.label` 600 `fg.primary` truncated, format and size `type.caption` `fg.secondary` tabular) · tools (`role="toolbar"`, IconButton ghost sm, vertical line `border.divider` between groups) · value (zoom 125%, page 3 / 12, `type.caption` tabular `fg.secondary`) · stage (viewing area, background `bg.sunken`, scrolls inside when content overflows, focus ring `border.focus` inside) · image (shadow `shadow.sm`) · pdf (`object`, fills the area) · card (EmptyState with a format icon, a message and a download button) · status (hidden announcement line for zoom, page and rotation changes) · pin (R-02, a spot comment on the image: circle `size.icon-24`, background `brand.default`, text `brand.on-brand` caption 600 tabular, 2 border `bg.surface`, `shadow.sm`. Resolved = background `fg.tertiary` with `fg.inverse` text, the chosen pin = a 2 outer ring in `border.focus`, the spot being picked = a dashed `brand.default` ring on `brand.subtle`).
 ## Props
 Generated from the contract.
 ## Variants
@@ -51,6 +56,8 @@ PDFs use the browser's built-in PDF viewer in an `object`, and page and zoom go 
 
 Download calls `onDownload` when given. Otherwise the browser downloads `src` with the file name (`a[download]`). With `downloadable={false}` the button is gone.
 
+Spot comments (R-02, images only): `pins` x and y are 0 to 1 ratios of the original image before rotation, so a pin stays on the same spot through zoom and rotation (`rotatePinPoint`). The pin's center is the spot, and its number is `label` or the list position. With `onPinPress` pins are buttons (named "Comment 2: first line", plus ", resolved"); without it they are named images. The chosen comment is `activePin` (aria-current). With `onPinAdd` a "Comment on a spot" toggle (`map-pin`) sits at the end of the zoom group. Turning it on moves focus to the viewing area and shows a pick marker in the middle. Click the image, or move the marker with the arrow keys (2%, Shift 10%) and press Enter or Space, and the spot is passed back as a ratio of the original image (`unrotatePinPoint`, four decimals) and the toggle turns off. Esc stops. While it is on, drag-to-pan and double-click-to-fit pause and pins cannot be pressed. The screen draws the comment text and list (a Timeline or list beside it). There are no pins on PDF pages (the browser's built-in viewer gives no place to draw them).
+
 Control the page with `page` and `onPageChange`, or leave it to `defaultPage`. Zoom and rotation are managed inside.
 
 | Key | Action |
@@ -61,6 +68,7 @@ Control the page with `page` and `onPageChange`, or leave it to `defaultPage`. Z
 | Enter · Space | Press the button |
 | + · = / − / 0 | Zoom in, zoom out or fit in the image area |
 | R | Rotate right in the image area |
+| Arrow keys · Enter · Esc | With spot comments on: move the pick marker (Shift = 10%), pick, stop |
 | Arrow keys | Move a zoomed image (scroll the area) |
 | PageUp · PageDown | Previous or next page in the toolbar (PDF) |
 ## Accessibility
@@ -72,6 +80,6 @@ The web uses an `img` for images and the browser's built-in PDF viewer (`object`
 ## Avoid
 Adding a PDF library or an outside viewer service (outside requests) to draw PDFs → review. Painting the viewing area with a status color, or a red background for errors (D-56) → review. Sending files to an address outside your server for previews → review. Tool buttons with icons and no `label` → IconButton blocks it.
 ## Stories
-Image · Pdf · Other · LoadingError · Expand.
+Image · Pdf · Other · LoadingError · Expand · Pins.
 ## References
 SY-16 · PG-44. The preview in the document box (`ecm/my-docs/browser`). Attachment (file type and size format `inferAttachmentType`, `formatAttachmentSize`), EmptyState (file card and errors), IconButton. Benchmarks are for structure only.

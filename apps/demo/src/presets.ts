@@ -78,9 +78,10 @@ export const PRESETS: readonly Preset[] = [
   {
     id: 'office',
     label: '사무 · 그룹웨어',
-    description: '전자결재 · 메일 · 근태 · 일정 · 게시판 · 메신저 · 문서함 · 인사',
+    description: '임무 · 전자결재 · 메일 · 근태 · 일정 · 게시판 · 메신저 · 문서함 · 인사',
     home: 'groupware/approval/inbox',
     modules: [
+      'mission',
       'approval',
       'mail',
       'attendance',

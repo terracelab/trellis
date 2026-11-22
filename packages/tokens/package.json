@@ -1,6 +1,6 @@
 {
   "name": "@terracelab/trellis-tokens",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "디자인 토큰 원본(DTCG JSON)과 CSS·TS·RN·Tailwind·Figma 빌드 산출물",
   "type": "module",
   "license": "Apache-2.0",

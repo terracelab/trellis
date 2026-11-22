@@ -588,3 +588,70 @@ describe('좁은 화면 카드', () => {
     expect(screen.getByRole('button', { name: /영업팀/ })).toHaveTextContent('2건');
   });
 });
+
+describe('DataGrid 칸 복사(R-08)', () => {
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  it('copyable 열: 숫자는 구분 기호 없이 복사하고 행을 열지 않는다', async () => {
+    vi.useFakeTimers();
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true });
+    const onRowPress = vi.fn();
+    render(
+      <DataGrid
+        caption="신고서 값"
+        rowKey="no"
+        onRowPress={onRowPress}
+        rows={[
+          { no: '1', item: '세금계산서 발급분', amount: 128_400_000, memo: '' },
+          { no: '2', item: '카드 발행분', amount: null, memo: 'A-01' },
+        ]}
+        columns={[
+          { key: 'item', header: '항목' },
+          { key: 'amount', header: '금액', format: 'amount', copyable: true },
+          { key: 'memo', header: '비고', copyable: true },
+        ]}
+      />,
+    );
+    const button = screen.getByRole('button', { name: '세금계산서 발급분 금액 복사' });
+    await act(async () => {
+      fireEvent.click(button);
+    });
+    expect(writeText).toHaveBeenCalledWith('128400000');
+    expect(onRowPress).not.toHaveBeenCalled();
+    expect(screen.getByRole('status')).toHaveTextContent('복사했습니다');
+    act(() => {
+      vi.advanceTimersByTime(2000);
+    });
+    expect(screen.getByRole('status')).toHaveTextContent('');
+    // 빈 칸에는 단추가 없고, 글자 열은 보이는 글자를 복사한다
+    expect(screen.queryByRole('button', { name: '카드 발행분 금액 복사' })).toBeNull();
+    expect(screen.queryByRole('button', { name: '세금계산서 발급분 비고 복사' })).toBeNull();
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button', { name: '카드 발행분 비고 복사' }));
+    });
+    expect(writeText).toHaveBeenLastCalledWith('A-01');
+  });
+
+  it('copyText가 있으면 그 글자를 복사한다', async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true });
+    render(
+      <DataGrid
+        caption="사업자"
+        rowKey="id"
+        rows={[{ id: 'v1', name: '거래처', biz: '1248165307' }]}
+        columns={[
+          { key: 'name', header: '이름' },
+          { key: 'biz', header: '사업자번호', copyable: true, copyText: () => '124-81-65307' },
+        ]}
+      />,
+    );
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button', { name: '거래처 사업자번호 복사' }));
+    });
+    expect(writeText).toHaveBeenCalledWith('124-81-65307');
+  });
+});

@@ -1,0 +1,20 @@
+/* 신고 화면(TaxFiling) 조각: erp/tax/corporate도 filing.tsx를 거쳐 읽는다 */
+
+/* padding="none" 카드 안에서 표 위 탭 · 글자를 카드 글자 줄에 맞춘다 */
+.tl-block-tax-inset {
+  padding-inline: var(--tl-density-card-padding);
+}
+
+/* 제출 상자: 할 일 → 접수증. 화면 폭 카드에서는 나란히 */
+.tl-block-tax-filing {
+  display: grid;
+  gap: var(--tl-space-16);
+  align-items: start;
+}
+
+@media (min-width: 64rem) {
+  .tl-block-tax-filing[data-split] {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--tl-space-24);
+  }
+}

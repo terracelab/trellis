@@ -1,0 +1,31 @@
+{
+  "id": "erp/accounting/review",
+  "title": "검토함",
+  "intent": "업무 도우미의 계정 분류 제안 · 증빙 누락 · 이상 지출처럼 사람이 봐야 하는 거래만 모아 한 건씩 또는 한 번에 승인한다",
+  "module": "accounting",
+  "pattern": "ListDetail",
+  "industries": ["trade", "distribution", "commerce", "manufacturing", "general"],
+  "components": [
+    "PageHeader",
+    "Tabs",
+    "Progress",
+    "SelectableList",
+    "Card",
+    "Badge",
+    "DescriptionList",
+    "ProposalCard",
+    "Citation",
+    "Banner",
+    "CodeSearch",
+    "Checkbox",
+    "Field",
+    "FileUpload",
+    "FileViewer",
+    "Button",
+    "ActionBar",
+    "EmptyState"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["tabs", "links"],
+  "order": 12
+}

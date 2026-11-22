@@ -23,6 +23,8 @@ export const MATRIX_AXES = ['variant', 'tone', 'shape', 'size'];
 export const EXTRA_VRT = {
   Avatar: { Vacant: {} },
   Banner: { Narrow: {} },
+  DataGrid: { CopyValues: {} },
+  FileViewer: { Pins: {} },
   PersonLabel: { Vacant: {} },
   PageHeader: { Siblings: { phone: true } },
 };

@@ -21,7 +21,7 @@ Trellis는 에이전트(Claude Code 등)가 읽을 문서를 패키지에 함께
 1. 설치된 `@terracelab/trellis-react` 버전을 확인하고 `llms.txt`를 읽는다.
 2. 요청을 Trellis 어휘로 바꾼다. 화면 유형은 [패턴](patterns.md), 숫자는 [차트 고르기](charts.md), 부품은 `manifest.components`에 있는 것만, 말은 [문구](content.md)대로.
 3. 토큰과 컴포넌트로만 구현한다([원칙과 규칙](principles.md)).
-4. 점검(`pnpm ds:doctor`) · 타입 · 테스트. 화면이면 `pnpm check`(전 화면 × 4폭 × 라이트 · 다크)와 1440 · 390 스크린샷.
+4. 점검(`npx @terracelab/trellis-skill doctor`) · 타입 · 테스트. 화면이면 1440 · 390 스크린샷을 라이트 · 다크로 봅니다. 하위 모듈로 쓰는 서비스는 `pnpm ds:doctor`와 `pnpm check`(전 화면 × 4폭 × 라이트 · 다크)입니다.
 5. 보고: 쓴 패턴 · 컴포넌트, 새로 드러난 요구(없는 컴포넌트 · 토큰)와 남긴 요청, 검증 결과.
 
 ## 없는 컴포넌트가 필요하면
@@ -30,7 +30,25 @@ Trellis는 에이전트(Claude Code 등)가 읽을 문서를 패키지에 함께
 
 ## 스킬
 
-서비스 저장소용 스킬 패키지 `@terracelab/trellis-skill`은 Trellis 저장소의 `packages/skill`에 있습니다. [서비스 시작하기](service.md)의 시작 템플릿이 아래 명령을 루트 package.json에 넣어 둡니다.
+`@terracelab/trellis-skill`은 서비스 저장소에 에이전트 스킬을 두고 서비스를 점검하는 도구입니다. Trellis를 npm으로 설치한 서비스와 git 하위 모듈로 넣은 서비스 둘 다에서 돕니다. 서비스 저장소 루트에서 돌립니다.
+
+```bash
+npx @terracelab/trellis-skill install        # .claude/skills/trellis/ 설치, .trellis/skill.lock에 버전 기록
+npx @terracelab/trellis-skill doctor         # 설치 · CSS 순서 · 글꼴 · 토큰 밖 값 · 스킬 버전 점검
+npx @terracelab/trellis-skill docs TrendChart   # 설치된 Trellis의 문서 출력(오프라인)
+npx @terracelab/trellis-skill add dashboard  # 대시보드 시작 화면을 src/dashboard/ 로 복사
+```
+
+| 명령 | 하는 일 |
+| --- | --- |
+| `install` | 설치 방식에 맞는 SKILL.md와 참고 문서를 복사합니다. 앱이 저장소 루트가 아니면 `--app <앱 폴더>`를 한 번 줍니다 |
+| `doctor` | 실패가 있으면 종료 코드 1입니다. 빠진 패키지 · CSS import는 넣을 명령과 줄을, hex · px에는 대신 쓸 토큰 후보를 알려 줍니다. Trellis를 쓰지 않는 파일의 값은 경고로만 세고 `--strict`면 실패로 셉니다 |
+| `docs` | `docs list`는 이름 목록, `docs guide <이름>`은 가이드, `docs tokens`는 토큰 표, `docs path`는 문서 폴더 경로입니다 |
+| `add` | 시작 화면은 npm에 있는 패키지만 씁니다. 복사한 뒤에는 서비스 코드입니다 |
+
+에이전트에게는 만들 화면을 말로 요청합니다. 스킬이 점검, 문서 읽기, 시작 화면 복사, 요청을 부품으로 옮기기, 검증 순서를 정해 둡니다.
+
+하위 모듈로 쓰는 서비스는 [서비스 시작하기](service.md)의 시작 템플릿이 같은 도구를 아래 명령으로 루트 package.json에 넣어 둡니다.
 
 ```bash
 pnpm ds:skill              # .claude/skills/trellis/ 설치, .trellis/skill.lock에 Trellis 커밋 기록

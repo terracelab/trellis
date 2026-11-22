@@ -12,7 +12,7 @@ import { moduleIcon } from './home';
 
 /* ── 1. 히어로 · 모듈 지도 ─────────────────────────────────── */
 let cached: Molecule | null = null;
-/** 묶음 7개 · 모듈 35개의 지도 좌표(scripts/export-showcase.mjs와 같은 계산) */
+/** 묶음 7개 · 업종 모듈 35개의 지도 좌표(scripts/export-showcase.mjs와 같은 계산) */
 export function molecule(): Molecule {
   cached ??= layoutMolecule(modules);
   return cached;
@@ -52,7 +52,7 @@ export function moleculeMap(): string {
   });
   const { x, y, width, height } = m.viewBox;
   const names = groups.map((g) => modules.groups[g as keyof typeof modules.groups].label);
-  return `<svg class="tl-preview-molecule" viewBox="${x} ${y} ${width} ${height}" role="img" aria-label="모듈 지도. ${names.join(' · ')} ${groups.length}묶음과 모듈 ${modules.modules.length}개가 육각 고리로 이어진 그림">${parts.join('')}</svg>`;
+  return `<svg class="tl-preview-molecule" viewBox="${x} ${y} ${width} ${height}" role="img" aria-label="모듈 지도. ${names.join(' · ')} ${groups.length}묶음과 모듈 ${m.labels.length}개가 육각 고리로 이어진 그림">${parts.join('')}</svg>`;
 }
 
 const hexPattern = () => {

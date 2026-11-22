@@ -1,5 +1,5 @@
 {
-  "$comment": "모듈 타일 일러스트 목록. 키 = src/module-tiles/<키>.svg. module이 있으면 라벨은 modules.json에서 오고, 없으면(미배정) label을 직접 쓴다. 2026-11-07 Patrick 제공 12종 + 같은 날 추가 9종(일정·게시판·메신저·문서함·전사문서·부서문서·영업기회·견적·상담) 2026-11-10 Patrick 제공 15종(세무 · 유통·물류 4 · 이커머스 6 · 제조 4): 모듈 35개 전부 타일이 있다.",
+  "$comment": "모듈 타일 일러스트 목록. 키 = src/module-tiles/<키>.svg. module이 있으면 라벨은 modules.json에서 오고, 없으면(미배정) label을 직접 쓴다. 2026-11-07 Patrick 제공 12종 + 같은 날 추가 9종(일정·게시판·메신저·문서함·전사문서·부서문서·영업기회·견적·상담) 2026-11-10 Patrick 제공 15종(세무 · 유통·물류 4 · 이커머스 6 · 제조 4): 모듈 35개 전부 타일이 있다. 2026-11-22 Patrick 제공 9종(테라스원 모듈: 임무 · 경비 · 구독 · 외주 디자인 · 장비·자산 · 계약 · 지원사업 · 총무 · 에이전트). 같은 날 모듈 목록에 9개를 더해 묶었다(D-158). 원본이 PNG라 같은 틀의 SVG로 다시 그렸다.",
   "tiles": {
     "accounting": {
       "module": "accounting"
@@ -109,6 +109,33 @@
     "expense": {
       "module": null,
       "label": "지출결의"
+    },
+    "tasks": {
+      "module": "mission"
+    },
+    "expenses": {
+      "module": "expense"
+    },
+    "subscriptions": {
+      "module": "subscription"
+    },
+    "outsourced-design": {
+      "module": "design"
+    },
+    "assets": {
+      "module": "asset"
+    },
+    "contracts": {
+      "module": "contract"
+    },
+    "business-support": {
+      "module": "grant"
+    },
+    "general-affairs": {
+      "module": "general"
+    },
+    "agent": {
+      "module": "agent"
     }
   }
 }

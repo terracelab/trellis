@@ -44,7 +44,7 @@ SITE_BASE=/trellis/ pnpm --filter @terracelab/site check
 
 ## 검색 · 답변 엔진 값(SEO · AEO · GEO)
 
-값은 `apps/seo`(`@terracelab/seo`) 한 곳에 있다. 소개 사이트 · 문서 · 테라스원이 같은 함수로 회사 · 사이트 개체, `robots`, `robots.txt`, 사이트맵을 만든다(D-152). 색인은 `SITE_INDEXABLE=1`일 때만 열리고 지금 배포는 닫혀 있다.
+값은 `apps/seo`(`@terracelab/seo`) 한 곳에 있다. 소개 사이트 · 문서 · 테라스원이 같은 함수로 회사 · 사이트 개체, `robots`, `robots.txt`, 사이트맵을 만든다(D-152). 색인은 `SITE_INDEXABLE=1`일 때만 열린다. `trellis.terracelab.co.kr`은 2026-11-13 배포부터 열려 있다(D-156).
 
 | 구분 | 들어 있는 것 | 어디 |
 | --- | --- | --- |

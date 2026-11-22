@@ -11,6 +11,8 @@ pnpm ds:add erp/tax/invoice-list --force # 다시 받기(서비스에서 고친 
 - 복사하면 `../../../_data` · `_platform` · `_ui` 상대 경로가 `@terracelab/trellis-blocks/...`로 바뀐다.
 - 출처 커밋은 `.trellis/blocks.lock`에 남는다. 나중에 Trellis 블록과 비교할 때 쓴다.
 - 블록은 샘플 데이터(`@terracelab/trellis-blocks/data`)로 돈다. 서비스 데이터로 바꿀 때는 import를 서비스 API 훅으로 바꾸고, 행 타입은 샘플 타입 모양을 따른다.
+- 서비스에 자기 샘플 회사가 있으면 화면 작업을 끝낼 때 샘플 import를 서비스 샘플 모듈로 바꾼다. 한 화면에는 한 회사만 보인다. 확인은 `grep -rn "@terracelab/trellis-blocks/data" apps/web/src`에 타입 import만 남는 것(서비스 가이드 "샘플 회사가 둘일 때").
+- Trellis를 쓰지 않는 앱이 같은 저장소에 있으면 `ds:doctor`는 그 앱에 돌리지 않고(기본은 `apps/web`, 다른 Trellis 앱은 `--app`), eslint의 Trellis 규칙 `files`를 Trellis 앱으로 좁힌다(서비스 가이드 "앱이 둘일 때").
 - 블록의 `block.json` slots가 고쳐도 되는 자리다. 배치 · 위계 · 컴포넌트 선택은 되도록 그대로 둔다.
 - 블록이 쓰는 공용 코드는 아래 두 진입점이다. 표에 없는 이름은 내부용이라 쓰지 않는다.
 
@@ -166,3 +168,15 @@ export function Platform({ session, children }: { session: Session; children: Re
 | `ThemeChoice` · `DEFAULT_THEME` | `{ brand: string; neutral: 'cool' \| 'neutral' \| 'warm' }` · 기본 주황 |
 
 시작 템플릿의 화면 설정(`pages/Settings.tsx`)이 이 셋을 쓴다. 확정은 `pnpm ds:theme`이 theme.css로 남긴다.
+
+## 블록에서 자주 틀리는 것
+
+컴포넌트 · 토큰 규칙은 `references/do-dont.md`에 있다. 아래는 블록과 플랫폼 API를 쓸 때만 해당한다.
+
+| 하지 않는다 | 대신 |
+|---|---|
+| 블록 안에서 `window.location.hash` · `location.search`로 화면 값 읽기 | `useScreenParams()`(앱은 레이아웃 경로를 `ScreenParamsProvider`로 감싼다, 시작 템플릿 Shell) |
+| 알림 · 링크 값에 앱 주소(`/people?id=…`)를 직접 | 블록 id(+ `?k=v`). 앱 주소는 `screens.ts`의 `screenHref`가 만든다. 여는 것은 `useOpenLink()` |
+| 팀장 · 구성원 화면에서 다른 팀 · 남의 기록을 손으로 거르기 | `useScope().canSee(사람)`(역할의 scope: company · department · self) |
+| 블록 목록 줄의 두 줄 글자를 CSS로 직접 | 표 칸은 `DataGridLines`, 목록 줄은 블록 `_ui`의 `Lines` |
+| 블록을 고칠 때 slot이 어디인지 짐작 | 블록 코드의 `// slot:<이름>` … `// slot:<이름> end` 사이만 고친다(blocks/README.md) |

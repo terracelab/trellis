@@ -18,6 +18,17 @@ A pattern name names a screen type. It is not a component. Every pattern works a
 
 Stack dashboard and statistics blocks in the order **number → trend → composition → comparison → table (action)**. For each block, pick the form from the table in [Choosing a chart](charts.md). Users end up acting in the table. If bars (DataBar) or shading (HeatCell) in the table cells make the data readable, do not draw a separate chart. Parts, states and phone rules are in [Building dashboards](dashboards.md), and agent conversations are in [Building agent conversation screens](conversation.md).
 
+## Personal record on the home screen
+
+A personal home (such as the member view of the role-based home) has one `record` area for the signed-in person's own record. Streaks and on-time completion rates go here.
+
+- Where: one 12-column Card right below the first row (clock-in and the number row). The title is "내 기록" (My record), and the subtitle says what is counted and which days are skipped (holidays, on hold). A button at the top right of the card goes to the screen the record comes from.
+- What: three numbers (streak, this month's rate, last month's count) as `Figure`, with a `CalendarHeatmap` of the last 3 months beside them (`layout="year"`, a strip with weeks as columns). On narrow screens the calendar goes below the numbers.
+- Counting: only the person's own work. Don't mix it with team or company numbers in one card.
+- When to leave it out: when the source screen (for example missions) is not in the app, and on homes that show company numbers (owner and HR views). Remove the whole area; don't draw an empty card or zeros.
+
+The block example is the member view of `home/dashboard/people`, and the screen behind the numbers and calendar is `groupware/mission/list`.
+
 ## Modules
 
 The business modules (ERP · groupware · ECM · CRM · distribution · e-commerce · manufacturing) are registered in `@terracelab/trellis-tokens/modules`. The sidebar, launcher and notification cards take labels and icons from this list. Module tile illustrations come from `@terracelab/trellis-icons/module-tiles`.

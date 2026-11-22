@@ -90,3 +90,29 @@
 | 2026-11-11 | Trellis(블록 정리) | 컴포넌트 | R-T59 PersonLabel 선택 · 지금 상태와 뒤 배지 자리, Avatar status 전달(팀 근태 · 기안 · 문서 작성에서 근무 상태 점이 빠졌다) | 그대로 | 요청 |
 | 2026-11-13 | Trellis(넘침 점검) | 컴포넌트 | DashboardGrid가 화면 폭으로만 접힌다. 화면은 넓고 자리가 좁을 때(AppShell 옆 칸을 넓게 연 화면 · 문서 예시 720 폭) span 3 네 칸이 그대로라 KPI 숫자가 카드 안에서 줄이 바뀐다. 상자 폭(container query)으로도 접는 안. 겹친 Grid의 지금 배치가 바뀌지 않게 문턱을 화면 폭 규칙보다 낮게 잡아야 한다 | KpiCard 숫자는 카드 안에서 줄을 바꾼다. 문서 예시는 제 폭으로 그리고 상자 안에서 넘긴다 | 요청 |
 | 2026-11-13 | Trellis(넘침 점검) | 컴포넌트 | AppShell 휴대폰 바의 brand가 행동 단추가 많으면 말줄임 없이 잘린다(문서 예시 390 폭에서 "테라스원" 22px). brand는 앱이 주는 노드라 글자에 말줄임을 걸 수 없다. 글자 칸을 따로 받는 안 | 그대로 | 요청 |
+| 2026-11-13 | 스킬 시험(PD-02, npm 방식) | props | KpiCard에 소수 자릿수(digits)가 없고 시간 서식 함수도 없어 평균 처리 시간 4.4시간을 숫자 값으로 넣으면 4로 반올림된다 | value에 formatAmount(v, { digits: 1 }) 글자를 넘기고 unit="시간" | 요청 |
+| 2026-11-13 | 스킬 시험(PD-02, npm 방식) | 문서 | downloadCsv · toCsv · CsvColumn 문서가 없다. docs downloadCsv는 "없음"이고 docs list에도 없어 d.ts를 읽어야 했다 | 시작 화면 코드와 react dist의 d.ts를 보고 썼다 | 요청 |
+| 2026-11-13 | 스킬 시험(PD-02, npm 방식) | 문서 | docs DataGrid의 Props 표는 columns 타입을 DataGridColumn[]로만 적고 열 필드(format · unit · headerUnit · total · render · mobile 등) 표가 없다 | contracts의 DataGrid.contract.d.ts를 읽었다 | 요청 |
+| 2026-11-13 | 스킬 시험(PD-02, npm 방식) | 문서 | DataGrid.contract.d.ts의 rowTone 주석은 "행 왼쪽에 상태 띠"인데 docs DataGrid는 띠 · 바탕을 그리지 않는다고 한다 | rowTone을 쓰지 않고 상태 열 Badge로 보였다 | 요청 |
+| 2026-11-13 | 스킬 시험(PD-02, npm 방식) | 문서 | BulletBar `format`이 값과 목표 숫자 둘 다에 걸린다는 말이 문서에 없다. 소수 한 자리 서식을 주면 목표 95가 "95.0"이 된다 | 소수가 있을 때만 붙이는 서식 함수 | 요청 |
+| 2026-11-13 | 스킬 시험(PD-02, npm 방식) | 버그 | npm으로 설치한 앱의 Vite 8 빌드가 `'use client'` 줄마다 MODULE_LEVEL_DIRECTIVE 경고를 낸다(의존 패키지 @base-ui에서 331건). 빌드는 통과하지만 다른 경고가 묻힌다 | 스킬 setup.md에 영향 없다고 적었다 | 요청 |
+| 2026-11-13 | 데모 390 전수조사 | 버그 | AppShell 위쪽 바의 알림 IconButton 숫자 배지가 390에서 화면 위로 3.5px 잘린다(배지 높이 16, top −3.5). 데모 모든 화면 | 없음 | 요청 |
+| 2026-11-13 | 데모 390 전수조사 | 버그 | `<button>` 안 글자 일부가 글꼴을 물려받지 않는다. IconButton `__count`, AvatarGroup의 더 보기 `+`, 버튼 안 Avatar 이니셜의 계산된 font-family가 Arial이다(크롬 기본 단추 글꼴). 숫자 · 이니셜이 Pretendard가 아니다 | 없음 | 요청 |
+| 2026-11-13 | 데모 390 전수조사 | 버그 | KpiCard를 휴대폰 2칸으로 놓으면 값이 긴 카드에서 설명 글 칸이 한 글자 폭으로 줄어 글이 세로로 선다(commerce/promotions/coupons의 "11월 쿠폰 할인" · "곧 끝나는 쿠폰". 이름 칸 폭 11px · 0px, 카드 높이 334px) | 없음 | 요청 |
+| 2026-11-13 | 데모 390 전수조사 | 버그 | 휴대폰 카드 목록(DataGrid cards)의 메타 값과 HrRecord 표 · DescriptionList 값이 금액 · 날짜 · 메일 · 번호 중간에서 끊긴다. erp/accounting/trial-balance 금액 13곳("15,824,232,00" / "0"), erp/hr-payroll/hr-master 날짜 191곳, erp/accounting/vendor-ledger 메일, scm/trade/shipments B/L 번호 | 없음 | 요청 |
+| 2026-11-13 | 데모 390 전수조사 | 블록 | home/dashboard/mobile "오늘 할 일"의 제목(`tl-block-mobile-tasks__title`)에 말줄임이 걸리지 않아 긴 제목이 DueBadge 밑으로 들어간다(인라인 요소라 overflow가 듣지 않는다). 3줄이 13~47px 겹친다 | 없음 | 요청 |
+| 2026-11-13 | 데모 390 전수조사 | 컴포넌트 | Stepper가 390에서 단계 이름을 한 글자만 남긴다(scm/warehouse/receiving "입… 도… 검…", erp/hr-payroll/payroll, scm/trade/shipments). 좁은 폭 표시 방법이 필요하다 | 없음 | 요청 |
+| 2026-11-13 | 데모 390 전수조사 | 버그 | home/dashboard/franchise "지역 × 주차 매출" 표에서 HeatCell 숫자가 칸보다 10px 길어 잘리고("2,76") 머리글이 말줄임된다("09-…"). 28칸 | 없음 | 요청 |
+| 2026-11-22 | 테라스원(초안) | 토큰 | 모듈 id 9개(mission · expense · subscription · design · asset · contract · grant · general · agent)가 모듈 목록에 없어 이름 · 아이콘 · 타일 색을 받을 수 없다(R-01) | nav.ts에 아이콘 이름을 직접, 타일은 가장 가까운 모듈 것 | 완료(PR-40, D-158) |
+| 2026-11-22 | 테라스원(초안) | props | FileViewer에 그림 위 위치를 찍어 코멘트를 다는 기능이 없다(R-02, 시안 검수) | 버전마다 Timeline에 글 코멘트 | 완료(PR-42, D-159) |
+| 2026-11-22 | 테라스원(초안) | 블록 | 임무 목록(탭 + 표 + 상세 서랍 + 완료 조건)이 블록에 없다(R-03) | 서비스에 조립 | 완료(PR-43 groupware/mission/list) |
+| 2026-11-22 | 테라스원(초안) | 블록 | 에이전트 제안을 모아 건별 · 일괄 승인하는 검토함이 블록에 없다(R-04) | SelectableList + ProposalCard로 조립 | 완료(PR-43 erp/accounting/review) |
+| 2026-11-22 | 테라스원(초안) | 블록 | TaxFiling 패턴에 부가세만 있다. 원천세 · 법인세가 없다(R-05) | vat-return 구조를 따라 조립 | 완료(PR-44 erp/tax/withholding · erp/tax/corporate) |
+| 2026-11-22 | 테라스원(초안) | 블록 | 회사를 처음 등록하는 단계형 설정 화면이 블록에 없다(R-06) | import/excel 단계 구조로 조립 | 완료(PR-43 platform/onboarding/setup) |
+| 2026-11-22 | 테라스원(초안) | 패턴 | 홈 화면 패턴에 "연속 일수" 같은 개인 기록 자리가 정해져 있지 않다(R-07) | CalendarHeatmap + Figure를 KpiCard 줄 옆 Card에 | 완료(PR-45, 패턴 가이드 "홈의 개인 기록") |
+| 2026-11-22 | 테라스원(초안) | props | DataGrid 칸의 값을 한 번에 복사하는 단추가 없다(R-08, 신고서 값 옮겨 적기) | DescriptionList 복사 | 완료(PR-41, D-159) |
+| 2026-11-22 | 테라스원(초안) | 문서 | Trellis를 쓰지 않는 두 번째 앱을 둘 때 ds:doctor · Trellis lint 규칙의 범위를 나누는 방법이 없다(R-09) | eslint files를 apps/web/**로 | 완료(PR-45, 서비스 가이드 "앱이 둘일 때") |
+| 2026-11-22 | 테라스원(초안) | 문서 | 받은 블록의 샘플 회사와 서비스 샘플 회사가 한 앱에 섞일 때의 기준이 없다(R-10) | 단계 끝에 샘플 import를 바꾼다 | 완료(PR-45, 서비스 가이드 "샘플 회사가 둘일 때") |
+| 2026-11-22 | 블록 이식(PR-43) | 컴포넌트 | 라이트 테마에서 Progress 값 0일 때 바탕(canvas) 위 트랙이 보이지 않는다(검토함 "검토 진행 0 / 14"). 다크는 보인다 | 그대로 | 요청 |
+| 2026-11-22 | 블록 이식(PR-43) | 컴포넌트 | Stepper가 390에서 지금 단계가 아니라 마지막 단계 이름("확인")을 보인다(처음 설정). 위 "한 글자만 남긴다" 줄과 같이 본다 | 그대로 | 요청 |
+| 2026-11-22 | 블록 이식(PR-44) | 컴포넌트 | DataGrid 트리 펼침 단추(`tl-data-grid__tree-toggle`)가 휴대폰에서 40px보다 작다(데모 check 경고, erp/tax/withholding 소득별 표). 터치 밀도에서 누르는 자리를 넓히는 안 | 그대로 | 요청 |

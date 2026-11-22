@@ -1,0 +1,10 @@
+{
+  "title": "대시보드: 숫자 네 개 · 월별 추이 · 순위 · 목록(매출 현황 샘플)",
+  "to": "src/dashboard",
+  "next": [
+    "다음:",
+    "  1. 화면에 넣는다: import { Dashboard } from './dashboard/Dashboard';  →  <Dashboard />",
+    "  2. data.ts의 샘플을 서비스 데이터로 바꾸고, 요청에 맞게 숫자 · 차트 · 표의 열을 고친다(스킬 references/dashboard.md)",
+    "  3. npx @terracelab/trellis-skill doctor"
+  ]
+}

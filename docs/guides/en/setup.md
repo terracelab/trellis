@@ -11,6 +11,27 @@ import '@terracelab/trellis-react/styles.css'; // Component CSS
 
 The font is the woff2 file inside the package. It renders the same in TerraceLab's offline desktop app.
 
+## Set the font in your app's base CSS
+
+Components inherit the font and the text color. Put this on `body` in your app CSS. Without it, the screen renders in the browser's default font.
+
+```css
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--tl-color-bg-canvas);
+  color: var(--tl-color-fg-primary);
+  font-family: var(--tl-font-family-sans);
+}
+```
+
+In a newly created app, remove the default CSS the scaffold added (font, colors, centering). `npx @terracelab/trellis-skill doctor` checks the CSS import order and the font.
+
 ## Theme and density are two html attributes
 
 ```html

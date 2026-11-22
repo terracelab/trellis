@@ -8,7 +8,7 @@ import {
   scanOnClick,
   themeStaleness,
   themeViolations,
-} from '../bin/trellis-skill.mjs';
+} from '../src/checks.mjs';
 import * as engine from '../../tokens/theme/index.mjs';
 
 const { THEME_VARS, createTheme, themeCss } = engine;

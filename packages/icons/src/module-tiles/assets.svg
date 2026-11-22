@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-assets-title">
+  <title id="tl-tile-assets-title">장비·자산</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-assets-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-assets-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#96C8EF"/>
+      <stop offset=".5" stop-color="#5F99D2"/>
+      <stop offset="1" stop-color="#35649F"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-assets-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="tl-tile-assets-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-assets-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+    <linearGradient id="tl-tile-assets-face" x1="210" y1="228" x2="413" y2="571" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-assets-side" x1="515" y1="256" x2="622" y2="662" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EBF3F9"/>
+      <stop offset="1" stop-color="#AEBDCE"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-assets-neck" x1="500" y1="640" x2="530" y2="756" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B7C4D4"/>
+      <stop offset="1" stop-color="#A2B2C4"/>
+    </linearGradient>
+  </defs>
+  <g clip-path="url(#tl-tile-assets-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-assets-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#35649F" opacity=".25" filter="url(#tl-tile-assets-blur)"/>
+    <g transform="rotate(-2 512 512)">
+      <path d="M468 630h88l28 110H440Z" fill="url(#tl-tile-assets-neck)"/>
+      <rect x="370" y="730" width="284" height="43" rx="21.5" fill="#F5F8FC"/>
+      <rect x="221" y="256" width="594" height="397" rx="52" fill="url(#tl-tile-assets-side)"/>
+      <rect x="209" y="242" width="594" height="397" rx="52" fill="url(#tl-tile-assets-face)"/>
+      <rect x="251" y="284" width="510" height="270" rx="16" fill="#DFE8F1" stroke="#B8C9DA" stroke-width="12"/>
+      <rect x="474" y="589" width="64" height="12" rx="6" fill="#B7C5D5"/>
+    </g>
+  </g>
+</svg>

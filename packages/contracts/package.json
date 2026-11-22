@@ -1,6 +1,6 @@
 {
   "name": "@terracelab/trellis-contracts",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "웹·네이티브 공통 컴포넌트 contract 타입과 spec",
   "type": "module",
   "license": "Apache-2.0",

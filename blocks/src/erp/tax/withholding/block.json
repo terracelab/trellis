@@ -1,0 +1,32 @@
+{
+  "id": "erp/tax/withholding",
+  "title": "원천세 · 지급명세서",
+  "intent": "급여와 외주 대금에서 뗀 세금을 귀속 월마다 모아 원천징수이행상황신고서 값과 간이 · 연간 지급명세서 자료를 만들고, 접수증을 첨부해 완료 표시한다",
+  "module": "tax",
+  "pattern": "TaxFiling",
+  "industries": ["trade", "distribution", "commerce", "manufacturing", "tax", "general"],
+  "components": [
+    "PageHeader",
+    "Tabs",
+    "Select",
+    "Badge",
+    "DueBadge",
+    "Stepper",
+    "Banner",
+    "KpiCard",
+    "Card",
+    "DataGrid",
+    "MaskedValue",
+    "AmountBreakdown",
+    "Checkbox",
+    "Citation",
+    "Checklist",
+    "FileUpload",
+    "Attachment",
+    "Dialog",
+    "Button"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["people", "annual", "steps", "incomes", "sources", "values", "filing"],
+  "order": 13
+}

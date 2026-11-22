@@ -154,72 +154,79 @@ Generated from the contract.
 
 ## 4. 소비 앱용 스킬 `trellis` (`@terracelab/trellis-skill`)
 
+서비스가 Trellis를 쓰는 방식은 둘이고 스킬은 둘 다에서 돈다(PD-02, 2026-11-13).
+
+| 방식 | Trellis가 있는 곳 | 스킬을 부르는 명령 | 버전 |
+|---|---|---|---|
+| npm | `node_modules/@terracelab/trellis-*` | `npx @terracelab/trellis-skill <명령>` | react 패키지 버전 |
+| 하위 모듈 | 서비스 저장소의 `trellis/`(같은 pnpm 워크스페이스) | `pnpm ds:<명령>`(시작 템플릿이 넣는다) | Trellis 커밋 |
+
+방식은 CLI가 가린다. 앱 폴더에서 위로 올라가며 `@terracelab/trellis-react`를 찾고, 그 패키지가 Trellis 저장소 안에 있으면 하위 모듈, 아니면 npm이다. npx는 이 패키지를 캐시 폴더에서 실행하므로 패키지를 CLI 위치 기준으로 찾지 않는다.
+
 ### 4.1 패키지 구조
 
 ```
 packages/skill/
-  package.json              name @terracelab/trellis-skill, bin: trellis-skill
-  skills/trellis/
-    SKILL.md                아래 4.4 (버전 placeholder 없음 — 버전은 런타임에 읽는다)
-    references/
-      workflow.md           화면 개발 루프(요청 → 매핑 → 구현 → 검증 → 보고)
-      do-dont.md            자주 틀리는 것(raw hex · primitive 참조 · onClick 노출 · 서양식 금융색 …)
-      request-component.md  DS에 없는 컴포넌트를 요청하는 이슈 양식(spec-request)
-  bin/trellis-skill.mjs     install · doctor · docs · update
-  test/                     빈 Vite 앱 픽스처에 install → doctor 통과 → docs 출력 스냅샷
+  package.json              name @terracelab/trellis-skill, bin: trellis-skill(런타임 의존성 없음)
+  bin/trellis-skill.mjs     인자를 나눠 src의 명령을 부른다
+  src/
+    locate.mjs              설치 방식 · 패키지 위치 · 패키지 관리자
+    checks.mjs              판단 함수: 토큰 밖 값 · onClick · 테마 범위 · CSS 순서
+    suggest.mjs             토큰 밖 값에 대신 쓸 토큰 후보(tokens.css를 뒤집어 읽는다)
+    install.mjs · doctor.mjs · docs.mjs · add.mjs
+  skills/
+    trellis/                하위 모듈 방식의 SKILL.md · references(workflow · request · blocks)
+    trellis-npm/            npm 방식의 SKILL.md · references(dashboard · setup · request)
+    shared/references/      두 방식이 같이 쓰는 글(do-dont)
+  templates/dashboard/      시작 화면(Dashboard.tsx · data.ts · dashboard.css · template.json)
+  test/                     판단 함수 · npm 방식 CLI(임시 폴더에 node_modules 배치)
+  scripts/e2e.mjs           빈 Vite 앱에 묶음(pnpm pack)을 설치해 끝에서 끝까지
 ```
 
 ### 4.2 CLI
 
+서비스 저장소 루트에서 돌린다. 네트워크를 쓰는 명령은 없다.
+
 | 명령 | 하는 일 |
 |---|---|
-| `npx @terracelab/trellis-skill install` | `.claude/skills/trellis/`에 SKILL.md·references 복사, `.trellis/skill.lock`에 스킬 버전·설치된 `@terracelab/trellis-react` 버전 기록, `.gitignore`에 아무것도 추가하지 않음(스킬은 커밋한다) |
-| `… doctor` | ① `@terracelab/trellis-react`·`-tokens` 설치·버전 일치(fixed group) ② CSS import 순서(fonts → tokens → styles) ③ Provider 존재 ④ raw hex·px·font-family·`style={{color:` 스캔(pipeline §5 drift-scan의 경량판) ⑤ 스킬 버전 ↔ 패키지 버전 불일치 경고. 종료 코드로 CI에서 쓸 수 있다 |
-| `… docs [component\|tokens\|guide <name>\|llms]` | **설치된 버전**의 `node_modules/@terracelab/trellis-react/dist/docs/`에서 읽어 표준 출력. 네트워크 없음 |
-| `… update [--check]` | 사이트 `/api/latest/manifest.json`을 받아 설치 버전과 비교: 바뀐 컴포넌트·토큰·BREAKING 요약, 업그레이드 명령 제안. `--check`는 비교만. 네트워크가 없으면 조용히 실패 |
+| `install [--to <폴더>] [--app <앱 폴더>]` | 방식에 맞는 SKILL.md · references를 `.claude/skills/trellis/`에 복사한다. `.trellis/skill.lock`에 스킬 버전 · Trellis 버전 · 방식 · 복사한 파일을 적는다. 지난 설치가 둔 파일 가운데 이번에 없는 것은 지운다. 스킬은 커밋한다 |
+| `doctor [--app] [--entry <파일>] [--strict]` | 아래 4.3. 실패가 있으면 종료 코드 1 |
+| `docs [list \| llms \| tokens \| path \| <컴포넌트> \| guide <이름>]` | 설치된 버전의 `dist/docs`를 표준 출력으로 낸다. `docs component <이름>`도 같다. `path`는 문서 폴더 경로 |
+| `add [<시작 화면>] [--to <폴더>] [--force]` | `templates/<id>/`를 서비스 소스로 복사한다. 이름 없이 부르면 목록. 같은 이름 파일은 `--force` 없이 덮지 않는다 |
 
-### 4.3 버전 정합 규칙
+`--app`은 앱이 저장소 루트가 아닐 때 준다. `install`에 한 번 주면 lock에 남아 다음 명령이 그대로 쓴다. 기본값은 `apps/web`이 있으면 그것, 없으면 실행 폴더다.
 
-- 스킬은 **항상** `node_modules`의 동봉 문서를 1차로 읽는다(오프라인·버전 일치). 사이트는 `update`에서만 본다.
-- `skill.lock`의 패키지 버전과 실제 설치 버전이 다르면 `doctor`가 경고하고 SKILL.md 첫 단계에서 다시 읽게 한다(스킬 본문은 버전 비의존, 데이터만 버전 의존).
-- 스킬 패키지도 fixed group에 넣어 DS와 같은 버전으로 publish 한다. Renovate 프리셋이 함께 올린다.
+`update`(사이트 manifest와 설치 버전 비교)는 PD-05와 함께 만든다.
 
-### 4.4 SKILL.md 초안
+### 4.3 doctor가 보는 것
 
-```markdown
----
-name: trellis
-description: 테라스랩 Trellis 디자인 시스템으로 화면·컴포넌트를 만들거나 고칠 때 쓴다. "Trellis로", "디자인 시스템 적용", "토큰 써서", "테라스원 스타일로", "홈/목록/폼/결재 화면 만들어줘" 같은 요청, 또는 저장소에 @terracelab/trellis-* 가 설치돼 있고 UI를 건드리는 모든 작업에 — Trellis를 말하지 않아도 — 쓴다.
----
+| 순서 | npm | 하위 모듈 |
+|---|---|---|
+| 1 | react · tokens 설치, `@terracelab/trellis-*` 버전 일치, React 19, 동봉 문서. 없으면 서비스의 패키지 관리자 명령을 알려 준다 | Trellis 빌드 산출물 |
+| 2 | CSS import 순서(fonts → tokens → styles). 진입 파일 후보(Vite · Next.js · React Router)와 소스 전체에서 찾고 CSS의 `@import`도 본다 | `src/main.tsx`의 순서(theme · blocks 포함) |
+| 3 | 글꼴. 컴포넌트 CSS는 font-family를 정하지 않으므로 앱 CSS가 `--tl-font-family-sans`를 걸어야 한다 | 없음(시작 템플릿이 건다) |
+| 4 | 토큰 밖 값. Trellis를 쓰는 파일만 실패로 세고 나머지는 경고로 건수만 낸다. `--strict`면 전부 실패 | 토큰 밖 값(전부 실패). 복사한 블록에서 원본과 같은 줄은 경고 |
+| 5 | `src/theme.css`가 있으면 테마 범위 | 테마 범위와 생성기 결과 비교 |
+| 6 | lock의 Trellis 버전 = 설치된 버전, 스킬과 major.minor 일치 | lock의 커밋 = 지금 커밋 |
 
-# Trellis로 화면 만들기
+- "Trellis를 쓰는 파일"은 `@terracelab/trellis-*`에서 이름을 가져오는 파일, 그 파일이 불러오는 CSS, `--tl-*` 변수를 쓰는 CSS다. 원래 있던 앱에 화면 하나를 더할 때 옛 코드로 막히지 않게 한다.
+- hex와 px에는 대신 쓸 토큰 후보를 붙인다(`#fff → 후보 --tl-color-bg-surface`). 색 후보는 semantic 토큰만 낸다. primitive는 doctor가 막는다.
+- 스킬 본문은 버전에 묶이지 않고 문서만 버전에 묶인다. 스킬 패키지는 fixed group으로 DS와 같은 버전에 나간다.
 
-코드가 진실이다. 이 저장소에 설치된 Trellis 버전의 문서만 쓴다.
+### 4.4 SKILL.md와 시작 화면
 
-## 0. 시작할 때(매번)
-1. `node_modules/@terracelab/trellis-react/package.json`의 version을 읽는다. 없으면 설치 가이드(`npx @terracelab/trellis-skill docs guide install`)대로 설치부터.
-2. `node_modules/@terracelab/trellis-react/dist/docs/llms.txt`를 읽고, 작업에 필요한 `components/<Name>.md`·`guides/*.md`만 추가로 연다. 전체가 필요하면 `llms-full.txt`.
-3. `npx @terracelab/trellis-skill doctor`를 돌려 CSS 순서·Provider·드리프트를 확인한다. 경고가 있으면 먼저 고친다.
+SKILL.md는 방식마다 하나다(`skills/trellis/SKILL.md` · `skills/trellis-npm/SKILL.md`). 둘의 순서는 같다. 시작할 때 doctor와 문서를 보고, 요청을 Trellis 어휘로 바꾸고, 구현 규칙을 지키고, 검증하고, 보고한다. 문구는 사람이 검토한다.
 
-## 1. 요청을 Trellis 어휘로 바꾼다
-- 화면 유형 → 패턴: 알림 카드 홈 `NotificationHome` · 목록·상세 `ListDetail` · 폼·등록 `FormRegister` · 결재 `ApprovalFlow` · 대화형 `ConversationalWork`. 패턴이 맞으면 템플릿 복사에서 시작한다(`guides/patterns.md`).
-- 숫자·추이·구성·비교 → `guides/charts.md`의 표로 차트를 고른다(축은 하나, 표 대체 필수).
-- 부품 → `manifest.components`에 있는 것만. **없는 컴포넌트는 만들지 않는다.** `references/request-component.md` 양식으로 DS 이슈 초안을 쓰고, 그동안은 가장 가까운 기존 컴포넌트 조합으로 둔다.
+| | npm | 하위 모듈 |
+|---|---|---|
+| 시작 | `add dashboard`로 시작 화면 복사 | `pnpm ds:add`로 화면 블록 복사 |
+| 참고 | `dashboard.md`(요청 → 부품 표 · 배치 · 상태) · `setup.md`(패키지 · CSS · 앱 기본 CSS) | `blocks.md`(플랫폼 API · 블록 패턴) · `workflow.md` |
+| Trellis 고치기 | 요청만 남긴다(`.trellis/requests.md`, 이슈는 사람이) | 작은 수정은 하위 모듈에서, 큰 것은 요청 |
+| 화면 검사 | 서비스의 타입 · 빌드 + 1440 · 390 스크린샷 | `pnpm check`(전 화면 × 4폭 × 라이트 · 다크) |
 
-## 2. 구현 규칙(위반하면 소비 레포 CI도 실패한다)
-- 값은 `--tl-*` 변수 또는 `@terracelab/trellis-tokens`의 TS 객체만. raw hex · px(0 제외) · font-family 리터럴 금지. Tailwind를 쓰면 `@terracelab/trellis-tailwind` preset 클래스만.
-- semantic 토큰만(`color.bg.surface`). primitive(`color.brand.500`) 직접 참조 금지. 필요한 semantic이 없으면 토큰 요청 이슈.
-- props는 문서의 Props 표 그대로. 이벤트는 `onPress`·`onChange`·`onOpenChange`. `className`·`style`로 컴포넌트 내부를 덮어쓰지 않는다.
-- 상태 어휘 7(default·hover·active·focus·disabled·loading·error), 결재 5(기안·진행·승인·반려·회수), 수입 빨강·지출 파랑, 금액은 원 단위·천 단위·우측 정렬(`formatAmount`).
-- 밀도는 compact 기본. 접근성: 키보드로 모든 조작, 포커스 링 유지, 대비 4.5:1(토큰 조합을 바꾸지 않으면 자동으로 지켜진다).
+시작 화면은 npm에 있는 패키지만 쓴다(`@terracelab/trellis-react` · `-contracts`). 화면 블록(`@terracelab/trellis-blocks`)이 npm에 올라가기 전까지 npm 방식의 출발점이다. 이 저장소에서 타입 검사(`packages/skill/tsconfig.json`)와 토큰 린트(eslint `COMPONENT_SOURCES`)를 받는다.
 
-## 3. 검증
-- `npx @terracelab/trellis-skill doctor` 통과(드리프트 0).
-- 소비 레포의 린트·타입·테스트. 화면이 보이는 작업이면 1440·390 두 폭 스크린샷을 찍어 본다(라이트·다크가 있으면 둘 다).
-
-## 4. 보고
-무엇을 어떤 패턴·컴포넌트로 만들었나 · 쓴 토큰 중 새로 드러난 요구(없는 컴포넌트·토큰) · doctor 결과 · 스크린샷. 추측한 데이터·문구는 따로 적는다.
-```
+- `dashboard`: PageHeader(기간 SegmentedControl · 엑셀 다운로드) → KpiCard 넷 → ChartCard(TrendChart 비교 · BarList) → SectionHeader + DataGrid(DataBar · 증감 · Badge · 합계). 불러오는 중 · 빈 상태 · 오류는 `useDashboardData`의 값이 카드마다 들어간다.
 
 ### 4.5 에이전트 작업 루프(소비 앱)
 

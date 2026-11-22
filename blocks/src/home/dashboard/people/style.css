@@ -185,3 +185,28 @@ button.tl-block-people-task:hover {
   color: var(--tl-color-fg-secondary);
   font-size: var(--tl-type-label-font-size);
 }
+
+/* 개인 기록(slot: record): 숫자 셋 | 주 열 띠 달력(폭을 정해 칸이 커지지 않게). 좁은 화면은 숫자 줄 아래 달력 */
+.tl-block-people-record {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--tl-space-16);
+  align-items: center;
+}
+
+.tl-block-people-record__figures {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--tl-space-12);
+}
+
+@media (min-width: 768px) {
+  .tl-block-people-record {
+    grid-template-columns: minmax(0, 1fr) calc(var(--tl-space-64) * 3 + var(--tl-space-32));
+    gap: var(--tl-space-32);
+  }
+}
+
+.tl-block-people-record__heat {
+  max-width: calc(var(--tl-space-64) * 3 + var(--tl-space-32));
+}

@@ -16,6 +16,8 @@
 | Trellis · Components | https://www.figma.com/design/wm3bZ3mscnjwjmim1I8LeL | 아이콘 173 · 모듈 타일 36 · 세트 167(변형 2,444) · 낱개 컴포넌트 25. 변수 · 스타일은 Foundations 라이브러리 |
 | Trellis · Screens | https://www.figma.com/design/QNmIYwV6G64VXwampA4b9e | 화면 17개 × 모드 = 프레임 48. 변수 · 스타일은 Foundations, 인스턴스는 Components 라이브러리. 게시 대기 사본 2(PersonLabel · ProfileHeader) |
 
+세 파일 밖에 사람이 고쳐 보는 검토 파일이 하나 있다(아래 "검토 파일"). 동기화 대상이 아니고 라이브러리에 묶여 있지 않다.
+
 ## 변수와 스타일
 
 원본은 `packages/tokens/dist/figma/variables.json`이다(`pnpm --filter @terracelab/trellis-tokens build`). Figma에서는 Foundations에만 있다.
@@ -515,6 +517,17 @@ Foundations는 2026-11-10에 게시했다. Components는 PG-02 뒤 아래 순서
 6. 화면은 Screens 파일에서 만든다. PG-03 전에는 사본 세트를 같은 빌더로 맞추고, PG-03 뒤에는 라이브러리 세트 인스턴스를 쓴다(스킬 6절).
 
 토큰 값(색 · 크기)은 에이전트가 제안만 하고 사람이 승인한다(CLAUDE.md).
+
+## 검토 파일(Trellis · Mobile 390 검토)
+
+2026-11-13에 만들었다. https://www.figma.com/design/U2gMo9WmIwC1EBa86tNDbu 이고 지금은 Patrick의 초안 폴더에 있다. 휴대폰 화면에서 어색한 곳을 사람이 Figma에서 고쳐 보려고 데모(apps/demo)의 모든 화면을 390 폭으로 옮긴 파일이다.
+
+- 페이지 `Mobile 390 · 데모 전 화면` 하나에 섹션 11개가 두 줄로 있다. 01 홈 · 대시보드 7 · 02 ERP 19 · 03 그룹웨어 10 · 04 CRM 4 · 05 ECM 5 · 06 유통·물류 8 · 07 이커머스 8 · 08 제조 5 · 09 관리 · 로그인 · 오류 11 · 10 겹침 화면(서랍 · 시트) 9 · 11 화면 블록 목록 1. 프레임 87개, 노드는 약 4만 6천 개다.
+- 프레임 이름은 `<화면 이름> · <블록 id>`다. 폭은 390이고 높이는 본문을 끝까지 펼친 길이다. 프레임 안 가로 가이드 선(844)이 첫 화면의 끝이다. 겹침 화면 9개는 390 × 844 그대로다.
+- 레이어는 Figma의 HTML 가져오기로 만든 일반 레이어다(자동 레이아웃 프레임 · 글자 · 벡터). 컴포넌트 인스턴스와 변수 바인딩이 없다. 글꼴은 Pretendard 정적 스타일 넷(Regular · Medium · SemiBold · Bold)이고 빠진 글꼴은 0이다.
+- 코드 기준은 커밋 583962d, 라이트 테마다. 만드는 법은 `.claude/skills/ds/figma-sync/SKILL.md` 7절과 `apps/demo/scripts/freeze.mjs`에 있다.
+- 이 파일에서 고친 모양은 코드에 옮겨야 제품에 반영된다. 화면을 다시 옮기면 사람이 고친 프레임을 덮어쓰지 않게 새 페이지나 새 섹션에 둔다.
+- 브라우저 화면과 비교한 결과: 굳힌 HTML은 브라우저 화면과 픽셀 차이가 화면마다 0.11% 이하다. Figma 프레임은 글자 줄바꿈과 칸 높이가 브라우저와 같지만 몇 px 어긋나는 곳이 있고, 선택된 행의 테두리 같은 일부 효과가 빠진 화면이 있다.
 
 ## 이전 파일
 

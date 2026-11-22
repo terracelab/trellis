@@ -1,3 +1,4 @@
+import type { FileViewerPin } from '@terracelab/trellis-contracts';
 import { useEffect, useState } from 'react';
 import { Button } from '../Button/Button.js';
 import { Dialog } from '../Dialog/Dialog.js';
@@ -120,5 +121,49 @@ export function Expand() {
         <FileViewer name="거래명세서 스캔 2026-11-05.png" size={184320} src={SCAN} height="lg" />
       </Dialog>
     </div>
+  );
+}
+
+// 배너 시안 그림(회색 도형만). 제목 줄 · 사진 자리 · 단추
+const PROOF = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
+  [
+    '<svg xmlns="http://www.w3.org/2000/svg" width="720" height="405" viewBox="0 0 720 405">',
+    '<rect width="720" height="405" fill-opacity="0.06"/>',
+    '<g fill-opacity="0.78"><rect x="48" y="96" width="300" height="30" rx="4"/></g>',
+    '<g fill-opacity="0.32"><rect x="48" y="146" width="260" height="12" rx="3"/>',
+    '<rect x="48" y="168" width="220" height="12" rx="3"/></g>',
+    '<rect x="400" y="64" width="272" height="236" rx="8" fill-opacity="0.18"/>',
+    '<path d="M424 268L500 180L556 236L596 200L648 268Z" fill-opacity="0.3"/>',
+    '<circle cx="612" cy="116" r="22" fill-opacity="0.3"/>',
+    '<rect x="48" y="292" width="148" height="44" rx="22" fill-opacity="0.62"/>',
+    '</svg>',
+  ].join(''),
+)}`;
+
+const PROOF_PINS: FileViewerPin[] = [
+  { id: 'c1', x: 0.27, y: 0.27, title: '제목 글자를 한 단계 키워 주세요' },
+  { id: 'c2', x: 0.74, y: 0.45, title: '사진을 오른쪽 끝에 붙여 주세요' },
+  { id: 'c3', x: 0.17, y: 0.77, title: '단추 색은 회사 색으로', resolved: true },
+];
+
+/** 위치 코멘트 — 시안 검수. 핀을 누르면 그 코멘트를 고르고, "위치 코멘트"를 켠 뒤 그림을 누르면(방향 키로 옮기고 Enter) 새 핀이 선다. 확대 · 회전해도 핀은 같은 자리다(R-02) */
+export function Pins() {
+  const [pins, setPins] = useState<FileViewerPin[]>(PROOF_PINS);
+  const [active, setActive] = useState<string | null>('c1');
+  return (
+    <FileViewer
+      name="11월 배너 시안 v3.png"
+      size={248_320}
+      src={PROOF}
+      height="lg"
+      pins={pins}
+      activePin={active}
+      onPinPress={setActive}
+      onPinAdd={(at) => {
+        const id = `c${pins.length + 1}`;
+        setPins((list) => [...list, { id, ...at, title: '새 코멘트' }]);
+        setActive(id);
+      }}
+    />
   );
 }

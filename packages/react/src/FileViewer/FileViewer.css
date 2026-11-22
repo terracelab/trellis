@@ -157,6 +157,66 @@
   user-select: none;
 }
 
+/* 위치 코멘트 핀(R-02): 그림 자리 0~1을 회전한 틀 위 %로 놓는다. 핀 가운데가 그 자리다 */
+.tl-file-viewer__frame[data-placing] {
+  cursor: crosshair;
+}
+
+.tl-file-viewer__pins {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.tl-file-viewer__pin {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: var(--tl-size-icon-24);
+  height: var(--tl-size-icon-24);
+  padding: 0 var(--tl-space-4);
+  border: var(--tl-border-width-2) solid var(--tl-color-bg-surface);
+  border-radius: var(--tl-radius-full);
+  background: var(--tl-color-brand-default);
+  box-shadow: var(--tl-shadow-sm);
+  color: var(--tl-color-brand-on-brand);
+  font: inherit;
+  font-size: var(--tl-type-caption-font-size);
+  font-weight: 600;
+  line-height: 1;
+  font-variant-numeric: var(--tl-font-numeric);
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+}
+
+button.tl-file-viewer__pin {
+  cursor: pointer;
+}
+
+.tl-file-viewer__pin[data-resolved] {
+  background: var(--tl-color-fg-tertiary);
+  color: var(--tl-color-fg-inverse);
+}
+
+/* 옆 목록에서 고른 코멘트: 바깥 고리 한 겹(포커스 링과 같은 색, 두께는 그보다 얇게) */
+.tl-file-viewer__pin[data-active] {
+  outline: var(--tl-border-width-2) solid var(--tl-color-border-focus);
+  outline-offset: var(--tl-border-width-1);
+}
+
+/* 고르는 중인 자리: 속이 빈 점선 고리. 누르는 것은 그림이므로 이 표시는 클릭을 받지 않는다 */
+.tl-file-viewer__pin[data-draft] {
+  border: var(--tl-border-width-2) dashed var(--tl-color-brand-default);
+  background: var(--tl-color-brand-subtle);
+  pointer-events: none;
+}
+
+.tl-file-viewer__frame[data-placing] .tl-file-viewer__pin:not([data-draft]) {
+  pointer-events: none;
+}
+
 /* 크기를 알기 전: 보이지 않게 받기만 한다(naturalWidth는 CSS 크기와 관계없다) */
 .tl-file-viewer__frame:not([data-ready]) .tl-file-viewer__image {
   width: 0;

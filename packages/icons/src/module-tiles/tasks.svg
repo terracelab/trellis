@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-tasks-title">
+  <title id="tl-tile-tasks-title">임무</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-tasks-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-tasks-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8BC9FF"/>
+      <stop offset=".5" stop-color="#4D8DEC"/>
+      <stop offset="1" stop-color="#315FC4"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-tasks-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="tl-tile-tasks-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-tasks-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+    <linearGradient id="tl-tile-tasks-face" x1="254" y1="204" x2="466" y2="566" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-tasks-side" x1="500" y1="216" x2="677" y2="810" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F3F8FE"/>
+      <stop offset="1" stop-color="#95A6BB"/>
+    </linearGradient>
+  </defs>
+  <g clip-path="url(#tl-tile-tasks-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-tasks-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#315FC4" opacity=".25" filter="url(#tl-tile-tasks-blur)"/>
+    <g transform="rotate(-3 512 512)">
+      <rect x="271" y="233" width="491" height="568" rx="64" fill="url(#tl-tile-tasks-side)"/>
+      <rect x="258" y="216" width="491" height="568" rx="64" fill="url(#tl-tile-tasks-face)"/>
+      <g fill="#BCC9D8">
+        <rect x="465" y="342" width="199" height="29" rx="14.5"/>
+        <rect x="465" y="488" width="199" height="29" rx="14.5"/>
+        <rect x="465" y="634" width="199" height="29" rx="14.5"/>
+      </g>
+      <g fill="none" stroke="#4D8DEC" stroke-width="30">
+        <path d="M315 364 353.5 404 413 336"/>
+        <path d="M315 510 353.5 550 413 482"/>
+        <path d="M315 656 353.5 696 413 628"/>
+      </g>
+    </g>
+  </g>
+</svg>

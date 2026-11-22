@@ -1,4 +1,5 @@
-// 모듈 지도(히어로 오른쪽)의 좌표 계산. modules.json의 묶음 7개와 모듈 35개를 뾰족 위 육각 격자에 놓는다.
+// 모듈 지도(히어로 오른쪽)의 좌표 계산. modules.json의 묶음 7개와 업종 모듈 35개를 뾰족 위 육각 격자에 놓는다.
+// 그리는 모듈은 MOLECULE_LAYOUT의 modules가 정한다. 2026-11-22에 더한 테라스원 모듈 9개(D-158)는 지도에 없다.
 // import가 없는 순수 모듈이다. 미리보기(Vite)와 scripts/export-showcase.mjs(Node 타입 제거)가 같은 파일을 읽는다.
 // 격자에 맞지 않는 간선 · 겹치는 꼭짓점 · 겹치는 라벨 · 모듈 수와 다른 가지 수는 빌드에서 던진다.
 
@@ -49,11 +50,12 @@ function step(from: Lattice, dir: Dir): Lattice {
 /**
  * 고리 하나의 배치. branches는 고리 꼭짓점에서 시작하는 가지 경로다. 'NW UL U UR'은 NW 꼭짓점에서
  * UL · U · UR 순서로 간다. 같은 앞부분을 가진 경로는 한 나무로 합쳐지고, 경로 끝이 모듈 라벨 자리다.
- * 경로는 modules.json의 그 묶음 모듈 순서대로 하나씩 대응한다.
+ * modules[i]가 branches[i] 끝에 붙는다. modules.json에 그 묶음 모듈로 있어야 한다.
  */
 export interface RingSpec {
   group: string;
   center: Lattice;
+  modules: readonly string[];
   branches: readonly string[];
 }
 
@@ -117,11 +119,13 @@ export const MOLECULE_LAYOUT: readonly RingSpec[] = [
   {
     group: 'ecm',
     center: [1, 0],
+    modules: ['my-docs', 'company-docs', 'dept-docs', 'doc-editor'],
     branches: ['NW UL U UL U', 'NW UL U UL DL', 'NW UL U UR', 'NW UL DL UL'],
   },
   {
     group: 'erp',
     center: [3, 0],
+    modules: ['accounting', 'tax', 'treasury', 'purchasing', 'sales', 'production', 'hr-payroll'],
     branches: [
       'N U UL U UL U',
       'N U UL U UL DL',
@@ -135,11 +139,13 @@ export const MOLECULE_LAYOUT: readonly RingSpec[] = [
   {
     group: 'crm',
     center: [5, 0],
+    modules: ['customers', 'opportunities', 'quotes', 'support'],
     branches: ['NE UR U UR U', 'NE UR U UR DR', 'NE UR U UL', 'NE UR DR UR'],
   },
   {
     group: 'groupware',
     center: [0, 3],
+    modules: ['mail', 'approval', 'attendance', 'calendar', 'board', 'messenger'],
     branches: [
       'NW UL DL UL',
       'NW UL DL D DL UL',
@@ -152,16 +158,19 @@ export const MOLECULE_LAYOUT: readonly RingSpec[] = [
   {
     group: 'scm',
     center: [2, 3],
+    modules: ['inventory', 'warehouse', 'delivery', 'trade'],
     branches: ['S D DL UL', 'S D DL D DL UL', 'S D DL D DL D', 'S D DL D DR D'],
   },
   {
     group: 'mes',
     center: [4, 3],
+    modules: ['shop-floor', 'equipment', 'quality', 'materials'],
     branches: ['S D DR D DL D', 'S D DR D DR D', 'S D DR D DR UR', 'S D DR UR'],
   },
   {
     group: 'commerce',
     center: [6, 3],
+    modules: ['products', 'orders', 'claims', 'settlement', 'promotions', 'channels'],
     branches: [
       'NE UR DR UR',
       'NE UR DR D DR D',
@@ -304,11 +313,16 @@ export function layoutMolecule(
 
   // 2. 가지와 라벨
   for (const r of layout) {
-    const mods = input.modules.filter((m) => m.group === r.group);
-    if (mods.length !== r.branches.length)
+    if (r.modules.length !== r.branches.length)
       throw new Error(
-        `molecule: ${r.group} 모듈 ${mods.length}개, 가지 ${r.branches.length}개. MOLECULE_LAYOUT을 맞춘다`,
+        `molecule: ${r.group} 모듈 ${r.modules.length}개, 가지 ${r.branches.length}개. MOLECULE_LAYOUT을 맞춘다`,
       );
+    const mods = r.modules.map((id) => {
+      const m = input.modules.find((x) => x.id === id);
+      if (!m || m.group !== r.group)
+        throw new Error(`molecule: ${r.group} 묶음에 모듈 ${id}가 modules.json에 없다`);
+      return m;
+    });
     const leaves = new Set<string>();
     const interior = new Set<string>();
     const paths = r.branches.map((spec) => {

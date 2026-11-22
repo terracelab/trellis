@@ -115,9 +115,16 @@ describe('ModuleIcon', () => {
     expect(svg.innerHTML).not.toContain('url(#tl-tile-accounting-tile)');
   });
 
-  it('모듈 35개 전부 타일로 그린다', () => {
-    render(<ModuleIcon module="inventory" size={48} />);
+  it('모듈 44개 전부 타일로 그린다', () => {
+    render(
+      <>
+        <ModuleIcon module="inventory" size={48} />
+        <ModuleIcon module="mission" size={48} />
+      </>,
+    );
     expect(screen.getByRole('img', { name: '재고' })).toHaveAttribute('data-kind', 'tile');
+    // 테라스원 모듈(D-158)은 타일 이름(tasks)과 모듈 id가 다르다
+    expect(screen.getByRole('img', { name: '임무' })).toHaveAttribute('data-kind', 'tile');
   });
 
   it('label · decorative', () => {

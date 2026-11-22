@@ -256,3 +256,43 @@ CheckboxGroup(R-27)은 PR-08에서 만들었다(서비스 API 그대로 + select
 - 공개 저장소 `terracelab/trellis`의 `main` · `gh-pages`가 커밋 하나씩이고 작성자가 공개용 계정이다. `https://trellis.terracelab.co.kr/`가 v1.0으로 열린다.
 올린 뒤(공개 1.0.0에는 없다. 다음 공개 때 나간다): 넘침 점검 스크립트(0b0236c), doctor가 `inner-override:` 표시를 보게 한 고침(cb51a50, patch changeset). 고객사 데모 저장소 `trellis-demos`를 이 커밋으로 올렸다(복사한 블록 42개, 회사 3곳 · 53화면 check 문제 0, `ds:doctor` 통과, 로컬 커밋 d5ecf5e). 그쪽에서 찾은 Trellis 쪽 항목은 그 저장소 `docs/trellis-feedback.md` 2026-11-13 줄에 있다. 공개 저장소의 CI · Sites 워크플로는 ba1e0d6에서 통과했다.
 사람 확인: Figma Components 라이브러리 다시 게시(새 13 · 바뀜 33), 패키지 `license` 칸(`UNLICENSED`)과 공개 저장소 LICENSE(Apache-2.0) 맞추기, `.publicignore`에 `docs/plan`을 넣을지, 저장소 `terracelab.github.io`의 `trellis/` 폴더와 커밋 기록 정리(옛 주소 `terracelab.github.io/trellis/`는 지금 새 주소로 301이다. 공개 저장소 `trellis`의 Pages가 그 경로를 가져간다).
+
+## 테라스원 보강 요청 초안 R-01 ~ R-10(2026-11-22)
+
+원문은 서비스 쪽 `docs/plan/requests-draft.md`의 표다. 서비스는 막힐 때만 `.trellis/requests.md`로 옮기기로 했지만, Patrick이 "적용 안 된 것들 수정해줘"라고 해 열 줄을 한 번에 받았다. 서비스가 임시로 조립해 둔 화면(R-03 ~ R-06)은 Trellis 샘플 회사로 바꿔 블록으로 옮겼다. 결정은 D-158(모듈) · D-159(DataGrid · FileViewer) · D-160(블록 · 홈 개인 기록). npm에 아직 올리지 않은 1.1.0에 합쳤다(Patrick: "1.1.0에 합쳐서 커밋해줘"). changeset을 따로 쌓지 않고 패키지별 1.1.0 변경 이력에 바로 적었다.
+
+### PR-40 테라스원 모듈 9개(R-01)
+상태: ☑ 완료 2026-11-22 — modules.json 44개(그룹웨어 mission · general · agent, ERP expense · subscription · asset · grant · design, ECM contract), 1.1.0 타일 9종을 모듈에 묶음(미배정은 지출결의 하나), 영어 이름, 미리보기 모듈 지도는 업종 35개만(`MOLECULE_LAYOUT.modules`), 데모 사무 프리셋에 임무. 테스트: tokens 433 · icons 53 · ModuleIcon 타일(mission). Figma는 다음 동기화
+의존: D-157(타일)
+목표: 서비스가 nav.ts에 직접 적던 모듈 9개의 이름 · 아이콘 · 타일을 Trellis에서 받는다.
+완료 조건: tokens · icons 테스트, 미리보기 모듈 지도 테스트, 문서 모듈 수.
+
+### PR-41 DataGrid 칸 복사(R-08)
+상태: ☑ 완료 2026-11-22 — `column.copyable` · `copyText`, 숫자는 구분 기호 없이, 표마다 라이브 영역 하나, 머리 · 합계 칸 정렬. 예시 CopyValues, 테스트 2, VRT 새 8장(회사 색 변형 포함), spec 한 · 영
+의존: 없음
+목표: 신고서 값을 국세청 사이트에 옮겨 적을 때 칸 값을 단추 한 번으로 복사한다.
+완료 조건: 컴포넌트 작업 공통 DoD.
+
+### PR-42 FileViewer 위치 코멘트(R-02)
+상태: ☑ 완료 2026-11-22 — `pins` · `activePin` · `onPinPress` · `onPinAdd`, 원본 그림 0~1 자리(`rotatePinPoint` · `unrotatePinPoint`), 위치 코멘트 토글(누르기 · 방향 키 + Enter · Esc). 예시 Pins, 테스트 5, VRT 새 4장, spec 한 · 영
+의존: 없음
+목표: 시안 검수에서 그림 위 자리에 번호 핀을 찍고 코멘트와 잇는다.
+완료 조건: 컴포넌트 작업 공통 DoD.
+
+### PR-43 화면 블록 셋: 임무 목록 · 검토함 · 처음 설정(R-03 · R-04 · R-06)
+상태: ☑ 완료 2026-11-22 — `groupware/mission/list`(내 임무: 탭 다섯 · 숫자 셋 · 정시 완수 기록 · 표 · 상세 서랍 · 보류 사유 · 기한 변경 · 재배정 요청 · 임무 등록), `erp/accounting/review`(검토함: 미분류 · 증빙 누락 · 이상 지출, 제안 카드 건별 승인 · 반려, 확신 90% 이상 일괄 승인, ↑ ↓ · Enter), `platform/onboarding/setup`(처음 설정: 회사 · 사람 · 자료 · 에이전트 · 확인, 단계마다 나중에, 서류에서 읽은 값 제안). 샘플 `_data/mission.ts` · `review.ts` · `onboarding.ts`. 샘플 회사 사업자등록번호를 검증 숫자가 맞는 값으로 고침(`_platform/mock.ts`)
+의존: PR-40(임무 모듈)
+목표: 서비스가 임시로 조립한 세 화면을 다른 서비스도 쓰는 블록으로.
+완료 조건: check-blocks · blocks typecheck · eslint, 1440 · 390 × 라이트 · 다크 스크린샷, 데모 check.
+
+### PR-44 세무 신고 블록 둘: 원천세 · 법인세(R-05)
+상태: ☑ 완료 2026-11-22 — `erp/tax/withholding`(원천세 · 지급명세서: 원천세 신고 · 간이 · 연간 지급명세서 탭, 지급 내역 확인 → 신고서 값 → 제출 → 보관, 10월 귀속 신고 전 · 11월 막힘 둘 · 1~9월 신고 완료, 사람별 금액 MaskedValue), `erp/tax/corporate`(법인세 신고: 결산 확정 → 세무조정 → 신고서 값 → 점검 → 제출, 서식 탭 다섯, 법인지방소득세 카드, 2026 추정 · 2025 신고 완료, 직전 연도 수입금액 70억 이상이면 세무 대리인 카드). 신고서 값 칸은 모두 `copyable`(PR-41). 공유 부품 `withholding/filing.tsx`(ValueGrid · ValueCheckAll · FilingBox). 샘플 `_data/tax-filing.ts`: 10월 귀속 근로소득은 급여 대장 11월 지급분 + 10-31 퇴직자 = PAYROLL_PREV(12명 52,384,000), 법인세는 손익계산서 → 세무조정 → 과세표준 760,110,000 → 산출세액 124,420,900 → 납부할 세액 53,752,900까지 맞아떨어진다. 결산 보고서 미리보기의 누계 법인세차감전이익(743,635,100 → 742,635,100, 행 합계와 맞춤)을 고쳤다. 세율 · 한도 · 공제액(2025 구간 세율 9 · 19 · 21%, 중소기업 기업업무추진비 한도, 통합고용세액공제 청년 1인 1,450만, 외부 조정 기준 70억)은 샘플 값이라 사람 확인이 남는다
+의존: PR-41(칸 복사)
+목표: TaxFiling 패턴을 부가세 밖으로. 원천세 · 지급명세서, 법인세(결산 → 세무조정 → 서식 값 → 점검 → 제출 안내).
+완료 조건: PR-43과 같다. 샘플 세액이 맞아떨어진다.
+
+### PR-45 홈 개인 기록 자리 · 서비스 가이드 둘(R-07 · R-09 · R-10)
+상태: ☑ 완료 2026-11-22 — 패턴 가이드 "홈의 개인 기록"(한 · 영, `record` 자리: 첫 줄 아래 12열 카드 · 숫자 셋 + 3개월 달력 · 본인 것만 · 출처 화면이 없으면 뺀다), `home/dashboard/people` 구성원 보기에 자리. 서비스 가이드 "샘플 회사가 둘일 때" · "앱이 둘일 때"(한 · 영), 시작 템플릿 eslint 주석, 스킬 blocks.md 두 줄
+의존: PR-43(임무 목록이 기록의 출처)
+목표: 연속 일수 같은 개인 기록의 자리를 정하고, 서비스 저장소에 앱이 둘이거나 샘플 회사가 둘일 때의 기준을 문서에 둔다.
+완료 조건: 문서 · 블록 검사.

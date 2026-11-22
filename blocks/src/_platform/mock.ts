@@ -13,7 +13,7 @@ import type {
 export const COMPANY: Company = {
   id: 'terra-trading',
   name: '테라트레이딩(주)',
-  bizNo: '2148630127',
+  bizNo: '2148630126',
   ceo: '윤지호',
   address: '서울특별시 중구 세종대로 110, 12층',
   currency: 'KRW',

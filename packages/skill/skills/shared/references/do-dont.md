@@ -28,7 +28,7 @@
 | 사람 이름 칸을 아바타 + 글자 두 줄로 직접 | `PersonLabel`(표 칸 `size="sm"` · 목록 md, 근무 상태 점) |
 | 홈 카드 12개를 모두 같은 무게로, 급한 카드에 그림자 · 색 면 · 왼쪽 띠 | Card `emphasis`: "지금 해야 할 것" 한 구역만 `strong`(화면에 1개), 참고 정보는 `quiet`. 무게는 세 단계까지 |
 | 카드 안 카드 | 안쪽은 Card `emphasis="quiet"` |
-| 표(DataGrid)를 Card로 한 번 더 감싸기, 조회 줄(FilterBar)을 카드 안에 넣기 | DataGrid는 자기 면 · 테두리를 가진다(감싸면 테두리가 두 겹). 화면 목록은 `FilterBar` + `DataGrid`를 화면 바탕에 바로 둔다(둘 사이 `space.12`). 제목 있는 카드 안의 표만 `Card padding="none"` + DataGrid `className="tl-block-flat-grid"`(테두리 없이 위 구분선만, 첫 열이 카드 제목과 같은 선에서 시작, 좁은 화면은 행 카드 대신 구분선 목록) |
+| 표(DataGrid)를 Card로 한 번 더 감싸기, 조회 줄(FilterBar)을 카드 안에 넣기 | DataGrid는 자기 면 · 테두리를 가진다(감싸면 테두리가 두 겹). 화면 목록은 `FilterBar` + `DataGrid`를 화면 바탕에 바로 둔다(둘 사이 `space.12`). 제목 있는 카드 안의 표만 `Card padding="none"` + DataGrid `className="tl-block-flat-grid"`(블록 CSS `@terracelab/trellis-blocks/ui.css`를 불러온 서비스)(테두리 없이 위 구분선만, 첫 열이 카드 제목과 같은 선에서 시작, 좁은 화면은 행 카드 대신 구분선 목록) |
 | 카드 묶음 · 표 위 구역 제목을 작은 라벨 · 중간 제목 + 건수 알약으로 따로 | `SectionHeader`(title · count · description · action, 감싸면 안 카드 제목이 한 단계 아래) |
 | 알림 서랍을 목록 · 점 · 시각 글자로 손으로 짜기, 시각을 ISO 그대로 | `NotificationList`(날짜 묶음 · 모두 읽음) · 줄 하나는 `NotificationItem`, 시각은 `formatRelativeTime` |
 | 담당자 공석을 "담당자 없음" 글자 + 따로 단추로 | `PersonLabel vacant`(점선 아바타 · 같은 높이 · `action`에 지정 단추) |
@@ -38,7 +38,7 @@
 | 조회 필터 Select를 이름 없이 나열 | label을 준 Select · MultiSelect · PeriodPicker → FilterBar가 "이름 값 ▾" 칩으로 묶는다 |
 | 인사기록카드 · 출퇴근 · 주 52시간 · 연차 · 팀 휴가 달력 · 임금명세서를 블록마다 손으로 | `HrRecord` · `TimeClock` · `WorkHoursMeter` · `LeaveBalance` · `TeamSchedule` · `Payslip`(어휘 상수 · 타입은 `@terracelab/trellis-contracts`의 `HrMasterRecord` · `EMPLOYMENT_STATUSES` · `WORK_STATUSES` 등) |
 | 주민등록번호 · 계좌를 화면에 그대로 | HrRecord가 가린다. 풀기는 `revealed` · `onRevealChange`로 앱이 권한 확인 · 감사 로그 뒤에 |
-| 회사 색을 `--tl-color-brand-*`에 직접 써서 덮기 | `pnpm ds:theme --brand "#hex"`(빌드) 또는 `TrellisProvider theme={{ brand }}`(런타임). 엔진이 21개 토큰을 4모드로 대비를 맞춘다. 미리보기 · 회사 설정 화면은 `scope` |
+| 회사 색을 `--tl-color-brand-*`에 직접 써서 덮기 | `TrellisProvider theme={{ brand }}`(런타임). 하위 모듈 방식은 `pnpm ds:theme --brand "#hex"`(빌드)도 있다. 엔진이 21개 토큰을 4모드로 대비를 맞춘다. 미리보기 · 회사 설정 화면은 `scope` |
 | 브랜드 색 글자에 `brand.default`, 진행 막대에 `brand.default` | 글자는 `fg.link`, 글자 아닌 강조(진행 막대 · 로고 · 선택 점)는 `brand.accent`, 선택 · 현재 선은 `border.selected` |
 | 증감을 `▲ 4.2%` 글자와 색으로 직접 | `Delta`(부호 · 화살표 늘 표시, finance는 증가 빨강 · 감소 파랑) |
 | "항목 + 항목 − 항목 = 합계"를 DescriptionList로 | `AmountBreakdown`(연산 기호를 읽어 주고 합계 줄은 위 선 + 큰 글자) |
@@ -50,11 +50,6 @@
 | 위험 토스트를 4초 뒤 사라지게 | Toast 기본이 위험 = 직접 닫을 때까지. 앱 설정은 `TrellisProvider toastDuration` |
 | 글자 크기 · 고대비 · 포커스 강조를 앱 CSS로 | `TrellisProvider fontScale · contrast · focusRing · linkUnderline · chartPalette · motion`(`<html data-*>`) |
 | 손가락 화면에서 작은 단추를 직접 키우기 | 크기는 그대로(xs 26 · sm 30), 손가락 기기에서는 누르는 자리가 저절로 36 · 44. 꼭 누를 실행은 `size="xl"`(48) |
-| 블록 안에서 `window.location.hash` · `location.search`로 화면 값 읽기 | `useScreenParams()`(앱은 레이아웃 경로를 `ScreenParamsProvider`로 감싼다, 시작 템플릿 Shell) |
-| 알림 · 링크 값에 앱 주소(`/people?id=…`)를 직접 | 블록 id(+ `?k=v`). 앱 주소는 `screens.ts`의 `screenHref`가 만든다. 여는 것은 `useOpenLink()` |
-| 팀장 · 구성원 화면에서 다른 팀 · 남의 기록을 손으로 거르기 | `useScope().canSee(사람)`(역할의 scope: company · department · self) |
-| 블록 목록 줄의 두 줄 글자를 CSS로 직접 | 표 칸은 `DataGridLines`, 목록 줄은 블록 `_ui`의 `Lines` |
-| 블록을 고칠 때 slot이 어디인지 짐작 | 블록 코드의 `// slot:<이름>` … `// slot:<이름> end` 사이만 고친다(blocks/README.md) |
 | 대시보드 카드를 CSS grid로 직접 놓고 순서 저장을 손으로 | `DashboardGrid`(`widgets` · `span` 2~12, `editing`에서 키보드 · 단추로 옮기고 숨긴다, `onLayoutChange` 값을 JSON으로 저장해 `layout`으로). 조립 순서는 `guides/dashboards.md` |
 | "엑셀 다운로드"에 동작이 없거나 화면 표를 문자열로 이어 붙이기 | 블록은 `ExportButton`(`@terracelab/trellis-blocks/ui`, export 권한으로 막는다), 직접은 `toCsv`(contracts) + `downloadCsv`(react). 보이는 행만 넘긴다 |
 | 단계 전환(문의 → 견적 → 수주)을 막대 차트나 표로 | `FunnelChart`(한 색 왼쪽 정렬 막대 + `conversion` 전환율) |

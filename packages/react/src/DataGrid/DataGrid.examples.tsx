@@ -641,3 +641,35 @@ export function WidePayroll() {
     />
   );
 }
+
+const RETURN_LINES = [
+  { no: '1', item: '과세 · 세금계산서 발급분', supply: 128_400_000, tax: 12_840_000 },
+  { no: '2', item: '과세 · 매입자발행 세금계산서', supply: 0, tax: 0 },
+  { no: '3', item: '과세 · 신용카드 · 현금영수증 발행분', supply: 6_210_000, tax: 621_000 },
+  { no: '5', item: '영세율 · 세금계산서 발급분', supply: 42_000_000, tax: 0 },
+];
+
+/** 칸 복사 — 신고서 값을 국세청 사이트에 옮겨 적는 표. 금액 칸의 단추는 구분 기호 없이 숫자만 복사한다(R-08) */
+export function CopyValues() {
+  return (
+    <DataGrid
+      caption="부가세 신고서 매출 칸"
+      rows={RETURN_LINES}
+      rowKey="no"
+      summary
+      columns={[
+        { key: 'no', header: '칸', width: 'xs', align: 'center' },
+        { key: 'item', header: '항목' },
+        {
+          key: 'supply',
+          header: '금액',
+          width: 'lg',
+          format: 'amount',
+          total: 'sum',
+          copyable: true,
+        },
+        { key: 'tax', header: '세액', width: 'lg', format: 'amount', total: 'sum', copyable: true },
+      ]}
+    />
+  );
+}

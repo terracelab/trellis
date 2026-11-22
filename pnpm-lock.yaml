@@ -624,9 +624,24 @@ importers:
 
   packages/skill:
     devDependencies:
+      '@terracelab/trellis-contracts':
+        specifier: workspace:*
+        version: link:../contracts
+      '@terracelab/trellis-react':
+        specifier: workspace:*
+        version: link:../react
       '@terracelab/trellis-tokens':
         specifier: workspace:*
         version: link:../tokens
+      '@types/react':
+        specifier: 19.3.0
+        version: 19.3.0
+      react:
+        specifier: 19.3.1
+        version: 19.3.1
+      react-dom:
+        specifier: 19.3.1
+        version: 19.3.1(react@19.3.1)
 
   packages/tailwind: {}
 

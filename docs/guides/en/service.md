@@ -54,6 +54,16 @@ return (
 
 Blocks read `?id=` and `?tab=` from it. The parts you may change sit between `slot: <name>` and `slot: <name> end` comments in the block code.
 
+### Two sample companies
+
+Copied blocks read their sample data from `@terracelab/trellis-blocks/data`. The company name, today's date, people and warehouses come from its `profile`, the Trellis sample company. If your service has its own sample company, one app ends up with two companies. Three rules:
+
+1. While you copy a block and fit the screen, leave the import as it is. Get the structure and behavior right first.
+2. When you finish that screen, switch the block's sample import to your service's sample module. If the service file exports the same names in the same shape (types), only the import line changes. If the block shows values your samples don't have (warehouses, industry terms), rewrite those parts in your service's words.
+3. One screen shows one company. If the menu, notifications and user area show the service company, so does the page body.
+
+Check with `grep -rn "@terracelab/trellis-blocks/data" apps/web/src`. When only type imports are left, you are done.
+
 ## Commands
 
 | Command | What it does |
@@ -65,6 +75,25 @@ Blocks read `?id=` and `?tab=` from it. The parts you may change sit between `sl
 | `pnpm ds:docs <component>` | Docs for the installed Trellis |
 | `pnpm ds:update` | Moves Trellis to the latest main, rebuilds, regenerates theme.css with the current generator (`ds:theme --refresh`) and lists blocks that changed |
 | `pnpm ds:add --outdated` | Blocks that changed in Trellis after you copied them. See the changes with `--diff <block id>` |
+
+### Two apps in one repository
+
+If the service repository also holds an app that does not use Trellis (for example `apps/studio`), narrow the checks to the Trellis app.
+
+| Check | What it looks at | What to do |
+|---|---|---|
+| `pnpm ds:doctor` | One app folder. `apps/web` by default (the repository root if there is none) | Leave it. Run `pnpm ds:doctor --app apps/<name>` separately for each other Trellis app. Don't run it on an app that does not use Trellis |
+| Trellis rules in `pnpm lint` | The starter applies them to all of `apps/*/src/**` | Change `files` in the Trellis block of `eslint.config.js` to the Trellis app. Keep the base JS and TS rules on every app |
+| `pnpm check` | The screens in `apps/web/src/nav.ts` | Leave it. Give the other app its own checks |
+
+```js
+// eslint.config.js: Trellis rules only on the Trellis app
+{
+  files: ['apps/web/src/**/*.{ts,tsx,js,jsx}'],
+  plugins: { trellis },
+  rules: tokenRules,
+},
+```
 
 ## Updating to the latest Trellis
 

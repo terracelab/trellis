@@ -675,6 +675,13 @@ const ko = {
   'fileViewer.unsupportedHint': '다운로드해서 여세요',
   'fileViewer.pdfUnsupported': '이 브라우저는 PDF를 바로 보여 주지 않습니다',
   'fileViewer.pdfUnsupportedHint': '새 창에서 열거나 다운로드하세요',
+  'fileViewer.pinAdd': '위치 코멘트',
+  'fileViewer.pinMode': '그림을 눌러 자리를 고릅니다. 방향 키로 옮기고 Enter, 그만두려면 Esc',
+  'fileViewer.pinPlaced': '자리를 골랐습니다',
+  'fileViewer.pinCancelled': '위치 코멘트를 그만뒀습니다',
+  'fileViewer.pin': '코멘트 {label}',
+  'fileViewer.pinTitled': '코멘트 {label}: {title}',
+  'fileViewer.pinResolved': '{name}, 해결됨',
   // ─── files end ───
   // ─── dashboard: 위젯 격자(PG-39) ───
   'dashboard.label': '대시보드',
@@ -1474,6 +1481,14 @@ const en: Record<MessageKey, string> = {
   'fileViewer.unsupportedHint': 'Download it to open',
   'fileViewer.pdfUnsupported': 'This browser does not show PDFs directly',
   'fileViewer.pdfUnsupportedHint': 'Open it in a new window or download it',
+  'fileViewer.pinAdd': 'Comment on a spot',
+  'fileViewer.pinMode':
+    'Click the image to pick a spot. Move it with the arrow keys and press Enter, or Esc to stop',
+  'fileViewer.pinPlaced': 'Spot picked',
+  'fileViewer.pinCancelled': 'Stopped commenting on a spot',
+  'fileViewer.pin': 'Comment {label}',
+  'fileViewer.pinTitled': 'Comment {label}: {title}',
+  'fileViewer.pinResolved': '{name}, resolved',
   // ─── files end ───
   // ─── dashboard: widget grid (PG-39) ───
   'dashboard.label': 'Dashboard',

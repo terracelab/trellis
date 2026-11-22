@@ -11,9 +11,9 @@ pnpm --filter preview dev                        # 고치면서 볼 때
 ```
 
 - 쇼케이스는 판 5개다(PG-04, D-111): 히어로(모듈 지도) · 기기 콜라주 · 알림 카드 월 · 회사 색 · 업무 영역. 앞 세 판은 레퍼런스 소개 화면의 구성만 가져와 Trellis 조각과 데이터로 다시 그린 것이다(D-37). 판 안의 화면은 `src/sections/showcase-screens.tsx`가 실제 `@terracelab/trellis-react` 컴포넌트로 조립하고, 기기 틀은 고정 비율로 자른다.
-- 모듈 지도는 `src/molecule.ts`가 `modules.json`의 묶음 · 모듈을 육각 격자에 놓는다. 격자에 맞지 않는 간선 · 겹치는 꼭짓점 · 겹치는 라벨 · 모듈 수와 다른 가지 수는 빌드에서 던진다. `build`가 좌표를 `dist/showcase/molecule.json`으로 내보내고(`scripts/export-showcase.mjs`, Figma 쇼케이스용), `pnpm --filter preview test`가 묶음 7 · 모듈 35를 확인한다.
+- 모듈 지도는 `src/molecule.ts`가 `modules.json`의 묶음과 `MOLECULE_LAYOUT`이 고른 업종 모듈 35개를 육각 격자에 놓는다(테라스원 모듈 9개는 지도에 없다, D-158). 격자에 맞지 않는 간선 · 겹치는 꼭짓점 · 겹치는 라벨 · 모듈 수와 다른 가지 수는 빌드에서 던진다. `build`가 좌표를 `dist/showcase/molecule.json`으로 내보내고(`scripts/export-showcase.mjs`, Figma 쇼케이스용), `pnpm --filter preview test`가 묶음 7 · 모듈 35를 확인한다.
 - 히어로 문단의 컴포넌트 · 화면 블록 수는 빌드 때 저장소에서 센다(`scripts/gen-facts.mjs`). 회사 색 판의 프리셋 8개는 `@terracelab/trellis-tokens/figma`의 Company 컬렉션 모드 값을 그대로 쓴다.
-- 모듈 앱 아이콘은 `@terracelab/trellis-icons/module-tiles`의 일러스트 타일(스프라이트 한 번 + `<use>`)을 쓴다 — 모듈 35종 전부(미배정 지출결의 포함 36종). 생성형 폴백(모듈 색 그라데이션 + 흰 라인)은 타일 없는 새 모듈에만(D-36).
+- 모듈 앱 아이콘은 `@terracelab/trellis-icons/module-tiles`의 일러스트 타일(스프라이트 한 번 + `<use>`)을 쓴다 — 모듈 44종 전부(미배정 지출결의 포함 45종). 생성형 폴백(모듈 색 그라데이션 + 흰 라인)은 타일 없는 새 모듈에만(D-36).
 - 차트 섹션(`#charts`)은 `@terracelab/trellis-react/charts`의 차트(종류 수는 `scripts/gen-facts.mjs`가 센다)를 React로 마운트한 ERP 대시보드(1440) + 모바일 매출 현황(390)이다(D-39). 업무 홈 창의 매출 행도 같은 컴포넌트다. 숫자는 `src/data.ts`, 색은 `color.chart.*` 슬롯만.
 - 사이드바는 프로필 · 빠른 실행 · 즐겨찾기(타일) · 접히는 모듈 그룹 · 공지 · 근무 푸터로 구성된다(D-40).
 - 업무 홈은 레퍼런스의 구조만 가져와 Trellis 토큰으로 다시 그린 것이다. 레퍼런스 제품의 자산(아이콘·일러스트·마스코트·문구)은 쓰지 않는다(D-34, D-35). mock 숫자는 `src/data.ts` 한 곳에서 온다.

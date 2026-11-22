@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-expenses-title">
+  <title id="tl-tile-expenses-title">경비</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-expenses-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-expenses-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFB4A1"/>
+      <stop offset=".5" stop-color="#EF7F76"/>
+      <stop offset="1" stop-color="#C64B61"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-expenses-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="tl-tile-expenses-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-expenses-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+    <linearGradient id="tl-tile-expenses-card" x1="300" y1="300" x2="713" y2="300" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EFF6"/>
+      <stop offset=".7" stop-color="#E7EDF5"/>
+      <stop offset="1" stop-color="#DDE5EF"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-expenses-face" x1="210" y1="228" x2="413" y2="571" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-expenses-side" x1="554" y1="462" x2="636" y2="783" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D0D9E5"/>
+      <stop offset="1" stop-color="#9BAABD"/>
+    </linearGradient>
+  </defs>
+  <g clip-path="url(#tl-tile-expenses-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-expenses-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#C64B61" opacity=".25" filter="url(#tl-tile-expenses-blur)"/>
+    <path d="M281 382V322.5L654.5 229.9A46 46 0 0 1 711.5 271.3L716.3 340Z" fill="url(#tl-tile-expenses-card)"/>
+    <path d="M330 337.8L657 256.7L662.1 330L330 360Z" fill="#F3F6FA"/>
+    <g transform="rotate(-4 512 512)">
+      <rect x="240" y="340" width="562" height="415" rx="66" fill="url(#tl-tile-expenses-side)"/>
+      <rect x="224" y="322" width="562" height="415" rx="66" fill="url(#tl-tile-expenses-face)"/>
+      <path d="M786 466H657a71 71 0 0 0 0 142h129Z" fill="#D5DFE9"/>
+      <circle cx="655" cy="537" r="24" fill="#FFFFFF"/>
+    </g>
+  </g>
+</svg>

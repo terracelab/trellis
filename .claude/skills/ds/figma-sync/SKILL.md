@@ -15,7 +15,7 @@ description: Trellis Figma 파일(Trellis · Foundations · Trellis · Component
 | Trellis · Components | `wm3bZ3mscnjwjmim1I8LeL` | 세트 167 · 낱개 컴포넌트 234(아이콘 173 · 타일 36 포함) 게시 |
 | Trellis · Screens | `QNmIYwV6G64VXwampA4b9e` | 화면. PG-03에서 두 라이브러리에 연결 |
 
-2026-11-07 파일 `uNZmEBsbRnkivkF79zdd2L`은 As-is 캡처 파일이다. 이 스킬로 고치지 않는다. 라이브러리 게시는 사람이 한다. 에이전트는 작업 끝 메시지에 "게시 필요"를 적는다.
+검토 파일 `U2gMo9WmIwC1EBa86tNDbu`(Trellis · Mobile 390 검토)는 사람이 고쳐 보는 파일이다. 동기화 대상이 아니고 7절 절차로만 화면을 넣는다. 2026-11-07 파일 `uNZmEBsbRnkivkF79zdd2L`은 As-is 캡처 파일이다. 이 스킬로 고치지 않는다. 라이브러리 게시는 사람이 한다. 에이전트는 작업 끝 메시지에 "게시 필요"를 적는다.
 
 ## 0. 시작
 
@@ -376,6 +376,56 @@ return await new AF('figma','P',KIT)(figma,{ROOTS,BUDGET:45000,SKIP:[]}); // 기
 ```
 
 그 뒤 `컴포넌트 사본` 페이지, Cover 색인의 `Row 컴포넌트 사본` 줄, plugin data `pg03swap`을 지운다. links · screens 감사를 다시 돌려 `docs/figma/audit/PG-03.json`의 localSets · localMainInstances가 0인지 본다.
+
+## 7. 데모 화면을 검토 파일로 옮기기(HTML 가져오기)
+
+사람이 Figma에서 화면을 고쳐 보려고 데모 화면을 그대로 옮길 때 쓴다. 결과는 일반 레이어이고 라이브러리에 묶이지 않는다. 그래서 세 파일에 넣지 않고 검토 파일에 둔다(`docs/figma/README.md` "검토 파일"). 2026-11-13에 390 폭 87프레임을 이 절차로 옮겼다. 스킬 `figma:figma-use` · `figma:figma-generate-design`을 읽고 시작한다.
+
+1. 굳히기. 가져오기 쪽 뷰포트 폭을 알 수 없어서 화면이 뷰포트에 기대지 않게 만든다.
+
+```bash
+pnpm --filter @terracelab/demo build
+(cd apps/demo && node scripts/freeze.mjs <out 폴더> --overlays)   # doc-1.html …, 문서마다 화면 20개까지
+```
+
+- 화면 78개(홈 · 화면 블록 목록 · 블록 76)와 겹침 화면 9개(전체 메뉴 · 알림 · 업무 도우미 · 데모 설정 · 필터 · 기간 · 목록 행 상세 · 선택 · 날짜)를 낸다. `--only <블록 id 접두,...>`로 일부만 낸다.
+- 스크립트는 390 × 844 휴대폰 조건에서 `@media` · `@supports`를 풀어 쓰고, `vh` · `vw`를 px로 바꾸고, 본문 스크롤을 끝까지 펼친 높이를 화면마다 정한다. 화면 하나는 `.cap` 요소 하나다. 글꼴 파일은 문서에 넣는다.
+- 끝에 묶음 문서를 1440 뷰포트에서 다시 띄워 화면마다 실제 화면과 픽셀을 비교한다. 차이가 0.2%를 넘는 화면이 있으면 보내지 않고 원인을 본다(2026-11-13에는 최대 0.11%였다).
+
+2. 보내기. 문서마다 `html_to_figma`(`fileKey`, `cssSelector: ".cap"`, `nodeId` = 놓을 페이지 id)를 부르고 돌려받은 주소에 문서를 올린다. 선택자 하나가 한 번에 20개까지 잡는다. 문서 하나(4MB)에 100초쯤 걸린다. 응답의 `nodeIds` 순서는 `doc-<n>.json`의 화면 순서와 같다.
+
+```bash
+curl -sS -X POST "<submitUrl>" -H "Content-Type: text/html" --data-binary @doc-1.html --max-time 500
+```
+
+3. 글자 고치기. 이 단계를 빼면 글자가 빠진 글꼴로 뜨고 줄바꿈이 브라우저와 다르다.
+
+```js
+const OK=['Thin','ExtraLight','Light','Regular','Medium','SemiBold','Bold','ExtraBold','Black'];
+await Promise.all(OK.map(style=>figma.loadFontAsync({family:'Pretendard',style})));
+for (const t of root.findAllWithCriteria({types:['TEXT']})) {
+  for (const s of t.getStyledTextSegments(['fontName'])) { // 'Semi Bold' → 'SemiBold', Arial · Inter → Pretendard
+    const st=s.fontName.style.replace(/\s+/g,''); if (s.fontName.family==='Pretendard'&&st===s.fontName.style) continue;
+    t.setRangeFontName(s.start,s.end,{family:'Pretendard',style:OK.includes(st)?st:'Regular'}); }
+  const a=t.textAutoResize; t.textAutoResize='NONE'; t.textAutoResize=a; // 저장된 크기 · 줄바꿈을 실제 글꼴로 다시 잰다
+}
+```
+
+- 가져온 글자의 스타일 이름은 `Semi Bold`인데 Figma의 Pretendard는 `SemiBold`다. 그대로 두면 `hasMissingFont`가 true다.
+- 단추 안에서 글꼴을 물려받지 못한 글자는 `Arial`, 차트 SVG 글자는 `Inter`로 온다. 둘 다 Pretendard로 바꾼다.
+- 글자 노드의 폭과 줄바꿈은 가져올 때의 대체 글꼴로 계산되어 저장된다. 글꼴이 같아도 다시 재기 전에는 "전체 공지"가 56이 아니라 60으로 남아 옆 글자와 겹치고, 말풍선이 한 줄 더 꺾인다. 글자 10,513개 가운데 6,439개의 크기가 바뀌었다.
+
+4. 놓기. 프레임은 가로로 한 줄에 겹치지 않게 들어온다. 묶음마다 `figma.createSection()`을 만들어 `PAD 120 · GAP 80 · TOP 140`으로 놓고, 이름을 `<화면 이름> · <블록 id>`로 바꾸고, 844보다 긴 프레임에 `guides = [{axis:'Y', offset:844}]`를 준다. 사람이 고친 프레임이 있는 페이지에는 다시 넣지 않고 새 페이지나 새 섹션에 둔다.
+
+5. 확인. `hasMissingFont` 0, 프레임 폭 390과 높이가 `index.json`의 `height`와 같은지 본다. 섹션을 `get_screenshot`으로 받아 `shots/`와 나란히 놓고 본다(섹션 그림에는 둘레 여백 40.5가 붙는다). 프레임마다 `Main Content`의 자식이 그 칸을 넘지 않는지도 본다.
+
+함정:
+
+- 가져오기는 `hidden` 속성을 따르지 않는다. 숨긴 파일 입력이 253 × 21로 나타나 입력창이 1px로 줄었다. `freeze.mjs`가 계산된 `display: none` 요소에 `data-cap-hide`를 붙여 CSS로 숨긴다.
+- `position: fixed` 요소는 `.cap`의 `transform`이 기준이 되어 프레임 안에 놓인다. 화면 밖 사이드바와 1px 보조 글자는 `data-cap-hide`로 뺀다.
+- 프레임 이름은 `.cap`의 `aria-label`에 문서 `<title>`이 괄호로 붙어 온다. 놓을 때 다시 짓는다.
+- 선택된 행의 테두리처럼 옮겨지지 않는 효과가 있고, 브라우저와 몇 px 어긋나는 곳이 있다. 검토 파일 머리말에 적어 둔다.
+- 주소(`submitUrl`)는 한 번만 쓸 수 있고 한 시간 뒤 끝난다. 도구 응답이 길어서 화면마다 부르지 않고 묶음 문서로 보낸다.
 
 ## 함정(2026-11-10에 실제로 걸린 것)
 

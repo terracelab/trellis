@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
-// 2026-11-10부터 모듈 35개 전부 타일이 있다. 타일이 아직 없는 새 모듈(D-36 폴백)을 흉내 내려고 표에서 inventory를 뺀다
+// 모듈 44개 전부 타일이 있다(2026-11-22, D-158). 타일이 아직 없는 새 모듈(D-36 폴백)을 흉내 내려고 표에서 inventory를 뺀다
 vi.mock('@terracelab/trellis-icons/module-tiles', async (importOriginal) => {
   const original = await importOriginal<typeof import('@terracelab/trellis-icons/module-tiles')>();
   const table: Record<string, string | undefined> = { ...original.moduleTileByModule };

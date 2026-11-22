@@ -1,8 +1,8 @@
 # @terracelab/trellis-icons
 
-Icons for Trellis, TerraceLab's design system for Korean business software. 173 UI icons and 36 module tile illustrations (SVG, sprite and manifest).
+Icons for Trellis, TerraceLab's design system for Korean business software. 173 UI icons and 45 module tile illustrations (SVG, sprite and manifest).
 
-Trellis(트렐리스)의 아이콘입니다. UI 아이콘 173개와 업무 모듈 타일 일러스트 36개가 들어 있습니다. 외부 요청 없이 패키지 안의 파일만 씁니다.
+Trellis(트렐리스)의 아이콘입니다. UI 아이콘 173개와 업무 모듈 타일 일러스트 45개가 들어 있습니다. 외부 요청 없이 패키지 안의 파일만 씁니다.
 
 ## 설치
 

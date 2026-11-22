@@ -7,7 +7,7 @@ import noPx from './rules/no-px.js';
 import noRawColor from './rules/no-raw-color.js';
 
 const plugin = {
-  meta: { name: '@terracelab/eslint-plugin-trellis', version: '1.0.0' },
+  meta: { name: '@terracelab/eslint-plugin-trellis', version: '1.1.0' },
   rules: {
     'no-raw-color': noRawColor,
     'no-px': noPx,

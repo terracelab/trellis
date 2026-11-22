@@ -23,7 +23,7 @@
 사람 확인: `docs/guides/install.md`·`usage.md` 문장 검토
 
 ### PD-02 소비 앱용 스킬 패키지 `@terracelab/trellis-skill`
-상태: ◐ 진행 — 2026-11-08 `packages/skill`: SKILL.md · references(blocks · do-dont · request · workflow), `install` · `doctor` · `docs`(git 하위 모듈 경로 기준, 테스트 9). 남은 것: `update`(사이트 manifest 비교), npm 배포 경로로 문서 읽기(PF-04 뒤), Renovate 프리셋
+상태: ◐ 진행 — 2026-11-08 `packages/skill`: SKILL.md · references, `install` · `doctor` · `docs`(git 하위 모듈 경로 기준). 2026-11-13 npm 방식: CLI가 설치 방식을 가린다(`src/locate.mjs`, 패키지는 앱 폴더에서 위로 찾는다), npm용 SKILL.md · references(dashboard · setup · request) · 공통 do-dont, `doctor`의 설치 · 버전 일치 · React 19 · CSS 순서 · 글꼴 · 토큰 후보 제안, 새 명령 `add dashboard`(시작 화면 `templates/dashboard`), `private` 해제와 공개 설정. 완료 조건 셋 확인: 스킬 테스트 46개 통과, `pnpm --filter @terracelab/trellis-skill test:e2e` 12단계 통과(저장소 밖 빈 Vite 앱 · 로컬 tgz · install · doctor 종료 0 · `#fff` 삽입 뒤 종료 1 · `docs component Button` 일치). `#fff`의 후보는 `--tl-color-base-white`가 아니라 semantic `--tl-color-bg-surface`다(primitive는 doctor가 막는다). 새 컨텍스트의 Opus 에이전트가 스킬만 보고 고객 지원 대시보드를 만들어 doctor · tsc · build 통과, 1440 · 390 라이트 · 다크 넘침 0 · 콘솔 오류 0(찾은 부족분 6줄은 backlog). 남은 것: npm에 올리기(`pnpm release:npm`, 사람), SKILL.md 문구 검토(사람), `update`(PD-05와 함께), Renovate 프리셋, `.github/ISSUE_TEMPLATE/spec-request.yml`, 블록의 npx 배포(PF-06)
 의존: PD-01
 목표: distribution.md §4의 스킬(SKILL.md · references 3 · CLI install/doctor/docs/update)을 패키지로 만들고 빈 앱에서 설치·진단이 돈다.
 산출물: `packages/skill/`(fixed group에 추가), `skills/trellis/SKILL.md`(§4.4 초안을 다듬어 확정), `references/{workflow,do-dont,request-component}.md`, `bin/trellis-skill.mjs`, `test/`(픽스처 Vite 앱: install → `.claude/skills/trellis/` 생성 · `.trellis/skill.lock` · doctor 종료 코드 · docs 출력 스냅샷 · update --check 모킹), `.github/ISSUE_TEMPLATE/spec-request.yml`(DS 레포가 받는 컴포넌트 요청 양식).

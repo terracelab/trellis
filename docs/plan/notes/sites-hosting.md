@@ -23,8 +23,8 @@
 
 ## 공개 전후
 
-- 지금은 **색인 금지**다: 모든 페이지에 `noindex`, `robots.txt`는 `Disallow: /`.
-- 공개 범위가 승인되면(GD) 저장소 Variables에 `SITE_INDEXABLE=1`. 다음 배포부터 `noindex`가 빠지고 docs의 `robots.txt`에 사이트맵이 들어간다.
+- `trellis.terracelab.co.kr`은 2026-11-13부터 **색인을 연다**(D-156). 빌드할 때 `SITE_INDEXABLE=1`을 준다. 빼고 빌드하면 모든 페이지에 `noindex`, `robots.txt`에 `Disallow: /`가 다시 나가 검색 · 답변 엔진 크롤러가 전부 막힌다. 열려 있어도 404와 데모는 `noindex`다.
+- CI로 배포하게 되면 저장소 Variables에 `SITE_INDEXABLE=1`을 둔다. `noindex`가 빠지고 `robots.txt`에 사이트맵 입구가 들어간다.
 - 검색 · 답변 엔진 값(공유 그림 · 구조화 데이터 · FAQ · 사이트맵)은 색인이 닫혀 있어도 이미 들어 있다. 값은 `apps/seo` 한 곳에 있고 목록과 색인 여는 순서는 `apps/site/README.md`의 "검색 · 답변 엔진 값"에 있다(D-151 · D-152).
 
 ## 로컬
@@ -70,8 +70,8 @@ node apps/site/scripts/deploy.mjs --repo https://github.com/terracelab/terracela
 - 올린 뒤 1~2분이면 반영된다. 확인: `gh api repos/terracelab/terracelab.github.io/pages/builds/latest --jq .status`
 - 되돌리기: 공개 저장소에서 `git revert <배포 커밋>` 뒤 푸시.
 - 블록이 바뀌면 `pnpm --filter @terracelab/site shots`로 블록 그림을 다시 찍고 커밋한 뒤 배포한다.
-- 색인은 막혀 있다. 공개 범위가 승인되면 `SITE_INDEXABLE=1`로 빌드하고 배포할 때 `--root-robots`를 붙인다. 크롤러는 호스트 루트의 `robots.txt`만 읽으므로 `trellis/robots.txt`만 바뀌면 열리지 않는다. 붙이지 않으면 배포 스크립트가 둘이 어긋났다고 알린다(D-152).
-- 도메인을 붙이면(`trellis.terracelab.co.kr`) `SITE_URL`만 바꾸고 `SITE_BASE` 없이 빌드해 그 저장소에 통째로 올린다.
+- `/trellis/` 주소로 올릴 때 색인을 열려면 `SITE_INDEXABLE=1`로 빌드하고 배포할 때 `--root-robots`를 붙인다. 크롤러는 호스트 루트의 `robots.txt`만 읽으므로 `trellis/robots.txt`만 바뀌면 열리지 않는다. 붙이지 않으면 배포 스크립트가 둘이 어긋났다고 알린다(D-152).
+- 지금 주소는 도메인이다(`trellis.terracelab.co.kr`, 공개 저장소 `terracelab/trellis`의 `gh-pages` 브랜치). `apps/docs/dist` · `apps/demo/dist` · `apps/site/dist`를 지우고 `SITE_URL=https://trellis.terracelab.co.kr SITE_BASE=/ SITE_INDEXABLE=1`로 빌드와 `check`를 돌린 뒤 `node apps/site/scripts/deploy.mjs --repo <terracelab/trellis 주소> --branch gh-pages --cname trellis.terracelab.co.kr`로 통째로 올린다. 도메인 루트라 묶음의 `robots.txt`가 그대로 읽히고 `--root-robots`는 필요 없다. 올린 뒤 `curl https://trellis.terracelab.co.kr/robots.txt`가 `Allow: /`인지 본다.
 
 ## 대안
 

@@ -30,6 +30,7 @@ import { syncTruncatedTitle } from '../_internal/truncation.js';
 import { Button } from '../Button/Button.js';
 import { EmptyState } from '../EmptyState/EmptyState.js';
 import { Icon } from '../Icon/Icon.js';
+import { IconButton } from '../IconButton/IconButton.js';
 import { cardRoles } from './cards.js';
 import { ColumnsMenu } from './ColumnsMenu.js';
 import { EditCell } from './EditCell.js';
@@ -61,8 +62,10 @@ import {
   type DisplayRow,
 } from './model.js';
 
-export type DataGridWebColumn<T> = Omit<DataGridColumn, 'render' | 'validate'> & {
+export type DataGridWebColumn<T> = Omit<DataGridColumn, 'render' | 'validate' | 'copyText'> & {
   render?: (row: T) => ReactNode;
+  /** copyable 열에서 복사할 글자(없으면 값. 숫자 서식은 구분 기호 없이) */
+  copyText?: (row: T) => string;
   /** 정렬 · 합계 · 필터에 쓸 값(없으면 row[key]) */
   value?: (row: T) => unknown;
   /** 편집한 값 검사. 글자를 돌려주면 저장하지 않고 칸 아래에 보인다 */
@@ -118,6 +121,8 @@ const ACTION_UNITS = 1.5;
 const AUTO_UNIT_MAX = 4;
 /** flashKey 행이 선택 바탕을 갖는 시간(ms). 바탕이 들고 나는 것은 행 transition(duration.fast) */
 const FLASH_MS = 1000;
+/** 복사 단추가 체크 표시로 남는 시간 */
+const COPIED_MS = 2000;
 
 /**
  * 고정 열 칸 속성(R-37 4): data-sticky="start" | "end"와 앞 고정 열 폭만큼 민 자리(useGridEdges가 잰
@@ -535,6 +540,56 @@ export function DataGrid<T extends object>({
     );
   };
   const rowLabel = (row: T) => String((labelCol ? raw(row, labelCol) : null) ?? keyOf(row));
+
+  // ── 칸 복사(R-08): 신고서 값을 다른 사이트에 옮겨 적을 때. 알림 글자는 표에 하나 ──
+  const [copiedCell, setCopiedCell] = useState<string | null>(null);
+  const copiedTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(
+    () => () => {
+      if (copiedTimer.current) clearTimeout(copiedTimer.current);
+    },
+    [],
+  );
+  const copySource = (row: T, c: DataGridWebColumn<T>): string => {
+    if (c.copyText) return c.copyText(row);
+    const v = raw(row, c);
+    if (v == null || v === '') return '';
+    if (isNumericColumn(c)) {
+      const n = Number(v);
+      return Number.isFinite(n) ? String(n) : String(v);
+    }
+    return formatValue(v, c);
+  };
+  const copyCell = async (cell: string, text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      return; // 권한이 없으면 표시를 바꾸지 않는다
+    }
+    setCopiedCell(cell);
+    if (copiedTimer.current) clearTimeout(copiedTimer.current);
+    copiedTimer.current = setTimeout(() => setCopiedCell(null), COPIED_MS);
+  };
+  const copyable = (row: T, c: DataGridWebColumn<T>, label: string): ReactNode => {
+    const text = copySource(row, c);
+    const cell = `${keyOf(row)}:${c.key}`;
+    return (
+      <span className="tl-data-grid__copy-cell">
+        <span className="tl-data-grid__copy-value">{content(row, c)}</span>
+        {text ? (
+          <IconButton
+            className="tl-data-grid__copy"
+            icon={copiedCell === cell ? 'check' : 'copy'}
+            label={t('common.copy', { label: `${label} ${c.header}` })}
+            size="sm"
+            onPress={() => void copyCell(cell, text)}
+          />
+        ) : (
+          <span className="tl-data-grid__copy-gap" aria-hidden="true" />
+        )}
+      </span>
+    );
+  };
   const content = (row: T, c: DataGridWebColumn<T>): ReactNode => {
     const v = raw(row, c);
     return (
@@ -979,6 +1034,7 @@ export function DataGrid<T extends object>({
               data-link={c.link || undefined}
               data-emphasis={c.emphasis || undefined}
               data-editable={editing || undefined}
+              data-copyable={c.copyable || undefined}
               data-dirty={dirty || undefined}
               data-tree={tree || undefined}
               role={cellRole}
@@ -995,6 +1051,8 @@ export function DataGrid<T extends object>({
                   tabIndex={gridMode ? -1 : undefined}
                   onCommit={(next) => onCellChange?.(row, c.key, next)}
                 />
+              ) : c.copyable ? (
+                copyable(row, c, label)
               ) : (
                 content(row, c)
               )}
@@ -1050,6 +1108,7 @@ export function DataGrid<T extends object>({
         {...stickyAttrs(c, i)}
         data-col={i}
         data-emphasis={c.emphasis || undefined}
+        data-copyable={c.copyable || undefined}
         aria-colindex={colAt(colBase + i)}
         aria-sort={
           active ? (currentSort.direction === 'asc' ? 'ascending' : 'descending') : undefined
@@ -1153,6 +1212,12 @@ export function DataGrid<T extends object>({
     >
       {/* 가장자리 그림자 자리: 높이 0, 스크롤해도 보이는 면 왼쪽 위에 붙어 있다 */}
       <div className="tl-data-grid__edges" aria-hidden="true" />
+      {/* 칸 복사 알림(R-08). 라이브 영역은 처음부터 있어야 바뀐 글자가 읽힌다 */}
+      {shown.some((c) => c.copyable) && (
+        <span className="tl-sr-only" role="status">
+          {copiedCell ? t('common.copied') : ''}
+        </span>
+      )}
       <table
         className="tl-data-grid__table"
         style={{ minWidth: `calc(var(--tl-space-64) * ${minUnits})` }}
@@ -1252,6 +1317,7 @@ export function DataGrid<T extends object>({
                   data-align={alignOf(c)}
                   {...stickyAttrs(c, i)}
                   data-emphasis={c.emphasis || undefined}
+                  data-copyable={c.copyable || undefined}
                   aria-colindex={colAt(colBase + i)}
                 >
                   {totals[i] ??

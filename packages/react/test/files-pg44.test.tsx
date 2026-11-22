@@ -283,3 +283,103 @@ describe('EmptyState notFound · expired · headingLevel(PG-44)', () => {
     expect(screen.queryByRole('heading')).toBeNull();
   });
 });
+
+describe('FileViewer 위치 코멘트(R-02)', () => {
+  const PINS = [
+    { id: 'c1', x: 0.25, y: 0.5, title: '제목을 키워 주세요' },
+    { id: 'c2', x: 0.75, y: 0.25, resolved: true },
+  ];
+  const stage = () => screen.getByRole('group', { name: '그림 보기 영역' });
+  const pin = (name: string) => within(stage()).getByRole('button', { name });
+
+  it('rotatePinPoint · unrotatePinPoint는 서로 되돌린다', async () => {
+    const { rotatePinPoint, unrotatePinPoint } = await import('@terracelab/trellis-contracts');
+    const p = { x: 0.2, y: 0.7 };
+    expect(rotatePinPoint(p, 90)).toEqual({ x: 0.30000000000000004, y: 0.2 });
+    for (const r of [0, 90, 180, 270]) {
+      const back = unrotatePinPoint(rotatePinPoint(p, r), r);
+      expect(back.x).toBeCloseTo(p.x);
+      expect(back.y).toBeCloseTo(p.y);
+    }
+  });
+
+  it('핀: 번호 · 이름 · 해결됨, 누르면 onPinPress, 고른 핀은 aria-current, 회전하면 자리가 돈다', () => {
+    const onPinPress = vi.fn();
+    render(
+      <FileViewer name="시안.png" src={PNG} pins={PINS} activePin="c1" onPinPress={onPinPress} />,
+    );
+    loadImage();
+    const first = pin('코멘트 1: 제목을 키워 주세요');
+    expect(first).toHaveTextContent('1');
+    expect(first).toHaveAttribute('aria-current', 'true');
+    expect(first.style.left).toBe('25%');
+    expect(first.style.top).toBe('50%');
+    expect(pin('코멘트 2, 해결됨')).toHaveAttribute('data-resolved', 'true');
+    fireEvent.click(pin('코멘트 2, 해결됨'));
+    expect(onPinPress).toHaveBeenCalledWith('c2');
+    fireEvent.click(tool('오른쪽으로 회전'));
+    // 90도: (x, y) → (1 − y, x)
+    expect(first.style.left).toBe('50%');
+    expect(first.style.top).toBe('25%');
+  });
+
+  it('onPinPress가 없으면 핀은 단추가 아니라 이름 있는 그림이다', () => {
+    render(<FileViewer name="시안.png" src={PNG} pins={PINS} />);
+    loadImage();
+    expect(screen.getByRole('img', { name: '코멘트 1: 제목을 키워 주세요' })).toBeInTheDocument();
+    expect(within(stage()).queryByRole('button')).toBeNull();
+  });
+
+  it('키보드: 위치 코멘트를 켜고 방향 키로 옮겨 Enter, 회전한 그림이면 원본 자리로 돌려 넘긴다', () => {
+    const onPinAdd = vi.fn();
+    render(<FileViewer name="시안.png" src={PNG} onPinAdd={onPinAdd} />);
+    loadImage();
+    expect(tool('위치 코멘트')).toHaveAttribute('aria-pressed', 'false');
+    fireEvent.click(tool('위치 코멘트'));
+    expect(tool('위치 코멘트')).toHaveAttribute('aria-pressed', 'true');
+    expect(status()).toHaveTextContent('그림을 눌러 자리를 고릅니다');
+    expect(stage()).toHaveFocus();
+    for (let i = 0; i < 5; i += 1) fireEvent.keyDown(stage(), { key: 'ArrowRight' });
+    fireEvent.keyDown(stage(), { key: 'ArrowDown', shiftKey: true });
+    fireEvent.keyDown(stage(), { key: 'Enter' });
+    expect(onPinAdd).toHaveBeenLastCalledWith({ x: 0.6, y: 0.6 });
+    expect(status()).toHaveTextContent('자리를 골랐습니다');
+    expect(tool('위치 코멘트')).toHaveAttribute('aria-pressed', 'false');
+
+    fireEvent.click(tool('오른쪽으로 회전'));
+    fireEvent.click(tool('위치 코멘트'));
+    for (let i = 0; i < 5; i += 1) fireEvent.keyDown(stage(), { key: 'ArrowRight' });
+    fireEvent.keyDown(stage(), { key: ' ' });
+    // 보이는 자리 (0.6, 0.5)를 90도 되돌리면 (0.5, 0.4)
+    expect(onPinAdd).toHaveBeenLastCalledWith({ x: 0.5, y: 0.4 });
+  });
+
+  it('누르기: 그림 틀 안 자리를 비율로 넘기고, Esc는 그만둔다', () => {
+    const onPinAdd = vi.fn();
+    const { container } = render(<FileViewer name="시안.png" src={PNG} onPinAdd={onPinAdd} />);
+    loadImage();
+    const frame = container.querySelector<HTMLElement>('.tl-file-viewer__frame')!;
+    vi.spyOn(frame, 'getBoundingClientRect').mockReturnValue({
+      left: 100,
+      top: 50,
+      width: 200,
+      height: 100,
+      right: 300,
+      bottom: 150,
+      x: 100,
+      y: 50,
+      toJSON: () => ({}),
+    });
+    // 켜기 전 누르기는 아무 일 없다
+    fireEvent.click(frame, { clientX: 150, clientY: 75 });
+    expect(onPinAdd).not.toHaveBeenCalled();
+    fireEvent.click(tool('위치 코멘트'));
+    fireEvent.click(frame, { clientX: 150, clientY: 75 });
+    expect(onPinAdd).toHaveBeenCalledWith({ x: 0.25, y: 0.25 });
+    fireEvent.click(tool('위치 코멘트'));
+    fireEvent.keyDown(stage(), { key: 'Escape' });
+    expect(status()).toHaveTextContent('위치 코멘트를 그만뒀습니다');
+    expect(tool('위치 코멘트')).toHaveAttribute('aria-pressed', 'false');
+    expect(onPinAdd).toHaveBeenCalledTimes(1);
+  });
+});

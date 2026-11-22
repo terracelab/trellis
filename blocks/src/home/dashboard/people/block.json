@@ -9,6 +9,7 @@
     "PageHeader",
     "SegmentedControl",
     "KpiCard",
+    "CalendarHeatmap",
     "Card",
     "BarList",
     "SegmentedBar",
@@ -28,6 +29,6 @@
     "Button"
   ],
   "sizes": [1440, 1024, 390],
-  "slots": ["roles", "ceoKpis", "hrTasks", "teamWidgets", "memberWidgets"],
+  "slots": ["roles", "ceoKpis", "hrTasks", "teamWidgets", "memberWidgets", "record"],
   "order": 2
 }

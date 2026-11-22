@@ -14,6 +14,7 @@ const COMPONENT_SOURCES = [
   'packages/contracts/src',
   'packages/icons/src',
   'blocks/src',
+  'packages/skill/templates',
   'apps/*/src',
   'starters/*/app/src',
 ].map((dir) => `${dir}/**/${CODE}`);

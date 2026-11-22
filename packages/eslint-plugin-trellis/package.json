@@ -1,6 +1,6 @@
 {
   "name": "@terracelab/eslint-plugin-trellis",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "description": "Trellis 절대 규칙을 지키는 eslint 규칙: 토큰 밖 색 · px · 글꼴, primitive 토큰 참조, 의존 방향(components.md §5)",
   "type": "module",

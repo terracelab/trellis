@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="tl-tile-outsourced-design-title">
+  <title id="tl-tile-outsourced-design-title">외주 디자인</title>
+  <rect width="1024" height="1024" rx="220" fill="url(#tl-tile-outsourced-design-tile)"/>
+  <defs>
+    <linearGradient id="tl-tile-outsourced-design-tile" x1="105" y1="65" x2="920" y2="965" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#C4A1FF"/>
+      <stop offset=".5" stop-color="#9870E8"/>
+      <stop offset="1" stop-color="#6342B4"/>
+    </linearGradient>
+    <radialGradient id="tl-tile-outsourced-design-light" cx="0" cy="0" r="1" gradientTransform="translate(250 155) rotate(45) scale(710 650)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="tl-tile-outsourced-design-blur" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+    <clipPath id="tl-tile-outsourced-design-clip">
+      <rect width="1024" height="1024" rx="220"/>
+    </clipPath>
+    <linearGradient id="tl-tile-outsourced-design-white" x1="275" y1="210" x2="527" y2="538" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <linearGradient id="tl-tile-outsourced-design-side" x1="552" y1="402" x2="666" y2="744" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D4DDE9"/>
+      <stop offset="1" stop-color="#9CADC0"/>
+    </linearGradient>
+  </defs>
+  <g clip-path="url(#tl-tile-outsourced-design-clip)">
+    <rect width="1024" height="1024" fill="url(#tl-tile-outsourced-design-light)"/>
+    <ellipse cx="518" cy="827" rx="292" ry="56" fill="#6342B4" opacity=".25" filter="url(#tl-tile-outsourced-design-blur)"/>
+    <g>
+      <path d="M495 219.3C574.7 214.1 653.9 235.8 712.6 291.2C736.2 313.6 754 339 767.2 368.6C779.1 395.2 788.5 430.1 788.5 459.8C788.6 516.9 756 559.8 699.9 571.8C665.1 579.3 624.1 570.2 601.8 605.7C589 626.1 592.9 648.5 605.8 667.9C615.5 682.5 623.5 691.2 624.8 711.2C626.4 735.5 612.9 757.6 592 769.9C577 778.6 563.8 780.1 547.1 781.8C532 783.4 515.1 785.5 500.2 786C421.1 788.7 342 757.8 288 699.8C239 647.1 210.6 578.4 210 506.9C209.3 425.7 242.6 351.5 303.5 297.5C357.1 250 424.5 223.9 495 219.3ZM579.7 436.5a39 39 0 1 0 78 0a39 39 0 1 0 -78 0Z" fill-rule="evenodd" transform="translate(11.5 13.75)" fill="url(#tl-tile-outsourced-design-side)"/>
+      <path d="M495 219.3C574.7 214.1 653.9 235.8 712.6 291.2C736.2 313.6 754 339 767.2 368.6C779.1 395.2 788.5 430.1 788.5 459.8C788.6 516.9 756 559.8 699.9 571.8C665.1 579.3 624.1 570.2 601.8 605.7C589 626.1 592.9 648.5 605.8 667.9C615.5 682.5 623.5 691.2 624.8 711.2C626.4 735.5 612.9 757.6 592 769.9C577 778.6 563.8 780.1 547.1 781.8C532 783.4 515.1 785.5 500.2 786C421.1 788.7 342 757.8 288 699.8C239 647.1 210.6 578.4 210 506.9C209.3 425.7 242.6 351.5 303.5 297.5C357.1 250 424.5 223.9 495 219.3ZM579.7 436.5a39 39 0 1 0 78 0a39 39 0 1 0 -78 0Z" fill-rule="evenodd" fill="url(#tl-tile-outsourced-design-white)"/>
+      <circle cx="444.1" cy="354.2" r="43" fill="#C7BEDD"/>
+      <circle cx="336" cy="492.3" r="43" fill="#B4A7D1"/>
+      <circle cx="383.1" cy="663.3" r="43" fill="#D8D0E8"/>
+    </g>
+  </g>
+</svg>

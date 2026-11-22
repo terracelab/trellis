@@ -43,6 +43,15 @@
     "shop-floor": "Shop floor output",
     "equipment": "Equipment",
     "quality": "Quality",
-    "materials": "Materials"
+    "materials": "Materials",
+    "expense": "Expenses",
+    "subscription": "Subscriptions",
+    "asset": "Equipment and assets",
+    "grant": "Grant programs",
+    "design": "Outsourced design",
+    "mission": "Missions",
+    "general": "General affairs",
+    "agent": "Agents",
+    "contract": "Contracts"
   }
 }

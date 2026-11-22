@@ -1,0 +1,33 @@
+{
+  "id": "erp/tax/corporate",
+  "title": "법인세 신고",
+  "intent": "사업연도마다 결산 확정 → 세무조정 → 신고서 값 → 점검 → 제출 순서로 법인세 신고서 값을 만들고 확인한 뒤, 접수증을 첨부해 완료 표시한다",
+  "module": "tax",
+  "pattern": "TaxFiling",
+  "industries": ["trade", "distribution", "commerce", "manufacturing", "tax", "general"],
+  "components": [
+    "PageHeader",
+    "Select",
+    "Badge",
+    "DueBadge",
+    "Stepper",
+    "Banner",
+    "KpiCard",
+    "Card",
+    "AmountBreakdown",
+    "Citation",
+    "Tabs",
+    "DataGrid",
+    "Checkbox",
+    "IssueList",
+    "Checklist",
+    "Button",
+    "FileUpload",
+    "Attachment",
+    "Dialog",
+    "DescriptionList"
+  ],
+  "sizes": [1440, 1024, 390],
+  "slots": ["checks-rules", "guide", "steps", "calc", "values", "checks", "filing", "local"],
+  "order": 14
+}

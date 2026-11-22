@@ -23,7 +23,15 @@ pnpm --filter @terracelab/site dev      # 소개 사이트
 
 ## 다른 프로젝트에서 쓰기
 
-컴포넌트만 쓰는 앱은 npm에서 설치한다(`pnpm add @terracelab/trellis-tokens @terracelab/trellis-react`). 화면 블록 · 에이전트 스킬 · 점검 도구까지 쓰는 서비스는 Trellis를 **git 하위 모듈**로 넣고 같은 pnpm 워크스페이스로 묶어 쓴다. 아래는 하위 모듈 방법이다. 라이선스는 Apache-2.0이다([LICENSE](LICENSE) · [NOTICE](NOTICE)).
+컴포넌트만 쓰는 앱은 npm에서 설치한다(`pnpm add @terracelab/trellis-tokens @terracelab/trellis-react`). 에이전트 스킬과 점검 도구도 npm에 있어 설치 없이 부른다.
+
+```bash
+npx @terracelab/trellis-skill install        # 에이전트 스킬을 .claude/skills/trellis/ 에 둔다
+npx @terracelab/trellis-skill doctor         # 설치 · CSS 순서 · 글꼴 · 토큰 밖 값 점검. 빠진 것은 넣을 명령을 알려 준다
+npx @terracelab/trellis-skill add dashboard  # 대시보드 시작 화면을 src/dashboard/ 로 복사
+```
+
+그다음 에이전트에게 만들 화면을 말로 요청한다. 화면 블록까지 쓰거나 Trellis를 그 자리에서 고치는 서비스는 Trellis를 **git 하위 모듈**로 넣고 같은 pnpm 워크스페이스로 묶어 쓴다. 아래는 하위 모듈 방법이다. 라이선스는 Apache-2.0이다([LICENSE](LICENSE) · [NOTICE](NOTICE)).
 
 | 필요한 것 | 버전 |
 | --- | --- |
@@ -214,7 +222,7 @@ git add trellis && git commit -m "chore: update Trellis"
 | [packages/icons](packages/icons) | UI 아이콘 · 모듈 타일 |
 | [packages/contracts](packages/contracts) | 컴포넌트 계약(props · 상태 어휘)과 spec.md, 금액 · 날짜 형식 |
 | [packages/react](packages/react) | 웹 React 컴포넌트(기본 · 차트), 동봉 문서(`dist/docs`, 컴포넌트 목록과 수는 `manifest.json`) |
-| [packages/skill](packages/skill) | 서비스용 에이전트 스킬과 점검 도구(install · doctor · docs) |
+| [packages/skill](packages/skill) | 서비스용 에이전트 스킬과 점검 도구(install · doctor · docs · add), 대시보드 시작 화면 |
 | [blocks](blocks) | 복사형 화면 블록(블록마다 `block.json`) · 플랫폼 기본 타입 · 샘플 데이터 |
 | [starters/service](starters/service) | 서비스 시작 템플릿 |
 | [scripts](scripts) | `create-service` · `add-block` · 동봉 문서 생성 |

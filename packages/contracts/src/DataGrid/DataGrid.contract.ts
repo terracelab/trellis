@@ -71,6 +71,13 @@ export interface DataGridColumn {
   finance?: boolean;
   /** 글자가 길면 줄바꿈(기본은 말줄임) */
   wrap?: boolean;
+  /**
+   * 칸마다 복사 단추(신고서 값을 국세청 사이트에 옮겨 적을 때). 숫자 서식(amount · number · quantity · percent ·
+   * currency)은 구분 기호 없이 숫자만 복사한다. 빈 칸 · 편집 중인 칸 · 좁은 화면 카드에는 단추가 없다(R-08)
+   */
+  copyable?: boolean;
+  /** 웹: (row) => string. 복사할 글자(없으면 위 규칙의 값) */
+  copyText?: unknown;
   /** 웹: (row) => ReactNode */
   render?: unknown;
   /** 칸 편집(onCellChange가 있을 때). Enter 저장 · Esc 취소 · 칸을 떠나면 저장 */
